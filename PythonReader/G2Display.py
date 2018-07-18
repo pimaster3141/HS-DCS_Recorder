@@ -39,6 +39,13 @@ class G2GraphWindow():
 		self.countPlot.setLabel('right', 'count', 'cps');
 		self.countPlot.setMouseEnabled(x=False, y=False);
 		self.countPlot.enableAutoRange(x=True, y=True);
+		self.win.nextRow();
+
+		self.vapPlot = self.win.addPlot(title = "Vaporizer");
+		self.vapPlot.setLabel('bottom', 'Time', 's');
+		self.vapPlot.setMouseEnabled(x=False, y=False);
+		self.vapPlot.enableAutoRange(x=True, y=True);
+
 
 		self._numChannels = numChannels;
 		self._refreshPeriod = 1.0/refreshRate;
@@ -50,20 +57,23 @@ class G2GraphWindow():
 		self.g2PlotData = [];
 		self.countPlotData = [];
 		# self.countPlotDataAverage = [];
+		self.vapPlotData = [];
 
 		self.g2Curve = [];
 		self.countCurve = [];
 		# self.countCurveAverage = [];
+		self.vapCurve = [];
 
 		for c in range(self._numChannels):
 			self.g2PlotData.append(np.array([]));
 			self.countPlotData.append(np.zeros(self._bufferSize));
 			# self.countPlotDataAverage.append(np.zeros(self._bufferSize));
+			self.vapPlotData.append(np.zeros(self._bufferSize));
 			
 			self.g2Curve.append(self.g2Plot.plot(x=[1], y=[1], pen=G2GraphWindow.penColors[c]));
 			self.countCurve.append(self.countPlot.plot(x=self.xVals, y=self.countPlotData[c], pen=G2GraphWindow.penColors[c]));
 			# self.countCurveAverage.append(self.countPlot.plot(x=self.xVals, y=self.countPlotDataAverage[c], pen='g'));
-
+			self.vapCurve.append(self.vapPlot.plot(x=self.xVals, y=self.vapPlotData[c], pen=G2GraphWindow.penColors[c]));
 
 		self._timer = pg.QtCore.QTimer();
 		self._retryCount = 0;
@@ -97,6 +107,7 @@ class G2GraphWindow():
 					count = np.mean(photon[c])*self._sampleCLK;
 					# count = self._sampleCLK/g2Data[0, 1];
 					# countAverage = np.mean(self.countPlotData[c]);
+					vapData = 1*(np.sum(vap[c])>0);
 
 					self.countPlotData[c][:-1] = self.countPlotData[c][1:]; 
 					self.countPlotData[c][-1] = count;
@@ -104,9 +115,14 @@ class G2GraphWindow():
 					# self.countPlotDataAverage[c][:-1] = self.countPlotDataAverage[c][1:]; 
 					# self.countPlotDataAverage[c][-1] = countAverage*0.8 + count*0.2;
 
+					self.vapPlotData[c][:-1] = self.vapPlotData[c][1:];
+					self.vapPlotData[c][-1] = vapData;
+
+
 					# print(count);
 					self.countCurve[c].setData(self.xVals, self.countPlotData[c]);
 					# self.countCurveAverage[c].setData(self.xVals, self.countPlotDataAverage[c]);
+					self.vapCurve[c].setData(self.xVals, self.vapPlotData[c]);
 					self.g2Curve[c].setData(g2Data[1:,0], g2Data[1:, 1]);
 
 		except queue.Empty:
