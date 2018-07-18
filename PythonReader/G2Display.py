@@ -7,6 +7,9 @@ import queue
 
 
 class G2GraphWindow():
+
+	penColors = ['w', 'g', 'b', 'y'];
+
 	def __init__(self, bufferPeek, sampleCLK=10E6, numChannels=1, refreshRate=20, bufferDepth=10, dummy=0, dummyData=None):
 		# mp.Process.__init__(self);
 		self.dummy = dummy;
@@ -46,20 +49,20 @@ class G2GraphWindow():
 
 		self.g2PlotData = [];
 		self.countPlotData = [];
-		self.countPlotDataAverage = [];
+		# self.countPlotDataAverage = [];
 
 		self.g2Curve = [];
 		self.countCurve = [];
-		self.countCurveAverage = [];
+		# self.countCurveAverage = [];
 
 		for c in range(self._numChannels):
 			self.g2PlotData.append(np.array([]));
 			self.countPlotData.append(np.zeros(self._bufferSize));
-			self.countPlotDataAverage.append(np.zeros(self._bufferSize));
+			# self.countPlotDataAverage.append(np.zeros(self._bufferSize));
 			
-			self.g2Curve.append(self.g2Plot.plot(x=[1], y=[1]));
-			self.countCurve.append(self.countPlot.plot(x=self.xVals, y=self.countPlotData[c]));
-			self.countCurveAverage.append(self.countPlot.plot(x=self.xVals, y=self.countPlotDataAverage[c], pen='g'));
+			self.g2Curve.append(self.g2Plot.plot(x=[1], y=[1], pen=G2GraphWindow.penColors[c]));
+			self.countCurve.append(self.countPlot.plot(x=self.xVals, y=self.countPlotData[c], pen=G2GraphWindow.penColors[c]));
+			# self.countCurveAverage.append(self.countPlot.plot(x=self.xVals, y=self.countPlotDataAverage[c], pen='g'));
 
 
 		self._timer = pg.QtCore.QTimer();
@@ -91,18 +94,19 @@ class G2GraphWindow():
 
 				for c in range(self._numChannels):
 					g2Data = G2Calc.mtAuto(photon[c], fs=self._sampleCLK, levels=16);
-					count = np.mean(photon)*self._sampleCLK;
-					countAverage = np.mean(self.countPlotData[c]);
+					count = np.mean(photon[c])*self._sampleCLK;
+					# count = self._sampleCLK/g2Data[0, 1];
+					# countAverage = np.mean(self.countPlotData[c]);
 
 					self.countPlotData[c][:-1] = self.countPlotData[c][1:]; 
 					self.countPlotData[c][-1] = count;
 
-					self.countPlotDataAverage[c][:-1] = self.countPlotDataAverage[c][1:]; 
-					self.countPlotDataAverage[c][-1] = countAverage*0.8 + count*0.2;
+					# self.countPlotDataAverage[c][:-1] = self.countPlotDataAverage[c][1:]; 
+					# self.countPlotDataAverage[c][-1] = countAverage*0.8 + count*0.2;
 
 					# print(count);
 					self.countCurve[c].setData(self.xVals, self.countPlotData[c]);
-					self.countCurveAverage[c].setData(self.xVals, self.countPlotDataAverage[c]);
+					# self.countCurveAverage[c].setData(self.xVals, self.countPlotDataAverage[c]);
 					self.g2Curve[c].setData(g2Data[1:,0], g2Data[1:, 1]);
 
 		except queue.Empty:
