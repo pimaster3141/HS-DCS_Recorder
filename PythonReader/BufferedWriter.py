@@ -1,11 +1,17 @@
 import threading
 import queue
 import time
+import os
 
 class BufferedWriter(threading.Thread):
 
 	def __init__(self, dataBuffer, filename):
+
 		threading.Thread.__init__(self);
+
+
+		if not os.path.exists("output/"):
+		os.makedirs("output/")
 
 		self._buffer = dataBuffer;
 		self._filename = filename;

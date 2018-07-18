@@ -24,7 +24,7 @@ peekBuf = None;
 conn1 = None;
 conn2 = None;
 
-def start(filename, sampleClk=2E6, numChannels=1, refreshRate=8, bufferDepth=20):
+def start(filename, sampleClk=2E6, numChannels=1, refreshRate=5, bufferDepth=20):
 	# global inBuf, outBuf, peeker, DCS, outFile, display;
 	global display, DCSWorker, peekBuf, conn1, conn2;
 
