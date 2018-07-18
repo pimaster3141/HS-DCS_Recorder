@@ -7,8 +7,13 @@ import queue
 
 
 class G2GraphWindow():
-	def __init__(self, bufferPeek, sampleCLK=10E6, numChannels=1, refreshRate=20, bufferDepth=10):
+	def __init__(self, bufferPeek, sampleCLK=10E6, numChannels=1, refreshRate=20, bufferDepth=10, dummy=0, dummyData=None):
 		# mp.Process.__init__(self);
+		self.dummy = dummy;
+		self.dummyData = None;
+		if(self.dummy):
+			self.dummyData = open(dummyData, 'rb');
+
 
 		self._peeker = bufferPeek;
 		self._lastTime = time.time();
@@ -64,9 +69,17 @@ class G2GraphWindow():
 
 	def update(self):
 		# print("here");
+
 		try:
-			data = self._peeker.get(block=True, timeout=1);
-			self._retryCount = 0;
+
+			data = None;
+			if(self.dummy):
+				data = self.dummyData.read(int(self._sampleCLK*self._refreshPeriod));
+
+			else:
+				data = self._peeker.get(block=True, timeout=1);
+				self._retryCount = 0;
+
 			if(data == ''):
 				self._isAlive = False;
 				self._timer.stop();
@@ -74,28 +87,34 @@ class G2GraphWindow():
 			else:
 				# data = data[::2];
 				(photon, vap) = DCSReader.extractSignals(data);
-				g2Data = G2Calc.mtAuto(photon, fs=self._sampleCLK, levels=16);
-				count = np.mean(photon)*self._sampleCLK;
-				countAverage = np.mean(self.countPlotData[0]);
+				# print("here")
 
-				self.countPlotData[0][:-1] = self.countPlotData[0][1:]; 
-				self.countPlotData[0][-1] = count;
+				for c in range(self._numChannels):
+					g2Data = G2Calc.mtAuto(photon[c], fs=self._sampleCLK, levels=16);
+					count = np.mean(photon)*self._sampleCLK;
+					countAverage = np.mean(self.countPlotData[c]);
 
-				self.countPlotDataAverage[0][:-1] = self.countPlotDataAverage[0][1:]; 
-				self.countPlotDataAverage[0][-1] = countAverage*0.8 + count*0.2;
+					self.countPlotData[c][:-1] = self.countPlotData[c][1:]; 
+					self.countPlotData[c][-1] = count;
 
-				# print(count);
-				self.countCurve[0].setData(self.xVals, self.countPlotData[0]);
-				self.countCurveAverage[0].setData(self.xVals, self.countPlotDataAverage[0]);
-				self.g2Curve[0].setData(g2Data[1:,0], g2Data[1:, 1]);
+					self.countPlotDataAverage[c][:-1] = self.countPlotDataAverage[c][1:]; 
+					self.countPlotDataAverage[c][-1] = countAverage*0.8 + count*0.2;
+
+					# print(count);
+					self.countCurve[c].setData(self.xVals, self.countPlotData[c]);
+					self.countCurveAverage[c].setData(self.xVals, self.countPlotDataAverage[c]);
+					self.g2Curve[c].setData(g2Data[1:,0], g2Data[1:, 1]);
+
 		except queue.Empty:
 			self._retryCount = self._retryCount + 1;
 			if(self._retryCount > 5):
 				self._timer.stop();
 			return;
 		except Exception as e:
+			print("im Dead");
 			print(e);
 			self._isAlive = False;
+			self._timer.stop();
 			return;
 
 
@@ -109,6 +128,9 @@ class G2GraphWindow():
 			import sys
 			if (sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
 				QtGui.QApplication.instance().exec_()
+
+	def stop(self):
+		self._timer.stop();
 
 
  		# self.update();

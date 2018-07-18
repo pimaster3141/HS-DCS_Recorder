@@ -59,13 +59,13 @@ def extractSignals(data):
 
 
 ################################################
-	data = np.frombuffer(data[::2], dtype=np.int8);
+	byte1 = np.frombuffer(data[::2], dtype=np.int8);
 	# vap = data < 0;
-	vap1 = np.bitwise_and(data, 0x40);
-	vap2 = np.bitwise_and(data, 0x80);
+	vap1 = np.bitwise_and(byte1, 0x40);
+	vap2 = np.bitwise_and(byte1, 0x80);
 
-	cn1 = np.bitwise_and(data, 0x07);
-	cn2 = np.bitwise_and(data, 0x38);
+	cn1 = np.bitwise_and(byte1, 0x07);
+	cn2 = np.bitwise_and(byte1, 0x38);
 	cn2 = np.right_shift(cn2, 3);
 
 	ddata = np.diff(cn1);
@@ -78,14 +78,14 @@ def extractSignals(data):
 
 
 
-	data = np.frombuffer(data[1::2], dtype=np.int8);
+	byte2 = np.frombuffer(data[1::2], dtype=np.int8);
 	# vap = data < 0;
-	vap3 = np.bitwise_and(data, 0x40);
-	vap4 = np.bitwise_and(data, 0x80);
+	vap3 = np.bitwise_and(byte2, 0x40);
+	vap4 = np.bitwise_and(byte2, 0x80);
 
-	cn3 = np.bitwise_and(data, 0x07);
-	cn3 = np.bitwise_and(data, 0x38);
-	cn4 = np.right_shift(cn2, 3);
+	cn3 = np.bitwise_and(byte2, 0x07);
+	cn4 = np.bitwise_and(byte2, 0x38);
+	cn4 = np.right_shift(cn4, 3);
 
 	ddata = np.diff(cn3);
 	e = np.array((ddata<0)*8, dtype=np.int8);
@@ -95,20 +95,20 @@ def extractSignals(data):
 	e = np.array((ddata<0)*8, dtype=np.int8);
 	cn4 = ddata + e;
 
-	return(cn1,vap);
+	return([cn1,cn2,cn3,cn4], [vap1,vap2,vap3,vap4]);
 ################################################
 
 
 
 
-	data = np.frombuffer(data[::2], dtype=np.int8);
-	vap = data < 0;
+	# data = np.frombuffer(data[::2], dtype=np.int8);
+	# vap = data < 0;
 
-	data = np.bitwise_and(data, 0x07);
-	ddata = np.diff(data);
-	e = np.array((ddata<0)*8, dtype=np.int8);
-	ddata = ddata + e;
+	# data = np.bitwise_and(data, 0x07);
+	# ddata = np.diff(data);
+	# e = np.array((ddata<0)*8, dtype=np.int8);
+	# ddata = ddata + e;
 
-	return(ddata,vap);
+	# return(ddata,vap);
 
 
