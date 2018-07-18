@@ -11,7 +11,7 @@ class BufferedWriter(threading.Thread):
 
 
 		if not os.path.exists("output/"):
-		os.makedirs("output/")
+			os.makedirs("output/")
 
 		self._buffer = dataBuffer;
 		self._filename = filename;

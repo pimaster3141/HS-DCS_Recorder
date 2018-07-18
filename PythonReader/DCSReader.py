@@ -59,56 +59,56 @@ def extractSignals(data):
 
 
 ################################################
-	data = np.frombuffer(data[::2], dtype=np.int8);
-	# vap = data < 0;
-	vap1 = np.bitwise_and(data, 0x40);
-	vap2 = np.bitwise_and(data, 0x80);
+	# data = np.frombuffer(data[::2], dtype=np.int8);
+	# # vap = data < 0;
+	# vap1 = np.bitwise_and(data, 0x40);
+	# vap2 = np.bitwise_and(data, 0x80);
 
-	cn1 = np.bitwise_and(data, 0x07);
-	cn2 = np.bitwise_and(data, 0x38);
-	cn2 = np.right_shift(cn2, 3);
+	# cn1 = np.bitwise_and(data, 0x07);
+	# cn2 = np.bitwise_and(data, 0x38);
+	# cn2 = np.right_shift(cn2, 3);
 
-	ddata = np.diff(cn1);
-	e = np.array((ddata<0)*8, dtype=np.int8);
-	cn1 = ddata + e;
+	# ddata = np.diff(cn1);
+	# e = np.array((ddata<0)*8, dtype=np.int8);
+	# cn1 = ddata + e;
 
-	ddata = np.diff(cn2);
-	e = np.array((ddata<0)*8, dtype=np.int8);
-	cn2 = ddata + e;
+	# ddata = np.diff(cn2);
+	# e = np.array((ddata<0)*8, dtype=np.int8);
+	# cn2 = ddata + e;
 
 
 
-	data = np.frombuffer(data[1::2], dtype=np.int8);
-	# vap = data < 0;
-	vap3 = np.bitwise_and(data, 0x40);
-	vap4 = np.bitwise_and(data, 0x80);
+	# data = np.frombuffer(data[1::2], dtype=np.int8);
+	# # vap = data < 0;
+	# vap3 = np.bitwise_and(data, 0x40);
+	# vap4 = np.bitwise_and(data, 0x80);
 
-	cn3 = np.bitwise_and(data, 0x07);
-	cn3 = np.bitwise_and(data, 0x38);
-	cn4 = np.right_shift(cn2, 3);
+	# cn3 = np.bitwise_and(data, 0x07);
+	# cn3 = np.bitwise_and(data, 0x38);
+	# cn4 = np.right_shift(cn2, 3);
 
-	ddata = np.diff(cn3);
-	e = np.array((ddata<0)*8, dtype=np.int8);
-	cn3 = ddata + e;
+	# ddata = np.diff(cn3);
+	# e = np.array((ddata<0)*8, dtype=np.int8);
+	# cn3 = ddata + e;
 
-	ddata = np.diff(cn4);
-	e = np.array((ddata<0)*8, dtype=np.int8);
-	cn4 = ddata + e;
+	# ddata = np.diff(cn4);
+	# e = np.array((ddata<0)*8, dtype=np.int8);
+	# cn4 = ddata + e;
 
-	return(cn1,vap);
+	# return(cn1,vap);
 ################################################
 
 
 
 
-	# data = np.frombuffer(data, dtype=np.int8);
-	# vap = data < 0;
+	data = np.frombuffer(data[::2], dtype=np.int8);
+	vap = data < 0;
 
-	# data = np.bitwise_and(data, 0x07);
-	# ddata = np.diff(data);
-	# e = np.array((ddata<0)*8, dtype=np.int8);
-	# ddata = ddata + e;
+	data = np.bitwise_and(data, 0x07);
+	ddata = np.diff(data);
+	e = np.array((ddata<0)*8, dtype=np.int8);
+	ddata = ddata + e;
 
-	# return(ddata,vap);
+	return(ddata,vap);
 
 
