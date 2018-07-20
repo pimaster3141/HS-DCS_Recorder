@@ -2,40 +2,26 @@ import multipletau as mt
 import numpy as np
 
 class MTau():
-	def __init__(self, fs, windowSize, windowShift):
+	def __init__(self, fs, initData):
 		self._fs = fs;
-		self._windowSize = windowSize;
-		self._windowShift = windowShift;
 
-		self._previousWindow = np.zeros(windowSize, dtype=np.uint8);
-		self._leftovers = np.array([], dtype=np.uint8);
+		self.lastData = initData;
+
+		return;
+
 
 	def update(self, data):
-		output = [];
+		if(len(data) < len(self.lastData)):
+			self.lastData = np.concatenate([self.lastData[len(data):], data]);
+		else:
+			self.lastData = data[(-1*len(self.lastData)):];
 
-		while((len(self._leftovers) + len(data)) >= self._windowShift):
-			self._previousWindow = np.append(
-				self._previousWindow[self._windowShift:],
-				self._leftovers
-				);
+		output = mtAuto(self.lastData, fs=self._fs);
+		return output[:,1];
 
-			self._previousWindow = np.append(
-				self._previousWindow,
-				data[:(self._windowShift - len(self._leftovers))]
-				);
+	def getInitial(self):
+		return mtAuto(self.lastData, fs=self._fs);
 
-			data = data[self._windowShift-len(self._leftovers):];
-			self._leftovers = np.array([], dtype=np.uint8);
-
-			# output.append(self._previousWindow);
-			output.append(mtAuto(self._previousWindow, fs=self._fs));
-
-		self._leftovers = np.append(self._leftovers, data);
-
-		# print(self._leftovers);
-		# print(self._previousWindow);
-
-		return output;
 
 
 
