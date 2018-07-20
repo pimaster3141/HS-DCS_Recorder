@@ -5,7 +5,7 @@ import os
 import numpy as np
 import math
 
-def ultimateCruncher(filename, fs=10E6, intg=0.1, fs_out=200):
+def ultimateCruncher(filename, fs=10E6, intg=0.1, fs_out=100):
 	f = open(filename, 'rb');
 	fsize = os.stat(filename).st_size;
 
@@ -34,7 +34,7 @@ def ultimateCruncher(filename, fs=10E6, intg=0.1, fs_out=200):
 		markers[c][0] = np.sum(vap[c]) > 0;
 
 	loopCounter = 0;
-	while(currentCounter < numSamples):
+	while(currentCounter < numSamples-1):
 		currentCounter = currentCounter + 1;
 		data = f.read(windowShift);
 		
@@ -55,20 +55,24 @@ def ultimateCruncher(filename, fs=10E6, intg=0.1, fs_out=200):
 			print("%d%% Done" % percentage);
 			loopCounter = 0;
 
-	return (g2, taus, markers);
+	return (g2, tauList, markers);
 
 def outWrite(filename, g2, tau, vap):
-	with open(filename+".chrlG2", 'w', newline='') as g2File:
-		g2writer = csv.writer(g2File);
-		for g in g2:
-			g2writer.writerow(g);
+	if not os.path.exists(filename+"Processed/"):
+		os.makedirs(filename+"Processed/")
 
-	with open(filename+".chrlTAU", 'w', newline='') as tauFile:
+	for c in range(4):
+		with open(filename+"Processed/G2channel"+str(c), 'w', newline='') as g2File:
+			g2writer = csv.writer(g2File);
+			for g in g2[c]:
+				g2writer.writerow(g);
+
+		with open(filename+"Processed/VAPchannel"+str(c), 'wb') as vapFile:
+			vapFile.write(bytes(vap[c]));
+
+	with open(filename+"Processed/TAU", 'w', newline='') as tauFile:
 		tauwriter = csv.writer(tauFile);
 		tauwriter.writerow(tau);
-
-	with open(filename+".chrlVAP", 'wb') as vapFile:
-		vapFile.write(bytes(vap));
 
 def runner(filename, fs, intg=0.1):
 	print("Processing Files");
