@@ -43,14 +43,19 @@ def start(filename, sampleClk=2E6, numChannels=4, refreshRate=5, bufferDepth=20)
 
 	DCSWorker.start();
 
-	display = G2Display.G2GraphWindow(peekBuf, sampleClk, numChannels, refreshRate, bufferDepth)
+	try:
+		display = G2Display.G2GraphWindow(peekBuf, sampleClk, numChannels, refreshRate, bufferDepth)
 
-	# outFile.start();
-	# peeker.start();
-	# DCS.start();
+		# outFile.start();
+		# peeker.start();
+		# DCS.start();
 
-	display.run();
+		display.run();
 
+	except:
+		print("CALLING STOP");
+		stop();
+		
 def stop():
 	# global inBuf, outBuf, peeker, DCS, outFile, display;
 	global display, DCSWorker, peekBuf, conn1, conn2;
@@ -62,6 +67,7 @@ def stop():
 	conn1.send('');
 	print(conn1.recv());
 	DCSWorker.terminate();
+	print("SYSTEM HALTED");
 
 
 
