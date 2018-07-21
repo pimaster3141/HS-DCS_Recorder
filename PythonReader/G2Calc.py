@@ -15,8 +15,11 @@ class MTau():
 			self.lastData = np.concatenate([self.lastData[len(data):], data]);
 		else:
 			self.lastData = data[(-1*len(self.lastData)):];
-
-		output = mtAuto(self.lastData, fs=self._fs);
+		try:
+			output = mtAuto(self.lastData, fs=self._fs);
+		except Exception as e:
+			print(e);
+			output = mtAuto(self.lastData + .001, fs=self._fs);
 		return output[:,1];
 
 	def getInitial(self):
