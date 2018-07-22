@@ -6,12 +6,13 @@ Created on Sat Jul 21 23:04:22 2018
 @author: Alexander Ruesch, Jason Yang
 """
 
-from tkinter import Menu, Frame, Button, Label, Entry
+from tkinter import *
 from tkinter import messagebox as mb
 from tkinter import filedialog, simpledialog
 from tkinter import ttk
 import runner
 import time
+from datetime import timedelta
 import os.path
 from os.path import expanduser
 
@@ -21,7 +22,7 @@ class HSDCS():
         self.master = master
         self.tick = 500
         
-        self.hasStarted = FALSE
+        self.hasStarted = 0
         self.elapsedTime = 0
         self.startTime = 0
         
@@ -113,40 +114,40 @@ class HSDCS():
             
     def start(self):
         if self.hasStarted == 0:
-            runner.start(self.fname)
             self.filename = ''
             self.hasStarted = 1
             self.startButt['state'] = 'disabled'
             self.saveButt['state'] = 'disabled'
             self.saveasButt['state'] = 'disabled'
-            self.textbox['status'] = 'disabled'
+            self.textbox['state'] = 'disabled'
             self.elapsedTime = 0
             self.stopButt['state'] = 'normal'
+            self.startTime = time.time()
             try:
-                runner.start(self.fname)
+#                runner.start(self.fname)
+                runner.start(None,dummy=True)
             except: 
                 self.status['text']='Unable to start DCS. Abort.'
                 self.stopButt['state'] = 'disabled'
                 self.startButt['state'] = 'normal'
                 self.saveButt['state'] = 'normal'
                 self.saveasButt['state'] = 'normal'
-                self.textbox['status'] = 'normal'
+                self.textbox['state'] = 'normal'
                 self.hasStarted = 0 
                 
     def stop(self):
-        if hasStarted == 1:
+        if self.hasStarted == 1:
             runner.stop()
             self.stopButt['state'] = 'disabled'
             self.startButt['state'] = 'normal'
             self.saveButt['state'] = 'normal'
             self.saveasButt['state'] = 'normal'
-            self.textbox['status'] = 'normal'
+            self.textbox['state'] = 'normal'
             self.hasStarted = 0
         
     def clock(self):
         self.elapsedTime = time.time() - self.startTime
-        self.Timer['text'] = timedelta(seconds=int(self.elapsedTime))
-                            
+        self.Timer['text'] = timedelta(seconds=int(self.elapsedTime))             
 
      #------- MAIN LOOP --------
     def runExperiment(self):
@@ -195,6 +196,6 @@ class HSDCS():
 root = Tk()  
 app = HSDCS(root)
 root.mainloop()
-#del app
+del app
 
 # code.interact(local=locals())
