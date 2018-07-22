@@ -107,6 +107,9 @@ class G2GraphWindow():
 		self._timer = pg.QtCore.QTimer();
 		self._retryCount = 0;
 		self._isAlive = True;
+
+		self.win.closeEvent = self.closeEvent;
+
 		return;
 
 	def update(self):
@@ -185,6 +188,15 @@ class G2GraphWindow():
 
 	def stop(self):
 		self._timer.stop();
+
+
+ 
+	def closeEvent(self, event):
+	    print("Closing");
+	    self.stop();
+	    event.accept();
+	    self.win.close();
+	    # self.close()
 
 
  		# self.update();
