@@ -1,3 +1,5 @@
+import PyQt5
+
 import pyqtgraph as pg
 import numpy as np
 import time
