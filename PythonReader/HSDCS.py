@@ -90,7 +90,6 @@ class HSDCS():
             fname = home+os.sep+"data"+os.sep+fname
             
             fname, ext = os.path.splitext(fname)
-            fname = fname + '.txt'
                 
             if os.path.isfile(fname):       
                 print("File already exists. Try again.")
@@ -101,12 +100,11 @@ class HSDCS():
 
     def save_as(self):
         if self.hasStarted == 0:
-            fname = filedialog.asksaveasfilename(filetypes=[('text files', '.txt'),('all files', '.*')], defaultextension=".txt")
+            fname = filedialog.asksaveasfilename(filetypes=[('text files', '.txt'),('all files', '.*')], defaultextension="")
             if fname is None: # asksaveasfile return `None` if dialog closed with "cancel".
                 return
             else:
                 fname, ext = os.path.splitext(fname)
-                fname = fname + '.txt'
                 
                 self.fname = fname
                 self.status['text']='File: ' + fname
