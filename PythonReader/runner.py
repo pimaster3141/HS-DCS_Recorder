@@ -24,7 +24,7 @@ peekBuf = None;
 conn1 = None;
 conn2 = None;
 
-def start(filename, sampleClk=2E6, numChannels=4, refreshRate=5, bufferDepth=20):
+def start(filename, sampleClk=2E6, numChannels=4, refreshRate=5, bufferDepth=20, dummy=False, dummyData='finger'):
 	# global inBuf, outBuf, peeker, DCS, outFile, display;
 	global display, DCSWorker, peekBuf, conn1, conn2;
 
@@ -39,12 +39,14 @@ def start(filename, sampleClk=2E6, numChannels=4, refreshRate=5, bufferDepth=20)
 	# display = MPWorker.MPWorker(peekBuf, sampleClk, numChannels, refreshRate, bufferDepth);
 	# display = ThreadWorker.ThreadWorker(peekBuf, sampleClk, numChannels, refreshRate, bufferDepth);
 	
-	DCSWorker = MPWorker.MPWorker(conn2, filename, peekBuf);
+	DCSWorker = None;
 
-	DCSWorker.start();
+	if(not dummy):
+		DCSWorker = MPWorker.MPWorker(conn2, filename, peekBuf);
+		DCSWorker.start();
 
 	try:
-		display = G2Display.G2GraphWindow(peekBuf, sampleClk, numChannels, refreshRate, bufferDepth)
+		display = G2Display.G2GraphWindow(peekBuf, sampleClk, numChannels, refreshRate, bufferDepth, dummy, dummyData)
 
 		# outFile.start();
 		# peeker.start();
@@ -52,7 +54,8 @@ def start(filename, sampleClk=2E6, numChannels=4, refreshRate=5, bufferDepth=20)
 
 		display.run();
 
-	except:
+	except Exception as e:
+		print(e);
 		print("CALLING STOP");
 		stop();
 		
@@ -80,3 +83,4 @@ def stop():
 # time.sleep(15);
 # stop();
 # code.interact(local = locals());
+print("Starting Up...");

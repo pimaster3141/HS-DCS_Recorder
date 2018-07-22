@@ -10,7 +10,7 @@ class G2GraphWindow():
 
 	penColors = ['w', 'g', 'b', 'y'];
 
-	def __init__(self, bufferPeek, sampleCLK=2E6, numChannels=4, refreshRate=10, bufferDepth=10, dummy=0, dummyData=None):
+	def __init__(self, bufferPeek, sampleCLK=2E6, numChannels=4, refreshRate=10, bufferDepth=10, dummy=False, dummyData=None):
 		# mp.Process.__init__(self);
 		self._numChannels = numChannels;
 		self._refreshPeriod = 1.0/refreshRate;
