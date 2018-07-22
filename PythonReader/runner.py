@@ -79,7 +79,10 @@ def stop():
 		print(conn1.recv());
 	else:
 		print("Lost communication with DCS!");
-	DCSWorker.terminate();
+	try:
+		DCSWorker.terminate();
+	except Exception as e:
+		print(e);
 	print("SYSTEM HALTED");
 
 
