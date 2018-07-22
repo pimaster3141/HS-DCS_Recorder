@@ -23,10 +23,11 @@ DCSWorker = None;
 peekBuf = None;
 conn1 = None;
 conn2 = None;
+isDummy = False;
 
 def start(filename, sampleClk=2E6, numChannels=4, refreshRate=5, bufferDepth=20, dummy=False, dummyData='finger'):
 	# global inBuf, outBuf, peeker, DCS, outFile, display;
-	global display, DCSWorker, peekBuf, conn1, conn2;
+	global display, DCSWorker, peekBuf, conn1, conn2, isDummy;
 
 	# inBuf = queue.Queue();
 	# outBuf = queue.Queue();
@@ -44,6 +45,10 @@ def start(filename, sampleClk=2E6, numChannels=4, refreshRate=5, bufferDepth=20,
 	if(not dummy):
 		DCSWorker = MPWorker.MPWorker(conn2, filename, peekBuf);
 		DCSWorker.start();
+		isDummy=False;
+
+	else:
+		isDummy=True;
 
 	try:
 		display = G2Display.G2GraphWindow(peekBuf, sampleClk, numChannels, refreshRate, bufferDepth, dummy, dummyData)
@@ -67,8 +72,13 @@ def stop():
 	# peeker.shutdown();
 	# outFile.shutdown();
 
+	display.stop();
 	conn1.send('');
-	print(conn1.recv());
+	print("waiting 10s for system shutdown...");
+	if(conn1.poll(10)):
+		print(conn1.recv());
+	else:
+		print("Lost communication with DCS!");
 	DCSWorker.terminate();
 	print("SYSTEM HALTED");
 
