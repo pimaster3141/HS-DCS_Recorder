@@ -31,7 +31,7 @@ def ultimateCruncher(filename, fs=10E6, intg=0.1, fs_out=100):
 		g2[c][0] = initG2[:,1];
 
 		markers.append(np.zeros([numSamples, 1], dtype=np.uint8));
-		markers[c][0] = np.sum(vap[c]) > 0;
+		markers[c][0] = np.sum(vap[c]) != 0;
 
 	loopCounter = 0;
 	while(currentCounter < numSamples-1):
@@ -47,7 +47,7 @@ def ultimateCruncher(filename, fs=10E6, intg=0.1, fs_out=100):
 			currentG2 = channelCrunchers[c].update(photon[c]);
 			g2[c][currentCounter] = currentG2;
 
-			markers[c][currentCounter] = np.sum(vap[c]) > 0;
+			markers[c][currentCounter] = np.sum(vap[c]) != 0;
 
 		loopCounter = loopCounter + 1;
 		if(loopCounter > numSamples/100):
