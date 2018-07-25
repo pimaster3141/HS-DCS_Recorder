@@ -5,13 +5,15 @@ import os
 import numpy as np
 import math
 
-def ultimateCruncher(filename, fs=10E6, intg=0.1, fs_out=100):
+BYTES_PER_SAMPLE = 2;
+
+def ultimateCruncher(filename, fs=2E6, intg=0.1, fs_out=100):
 	f = open(filename, 'rb');
 	fsize = os.stat(filename).st_size;
 
-	windowSize = int(fs*intg);
-	windowShift = int(fs/fs_out);
-	numSamples = math.floor(((fsize/2)-windowSize)/windowShift)+1;
+	windowSize = int(fs*intg) *BYTES_PER_SAMPLE;
+	windowShift = int(fs/fs_out) *BYTES_PER_SAMPLE;
+	numSamples = math.floor(((fsize)-windowSize)/windowShift)+1;
 	currentCounter = 0;
 	print(numSamples);
 

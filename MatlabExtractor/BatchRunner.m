@@ -1,3 +1,5 @@
+
+
 clear all;
 [tauList, g2, vap, g1, beta, count, dbfit, fval] = CharlesExtract('D:\Users\jason\DataDumps\DCS\Raw_Data\M12\Rotation1Processed', 2E6, 0.7);
 save('D:\Users\jason\DataDumps\DCS\ProcessedData\M12\Rotation1');
