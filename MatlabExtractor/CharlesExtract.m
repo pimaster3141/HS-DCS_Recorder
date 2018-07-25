@@ -32,7 +32,7 @@ function [tauList, g2, vap, g1, beta, count, dbfit, fval] = CharlesExtract(path,
     fval = zeros(dataLength, 4);
     
     for ii = 1:4
-        [dbfiti, fvali] = flowFit(g1(:,:,ii), tauList, fitLimit, 2, 0.1, 10);
+        [dbfiti, fvali] = flowFit(g1(:,:,ii), tauList, fitLimit, 2.5, 0.1, 10);
         dbfit(:,ii) = dbfiti;
         fval(:, ii) = fvali;
     end
