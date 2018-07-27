@@ -4,6 +4,7 @@ import csv
 import os
 import numpy as np
 import math
+import code
 
 BYTES_PER_SAMPLE = 2;
 
@@ -102,4 +103,4 @@ def runner(filename, fs, intg=0.1):
 ##runner('test-80kcps-2', fs=2E6, intg=0.1);
 ##runner('test-80kcps-3', fs=2E6, intg=0.1);
 ##runner ('test-30kcps-2_lowINT', fs=2E6, intg=0.05);
-
+code.interact(local = locals());

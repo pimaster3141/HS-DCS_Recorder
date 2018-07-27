@@ -1,7 +1,7 @@
 
 
 clear all;
-[tauList, g2, vap, g1, beta, count, dbfit, fval] = CharlesExtract('D:\Box Sync\Biophotonics Lab\Dicroitic_Notch\HeadTilt\Subj_1\Alex_HeadProcessed', 2E6, 0.7);
+[tauList, g2, vap, g1, beta, count, dbfit, fval] = CharlesExtract('F:\Lily_Data\bothinProcessed', 2E6, 0.7);
 % save('D:\Users\jason\DataDumps\DCS\ProcessedData\M12\Rotation1');
 % 
 % clear all;
