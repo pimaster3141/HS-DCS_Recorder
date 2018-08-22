@@ -12,7 +12,7 @@ function [tauList, g2, vap, g1, beta, count, dbfit, fval] = CharlesExtract(path,
     vap1 = fread(fopen(strcat(path, '\VAPchannel1')), 'uint8=>uint8');
     vap2 = fread(fopen(strcat(path, '\VAPchannel2')), 'uint8=>uint8');
     vap3 = fread(fopen(strcat(path, '\VAPchannel3')), 'uint8=>uint8');
-    vap = cat(3, vap0, vap1, vap2, vap3);
+    vap = cat(2, vap0, vap1, vap2, vap3);
 %     vap = permute(vap, [2,1]);
     
     dataLength = size(g20, 1);
