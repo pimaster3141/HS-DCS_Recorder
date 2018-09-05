@@ -166,9 +166,16 @@ class G2GraphWindow():
 			if(self._retryCount > 5):
 				self._timer.stop();
 			return;
+		except AssertionError as e:
+			# print(e);
+			self._retryCount = self._retryCount + 1;
+			if(self._retryCount > 5):
+				self._timer.stop();
+			return;
 		except Exception as e:
 			print("im Dead");
 			print(e);
+			print(type(e));
 			print(self.circularCounter);
 			self._isAlive = False;
 			self._timer.stop();
