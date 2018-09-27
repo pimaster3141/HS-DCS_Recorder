@@ -1,38 +1,28 @@
+clear all;
+[tauList, g2, vap, g1, beta, count, dbfit, fval] = CharlesExtract('D:\Users\jason\DataDumps\DCS\Raw_Data\HeadTilt\output\down10HzProcessed', 2E6, 0.6);
+save('D:\Users\jason\DataDumps\DCS\ProcessedData\HeadTilt\OLDdown10Hz', '-v7.3');
+
+clear all;
+[tauList, g2, vap, g1, beta, count, dbfit, fval] = CharlesExtract('D:\Users\jason\DataDumps\DCS\Raw_Data\HeadTilt\output\down20HzProcessed', 2E6, 0.6);
+save('D:\Users\jason\DataDumps\DCS\ProcessedData\HeadTilt\OLDdown20Hz', '-v7.3');
 
 
 clear all;
-[tauList, g2, vap, g1, beta, count, dbfit, fval] = CharlesExtract('D:\Users\jason\DataDumps\DCS\Raw_Data\M12\Rotation1Processed', 2E6, 0.6);
-save('D:\Users\jason\DataDumps\DCS\ProcessedData\M12\Rotation1');
+[tauList, g2, vap, g1, beta, count, dbfit, fval] = CharlesExtract('D:\Users\jason\DataDumps\DCS\Raw_Data\HeadTilt\output\up10HzProcessed', 2E6, 0.6);
+save('D:\Users\jason\DataDumps\DCS\ProcessedData\HeadTilt\OLDup10Hz', '-v7.3');
 
 clear all;
-[tauList, g2, vap, g1, beta, count, dbfit, fval] = CharlesExtract('D:\Users\jason\DataDumps\DCS\Raw_Data\M12\Rotation1_contProcessed', 2E6, 0.6);
-save('D:\Users\jason\DataDumps\DCS\ProcessedData\M12\Rotation1_cont');
+[tauList, g2, vap, g1, beta, count, dbfit, fval] = CharlesExtract('D:\Users\jason\DataDumps\DCS\Raw_Data\HeadTilt\output\up20HzProcessed', 2E6, 0.6);
+save('D:\Users\jason\DataDumps\DCS\ProcessedData\HeadTilt\OLDup20Hz', '-v7.3');
+
 
 clear all;
-[tauList, g2, vap, g1, beta, count, dbfit, fval] = CharlesExtract('D:\Users\jason\DataDumps\DCS\Raw_Data\M12\Rotation2Processed', 2E6, 0.6);
-save('D:\Users\jason\DataDumps\DCS\ProcessedData\M12\Rotation2');
+[tauList, g2, vap, g1, beta, count, dbfit, fval] = CharlesExtract('D:\Users\jason\DataDumps\DCS\Raw_Data\HeadTilt\output\flat10HzProcessed', 2E6, 0.6);
+save('D:\Users\jason\DataDumps\DCS\ProcessedData\HeadTilt\OLDflat10Hz', '-v7.3');
 
 clear all;
-[tauList, g2, vap, g1, beta, count, dbfit, fval] = CharlesExtract('D:\Users\jason\DataDumps\DCS\Raw_Data\M12\Rotation3Processed', 2E6, 0.6);
-save('D:\Users\jason\DataDumps\DCS\ProcessedData\M12\Rotation3');
+[tauList, g2, vap, g1, beta, count, dbfit, fval] = CharlesExtract('D:\Users\jason\DataDumps\DCS\Raw_Data\HeadTilt\output\flat20HzProcessed', 2E6, 0.6);
+save('D:\Users\jason\DataDumps\DCS\ProcessedData\HeadTilt\OLDflat20Hz', '-v7.3');
 
-clear all;
-[tauList, g2, vap, g1, beta, count, dbfit, fval] = CharlesExtract('D:\Users\jason\DataDumps\DCS\Raw_Data\M12\Rotation4Processed', 2E6, 0.6);
-save('D:\Users\jason\DataDumps\DCS\ProcessedData\M12\Rotation4');
 
-clear all;
-[tauList, g2, vap, g1, beta, count, dbfit, fval] = CharlesExtract('D:\Users\jason\DataDumps\DCS\Raw_Data\M12\Rotation5Processed', 2E6, 0.6);
-save('D:\Users\jason\DataDumps\DCS\ProcessedData\M12\Rotation5');
-
-clear all;
-[tauList, g2, vap, g1, beta, count, dbfit, fval] = CharlesExtract('D:\Users\jason\DataDumps\DCS\Raw_Data\M12\Rotation6Processed', 2E6, 0.6);
-save('D:\Users\jason\DataDumps\DCS\ProcessedData\M12\Rotation6');
-
-clear all;
-[tauList, g2, vap, g1, beta, count, dbfit, fval] = CharlesExtract('D:\Users\jason\DataDumps\DCS\Raw_Data\M12\Rotation7Processed', 2E6, 0.6);
-save('D:\Users\jason\DataDumps\DCS\ProcessedData\M12\Rotation7');
-
-clear all;
-[tauList, g2, vap, g1, beta, count, dbfit, fval] = CharlesExtract('D:\Users\jason\DataDumps\DCS\Raw_Data\M12\Rotation8Processed', 2E6, 0.6);
-save('D:\Users\jason\DataDumps\DCS\ProcessedData\M12\Rotation8');
 
