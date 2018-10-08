@@ -1,3 +1,15 @@
+% 
+% [tauList, g2, sigNoise, vap, beta, count, dbfit, fval] = CharlesExtract('D:\Users\jason\DataDumps\DCS\Raw_Data\HeadTilt\output\down50HzProcessed', 2E6, 2);
+% save('D:\Users\jason\DataDumps\DCS\ProcessedData\HeadTilt\down50Hz', '-v7.3');
+% clear all;
+% [tauList, g2, sigNoise, vap, beta, count, dbfit, fval] = CharlesExtract('D:\Users\jason\DataDumps\DCS\Raw_Data\HeadTilt\output\up50HzProcessed', 2E6, 2);
+% save('D:\Users\jason\DataDumps\DCS\ProcessedData\HeadTilt\up50Hz', '-v7.3');
+% clear all;
+% [tauList, g2, sigNoise, vap, beta, count, dbfit, fval] = CharlesExtract('D:\Users\jason\DataDumps\DCS\Raw_Data\HeadTilt\output\flat50HzProcessed', 2E6, 2);
+% save('D:\Users\jason\DataDumps\DCS\ProcessedData\HeadTilt\flat50Hz', '-v7.3');
+% clear all;
+
+
 
 [tauList, g2, sigNoise, vap, beta, count, dbfit, fval] = CharlesExtract('D:\Users\jason\DataDumps\DCS\Raw_Data\M13\M13_Rotation6Processed', 2E6, 2);
 save('D:\Users\jason\DataDumps\DCS\ProcessedData\M13\M13_Rotation6', '-v7.3');

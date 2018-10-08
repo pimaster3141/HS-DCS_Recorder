@@ -77,9 +77,9 @@ def outWrite(filename, g2, tau, vap):
 		tauwriter = csv.writer(tauFile);
 		tauwriter.writerow(tau);
 
-def runner(filename, fs, intg=0.1):
+def runner(filename, fs, intg=0.1, fsout=100):
 	print("Processing Files");
-	(g, t, v) = ultimateCruncher(filename, fs, intg);
+	(g, t, v) = ultimateCruncher(filename, fs, intg, fsout);
 	print("creating Files");
 	outWrite(filename, g, t, v);
 	print("done");
