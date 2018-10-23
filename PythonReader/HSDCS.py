@@ -123,6 +123,7 @@ class HSDCS():
             self.startTime = time.time()
             try:
 #                runner.start(self.fname)
+                print(self.fname);
                 runner.start(None,dummy=True)
             except: 
                 self.status['text']='Unable to start DCS. Abort.'

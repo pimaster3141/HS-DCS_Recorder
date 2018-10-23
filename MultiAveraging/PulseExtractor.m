@@ -1,5 +1,5 @@
-location = 'D:\Users\jason\DataDumps\DCS\ProcessedData\HeadTilt\';
-file = 'flat50Hz';
+location = 'D:\Users\jason\DataDumps\DCS\Processed_Data\HeadTilt16-10-2018\';
+file = 'uptilt.mat';
 
 load([location file]);
 
@@ -9,7 +9,7 @@ diffpulses = diff(pulses);
 [M, I] = max(diffpulses);
 pulses = pulses(I+1:end);
 
-segments = extractSegments(dbfit, pulses, 100, 300);
+segments = extractSegments(dbfit, pulses, 200, 600);
 
 for ii = 1:size(segments, 1)
     data = segments(ii, :, :);
