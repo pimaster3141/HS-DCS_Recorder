@@ -60,20 +60,22 @@ def ultimateCruncher(filename, fs=2E6, intg=0.1, fs_out=100):
 
 	return (g2, tauList, markers);
 
-def outWrite(filename, g2, tau, vap):
-	if not os.path.exists(filename+"Processed/"):
-		os.makedirs(filename+"Processed/")
+def outWrite(filename, g2, tau, vap, intg, fs_out):
+	BW = int(1.0/intg + 0.5);
+
+	if not os.path.exists(filename + str(BW) +"Hz/"):
+		os.makedirs(filename + str(BW) +"Hz/")
 
 	for c in range(4):
-		with open(filename+"Processed/G2channel"+str(c), 'w', newline='') as g2File:
+		with open(filename + str(BW) +"Hz/G2channel"+str(c), 'w', newline='') as g2File:
 			g2writer = csv.writer(g2File);
 			for g in g2[c]:
 				g2writer.writerow(g);
 
-		with open(filename+"Processed/VAPchannel"+str(c), 'wb') as vapFile:
+		with open(filename + str(BW) +"Hz/VAPchannel"+str(c), 'wb') as vapFile:
 			vapFile.write(bytes(vap[c]));
 
-	with open(filename+"Processed/TAU", 'w', newline='') as tauFile:
+	with open(filename + str(BW) +"Hz/TAU", 'w', newline='') as tauFile:
 		tauwriter = csv.writer(tauFile);
 		tauwriter.writerow(tau);
 
@@ -81,7 +83,7 @@ def runner(filename, fs, intg=0.1, fsout=100):
 	print("Processing Files");
 	(g, t, v) = ultimateCruncher(filename, fs, intg, fsout);
 	print("creating Files");
-	outWrite(filename, g, t, v);
+	outWrite(filename, g, t, v, intg, fsout);
 	print("done");
 
 
