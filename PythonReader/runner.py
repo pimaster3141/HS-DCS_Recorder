@@ -86,6 +86,27 @@ def stop():
 	print("SYSTEM HALTED");
 
 
+def debug(sampleClk = 2E6):
+	global display, DCSWorker, peekBuf, conn1, conn2, isDummy;
+	peekBuf = Q();
+	(conn1, conn2) = mp.Pipe()
+	
+	DCSWorker = None;
+
+	DCSWorker = MPWorker.MPWorker(conn2, None, peekBuf);
+	DCSWorker.start();
+
+	try:
+		display = DebuggerDisplay.G2GraphWindow(peekBuf, sampleClk, numChannels=4, refreshRate=2, bufferDepth=10000, dummy=False, dummyData=None)
+
+		display.run();
+
+	except Exception as e:
+		print(e);
+		print("CALLING STOP");
+		stop();
+
+
 
 
 # start('testRun');
