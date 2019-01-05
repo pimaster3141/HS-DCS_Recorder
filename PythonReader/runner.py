@@ -117,5 +117,5 @@ def debug(sampleClk = 2E6, numChannels=1):
 # import time
 # time.sleep(15);
 # stop();
-# code.interact(local = locals());
 print("Starting Up...");
+code.interact(local = locals());
