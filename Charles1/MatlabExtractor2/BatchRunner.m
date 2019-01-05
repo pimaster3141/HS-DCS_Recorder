@@ -1,3 +1,4 @@
+
 tic;
 
 clear all;
@@ -32,6 +33,3 @@ for ii = 1:length(fileList)
 end
 
 toc
-
-
-
