@@ -1,0 +1,1375 @@
+   1              		.cpu arm926ej-s
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 4
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"sdrx3.c"
+  13              		.text
+  14              		.align	2
+  15              		.global	SDR_GpioIntrCb
+  17              	SDR_GpioIntrCb:
+  18              		@ args = 0, pretend = 0, frame = 8
+  19              		@ frame_needed = 0, uses_anonymous_args = 0
+  20 0000 07402DE9 		stmfd	sp!, {r0, r1, r2, lr}
+  21 0004 0030A0E3 		mov	r3, #0
+  22 0008 08108DE2 		add	r1, sp, #8
+  23 000c 043021E5 		str	r3, [r1, #-4]!
+  24 0010 FEFFFFEB 		bl	CyU3PGpioGetValue
+  25 0014 0CD08DE2 		add	sp, sp, #12
+  26              		@ sp needed
+  27 0018 04F09DE4 		ldr	pc, [sp], #4
+  29              		.align	2
+  30              		.global	SDR_ApplnGPIFEventCB
+  32              	SDR_ApplnGPIFEventCB:
+  33              		@ args = 0, pretend = 0, frame = 0
+  34              		@ frame_needed = 0, uses_anonymous_args = 0
+  35              		@ link register save eliminated.
+  36 001c 010050E3 		cmp	r0, #1
+  37 0020 1EFF2F11 		bxne	lr
+  38 0024 0400A0E3 		mov	r0, #4
+  39 0028 00109FE5 		ldr	r1, .L7
+  40 002c FEFFFFEA 		b	CyU3PDebugPrint
+  41              	.L8:
+  42              		.align	2
+  43              	.L7:
+  44 0030 00000000 		.word	.LC0
+  46              		.align	2
+  47              		.global	SDR_ErrorHandler
+  49              	SDR_ErrorHandler:
+  50              		@ args = 0, pretend = 0, frame = 0
+  51              		@ frame_needed = 0, uses_anonymous_args = 0
+  52 0034 70402DE9 		stmfd	sp!, {r4, r5, r6, lr}
+  53 0038 FF6000E2 		and	r6, r0, #255
+  54              	.L13:
+  55 003c 0110A0E3 		mov	r1, #1
+  56 0040 1500A0E3 		mov	r0, #21
+  57 0044 FEFFFFEB 		bl	CyU3PGpioSetValue
+  58 0048 4B0FA0E3 		mov	r0, #300
+  59 004c FEFFFFEB 		bl	_tx_thread_sleep
+  60 0050 0010A0E3 		mov	r1, #0
+  61 0054 1500A0E3 		mov	r0, #21
+  62 0058 FEFFFFEB 		bl	CyU3PGpioSetValue
+  63 005c C800A0E3 		mov	r0, #200
+  64 0060 FEFFFFEB 		bl	_tx_thread_sleep
+  65 0064 0640A0E1 		mov	r4, r6
+  66 0068 0850A0E3 		mov	r5, #8
+  67              	.L14:
+  68 006c 800014E3 		tst	r4, #128
+  69 0070 1600A0E3 		mov	r0, #22
+  70 0074 0400001A 		bne	.L10
+  71 0078 0110A0E3 		mov	r1, #1
+  72 007c FEFFFFEB 		bl	CyU3PGpioSetValue
+  73 0080 1700A0E3 		mov	r0, #23
+  74 0084 0010A0E3 		mov	r1, #0
+  75 0088 030000EA 		b	.L15
+  76              	.L10:
+  77 008c 0010A0E3 		mov	r1, #0
+  78 0090 FEFFFFEB 		bl	CyU3PGpioSetValue
+  79 0094 1700A0E3 		mov	r0, #23
+  80 0098 0110A0E3 		mov	r1, #1
+  81              	.L15:
+  82 009c FEFFFFEB 		bl	CyU3PGpioSetValue
+  83 00a0 7D0FA0E3 		mov	r0, #500
+  84 00a4 FEFFFFEB 		bl	_tx_thread_sleep
+  85 00a8 0010A0E3 		mov	r1, #0
+  86 00ac 1600A0E3 		mov	r0, #22
+  87 00b0 FEFFFFEB 		bl	CyU3PGpioSetValue
+  88 00b4 0010A0E3 		mov	r1, #0
+  89 00b8 1700A0E3 		mov	r0, #23
+  90 00bc FEFFFFEB 		bl	CyU3PGpioSetValue
+  91 00c0 015045E2 		sub	r5, r5, #1
+  92 00c4 C800A0E3 		mov	r0, #200
+  93 00c8 FEFFFFEB 		bl	_tx_thread_sleep
+  94 00cc 8440A0E1 		mov	r4, r4, asl #1
+  95 00d0 FF5015E2 		ands	r5, r5, #255
+  96 00d4 FF4004E2 		and	r4, r4, #255
+  97 00d8 E3FFFF1A 		bne	.L14
+  98 00dc D6FFFFEA 		b	.L13
+ 100              		.align	2
+ 101              		.global	ConfGPIOsimpleout
+ 103              	ConfGPIOsimpleout:
+ 104              		@ args = 0, pretend = 0, frame = 24
+ 105              		@ frame_needed = 0, uses_anonymous_args = 0
+ 106 00e0 10402DE9 		stmfd	sp!, {r4, lr}
+ 107 00e4 0110A0E3 		mov	r1, #1
+ 108 00e8 18D04DE2 		sub	sp, sp, #24
+ 109 00ec 0040A0E1 		mov	r4, r0
+ 110 00f0 FEFFFFEB 		bl	CyU3PDeviceGpioOverride
+ 111 00f4 003050E2 		subs	r3, r0, #0
+ 112 00f8 0A00001A 		bne	.L19
+ 113 00fc 0120A0E3 		mov	r2, #1
+ 114 0100 0400A0E1 		mov	r0, r4
+ 115 0104 04108DE2 		add	r1, sp, #4
+ 116 0108 04308DE5 		str	r3, [sp, #4]
+ 117 010c 08208DE5 		str	r2, [sp, #8]
+ 118 0110 0C208DE5 		str	r2, [sp, #12]
+ 119 0114 10308DE5 		str	r3, [sp, #16]
+ 120 0118 1430CDE5 		strb	r3, [sp, #20]
+ 121 011c FEFFFFEB 		bl	CyU3PGpioSetSimpleConfig
+ 122 0120 000050E3 		cmp	r0, #0
+ 123 0124 0000000A 		beq	.L18
+ 124              	.L19:
+ 125 0128 FEFFFFEB 		bl	SDR_ErrorHandler
+ 126              	.L18:
+ 127 012c 18D08DE2 		add	sp, sp, #24
+ 128              		@ sp needed
+ 129 0130 1080BDE8 		ldmfd	sp!, {r4, pc}
+ 131              		.align	2
+ 132              		.global	ConfGPIOPWM
+ 134              	ConfGPIOPWM:
+ 135              		@ args = 0, pretend = 0, frame = 32
+ 136              		@ frame_needed = 0, uses_anonymous_args = 0
+ 137 0134 30402DE9 		stmfd	sp!, {r4, r5, lr}
+ 138 0138 0150A0E1 		mov	r5, r1
+ 139 013c 24D04DE2 		sub	sp, sp, #36
+ 140 0140 0110A0E3 		mov	r1, #1
+ 141 0144 0040A0E1 		mov	r4, r0
+ 142 0148 FEFFFFEB 		bl	CyU3PDeviceGpioOverride
+ 143 014c 003050E2 		subs	r3, r0, #0
+ 144 0150 0000000A 		beq	.L21
+ 145 0154 FEFFFFEB 		bl	SDR_ErrorHandler
+ 146              	.L21:
+ 147 0158 00308DE5 		str	r3, [sp]
+ 148 015c 0C308DE5 		str	r3, [sp, #12]
+ 149 0160 1130CDE5 		strb	r3, [sp, #17]
+ 150 0164 14308DE5 		str	r3, [sp, #20]
+ 151 0168 30309FE5 		ldr	r3, .L22
+ 152 016c 0510A0E3 		mov	r1, #5
+ 153 0170 0120A0E3 		mov	r2, #1
+ 154 0174 1010CDE5 		strb	r1, [sp, #16]
+ 155 0178 0400A0E1 		mov	r0, r4
+ 156 017c 0D10A0E1 		mov	r1, sp
+ 157 0180 04208DE5 		str	r2, [sp, #4]
+ 158 0184 08208DE5 		str	r2, [sp, #8]
+ 159 0188 1220CDE5 		strb	r2, [sp, #18]
+ 160 018c 18308DE5 		str	r3, [sp, #24]
+ 161 0190 1C508DE5 		str	r5, [sp, #28]
+ 162 0194 FEFFFFEB 		bl	CyU3PGpioSetComplexConfig
+ 163 0198 24D08DE2 		add	sp, sp, #36
+ 164              		@ sp needed
+ 165 019c 3080BDE8 		ldmfd	sp!, {r4, r5, pc}
+ 166              	.L23:
+ 167              		.align	2
+ 168              	.L22:
+ 169 01a0 7F130300 		.word	201599
+ 171              		.align	2
+ 172              		.global	SDR_ApplnUSBSetupCB
+ 174              	SDR_ApplnUSBSetupCB:
+ 175              		@ args = 0, pretend = 0, frame = 0
+ 176              		@ frame_needed = 0, uses_anonymous_args = 0
+ 177 01a4 603000E2 		and	r3, r0, #96
+ 178 01a8 400053E3 		cmp	r3, #64
+ 179 01ac F7402DE9 		stmfd	sp!, {r0, r1, r2, r4, r5, r6, r7, lr}
+ 180 01b0 0140A0E1 		mov	r4, r1
+ 181 01b4 8800001A 		bne	.L37
+ 182 01b8 2068A0E1 		mov	r6, r0, lsr #16
+ 183 01bc FF0C00E2 		and	r0, r0, #65280
+ 184 01c0 2004A0E1 		mov	r0, r0, lsr #8
+ 185 01c4 2178A0E1 		mov	r7, r1, lsr #16
+ 186 01c8 B00040E2 		sub	r0, r0, #176
+ 187 01cc 0750A0E1 		mov	r5, r7
+ 188 01d0 0D0050E3 		cmp	r0, #13
+ 189 01d4 00F19F97 		ldrls	pc, [pc, r0, asl #2]
+ 190 01d8 7F0000EA 		b	.L37
+ 191              	.L27:
+ 192 01dc 14020000 		.word	.L26
+ 193 01e0 DC030000 		.word	.L37
+ 194 01e4 DC030000 		.word	.L37
+ 195 01e8 DC030000 		.word	.L37
+ 196 01ec DC030000 		.word	.L37
+ 197 01f0 DC030000 		.word	.L37
+ 198 01f4 DC030000 		.word	.L37
+ 199 01f8 DC030000 		.word	.L37
+ 200 01fc DC030000 		.word	.L37
+ 201 0200 DC030000 		.word	.L37
+ 202 0204 3C030000 		.word	.L28
+ 203 0208 80030000 		.word	.L29
+ 204 020c 24020000 		.word	.L30
+ 205 0210 D0020000 		.word	.L31
+ 206              	.L26:
+ 207 0214 CC119FE5 		ldr	r1, .L50
+ 208 0218 0800A0E3 		mov	r0, #8
+ 209 021c FEFFFFEB 		bl	CyU3PUsbSendEP0Data
+ 210 0220 280000EA 		b	.L48
+ 211              	.L30:
+ 212 0224 C0419FE5 		ldr	r4, .L50+4
+ 213 0228 0700A0E1 		mov	r0, r7
+ 214 022c 0410A0E1 		mov	r1, r4
+ 215 0230 0020A0E3 		mov	r2, #0
+ 216 0234 FEFFFFEB 		bl	CyU3PUsbGetEP0Data
+ 217 0238 000050E3 		cmp	r0, #0
+ 218 023c 2100001A 		bne	.L48
+ 219 0240 0110D4E5 		ldrb	r1, [r4, #1]	@ zero_extendqisi2
+ 220 0244 1500A0E3 		mov	r0, #21
+ 221 0248 011001E2 		and	r1, r1, #1
+ 222 024c FEFFFFEB 		bl	CyU3PGpioSetValue
+ 223 0250 0110D4E5 		ldrb	r1, [r4, #1]	@ zero_extendqisi2
+ 224 0254 1600A0E3 		mov	r0, #22
+ 225 0258 A110A0E1 		mov	r1, r1, lsr #1
+ 226 025c 011001E2 		and	r1, r1, #1
+ 227 0260 FEFFFFEB 		bl	CyU3PGpioSetValue
+ 228 0264 0110D4E5 		ldrb	r1, [r4, #1]	@ zero_extendqisi2
+ 229 0268 1700A0E3 		mov	r0, #23
+ 230 026c 2111A0E1 		mov	r1, r1, lsr #2
+ 231 0270 011001E2 		and	r1, r1, #1
+ 232 0274 FEFFFFEB 		bl	CyU3PGpioSetValue
+ 233 0278 0110D4E5 		ldrb	r1, [r4, #1]	@ zero_extendqisi2
+ 234 027c 1A00A0E3 		mov	r0, #26
+ 235 0280 A111A0E1 		mov	r1, r1, lsr #3
+ 236 0284 011001E2 		and	r1, r1, #1
+ 237 0288 FEFFFFEB 		bl	CyU3PGpioSetValue
+ 238 028c 0110D4E5 		ldrb	r1, [r4, #1]	@ zero_extendqisi2
+ 239 0290 1B00A0E3 		mov	r0, #27
+ 240 0294 2112A0E1 		mov	r1, r1, lsr #4
+ 241 0298 011001E2 		and	r1, r1, #1
+ 242 029c FEFFFFEB 		bl	CyU3PGpioSetValue
+ 243 02a0 0110D4E5 		ldrb	r1, [r4, #1]	@ zero_extendqisi2
+ 244 02a4 1C00A0E3 		mov	r0, #28
+ 245 02a8 A112A0E1 		mov	r1, r1, lsr #5
+ 246 02ac 011001E2 		and	r1, r1, #1
+ 247 02b0 FEFFFFEB 		bl	CyU3PGpioSetValue
+ 248 02b4 0110D4E5 		ldrb	r1, [r4, #1]	@ zero_extendqisi2
+ 249 02b8 1D00A0E3 		mov	r0, #29
+ 250 02bc 2113A0E1 		mov	r1, r1, lsr #6
+ 251 02c0 011001E2 		and	r1, r1, #1
+ 252 02c4 FEFFFFEB 		bl	CyU3PGpioSetValue
+ 253              	.L48:
+ 254 02c8 0100A0E3 		mov	r0, #1
+ 255 02cc 430000EA 		b	.L25
+ 256              	.L31:
+ 257 02d0 14419FE5 		ldr	r4, .L50+4
+ 258 02d4 0700A0E1 		mov	r0, r7
+ 259 02d8 0410A0E1 		mov	r1, r4
+ 260 02dc 0020A0E3 		mov	r2, #0
+ 261 02e0 FEFFFFEB 		bl	CyU3PUsbGetEP0Data
+ 262 02e4 000050E3 		cmp	r0, #0
+ 263 02e8 F6FFFF1A 		bne	.L48
+ 264 02ec 0130D4E5 		ldrb	r3, [r4, #1]	@ zero_extendqisi2
+ 265 02f0 0210D4E5 		ldrb	r1, [r4, #2]	@ zero_extendqisi2
+ 266 02f4 1800A0E3 		mov	r0, #24
+ 267 02f8 011483E1 		orr	r1, r3, r1, asl #8
+ 268 02fc 0330D4E5 		ldrb	r3, [r4, #3]	@ zero_extendqisi2
+ 269 0300 031881E1 		orr	r1, r1, r3, asl #16
+ 270 0304 0430D4E5 		ldrb	r3, [r4, #4]	@ zero_extendqisi2
+ 271 0308 031C81E1 		orr	r1, r1, r3, asl #24
+ 272 030c DC309FE5 		ldr	r3, .L50+8
+ 273 0310 030051E1 		cmp	r1, r3
+ 274 0314 0310A021 		movcs	r1, r3
+ 275 0318 FEFFFFEB 		bl	ConfGPIOPWM
+ 276 031c 004050E2 		subs	r4, r0, #0
+ 277 0320 E8FFFF0A 		beq	.L48
+ 278 0324 0400A0E3 		mov	r0, #4
+ 279 0328 C4109FE5 		ldr	r1, .L50+12
+ 280 032c 0420A0E1 		mov	r2, r4
+ 281 0330 FEFFFFEB 		bl	CyU3PDebugPrint
+ 282 0334 0400A0E1 		mov	r0, r4
+ 283 0338 FEFFFFEB 		bl	SDR_ErrorHandler
+ 284              	.L28:
+ 285 033c 0700A0E1 		mov	r0, r7
+ 286 0340 A4109FE5 		ldr	r1, .L50+4
+ 287 0344 0020A0E3 		mov	r2, #0
+ 288 0348 FEFFFFEB 		bl	CyU3PUsbGetEP0Data
+ 289 034c 005050E2 		subs	r5, r0, #0
+ 290 0350 DCFFFF1A 		bne	.L48
+ 291 0354 FF1006E2 		and	r1, r6, #255
+ 292 0358 FF2007E2 		and	r2, r7, #255
+ 293 035c FF0004E2 		and	r0, r4, #255
+ 294 0360 00508DE5 		str	r5, [sp]
+ 295 0364 80309FE5 		ldr	r3, .L50+4
+ 296 0368 FEFFFFEB 		bl	CyFxUsbI2cTransfer
+ 297 036c 002050E2 		subs	r2, r0, #0
+ 298 0370 0400A013 		movne	r0, #4
+ 299 0374 7C109F15 		ldrne	r1, .L50+16
+ 300 0378 D2FFFF0A 		beq	.L48
+ 301 037c 150000EA 		b	.L49
+ 302              	.L29:
+ 303 0380 64009FE5 		ldr	r0, .L50+4
+ 304 0384 0010A0E3 		mov	r1, #0
+ 305 0388 2020A0E3 		mov	r2, #32
+ 306 038c FEFFFFEB 		bl	CyU3PMemSet
+ 307 0390 400055E3 		cmp	r5, #64
+ 308 0394 4050A023 		movcs	r5, #64
+ 309 0398 0130A0E3 		mov	r3, #1
+ 310 039c FF2005E2 		and	r2, r5, #255
+ 311 03a0 00308DE5 		str	r3, [sp]
+ 312 03a4 FF0004E2 		and	r0, r4, #255
+ 313 03a8 FF1006E2 		and	r1, r6, #255
+ 314 03ac 38309FE5 		ldr	r3, .L50+4
+ 315 03b0 FEFFFFEB 		bl	CyFxUsbI2cTransfer
+ 316 03b4 002050E2 		subs	r2, r0, #0
+ 317 03b8 0400001A 		bne	.L35
+ 318 03bc 0500A0E1 		mov	r0, r5
+ 319 03c0 24109FE5 		ldr	r1, .L50+4
+ 320 03c4 FEFFFFEB 		bl	CyU3PUsbSendEP0Data
+ 321 03c8 002050E2 		subs	r2, r0, #0
+ 322 03cc BDFFFF0A 		beq	.L48
+ 323              	.L35:
+ 324 03d0 24109FE5 		ldr	r1, .L50+20
+ 325 03d4 0400A0E3 		mov	r0, #4
+ 326              	.L49:
+ 327 03d8 FEFFFFEB 		bl	CyU3PDebugPrint
+ 328              	.L37:
+ 329 03dc 0000A0E3 		mov	r0, #0
+ 330              	.L25:
+ 331 03e0 0CD08DE2 		add	sp, sp, #12
+ 332              		@ sp needed
+ 333 03e4 F080BDE8 		ldmfd	sp!, {r4, r5, r6, r7, pc}
+ 334              	.L51:
+ 335              		.align	2
+ 336              	.L50:
+ 337 03e8 00000000 		.word	.LANCHOR0
+ 338 03ec 00000000 		.word	glEp0Buffer
+ 339 03f0 7E130300 		.word	201598
+ 340 03f4 1F000000 		.word	.LC1
+ 341 03f8 4D000000 		.word	.LC2
+ 342 03fc 7E000000 		.word	.LC3
+ 344              		.align	2
+ 345              		.global	SDR_GpioInit
+ 347              	SDR_GpioInit:
+ 348              		@ args = 0, pretend = 0, frame = 16
+ 349              		@ frame_needed = 0, uses_anonymous_args = 0
+ 350 0400 1F402DE9 		stmfd	sp!, {r0, r1, r2, r3, r4, lr}
+ 351 0404 B4109FE5 		ldr	r1, .L54
+ 352 0408 0230A0E3 		mov	r3, #2
+ 353 040c 0430CDE5 		strb	r3, [sp, #4]
+ 354 0410 0320A0E3 		mov	r2, #3
+ 355 0414 0030A0E3 		mov	r3, #0
+ 356 0418 04008DE2 		add	r0, sp, #4
+ 357 041c 0530CDE5 		strb	r3, [sp, #5]
+ 358 0420 0C30CDE5 		strb	r3, [sp, #12]
+ 359 0424 0D20CDE5 		strb	r2, [sp, #13]
+ 360 0428 08308DE5 		str	r3, [sp, #8]
+ 361 042c FEFFFFEB 		bl	CyU3PGpioInit
+ 362 0430 004050E2 		subs	r4, r0, #0
+ 363 0434 0500000A 		beq	.L53
+ 364 0438 0400A0E3 		mov	r0, #4
+ 365 043c 80109FE5 		ldr	r1, .L54+4
+ 366 0440 0420A0E1 		mov	r2, r4
+ 367 0444 FEFFFFEB 		bl	CyU3PDebugPrint
+ 368 0448 0400A0E1 		mov	r0, r4
+ 369 044c FEFFFFEB 		bl	SDR_ErrorHandler
+ 370              	.L53:
+ 371 0450 70109FE5 		ldr	r1, .L54+8
+ 372 0454 1800A0E3 		mov	r0, #24
+ 373 0458 FEFFFFEB 		bl	ConfGPIOPWM
+ 374 045c 1500A0E3 		mov	r0, #21
+ 375 0460 FEFFFFEB 		bl	ConfGPIOsimpleout
+ 376 0464 1600A0E3 		mov	r0, #22
+ 377 0468 FEFFFFEB 		bl	ConfGPIOsimpleout
+ 378 046c 1700A0E3 		mov	r0, #23
+ 379 0470 FEFFFFEB 		bl	ConfGPIOsimpleout
+ 380 0474 1A00A0E3 		mov	r0, #26
+ 381 0478 FEFFFFEB 		bl	ConfGPIOsimpleout
+ 382 047c 1B00A0E3 		mov	r0, #27
+ 383 0480 FEFFFFEB 		bl	ConfGPIOsimpleout
+ 384 0484 1C00A0E3 		mov	r0, #28
+ 385 0488 FEFFFFEB 		bl	ConfGPIOsimpleout
+ 386 048c 1D00A0E3 		mov	r0, #29
+ 387 0490 FEFFFFEB 		bl	ConfGPIOsimpleout
+ 388 0494 0410A0E1 		mov	r1, r4
+ 389 0498 1500A0E3 		mov	r0, #21
+ 390 049c FEFFFFEB 		bl	CyU3PGpioSetValue
+ 391 04a0 0110A0E3 		mov	r1, #1
+ 392 04a4 1600A0E3 		mov	r0, #22
+ 393 04a8 FEFFFFEB 		bl	CyU3PGpioSetValue
+ 394 04ac 0110A0E3 		mov	r1, #1
+ 395 04b0 1C00A0E3 		mov	r0, #28
+ 396 04b4 FEFFFFEB 		bl	CyU3PGpioSetValue
+ 397 04b8 10D08DE2 		add	sp, sp, #16
+ 398              		@ sp needed
+ 399 04bc 1080BDE8 		ldmfd	sp!, {r4, pc}
+ 400              	.L55:
+ 401              		.align	2
+ 402              	.L54:
+ 403 04c0 00000000 		.word	SDR_GpioIntrCb
+ 404 04c4 AE000000 		.word	.LC4
+ 405 04c8 DFC40000 		.word	50399
+ 407              		.align	2
+ 408              		.global	SDR_ApplnDebugInit
+ 410              	SDR_ApplnDebugInit:
+ 411              		@ args = 0, pretend = 0, frame = 24
+ 412              		@ frame_needed = 0, uses_anonymous_args = 0
+ 413 04cc 10402DE9 		stmfd	sp!, {r4, lr}
+ 414 04d0 18D04DE2 		sub	sp, sp, #24
+ 415 04d4 FEFFFFEB 		bl	CyU3PUartInit
+ 416 04d8 004050E2 		subs	r4, r0, #0
+ 417 04dc 1900001A 		bne	.L62
+ 418 04e0 0D00A0E1 		mov	r0, sp
+ 419 04e4 0410A0E1 		mov	r1, r4
+ 420 04e8 1820A0E3 		mov	r2, #24
+ 421 04ec FEFFFFEB 		bl	CyU3PMemSet
+ 422 04f0 60309FE5 		ldr	r3, .L63
+ 423 04f4 0D00A0E1 		mov	r0, sp
+ 424 04f8 10308DE5 		str	r3, [sp, #16]
+ 425 04fc 0410A0E1 		mov	r1, r4
+ 426 0500 0130A0E3 		mov	r3, #1
+ 427 0504 1430CDE5 		strb	r3, [sp, #20]
+ 428 0508 1540CDE5 		strb	r4, [sp, #21]
+ 429 050c 18008DE8 		stmia	sp, {r3, r4}
+ 430 0510 08408DE5 		str	r4, [sp, #8]
+ 431 0514 0C308DE5 		str	r3, [sp, #12]
+ 432 0518 FEFFFFEB 		bl	CyU3PUartSetConfig
+ 433 051c 000050E3 		cmp	r0, #0
+ 434 0520 0800001A 		bne	.L62
+ 435 0524 0000E0E3 		mvn	r0, #0
+ 436 0528 FEFFFFEB 		bl	CyU3PUartTxSetBlockXfer
+ 437 052c 000050E3 		cmp	r0, #0
+ 438 0530 0400001A 		bne	.L62
+ 439 0534 0300A0E3 		mov	r0, #3
+ 440 0538 0810A0E3 		mov	r1, #8
+ 441 053c FEFFFFEB 		bl	CyU3PDebugInit
+ 442 0540 000050E3 		cmp	r0, #0
+ 443 0544 0000000A 		beq	.L60
+ 444              	.L62:
+ 445 0548 FEFFFFEB 		bl	SDR_ErrorHandler
+ 446              	.L60:
+ 447 054c FEFFFFEB 		bl	CyU3PDebugPreamble
+ 448 0550 18D08DE2 		add	sp, sp, #24
+ 449              		@ sp needed
+ 450 0554 1080BDE8 		ldmfd	sp!, {r4, pc}
+ 451              	.L64:
+ 452              		.align	2
+ 453              	.L63:
+ 454 0558 00C20100 		.word	115200
+ 456              		.align	2
+ 457              		.global	SDR_ApplnStart
+ 459              	SDR_ApplnStart:
+ 460              		@ args = 0, pretend = 0, frame = 56
+ 461              		@ frame_needed = 0, uses_anonymous_args = 0
+ 462 055c F0402DE9 		stmfd	sp!, {r4, r5, r6, r7, lr}
+ 463 0560 3CD04DE2 		sub	sp, sp, #60
+ 464 0564 FEFFFFEB 		bl	CyU3PUsbGetSpeed
+ 465 0568 020050E3 		cmp	r0, #2
+ 466 056c 0040A0E1 		mov	r4, r0
+ 467 0570 0C00000A 		beq	.L74
+ 468 0574 030050E3 		cmp	r0, #3
+ 469 0578 0600000A 		beq	.L68
+ 470 057c 010050E3 		cmp	r0, #1
+ 471 0580 0600000A 		beq	.L79
+ 472 0584 0400A0E3 		mov	r0, #4
+ 473 0588 34119FE5 		ldr	r1, .L80
+ 474 058c FEFFFFEB 		bl	CyU3PDebugPrint
+ 475 0590 4A00A0E3 		mov	r0, #74
+ 476 0594 1D0000EA 		b	.L77
+ 477              	.L68:
+ 478 0598 015BA0E3 		mov	r5, #1024
+ 479 059c 020000EA 		b	.L67
+ 480              	.L79:
+ 481 05a0 4050A0E3 		mov	r5, #64
+ 482 05a4 000000EA 		b	.L67
+ 483              	.L74:
+ 484 05a8 025CA0E3 		mov	r5, #512
+ 485              	.L67:
+ 486 05ac 04008DE2 		add	r0, sp, #4
+ 487 05b0 0010A0E3 		mov	r1, #0
+ 488 05b4 0C20A0E3 		mov	r2, #12
+ 489 05b8 FEFFFFEB 		bl	CyU3PMemSet
+ 490 05bc 0160A0E3 		mov	r6, #1
+ 491 05c0 030054E3 		cmp	r4, #3
+ 492 05c4 0640A011 		movne	r4, r6
+ 493 05c8 0840A003 		moveq	r4, #8
+ 494 05cc 0030A0E3 		mov	r3, #0
+ 495 05d0 0270A0E3 		mov	r7, #2
+ 496 05d4 8100A0E3 		mov	r0, #129
+ 497 05d8 04108DE2 		add	r1, sp, #4
+ 498 05dc 0E40CDE5 		strb	r4, [sp, #14]
+ 499 05e0 04608DE5 		str	r6, [sp, #4]
+ 500 05e4 0870CDE5 		strb	r7, [sp, #8]
+ 501 05e8 BA30CDE1 		strh	r3, [sp, #10]	@ movhi
+ 502 05ec BC50CDE1 		strh	r5, [sp, #12]	@ movhi
+ 503 05f0 FEFFFFEB 		bl	CyU3PSetEpConfig
+ 504 05f4 004050E2 		subs	r4, r0, #0
+ 505 05f8 0500000A 		beq	.L71
+ 506 05fc C4109FE5 		ldr	r1, .L80+4
+ 507 0600 0400A0E3 		mov	r0, #4
+ 508              	.L78:
+ 509 0604 0420A0E1 		mov	r2, r4
+ 510 0608 FEFFFFEB 		bl	CyU3PDebugPrint
+ 511 060c 0400A0E1 		mov	r0, r4
+ 512              	.L77:
+ 513 0610 FEFFFFEB 		bl	SDR_ErrorHandler
+ 514              	.L71:
+ 515 0614 0410A0E1 		mov	r1, r4
+ 516 0618 10008DE2 		add	r0, sp, #16
+ 517 061c 2820A0E3 		mov	r2, #40
+ 518 0620 FEFFFFEB 		bl	CyU3PMemSet
+ 519 0624 0630A0E3 		mov	r3, #6
+ 520 0628 B231CDE1 		strh	r3, [sp, #18]	@ movhi
+ 521 062c 013CA0E3 		mov	r3, #256
+ 522 0630 B631CDE1 		strh	r3, [sp, #22]	@ movhi
+ 523 0634 013083E2 		add	r3, r3, #1
+ 524 0638 B831CDE1 		strh	r3, [sp, #24]	@ movhi
+ 525 063c 0510A0E3 		mov	r1, #5
+ 526 0640 023C83E2 		add	r3, r3, #512
+ 527 0644 8551A0E1 		mov	r5, r5, asl #3
+ 528 0648 7C009FE5 		ldr	r0, .L80+8
+ 529 064c 10208DE2 		add	r2, sp, #16
+ 530 0650 2E40CDE5 		strb	r4, [sp, #46]
+ 531 0654 30408DE5 		str	r4, [sp, #48]
+ 532 0658 34408DE5 		str	r4, [sp, #52]
+ 533 065c B842CDE1 		strh	r4, [sp, #40]	@ movhi
+ 534 0660 BA42CDE1 		strh	r4, [sp, #42]	@ movhi
+ 535 0664 BC42CDE1 		strh	r4, [sp, #44]	@ movhi
+ 536 0668 B642CDE1 		strh	r4, [sp, #38]	@ movhi
+ 537 066c B051CDE1 		strh	r5, [sp, #16]	@ movhi
+ 538 0670 B471CDE1 		strh	r7, [sp, #20]	@ movhi
+ 539 0674 BE31CDE1 		strh	r3, [sp, #30]	@ movhi
+ 540 0678 FEFFFFEB 		bl	CyU3PDmaMultiChannelCreate
+ 541 067c 004050E2 		subs	r4, r0, #0
+ 542 0680 0400A013 		movne	r0, #4
+ 543 0684 44109F15 		ldrne	r1, .L80+12
+ 544 0688 DDFFFF1A 		bne	.L78
+ 545 068c 0410A0E1 		mov	r1, r4
+ 546 0690 0420A0E1 		mov	r2, r4
+ 547 0694 30009FE5 		ldr	r0, .L80+8
+ 548 0698 FEFFFFEB 		bl	CyU3PDmaMultiChannelSetXfer
+ 549 069c 004050E2 		subs	r4, r0, #0
+ 550 06a0 0400A013 		movne	r0, #4
+ 551 06a4 28109F15 		ldrne	r1, .L80+16
+ 552 06a8 D5FFFF1A 		bne	.L78
+ 553 06ac 8100A0E3 		mov	r0, #129
+ 554 06b0 FEFFFFEB 		bl	CyU3PUsbFlushEp
+ 555 06b4 1C309FE5 		ldr	r3, .L80+20
+ 556 06b8 006083E5 		str	r6, [r3]
+ 557 06bc 3CD08DE2 		add	sp, sp, #60
+ 558              		@ sp needed
+ 559 06c0 F080BDE8 		ldmfd	sp!, {r4, r5, r6, r7, pc}
+ 560              	.L81:
+ 561              		.align	2
+ 562              	.L80:
+ 563 06c4 D5000000 		.word	.LC5
+ 564 06c8 F0000000 		.word	.LC6
+ 565 06cc 00000000 		.word	glChHandleBulkSrc
+ 566 06d0 1A010000 		.word	.LC7
+ 567 06d4 49010000 		.word	.LC8
+ 568 06d8 00000000 		.word	.LANCHOR1
+ 570              		.align	2
+ 571              		.global	SDR_ApplnStop
+ 573              	SDR_ApplnStop:
+ 574              		@ args = 0, pretend = 0, frame = 16
+ 575              		@ frame_needed = 0, uses_anonymous_args = 0
+ 576 06dc 1F402DE9 		stmfd	sp!, {r0, r1, r2, r3, r4, lr}
+ 577 06e0 5C309FE5 		ldr	r3, .L84
+ 578 06e4 0040A0E3 		mov	r4, #0
+ 579 06e8 0410A0E1 		mov	r1, r4
+ 580 06ec 0C20A0E3 		mov	r2, #12
+ 581 06f0 04008DE2 		add	r0, sp, #4
+ 582 06f4 004083E5 		str	r4, [r3]
+ 583 06f8 FEFFFFEB 		bl	CyU3PMemSet
+ 584 06fc 44009FE5 		ldr	r0, .L84+4
+ 585 0700 04408DE5 		str	r4, [sp, #4]
+ 586 0704 FEFFFFEB 		bl	CyU3PDmaMultiChannelDestroy
+ 587 0708 8100A0E3 		mov	r0, #129
+ 588 070c FEFFFFEB 		bl	CyU3PUsbFlushEp
+ 589 0710 8100A0E3 		mov	r0, #129
+ 590 0714 04108DE2 		add	r1, sp, #4
+ 591 0718 FEFFFFEB 		bl	CyU3PSetEpConfig
+ 592 071c 004050E2 		subs	r4, r0, #0
+ 593 0720 0500000A 		beq	.L82
+ 594 0724 0400A0E3 		mov	r0, #4
+ 595 0728 1C109FE5 		ldr	r1, .L84+8
+ 596 072c 0420A0E1 		mov	r2, r4
+ 597 0730 FEFFFFEB 		bl	CyU3PDebugPrint
+ 598 0734 0400A0E1 		mov	r0, r4
+ 599 0738 FEFFFFEB 		bl	SDR_ErrorHandler
+ 600              	.L82:
+ 601 073c 10D08DE2 		add	sp, sp, #16
+ 602              		@ sp needed
+ 603 0740 1080BDE8 		ldmfd	sp!, {r4, pc}
+ 604              	.L85:
+ 605              		.align	2
+ 606              	.L84:
+ 607 0744 00000000 		.word	.LANCHOR1
+ 608 0748 00000000 		.word	glChHandleBulkSrc
+ 609 074c F0000000 		.word	.LC6
+ 611              		.align	2
+ 612              		.global	SDR_ApplnUSBEventCB
+ 614              	SDR_ApplnUSBEventCB:
+ 615              		@ args = 0, pretend = 0, frame = 0
+ 616              		@ frame_needed = 0, uses_anonymous_args = 0
+ 617 0750 040050E3 		cmp	r0, #4
+ 618 0754 08402DE9 		stmfd	sp!, {r3, lr}
+ 619 0758 0B00000A 		beq	.L88
+ 620 075c 050050E3 		cmp	r0, #5
+ 621 0760 0200000A 		beq	.L89
+ 622 0764 010050E3 		cmp	r0, #1
+ 623 0768 0880BD18 		ldmnefd	sp!, {r3, pc}
+ 624 076c 060000EA 		b	.L88
+ 625              	.L89:
+ 626 0770 2C309FE5 		ldr	r3, .L103
+ 627 0774 003093E5 		ldr	r3, [r3]
+ 628 0778 000053E3 		cmp	r3, #0
+ 629 077c 0000000A 		beq	.L90
+ 630 0780 FEFFFFEB 		bl	SDR_ApplnStop
+ 631              	.L90:
+ 632 0784 0840BDE8 		ldmfd	sp!, {r3, lr}
+ 633 0788 FEFFFFEA 		b	SDR_ApplnStart
+ 634              	.L88:
+ 635 078c 10309FE5 		ldr	r3, .L103
+ 636 0790 003093E5 		ldr	r3, [r3]
+ 637 0794 000053E3 		cmp	r3, #0
+ 638 0798 0880BD08 		ldmeqfd	sp!, {r3, pc}
+ 639 079c 0840BDE8 		ldmfd	sp!, {r3, lr}
+ 640 07a0 FEFFFFEA 		b	SDR_ApplnStop
+ 641              	.L104:
+ 642              		.align	2
+ 643              	.L103:
+ 644 07a4 00000000 		.word	.LANCHOR1
+ 646              		.align	2
+ 647              		.global	SDR_StartGpif
+ 649              	SDR_StartGpif:
+ 650              		@ args = 0, pretend = 0, frame = 0
+ 651              		@ frame_needed = 0, uses_anonymous_args = 0
+ 652 07a8 08402DE9 		stmfd	sp!, {r3, lr}
+ 653 07ac 0000A0E3 		mov	r0, #0
+ 654 07b0 0410A0E3 		mov	r1, #4
+ 655 07b4 FEFFFFEB 		bl	CyU3PGpifSMStart
+ 656 07b8 002050E2 		subs	r2, r0, #0
+ 657 07bc 0880BD08 		ldmeqfd	sp!, {r3, pc}
+ 658 07c0 0400A0E3 		mov	r0, #4
+ 659 07c4 04109FE5 		ldr	r1, .L107
+ 660 07c8 0840BDE8 		ldmfd	sp!, {r3, lr}
+ 661 07cc FEFFFFEA 		b	CyU3PDebugPrint
+ 662              	.L108:
+ 663              		.align	2
+ 664              	.L107:
+ 665 07d0 79010000 		.word	.LC9
+ 667              		.align	2
+ 668              		.global	SDR_ApplnInit
+ 670              	SDR_ApplnInit:
+ 671              		@ args = 0, pretend = 0, frame = 16
+ 672              		@ frame_needed = 0, uses_anonymous_args = 0
+ 673 07d4 7F402DE9 		stmfd	sp!, {r0, r1, r2, r3, r4, r5, r6, lr}
+ 674 07d8 0030A0E3 		mov	r3, #0
+ 675 07dc 0D10A0E1 		mov	r1, sp
+ 676 07e0 0260A0E3 		mov	r6, #2
+ 677 07e4 0350A0E3 		mov	r5, #3
+ 678 07e8 0100A0E3 		mov	r0, #1
+ 679 07ec B060CDE1 		strh	r6, [sp]	@ movhi
+ 680 07f0 0C50CDE5 		strb	r5, [sp, #12]
+ 681 07f4 04308DE5 		str	r3, [sp, #4]
+ 682 07f8 08308DE5 		str	r3, [sp, #8]
+ 683 07fc FEFFFFEB 		bl	CyU3PPibInit
+ 684 0800 004050E2 		subs	r4, r0, #0
+ 685 0804 0400A013 		movne	r0, #4
+ 686 0808 A8119F15 		ldrne	r1, .L128
+ 687 080c 0500001A 		bne	.L124
+ 688 0810 A4019FE5 		ldr	r0, .L128+4
+ 689 0814 FEFFFFEB 		bl	CyU3PGpifLoad
+ 690 0818 004050E2 		subs	r4, r0, #0
+ 691 081c 0500000A 		beq	.L111
+ 692 0820 98119FE5 		ldr	r1, .L128+8
+ 693 0824 0400A0E3 		mov	r0, #4
+ 694              	.L124:
+ 695 0828 0420A0E1 		mov	r2, r4
+ 696 082c FEFFFFEB 		bl	CyU3PDebugPrint
+ 697 0830 0400A0E1 		mov	r0, r4
+ 698 0834 FEFFFFEB 		bl	SDR_ErrorHandler
+ 699              	.L111:
+ 700 0838 84019FE5 		ldr	r0, .L128+12
+ 701 083c FEFFFFEB 		bl	CyU3PGpifRegisterCallback
+ 702 0840 FEFFFFEB 		bl	CyU3PUsbStart
+ 703 0844 004050E2 		subs	r4, r0, #0
+ 704 0848 0400A013 		movne	r0, #4
+ 705 084c 74119F15 		ldrne	r1, .L128+16
+ 706 0850 F4FFFF1A 		bne	.L124
+ 707 0854 0110A0E3 		mov	r1, #1
+ 708 0858 6C019FE5 		ldr	r0, .L128+20
+ 709 085c FEFFFFEB 		bl	CyU3PUsbRegisterSetupCallback
+ 710 0860 68019FE5 		ldr	r0, .L128+24
+ 711 0864 FEFFFFEB 		bl	CyU3PUsbRegisterEventCallback
+ 712 0868 0400A0E1 		mov	r0, r4
+ 713 086c 0410A0E1 		mov	r1, r4
+ 714 0870 5C219FE5 		ldr	r2, .L128+28
+ 715 0874 FEFFFFEB 		bl	CyU3PUsbSetDesc
+ 716 0878 004050E2 		subs	r4, r0, #0
+ 717 087c 0500001A 		bne	.L126
+ 718 0880 0410A0E1 		mov	r1, r4
+ 719 0884 0100A0E3 		mov	r0, #1
+ 720 0888 48219FE5 		ldr	r2, .L128+32
+ 721 088c FEFFFFEB 		bl	CyU3PUsbSetDesc
+ 722 0890 004050E2 		subs	r4, r0, #0
+ 723 0894 0200000A 		beq	.L114
+ 724              	.L126:
+ 725 0898 0400A0E3 		mov	r0, #4
+ 726 089c 38119FE5 		ldr	r1, .L128+36
+ 727 08a0 E0FFFFEA 		b	.L124
+ 728              	.L114:
+ 729 08a4 0410A0E1 		mov	r1, r4
+ 730 08a8 0700A0E3 		mov	r0, #7
+ 731 08ac 2C219FE5 		ldr	r2, .L128+40
+ 732 08b0 FEFFFFEB 		bl	CyU3PUsbSetDesc
+ 733 08b4 004050E2 		subs	r4, r0, #0
+ 734 08b8 0400A013 		movne	r0, #4
+ 735 08bc 0E00001A 		bne	.L127
+ 736 08c0 0410A0E1 		mov	r1, r4
+ 737 08c4 0600A0E1 		mov	r0, r6
+ 738 08c8 14219FE5 		ldr	r2, .L128+44
+ 739 08cc FEFFFFEB 		bl	CyU3PUsbSetDesc
+ 740 08d0 004050E2 		subs	r4, r0, #0
+ 741 08d4 0400A013 		movne	r0, #4
+ 742 08d8 08119F15 		ldrne	r1, .L128+48
+ 743 08dc D1FFFF1A 		bne	.L124
+ 744 08e0 0410A0E1 		mov	r1, r4
+ 745 08e4 0600A0E3 		mov	r0, #6
+ 746 08e8 FC209FE5 		ldr	r2, .L128+52
+ 747 08ec FEFFFFEB 		bl	CyU3PUsbSetDesc
+ 748 08f0 004050E2 		subs	r4, r0, #0
+ 749 08f4 0400A0E3 		mov	r0, #4
+ 750 08f8 0100000A 		beq	.L117
+ 751              	.L127:
+ 752 08fc EC109FE5 		ldr	r1, .L128+56
+ 753 0900 C8FFFFEA 		b	.L124
+ 754              	.L117:
+ 755 0904 0410A0E1 		mov	r1, r4
+ 756 0908 E4209FE5 		ldr	r2, .L128+60
+ 757 090c FEFFFFEB 		bl	CyU3PUsbSetDesc
+ 758 0910 004050E2 		subs	r4, r0, #0
+ 759 0914 0400A013 		movne	r0, #4
+ 760 0918 D8109F15 		ldrne	r1, .L128+64
+ 761 091c C1FFFF1A 		bne	.L124
+ 762 0920 0410A0E1 		mov	r1, r4
+ 763 0924 0500A0E1 		mov	r0, r5
+ 764 0928 CC209FE5 		ldr	r2, .L128+68
+ 765 092c FEFFFFEB 		bl	CyU3PUsbSetDesc
+ 766 0930 004050E2 		subs	r4, r0, #0
+ 767 0934 0400A013 		movne	r0, #4
+ 768 0938 C0109F15 		ldrne	r1, .L128+72
+ 769 093c B9FFFF1A 		bne	.L124
+ 770 0940 0500A0E3 		mov	r0, #5
+ 771 0944 0010A0E3 		mov	r1, #0
+ 772 0948 B4209FE5 		ldr	r2, .L128+76
+ 773 094c FEFFFFEB 		bl	CyU3PUsbSetDesc
+ 774 0950 004050E2 		subs	r4, r0, #0
+ 775 0954 0B00001A 		bne	.L125
+ 776 0958 0500A0E3 		mov	r0, #5
+ 777 095c 0110A0E3 		mov	r1, #1
+ 778 0960 A0209FE5 		ldr	r2, .L128+80
+ 779 0964 FEFFFFEB 		bl	CyU3PUsbSetDesc
+ 780 0968 004050E2 		subs	r4, r0, #0
+ 781 096c 0500001A 		bne	.L125
+ 782 0970 0500A0E3 		mov	r0, #5
+ 783 0974 0210A0E3 		mov	r1, #2
+ 784 0978 8C209FE5 		ldr	r2, .L128+84
+ 785 097c FEFFFFEB 		bl	CyU3PUsbSetDesc
+ 786 0980 004050E2 		subs	r4, r0, #0
+ 787 0984 0200000A 		beq	.L122
+ 788              	.L125:
+ 789 0988 0400A0E3 		mov	r0, #4
+ 790 098c 7C109FE5 		ldr	r1, .L128+88
+ 791 0990 A4FFFFEA 		b	.L124
+ 792              	.L122:
+ 793 0994 0100A0E3 		mov	r0, #1
+ 794 0998 0010A0E1 		mov	r1, r0
+ 795 099c FEFFFFEB 		bl	CyU3PConnectState
+ 796 09a0 004050E2 		subs	r4, r0, #0
+ 797 09a4 0400A013 		movne	r0, #4
+ 798 09a8 64109F15 		ldrne	r1, .L128+92
+ 799 09ac 9DFFFF1A 		bne	.L124
+ 800 09b0 10D08DE2 		add	sp, sp, #16
+ 801              		@ sp needed
+ 802 09b4 7080BDE8 		ldmfd	sp!, {r4, r5, r6, pc}
+ 803              	.L129:
+ 804              		.align	2
+ 805              	.L128:
+ 806 09b8 A5010000 		.word	.LC10
+ 807 09bc 20000000 		.word	.LANCHOR0+32
+ 808 09c0 D4010000 		.word	.LC11
+ 809 09c4 00000000 		.word	SDR_ApplnGPIFEventCB
+ 810 09c8 FB010000 		.word	.LC12
+ 811 09cc 00000000 		.word	SDR_ApplnUSBSetupCB
+ 812 09d0 00000000 		.word	SDR_ApplnUSBEventCB
+ 813 09d4 00000000 		.word	CyFxUSB30DeviceDscr
+ 814 09d8 00000000 		.word	CyFxUSB20DeviceDscr
+ 815 09dc 2B020000 		.word	.LC13
+ 816 09e0 00000000 		.word	CyFxUSBBOSDscr
+ 817 09e4 00000000 		.word	CyFxUSBDeviceQualDscr
+ 818 09e8 98020000 		.word	.LC15
+ 819 09ec 00000000 		.word	CyFxUSBSSConfigDscr
+ 820 09f0 5E020000 		.word	.LC14
+ 821 09f4 00000000 		.word	CyFxUSBHSConfigDscr
+ 822 09f8 D5020000 		.word	.LC16
+ 823 09fc 00000000 		.word	CyFxUSBFSConfigDscr
+ 824 0a00 0D030000 		.word	.LC17
+ 825 0a04 00000000 		.word	CyFxUSBStringLangIDDscr
+ 826 0a08 00000000 		.word	CyFxUSBManufactureDscr
+ 827 0a0c 00000000 		.word	CyFxUSBProductDscr
+ 828 0a10 47030000 		.word	.LC18
+ 829 0a14 7A030000 		.word	.LC19
+ 831              		.align	2
+ 832              		.global	SDR_AppThread_Entry
+ 834              	SDR_AppThread_Entry:
+ 835              		@ args = 0, pretend = 0, frame = 0
+ 836              		@ frame_needed = 0, uses_anonymous_args = 0
+ 837 0a18 38402DE9 		stmfd	sp!, {r3, r4, r5, lr}
+ 838 0a1c FEFFFFEB 		bl	SDR_ApplnDebugInit
+ 839 0a20 FEFFFFEB 		bl	SDR_GpioInit
+ 840 0a24 FEFFFFEB 		bl	CyFxI2cInit
+ 841 0a28 002050E2 		subs	r2, r0, #0
+ 842 0a2c 0200000A 		beq	.L131
+ 843 0a30 0400A0E3 		mov	r0, #4
+ 844 0a34 44109FE5 		ldr	r1, .L140
+ 845 0a38 FEFFFFEB 		bl	CyU3PDebugPrint
+ 846              	.L131:
+ 847 0a3c 40109FE5 		ldr	r1, .L140+4
+ 848 0a40 0400A0E3 		mov	r0, #4
+ 849 0a44 FEFFFFEB 		bl	CyU3PDebugPrint
+ 850 0a48 FEFFFFEB 		bl	SDR_ApplnInit
+ 851 0a4c 34409FE5 		ldr	r4, .L140+8
+ 852 0a50 0150A0E3 		mov	r5, #1
+ 853              	.L132:
+ 854 0a54 7D0EA0E3 		mov	r0, #2000
+ 855 0a58 FEFFFFEB 		bl	_tx_thread_sleep
+ 856 0a5c 003094E5 		ldr	r3, [r4]
+ 857 0a60 000053E3 		cmp	r3, #0
+ 858 0a64 FAFFFF0A 		beq	.L132
+ 859 0a68 043094E5 		ldr	r3, [r4, #4]
+ 860 0a6c 000053E3 		cmp	r3, #0
+ 861 0a70 F7FFFF1A 		bne	.L132
+ 862 0a74 045084E5 		str	r5, [r4, #4]
+ 863 0a78 FEFFFFEB 		bl	SDR_StartGpif
+ 864 0a7c F4FFFFEA 		b	.L132
+ 865              	.L141:
+ 866              		.align	2
+ 867              	.L140:
+ 868 0a80 9F030000 		.word	.LC20
+ 869 0a84 BE030000 		.word	.LC21
+ 870 0a88 00000000 		.word	.LANCHOR1
+ 872              		.align	2
+ 873              		.global	CyFxApplicationDefine
+ 875              	CyFxApplicationDefine:
+ 876              		@ args = 0, pretend = 0, frame = 0
+ 877              		@ frame_needed = 0, uses_anonymous_args = 0
+ 878 0a8c 04E02DE5 		str	lr, [sp, #-4]!
+ 879 0a90 010AA0E3 		mov	r0, #4096
+ 880 0a94 24D04DE2 		sub	sp, sp, #36
+ 881 0a98 FEFFFFEB 		bl	CyU3PMemAlloc
+ 882 0a9c 013AA0E3 		mov	r3, #4096
+ 883 0aa0 04308DE5 		str	r3, [sp, #4]
+ 884 0aa4 0120A0E3 		mov	r2, #1
+ 885 0aa8 0830A0E3 		mov	r3, #8
+ 886 0aac 08308DE5 		str	r3, [sp, #8]
+ 887 0ab0 0C308DE5 		str	r3, [sp, #12]
+ 888 0ab4 14208DE5 		str	r2, [sp, #20]
+ 889 0ab8 0030A0E3 		mov	r3, #0
+ 890 0abc A820A0E3 		mov	r2, #168
+ 891 0ac0 18208DE5 		str	r2, [sp, #24]
+ 892 0ac4 10308DE5 		str	r3, [sp, #16]
+ 893 0ac8 20109FE5 		ldr	r1, .L145
+ 894 0acc 20209FE5 		ldr	r2, .L145+4
+ 895 0ad0 00008DE5 		str	r0, [sp]
+ 896 0ad4 1C009FE5 		ldr	r0, .L145+8
+ 897 0ad8 FEFFFFEB 		bl	_txe_thread_create
+ 898 0adc 000050E3 		cmp	r0, #0
+ 899 0ae0 0000000A 		beq	.L142
+ 900              	.L144:
+ 901 0ae4 FEFFFFEA 		b	.L144
+ 902              	.L142:
+ 903 0ae8 24D08DE2 		add	sp, sp, #36
+ 904              		@ sp needed
+ 905 0aec 04F09DE4 		ldr	pc, [sp], #4
+ 906              	.L146:
+ 907              		.align	2
+ 908              	.L145:
+ 909 0af0 CA030000 		.word	.LC22
+ 910 0af4 00000000 		.word	SDR_AppThread_Entry
+ 911 0af8 00000000 		.word	SDR_AppThread
+ 913              		.section	.text.startup,"ax",%progbits
+ 914              		.align	2
+ 915              		.global	main
+ 917              	main:
+ 918              		@ args = 0, pretend = 0, frame = 40
+ 919              		@ frame_needed = 0, uses_anonymous_args = 0
+ 920 0000 10402DE9 		stmfd	sp!, {r4, lr}
+ 921 0004 0000A0E3 		mov	r0, #0
+ 922 0008 28D04DE2 		sub	sp, sp, #40
+ 923 000c FEFFFFEB 		bl	CyU3PDeviceInit
+ 924 0010 001050E2 		subs	r1, r0, #0
+ 925 0014 1400001A 		bne	.L148
+ 926 0018 0100A0E3 		mov	r0, #1
+ 927 001c 0120A0E1 		mov	r2, r1
+ 928 0020 FEFFFFEB 		bl	CyU3PDeviceCacheControl
+ 929 0024 000050E3 		cmp	r0, #0
+ 930 0028 0F00001A 		bne	.L148
+ 931 002c 0130A0E3 		mov	r3, #1
+ 932 0030 00308DE5 		str	r3, [sp]
+ 933 0034 04308DE5 		str	r3, [sp, #4]
+ 934 0038 08308DE5 		str	r3, [sp, #8]
+ 935 003c 0C008DE5 		str	r0, [sp, #12]
+ 936 0040 10008DE5 		str	r0, [sp, #16]
+ 937 0044 1600CDE5 		strb	r0, [sp, #22]
+ 938 0048 18008DE5 		str	r0, [sp, #24]
+ 939 004c 1C008DE5 		str	r0, [sp, #28]
+ 940 0050 0134A0E3 		mov	r3, #16777216
+ 941 0054 24008DE5 		str	r0, [sp, #36]
+ 942 0058 0D00A0E1 		mov	r0, sp
+ 943 005c 20308DE5 		str	r3, [sp, #32]
+ 944 0060 FEFFFFEB 		bl	CyU3PDeviceConfigureIOMatrix
+ 945 0064 004050E2 		subs	r4, r0, #0
+ 946 0068 0000000A 		beq	.L149
+ 947              	.L148:
+ 948              	.L150:
+ 949 006c FEFFFFEA 		b	.L150
+ 950              	.L149:
+ 951 0070 FEFFFFEB 		bl	_tx_initialize_kernel_enter
+ 952 0074 0400A0E1 		mov	r0, r4
+ 953 0078 28D08DE2 		add	sp, sp, #40
+ 954              		@ sp needed
+ 955 007c 1080BDE8 		ldmfd	sp!, {r4, pc}
+ 957              		.global	glFirmwareID
+ 958              		.global	glDMATxCount
+ 959              		.global	glDMARxCount
+ 960              		.global	glStartSDRGpif
+ 961              		.global	glIsApplnActive
+ 962              		.comm	glChHandleBulkSrc,232,4
+ 963              		.comm	SDR_AppThread,168,4
+ 964              		.comm	glRecvdLen,2,2
+ 965              		.comm	glEp0Buffer,32,1
+ 966              		.global	CyFxGpifConfig
+ 967              		.global	CyFxGpifRegValue
+ 968              		.global	CyFxGpifWavedataPosition
+ 969              		.global	CyFxGpifWavedata
+ 970              		.global	CyFxGpifTransition
+ 971              		.section	.rodata
+ 972              		.align	5
+ 973              		.set	.LANCHOR0,. + 0
+ 976              	glFirmwareID:
+ 977 0000 53       		.byte	83
+ 978 0001 44       		.byte	68
+ 979 0002 44       		.byte	68
+ 980 0003 43       		.byte	67
+ 981 0004 42       		.byte	66
+ 982 0005 30       		.byte	48
+ 983 0006 31       		.byte	49
+ 984 0007 00       		.byte	0
+ 985 0008 00000000 		.space	24
+ 985      00000000 
+ 985      00000000 
+ 985      00000000 
+ 985      00000000 
+ 988              	CyFxGpifConfig:
+ 989 0020 0900     		.short	9
+ 990 0022 0000     		.space	2
+ 991 0024 00000000 		.word	CyFxGpifWavedata
+ 992 0028 00000000 		.word	CyFxGpifWavedataPosition
+ 993 002c 0400     		.short	4
+ 994 002e 0000     		.space	2
+ 995 0030 00000000 		.word	CyFxGpifTransition
+ 996 0034 4C00     		.short	76
+ 997 0036 0000     		.space	2
+ 998 0038 00000000 		.word	CyFxGpifRegValue
+ 999 003c 00000000 		.section	.rodata.str1.1,"aMS",%progbits,1
+ 1000              	.LC0:
+ 1001 0000 0A0D2047 		.ascii	"\012\015 GPIF overflow INT received\012\000"
+ 1001      50494620 
+ 1001      6F766572 
+ 1001      666C6F77 
+ 1001      20494E54 
+ 1002              	.LC1:
+ 1003 001f 0A204359 		.ascii	"\012 CY_FX_RQT_GPIO_PWM failed, error code = %d\012"
+ 1003      5F46585F 
+ 1003      5251545F 
+ 1003      4750494F 
+ 1003      5F50574D 
+ 1004 004c 00       		.ascii	"\000"
+ 1005              	.LC2:
+ 1006 004d 0A0D4359 		.ascii	"\012\015CY_FX_RQT_I2C_WRITE failed, error code = 0x"
+ 1006      5F46585F 
+ 1006      5251545F 
+ 1006      4932435F 
+ 1006      57524954 
+ 1007 007a 25580A00 		.ascii	"%X\012\000"
+ 1008              	.LC3:
+ 1009 007e 0A0D4359 		.ascii	"\012\015CY_FX_RQT_I2C_READ failed, error code = 0x%"
+ 1009      5F46585F 
+ 1009      5251545F 
+ 1009      4932435F 
+ 1009      52454144 
+ 1010 00ab 580A00   		.ascii	"X\012\000"
+ 1011              	.LC4:
+ 1012 00ae 43795533 		.ascii	"CyU3PGpioInit failed, error code = %d\012\000"
+ 1012      50477069 
+ 1012      6F496E69 
+ 1012      74206661 
+ 1012      696C6564 
+ 1013              	.LC5:
+ 1014 00d5 4572726F 		.ascii	"Error! Invalid USB speed.\012\000"
+ 1014      72212049 
+ 1014      6E76616C 
+ 1014      69642055 
+ 1014      53422073 
+ 1015              	.LC6:
+ 1016 00f0 43795533 		.ascii	"CyU3PSetEpConfig failed, Error code = %d\012\000"
+ 1016      50536574 
+ 1016      4570436F 
+ 1016      6E666967 
+ 1016      20666169 
+ 1017              	.LC7:
+ 1018 011a 43795533 		.ascii	"CyU3PDmaChannelCreate failed, Error code = %d\012\000"
+ 1018      50446D61 
+ 1018      4368616E 
+ 1018      6E656C43 
+ 1018      72656174 
+ 1019              	.LC8:
+ 1020 0149 43795533 		.ascii	"CyU3PDmaChannelSetXfer failed, Error code = %d\012\000"
+ 1020      50446D61 
+ 1020      4368616E 
+ 1020      6E656C53 
+ 1020      65745866 
+ 1021              	.LC9:
+ 1022 0179 0A0D4379 		.ascii	"\012\015CyU3PGpifSMStart failed, Error Code = %d\012"
+ 1022      55335047 
+ 1022      70696653 
+ 1022      4D537461 
+ 1022      72742066 
+ 1023 01a4 00       		.ascii	"\000"
+ 1024              	.LC10:
+ 1025 01a5 502D706F 		.ascii	"P-port Initialization failed, Error Code = %d\012\000"
+ 1025      72742049 
+ 1025      6E697469 
+ 1025      616C697A 
+ 1025      6174696F 
+ 1026              	.LC11:
+ 1027 01d4 43795533 		.ascii	"CyU3PGpifLoad failed, Error Code = %d\012\000"
+ 1027      50477069 
+ 1027      664C6F61 
+ 1027      64206661 
+ 1027      696C6564 
+ 1028              	.LC12:
+ 1029 01fb 43795533 		.ascii	"CyU3PUsbStart failed to Start, Error code = %d\012\000"
+ 1029      50557362 
+ 1029      53746172 
+ 1029      74206661 
+ 1029      696C6564 
+ 1030              	.LC13:
+ 1031 022b 55534220 		.ascii	"USB set device descriptor failed, Error code = %d\012"
+ 1031      73657420 
+ 1031      64657669 
+ 1031      63652064 
+ 1031      65736372 
+ 1032 025d 00       		.ascii	"\000"
+ 1033              	.LC14:
+ 1034 025e 55534220 		.ascii	"USB set configuration descriptor failed, Error code"
+ 1034      73657420 
+ 1034      636F6E66 
+ 1034      69677572 
+ 1034      6174696F 
+ 1035 0291 203D2025 		.ascii	" = %d\012\000"
+ 1035      640A00
+ 1036              	.LC15:
+ 1037 0298 55534220 		.ascii	"USB set device qualifier descriptor failed, Error c"
+ 1037      73657420 
+ 1037      64657669 
+ 1037      63652071 
+ 1037      75616C69 
+ 1038 02cb 6F646520 		.ascii	"ode = %d\012\000"
+ 1038      3D202564 
+ 1038      0A00
+ 1039              	.LC16:
+ 1040 02d5 55534220 		.ascii	"USB Set Other Speed Descriptor failed, Error Code ="
+ 1040      53657420 
+ 1040      4F746865 
+ 1040      72205370 
+ 1040      65656420 
+ 1041 0308 2025640A 		.ascii	" %d\012\000"
+ 1041      00
+ 1042              	.LC17:
+ 1043 030d 55534220 		.ascii	"USB Set Configuration Descriptor failed, Error Code"
+ 1043      53657420 
+ 1043      436F6E66 
+ 1043      69677572 
+ 1043      6174696F 
+ 1044 0340 203D2025 		.ascii	" = %d\012\000"
+ 1044      640A00
+ 1045              	.LC18:
+ 1046 0347 55534220 		.ascii	"USB set string descriptor failed, Error code = %d\012"
+ 1046      73657420 
+ 1046      73747269 
+ 1046      6E672064 
+ 1046      65736372 
+ 1047 0379 00       		.ascii	"\000"
+ 1048              	.LC19:
+ 1049 037a 55534220 		.ascii	"USB Connect failed, Error code = %d\012\000"
+ 1049      436F6E6E 
+ 1049      65637420 
+ 1049      6661696C 
+ 1049      65642C20 
+ 1050              	.LC20:
+ 1051 039f 0A0D2045 		.ascii	"\012\015 Error CyFxI2cInit() = 0x%X\012\000"
+ 1051      72726F72 
+ 1051      20437946 
+ 1051      78493263 
+ 1051      496E6974 
+ 1052              	.LC21:
+ 1053 03be 0A0D2049 		.ascii	"\012\015 Init IOs\000"
+ 1053      6E697420 
+ 1053      494F7300 
+ 1054              	.LC22:
+ 1055 03ca 32313A42 		.ascii	"21:Bulk_src_sink\000"
+ 1055      756C6B5F 
+ 1055      7372635F 
+ 1055      73696E6B 
+ 1055      00
+ 1056              		.data
+ 1057              		.align	2
+ 1060              	CyFxGpifRegValue:
+ 1061 0000 00830080 		.word	-2147450112
+ 1062 0004 67000000 		.word	103
+ 1063 0008 00000000 		.word	0
+ 1064 000c 46000000 		.word	70
+ 1065 0010 00000000 		.word	0
+ 1066 0014 00000000 		.word	0
+ 1067 0018 02000000 		.word	2
+ 1068 001c 82000000 		.word	130
+ 1069 0020 82070000 		.word	1922
+ 1070 0024 00000000 		.word	0
+ 1071 0028 FFFF0000 		.word	65535
+ 1072 002c 00000000 		.word	0
+ 1073 0030 00000000 		.word	0
+ 1074 0034 00000000 		.word	0
+ 1075 0038 00000000 		.word	0
+ 1076 003c 00000000 		.word	0
+ 1077 0040 00000000 		.word	0
+ 1078 0044 00000000 		.word	0
+ 1079 0048 00000000 		.word	0
+ 1080 004c 00000000 		.word	0
+ 1081 0050 00000000 		.word	0
+ 1082 0054 00000000 		.word	0
+ 1083 0058 00000000 		.word	0
+ 1084 005c 00000000 		.word	0
+ 1085 0060 00000000 		.word	0
+ 1086 0064 00000000 		.word	0
+ 1087 0068 00000000 		.word	0
+ 1088 006c 00000000 		.word	0
+ 1089 0070 00000000 		.word	0
+ 1090 0074 06000000 		.word	6
+ 1091 0078 00000000 		.word	0
+ 1092 007c FFFF0000 		.word	65535
+ 1093 0080 0A010000 		.word	266
+ 1094 0084 00000000 		.word	0
+ 1095 0088 FFFF0000 		.word	65535
+ 1096 008c 00000000 		.word	0
+ 1097 0090 FFFF0000 		.word	65535
+ 1098 0094 09010000 		.word	265
+ 1099 0098 00000000 		.word	0
+ 1100 009c FE0F0000 		.word	4094
+ 1101 00a0 00000000 		.word	0
+ 1102 00a4 00000000 		.word	0
+ 1103 00a8 00000000 		.word	0
+ 1104 00ac 00000000 		.word	0
+ 1105 00b0 00000000 		.word	0
+ 1106 00b4 00000000 		.word	0
+ 1107 00b8 00000000 		.word	0
+ 1108 00bc 00000000 		.word	0
+ 1109 00c0 00000000 		.word	0
+ 1110 00c4 00000000 		.word	0
+ 1111 00c8 00000000 		.word	0
+ 1112 00cc 00000000 		.word	0
+ 1113 00d0 00000000 		.word	0
+ 1114 00d4 00000000 		.word	0
+ 1115 00d8 00000000 		.word	0
+ 1116 00dc 00000000 		.word	0
+ 1117 00e0 00000000 		.word	0
+ 1118 00e4 00000000 		.word	0
+ 1119 00e8 00000000 		.word	0
+ 1120 00ec 00000000 		.word	0
+ 1121 00f0 00000000 		.word	0
+ 1122 00f4 00000000 		.word	0
+ 1123 00f8 00000000 		.word	0
+ 1124 00fc 00040180 		.word	-2147417088
+ 1125 0100 01040180 		.word	-2147417087
+ 1126 0104 02040180 		.word	-2147417086
+ 1127 0108 03040180 		.word	-2147417085
+ 1128 010c 00000000 		.word	0
+ 1129 0110 00000000 		.word	0
+ 1130 0114 00000000 		.word	0
+ 1131 0118 00000400 		.word	262144
+ 1132 011c 00000000 		.word	0
+ 1133 0120 00000000 		.word	0
+ 1134 0124 00000000 		.word	0
+ 1135 0128 00000000 		.word	0
+ 1136 012c C1FFFFFF 		.word	-63
+ 1139              	CyFxGpifWavedataPosition:
+ 1140 0130 00       		.byte	0
+ 1141 0131 01       		.byte	1
+ 1142 0132 02       		.byte	2
+ 1143 0133 03       		.byte	3
+ 1144 0134 04       		.byte	4
+ 1145 0135 00       		.byte	0
+ 1146 0136 05       		.byte	5
+ 1147 0137 02       		.byte	2
+ 1148 0138 00       		.byte	0
+ 1149 0139 000000   		.space	3
+ 1152              	CyFxGpifWavedata:
+ 1153 013c 019A731E 		.word	510892545
+ 1154 0140 04010020 		.word	536871172
+ 1155 0144 80000080 		.word	-2147483520
+ 1156 0148 00000000 		.word	0
+ 1157 014c 00000000 		.word	0
+ 1158 0150 00000000 		.word	0
+ 1159 0154 0294731E 		.word	510891010
+ 1160 0158 00010020 		.word	536871168
+ 1161 015c 40000080 		.word	-2147483584
+ 1162 0160 049C733E 		.word	1047763972
+ 1163 0164 00000000 		.word	0
+ 1164 0168 00010080 		.word	-2147483392
+ 1165 016c 039A731E 		.word	510892547
+ 1166 0170 04010024 		.word	603980036
+ 1167 0174 80000080 		.word	-2147483520
+ 1168 0178 00000000 		.word	0
+ 1169 017c 00000000 		.word	0
+ 1170 0180 00000000 		.word	0
+ 1171 0184 0594731E 		.word	510891013
+ 1172 0188 00010024 		.word	603980032
+ 1173 018c 40000080 		.word	-2147483584
+ 1174 0190 069C733E 		.word	1047763974
+ 1175 0194 00000000 		.word	0
+ 1176 0198 00010080 		.word	-2147483392
+ 1177 019c 089A731E 		.word	510892552
+ 1178 01a0 00010000 		.word	256
+ 1179 01a4 00000080 		.word	-2147483648
+ 1180 01a8 00000000 		.word	0
+ 1181 01ac 00000000 		.word	0
+ 1182 01b0 00000000 		.word	0
+ 1183 01b4 079A731E 		.word	510892551
+ 1184 01b8 00010004 		.word	67109120
+ 1185 01bc 00000080 		.word	-2147483648
+ 1186 01c0 00000000 		.word	0
+ 1187 01c4 00000000 		.word	0
+ 1188 01c8 00000000 		.word	0
+ 1191              	CyFxGpifTransition:
+ 1192 01cc 0000     		.short	0
+ 1193 01ce AAAA     		.short	-21846
+ 1194 01d0 5555     		.short	21845
+ 1195 01d2 FFFF     		.short	-1
+ 1196              		.bss
+ 1197              		.align	2
+ 1198              		.set	.LANCHOR1,. + 0
+ 1201              	glIsApplnActive:
+ 1202 0000 00000000 		.space	4
+ 1205              	glStartSDRGpif:
+ 1206 0004 00000000 		.space	4
+ 1209              	glDMATxCount:
+ 1210 0008 00000000 		.space	4
+ 1213              	glDMARxCount:
+ 1214 000c 00000000 		.space	4
+ 1215              		.ident	"GCC: (Sourcery CodeBench Lite 2013.11-24) 4.8.1"
+DEFINED SYMBOLS
+                            *ABS*:00000000 sdrx3.c
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:14     .text:00000000 $a
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:17     .text:00000000 SDR_GpioIntrCb
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:32     .text:0000001c SDR_ApplnGPIFEventCB
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:44     .text:00000030 $d
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:46     .text:00000034 $a
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:49     .text:00000034 SDR_ErrorHandler
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:103    .text:000000e0 ConfGPIOsimpleout
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:134    .text:00000134 ConfGPIOPWM
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:169    .text:000001a0 $d
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:171    .text:000001a4 $a
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:174    .text:000001a4 SDR_ApplnUSBSetupCB
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:192    .text:000001dc $d
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:207    .text:00000214 $a
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:337    .text:000003e8 $d
+                            *COM*:00000020 glEp0Buffer
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:344    .text:00000400 $a
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:347    .text:00000400 SDR_GpioInit
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:403    .text:000004c0 $d
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:407    .text:000004cc $a
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:410    .text:000004cc SDR_ApplnDebugInit
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:454    .text:00000558 $d
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:456    .text:0000055c $a
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:459    .text:0000055c SDR_ApplnStart
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:563    .text:000006c4 $d
+                            *COM*:000000e8 glChHandleBulkSrc
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:570    .text:000006dc $a
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:573    .text:000006dc SDR_ApplnStop
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:607    .text:00000744 $d
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:611    .text:00000750 $a
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:614    .text:00000750 SDR_ApplnUSBEventCB
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:644    .text:000007a4 $d
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:646    .text:000007a8 $a
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:649    .text:000007a8 SDR_StartGpif
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:665    .text:000007d0 $d
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:667    .text:000007d4 $a
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:670    .text:000007d4 SDR_ApplnInit
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:806    .text:000009b8 $d
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:831    .text:00000a18 $a
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:834    .text:00000a18 SDR_AppThread_Entry
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:868    .text:00000a80 $d
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:872    .text:00000a8c $a
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:875    .text:00000a8c CyFxApplicationDefine
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:909    .text:00000af0 $d
+                            *COM*:000000a8 SDR_AppThread
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:914    .text.startup:00000000 $a
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:917    .text.startup:00000000 main
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:976    .rodata:00000000 glFirmwareID
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:1209   .bss:00000008 glDMATxCount
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:1213   .bss:0000000c glDMARxCount
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:1205   .bss:00000004 glStartSDRGpif
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:1201   .bss:00000000 glIsApplnActive
+                            *COM*:00000002 glRecvdLen
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:988    .rodata:00000020 CyFxGpifConfig
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:1060   .data:00000000 CyFxGpifRegValue
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:1139   .data:00000130 CyFxGpifWavedataPosition
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:1152   .data:0000013c CyFxGpifWavedata
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:1191   .data:000001cc CyFxGpifTransition
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:972    .rodata:00000000 $d
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:1057   .data:00000000 $d
+C:\Users\jason\AppData\Local\Temp\ccOrzKYH.s:1197   .bss:00000000 $d
+
+UNDEFINED SYMBOLS
+CyU3PGpioGetValue
+CyU3PDebugPrint
+CyU3PGpioSetValue
+_tx_thread_sleep
+CyU3PDeviceGpioOverride
+CyU3PGpioSetSimpleConfig
+CyU3PGpioSetComplexConfig
+CyU3PUsbSendEP0Data
+CyU3PUsbGetEP0Data
+CyFxUsbI2cTransfer
+CyU3PMemSet
+CyU3PGpioInit
+CyU3PUartInit
+CyU3PUartSetConfig
+CyU3PUartTxSetBlockXfer
+CyU3PDebugInit
+CyU3PDebugPreamble
+CyU3PUsbGetSpeed
+CyU3PSetEpConfig
+CyU3PDmaMultiChannelCreate
+CyU3PDmaMultiChannelSetXfer
+CyU3PUsbFlushEp
+CyU3PDmaMultiChannelDestroy
+CyU3PGpifSMStart
+CyU3PPibInit
+CyU3PGpifLoad
+CyU3PGpifRegisterCallback
+CyU3PUsbStart
+CyU3PUsbRegisterSetupCallback
+CyU3PUsbRegisterEventCallback
+CyU3PUsbSetDesc
+CyU3PConnectState
+CyFxUSB30DeviceDscr
+CyFxUSB20DeviceDscr
+CyFxUSBBOSDscr
+CyFxUSBDeviceQualDscr
+CyFxUSBSSConfigDscr
+CyFxUSBHSConfigDscr
+CyFxUSBFSConfigDscr
+CyFxUSBStringLangIDDscr
+CyFxUSBManufactureDscr
+CyFxUSBProductDscr
+CyFxI2cInit
+CyU3PMemAlloc
+_txe_thread_create
+CyU3PDeviceInit
+CyU3PDeviceCacheControl
+CyU3PDeviceConfigureIOMatrix
+_tx_initialize_kernel_enter

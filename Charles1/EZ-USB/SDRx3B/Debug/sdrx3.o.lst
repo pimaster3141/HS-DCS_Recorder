@@ -1,0 +1,3318 @@
+   1              		.cpu arm926ej-s
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.file	"sdrx3.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.global	CyFxGpifTransition
+  17              		.data
+  18              		.align	2
+  21              	CyFxGpifTransition:
+  22 0000 0000     		.short	0
+  23 0002 5555     		.short	21845
+  24 0004 AAAA     		.short	-21846
+  25              		.global	CyFxGpifWavedata
+  26 0006 0000     		.align	2
+  29              	CyFxGpifWavedata:
+  30 0008 019A731E 		.word	510892545
+  31 000c 04000120 		.word	536936452
+  32 0010 80000080 		.word	-2147483520
+  33 0014 00000000 		.word	0
+  34 0018 00000000 		.word	0
+  35 001c 00000000 		.word	0
+  36 0020 049A732E 		.word	779328004
+  37 0024 00010000 		.word	256
+  38 0028 00000080 		.word	-2147483648
+  39 002c 0294732E 		.word	779326466
+  40 0030 00010020 		.word	536871168
+  41 0034 40000080 		.word	-2147483584
+  42 0038 039A731E 		.word	510892547
+  43 003c 04000124 		.word	604045316
+  44 0040 80000080 		.word	-2147483520
+  45 0044 00000000 		.word	0
+  46 0048 00000000 		.word	0
+  47 004c 00000000 		.word	0
+  48 0050 059A732E 		.word	779328005
+  49 0054 00010004 		.word	67109120
+  50 0058 00000080 		.word	-2147483648
+  51 005c 0694732E 		.word	779326470
+  52 0060 00010024 		.word	603980032
+  53 0064 40000080 		.word	-2147483584
+  54              		.global	CyFxGpifWavedataPosition
+  55              		.align	2
+  58              	CyFxGpifWavedataPosition:
+  59 0068 00       		.byte	0
+  60 0069 01       		.byte	1
+  61 006a 02       		.byte	2
+  62 006b 03       		.byte	3
+  63 006c 00       		.byte	0
+  64 006d 02       		.byte	2
+  65 006e 00       		.byte	0
+  66              		.global	CyFxGpifRegValue
+  67 006f 00       		.align	2
+  70              	CyFxGpifRegValue:
+  71 0070 00830080 		.word	-2147450112
+  72 0074 03000000 		.word	3
+  73 0078 00000000 		.word	0
+  74 007c 46000000 		.word	70
+  75 0080 00000000 		.word	0
+  76 0084 00000000 		.word	0
+  77 0088 00000000 		.word	0
+  78 008c 82000000 		.word	130
+  79 0090 82070000 		.word	1922
+  80 0094 00000000 		.word	0
+  81 0098 FFFF0000 		.word	65535
+  82 009c 00000000 		.word	0
+  83 00a0 00000000 		.word	0
+  84 00a4 00000000 		.word	0
+  85 00a8 00000000 		.word	0
+  86 00ac 00000000 		.word	0
+  87 00b0 00000000 		.word	0
+  88 00b4 00000000 		.word	0
+  89 00b8 00000000 		.word	0
+  90 00bc 00000000 		.word	0
+  91 00c0 00000000 		.word	0
+  92 00c4 00000000 		.word	0
+  93 00c8 00000000 		.word	0
+  94 00cc 00000000 		.word	0
+  95 00d0 00000000 		.word	0
+  96 00d4 00000000 		.word	0
+  97 00d8 00000000 		.word	0
+  98 00dc 00000000 		.word	0
+  99 00e0 00000000 		.word	0
+ 100 00e4 06000000 		.word	6
+ 101 00e8 00000000 		.word	0
+ 102 00ec FFFF0000 		.word	65535
+ 103 00f0 0A010000 		.word	266
+ 104 00f4 00000000 		.word	0
+ 105 00f8 FFFF0000 		.word	65535
+ 106 00fc 00000000 		.word	0
+ 107 0100 FFFF0000 		.word	65535
+ 108 0104 09010000 		.word	265
+ 109 0108 00000000 		.word	0
+ 110 010c FE0F0000 		.word	4094
+ 111 0110 00000000 		.word	0
+ 112 0114 00000000 		.word	0
+ 113 0118 00000000 		.word	0
+ 114 011c 00000000 		.word	0
+ 115 0120 00000000 		.word	0
+ 116 0124 00000000 		.word	0
+ 117 0128 00000000 		.word	0
+ 118 012c 00000000 		.word	0
+ 119 0130 00000000 		.word	0
+ 120 0134 00000000 		.word	0
+ 121 0138 00000000 		.word	0
+ 122 013c 00000000 		.word	0
+ 123 0140 00000000 		.word	0
+ 124 0144 00000000 		.word	0
+ 125 0148 00000000 		.word	0
+ 126 014c 00000000 		.word	0
+ 127 0150 00000000 		.word	0
+ 128 0154 00000000 		.word	0
+ 129 0158 00000000 		.word	0
+ 130 015c 00000000 		.word	0
+ 131 0160 00000000 		.word	0
+ 132 0164 00000000 		.word	0
+ 133 0168 00000000 		.word	0
+ 134 016c 00040180 		.word	-2147417088
+ 135 0170 01040180 		.word	-2147417087
+ 136 0174 02040180 		.word	-2147417086
+ 137 0178 03040180 		.word	-2147417085
+ 138 017c 00000000 		.word	0
+ 139 0180 00000000 		.word	0
+ 140 0184 00000000 		.word	0
+ 141 0188 00000400 		.word	262144
+ 142 018c 00000000 		.word	0
+ 143 0190 00000000 		.word	0
+ 144 0194 00000000 		.word	0
+ 145 0198 00000000 		.word	0
+ 146 019c C1FFFFFF 		.word	-63
+ 147              		.global	CyFxGpifConfig
+ 148              		.section	.rodata
+ 149              		.align	2
+ 152              	CyFxGpifConfig:
+ 153 0000 0700     		.short	7
+ 154 0002 0000     		.space	2
+ 155 0004 00000000 		.word	CyFxGpifWavedata
+ 156 0008 00000000 		.word	CyFxGpifWavedataPosition
+ 157 000c 0300     		.short	3
+ 158 000e 0000     		.space	2
+ 159 0010 00000000 		.word	CyFxGpifTransition
+ 160 0014 4C00     		.short	76
+ 161 0016 0000     		.space	2
+ 162 0018 00000000 		.word	CyFxGpifRegValue
+ 163              		.comm	glEp0Buffer,32,4
+ 164              		.comm	glRecvdLen,2,2
+ 165              		.comm	SDR_AppThread,168,4
+ 166              		.comm	glChHandleBulkSrc,232,4
+ 167              		.global	glIsApplnActive
+ 168              		.bss
+ 169              		.align	2
+ 172              	glIsApplnActive:
+ 173 0000 00000000 		.space	4
+ 174              		.global	glStartSDRGpif
+ 175              		.align	2
+ 178              	glStartSDRGpif:
+ 179 0004 00000000 		.space	4
+ 180              		.global	glDMARxCount
+ 181              		.align	2
+ 184              	glDMARxCount:
+ 185 0008 00000000 		.space	4
+ 186              		.global	glDMATxCount
+ 187              		.align	2
+ 190              	glDMATxCount:
+ 191 000c 00000000 		.space	4
+ 192              		.global	glFirmwareID
+ 193              		.section	.rodata
+ 194 001c 00000000 		.align	5
+ 197              	glFirmwareID:
+ 198 0020 53       		.byte	83
+ 199 0021 44       		.byte	68
+ 200 0022 44       		.byte	68
+ 201 0023 43       		.byte	67
+ 202 0024 42       		.byte	66
+ 203 0025 30       		.byte	48
+ 204 0026 31       		.byte	49
+ 205 0027 00       		.byte	0
+ 206 0028 00000000 		.space	24
+ 206      00000000 
+ 206      00000000 
+ 206      00000000 
+ 206      00000000 
+ 207              		.text
+ 208              		.align	2
+ 209              		.global	SDR_ErrorHandler
+ 211              	SDR_ErrorHandler:
+ 212              	.LFB0:
+ 213              		.file 1 "../sdrx3.c"
+   1:../sdrx3.c    **** /*
+   2:../sdrx3.c    ****  ## Cypress USB 3.0 Platform source file (SDRx3.c)
+   3:../sdrx3.c    ****  ## ===========================
+   4:../sdrx3.c    ****  ##
+   5:../sdrx3.c    ****  ##  Copyright Cypress Semiconductor Corporation, 2010-2011,
+   6:../sdrx3.c    ****  ##  All Rights Reserved
+   7:../sdrx3.c    ****  ##  UNPUBLISHED, LICENSED SOFTWARE.
+   8:../sdrx3.c    ****  ##
+   9:../sdrx3.c    ****  ##  CONFIDENTIAL AND PROPRIETARY INFORMATION
+  10:../sdrx3.c    ****  ##  WHICH IS THE PROPERTY OF CYPRESS.
+  11:../sdrx3.c    ****  ##
+  12:../sdrx3.c    ****  ##  Use of this file is governed
+  13:../sdrx3.c    ****  ##  by the license agreement included in the file
+  14:../sdrx3.c    ****  ##
+  15:../sdrx3.c    ****  ##     <install>/license/license.txt
+  16:../sdrx3.c    ****  ##
+  17:../sdrx3.c    ****  ##  where <install> is the Cypress software
+  18:../sdrx3.c    ****  ##  installation root directory path.
+  19:../sdrx3.c    ****  ##
+  20:../sdrx3.c    ****  ## ===========================
+  21:../sdrx3.c    ****  */
+  22:../sdrx3.c    **** 
+  23:../sdrx3.c    **** /* This file illustrates the bulk source sink application example using the DMA MANUAL_IN
+  24:../sdrx3.c    ****  * and DMA MANUAL_OUT mode */
+  25:../sdrx3.c    **** 
+  26:../sdrx3.c    **** /*
+  27:../sdrx3.c    ****    This example illustrates USB endpoint data source and data sink mechanism. The example
+  28:../sdrx3.c    ****    comprises of vendor class USB enumeration descriptors with 2 bulk endpoints. A bulk OUT
+  29:../sdrx3.c    ****    endpoint acts as the producer of data and acts as the sink to the host. A bulk IN endpoint
+  30:../sdrx3.c    ****    acts as the consumer of data and acts as the source to the host.
+  31:../sdrx3.c    **** 
+  32:../sdrx3.c    ****    The data source and sink is achieved with the help of a DMA MANUAL IN channel and a DMA
+  33:../sdrx3.c    ****    MANUAL OUT channel. A DMA MANUAL IN channel is created between the producer USB bulk
+  34:../sdrx3.c    ****    endpoint and the CPU. A DMA MANUAL OUT channel is created between the CPU and the consumer
+  35:../sdrx3.c    ****    USB bulk endpoint. Data is received in the IN channel DMA buffer from the host through the
+  36:../sdrx3.c    ****    producer endpoint. CPU is signalled of the data reception using DMA callbacks. The CPU
+  37:../sdrx3.c    ****    discards this buffer. This leads to the sink mechanism. A constant patern data is loaded
+  38:../sdrx3.c    ****    onto the OUT Channel DMA buffer whenever the buffer is available. CPU issues commit of
+  39:../sdrx3.c    ****    the DMA data transfer to the consumer endpoint which then gets transferred to the host.
+  40:../sdrx3.c    ****    This leads to a constant source mechanism.
+  41:../sdrx3.c    **** 
+  42:../sdrx3.c    ****    The DMA buffer size is defined based on the USB speed. 64 for full speed, 512 for high speed
+  43:../sdrx3.c    ****    and 1024 for super speed. CY_FX_BULKSRCSINK_DMA_BUF_COUNT in the header file defines the
+  44:../sdrx3.c    ****    number of DMA buffers.
+  45:../sdrx3.c    **** 
+  46:../sdrx3.c    ****    For performance optimizations refer the readme.txt
+  47:../sdrx3.c    ****  */
+  48:../sdrx3.c    **** 
+  49:../sdrx3.c    **** #include "cyu3system.h"
+  50:../sdrx3.c    **** #include "cyu3os.h"
+  51:../sdrx3.c    **** #include "cyu3dma.h"
+  52:../sdrx3.c    **** #include "cyu3error.h"
+  53:../sdrx3.c    **** #include "cyu3usb.h"
+  54:../sdrx3.c    **** #include "cyu3uart.h"
+  55:../sdrx3.c    **** #include "cyu3gpif.h"
+  56:../sdrx3.c    **** #include "cyu3gpio.h"
+  57:../sdrx3.c    **** #include "cyu3pib.h"
+  58:../sdrx3.c    **** #include "pib_regs.h"
+  59:../sdrx3.c    **** #include "i2cmodule.h"
+  60:../sdrx3.c    **** #include "cyfxgpif2config.h"
+  61:../sdrx3.c    **** #include "sdrx3.h"
+  62:../sdrx3.c    **** 
+  63:../sdrx3.c    **** uint8_t  glEp0Buffer[32];
+  64:../sdrx3.c    **** uint16_t glRecvdLen;
+  65:../sdrx3.c    **** CyU3PThread     SDR_AppThread;	 /* Application thread structure */
+  66:../sdrx3.c    **** // CyU3PDmaChannel glChHandleBulkSink;      /* DMA MANUAL_IN channel handle.          */
+  67:../sdrx3.c    **** CyU3PDmaMultiChannel glChHandleBulkSrc;       /* DMA MANUAL_OUT channel handle.         */
+  68:../sdrx3.c    **** 
+  69:../sdrx3.c    **** CyBool_t glIsApplnActive = CyFalse;      /* Whether the source sink application is active or not. *
+  70:../sdrx3.c    **** CyBool_t glStartSDRGpif = CyFalse;
+  71:../sdrx3.c    **** uint32_t glDMARxCount = 0;               /* Counter to track the number of buffers received. */
+  72:../sdrx3.c    **** uint32_t glDMATxCount = 0;               /* Counter to track the number of buffers transmitted. */
+  73:../sdrx3.c    **** 
+  74:../sdrx3.c    **** /* Firmware ID variable that may be used to verify I2C firmware. */
+  75:../sdrx3.c    **** const uint8_t glFirmwareID[32] __attribute__ ((aligned (32))) = { 'S', 'D', 'D', 'C', 'B', '0', '1'
+  76:../sdrx3.c    **** 
+  77:../sdrx3.c    **** 
+  78:../sdrx3.c    **** /* Application Error Handler */
+  79:../sdrx3.c    **** void
+  80:../sdrx3.c    **** SDR_ErrorHandler (
+  81:../sdrx3.c    ****         CyU3PReturnStatus_t apiRetStatus    /* API return status */
+  82:../sdrx3.c    ****         )
+  83:../sdrx3.c    **** {
+ 214              		.loc 1 83 0
+ 215              		.cfi_startproc
+ 216              		@ args = 0, pretend = 0, frame = 16
+ 217              		@ frame_needed = 1, uses_anonymous_args = 0
+ 218 0000 00482DE9 		stmfd	sp!, {fp, lr}
+ 219              	.LCFI0:
+ 220              		.cfi_def_cfa_offset 8
+ 221              		.cfi_offset 11, -8
+ 222              		.cfi_offset 14, -4
+ 223 0004 04B08DE2 		add	fp, sp, #4
+ 224              	.LCFI1:
+ 225              		.cfi_def_cfa 11, 4
+ 226 0008 10D04DE2 		sub	sp, sp, #16
+ 227 000c 10000BE5 		str	r0, [fp, #-16]
+  84:../sdrx3.c    ****     /* Application failed with the error code apiRetStatus */
+  85:../sdrx3.c    **** // LED_OVERLOAD GPIO21 start
+  86:../sdrx3.c    **** // LED_MODEA 	GPIO22 ==> 0
+  87:../sdrx3.c    **** // LED_MODEB 	GPIO23 ==> 1
+  88:../sdrx3.c    **** 	uint8_t i,x,y;
+  89:../sdrx3.c    **** 
+  90:../sdrx3.c    ****     /* Loop Indefinitely */
+  91:../sdrx3.c    **** 	x = (uint8_t) apiRetStatus;
+ 228              		.loc 1 91 0
+ 229 0010 10301BE5 		ldr	r3, [fp, #-16]
+ 230 0014 07304BE5 		strb	r3, [fp, #-7]
+ 231              	.L6:
+  92:../sdrx3.c    ****     for (;;)
+  93:../sdrx3.c    ****     {
+  94:../sdrx3.c    ****     	y = x;
+ 232              		.loc 1 94 0
+ 233 0018 07305BE5 		ldrb	r3, [fp, #-7]
+ 234 001c 06304BE5 		strb	r3, [fp, #-6]
+  95:../sdrx3.c    ****     	CyU3PGpioSetValue (LED_OVERLOAD, 1);
+ 235              		.loc 1 95 0
+ 236 0020 1500A0E3 		mov	r0, #21
+ 237 0024 0110A0E3 		mov	r1, #1
+ 238 0028 FEFFFFEB 		bl	CyU3PGpioSetValue
+  96:../sdrx3.c    ****         CyU3PThreadSleep (300);   /* Thread sleep : 200 ms */
+ 239              		.loc 1 96 0
+ 240 002c 4B0FA0E3 		mov	r0, #300
+ 241 0030 FEFFFFEB 		bl	_tx_thread_sleep
+  97:../sdrx3.c    ****     	CyU3PGpioSetValue (LED_OVERLOAD, 0);
+ 242              		.loc 1 97 0
+ 243 0034 1500A0E3 		mov	r0, #21
+ 244 0038 0010A0E3 		mov	r1, #0
+ 245 003c FEFFFFEB 		bl	CyU3PGpioSetValue
+  98:../sdrx3.c    ****     	CyU3PThreadSleep (200);   /* Thread sleep : 100 ms */
+ 246              		.loc 1 98 0
+ 247 0040 C800A0E3 		mov	r0, #200
+ 248 0044 FEFFFFEB 		bl	_tx_thread_sleep
+  99:../sdrx3.c    ****         for (i =0; i < 8 ;i++)
+ 249              		.loc 1 99 0
+ 250 0048 0030A0E3 		mov	r3, #0
+ 251 004c 05304BE5 		strb	r3, [fp, #-5]
+ 252 0050 210000EA 		b	.L2
+ 253              	.L5:
+ 100:../sdrx3.c    ****         {
+ 101:../sdrx3.c    ****         	if ((y & 0x80) == 0)
+ 254              		.loc 1 101 0
+ 255 0054 06305BE5 		ldrb	r3, [fp, #-6]	@ zero_extendqisi2
+ 256 0058 033CA0E1 		mov	r3, r3, asl #24
+ 257 005c 433CA0E1 		mov	r3, r3, asr #24
+ 258 0060 000053E3 		cmp	r3, #0
+ 259 0064 060000BA 		blt	.L3
+ 102:../sdrx3.c    ****         	{
+ 103:../sdrx3.c    ****         		CyU3PGpioSetValue (LED_MODEA, 1);
+ 260              		.loc 1 103 0
+ 261 0068 1600A0E3 		mov	r0, #22
+ 262 006c 0110A0E3 		mov	r1, #1
+ 263 0070 FEFFFFEB 		bl	CyU3PGpioSetValue
+ 104:../sdrx3.c    ****         		CyU3PGpioSetValue (LED_MODEB, 0);
+ 264              		.loc 1 104 0
+ 265 0074 1700A0E3 		mov	r0, #23
+ 266 0078 0010A0E3 		mov	r1, #0
+ 267 007c FEFFFFEB 		bl	CyU3PGpioSetValue
+ 268 0080 050000EA 		b	.L4
+ 269              	.L3:
+ 105:../sdrx3.c    ****         	}
+ 106:../sdrx3.c    ****         	else
+ 107:../sdrx3.c    ****         	{
+ 108:../sdrx3.c    ****         		CyU3PGpioSetValue (LED_MODEA, 0);
+ 270              		.loc 1 108 0
+ 271 0084 1600A0E3 		mov	r0, #22
+ 272 0088 0010A0E3 		mov	r1, #0
+ 273 008c FEFFFFEB 		bl	CyU3PGpioSetValue
+ 109:../sdrx3.c    ****         		CyU3PGpioSetValue (LED_MODEB, 1);
+ 274              		.loc 1 109 0
+ 275 0090 1700A0E3 		mov	r0, #23
+ 276 0094 0110A0E3 		mov	r1, #1
+ 277 0098 FEFFFFEB 		bl	CyU3PGpioSetValue
+ 278              	.L4:
+ 110:../sdrx3.c    ****         	}
+ 111:../sdrx3.c    ****         	CyU3PThreadSleep (500);   /* Thread sleep : 200 ms */
+ 279              		.loc 1 111 0
+ 280 009c 7D0FA0E3 		mov	r0, #500
+ 281 00a0 FEFFFFEB 		bl	_tx_thread_sleep
+ 112:../sdrx3.c    ****     		CyU3PGpioSetValue (LED_MODEA, 0);
+ 282              		.loc 1 112 0
+ 283 00a4 1600A0E3 		mov	r0, #22
+ 284 00a8 0010A0E3 		mov	r1, #0
+ 285 00ac FEFFFFEB 		bl	CyU3PGpioSetValue
+ 113:../sdrx3.c    ****     		CyU3PGpioSetValue (LED_MODEB, 0);
+ 286              		.loc 1 113 0
+ 287 00b0 1700A0E3 		mov	r0, #23
+ 288 00b4 0010A0E3 		mov	r1, #0
+ 289 00b8 FEFFFFEB 		bl	CyU3PGpioSetValue
+ 114:../sdrx3.c    ****         	CyU3PThreadSleep (200);   /* Thread sleep : 100 ms */
+ 290              		.loc 1 114 0
+ 291 00bc C800A0E3 		mov	r0, #200
+ 292 00c0 FEFFFFEB 		bl	_tx_thread_sleep
+ 115:../sdrx3.c    ****         	y = y << 1 ;
+ 293              		.loc 1 115 0
+ 294 00c4 06305BE5 		ldrb	r3, [fp, #-6]
+ 295 00c8 8330A0E1 		mov	r3, r3, asl #1
+ 296 00cc 06304BE5 		strb	r3, [fp, #-6]
+  99:../sdrx3.c    ****         {
+ 297              		.loc 1 99 0
+ 298 00d0 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+ 299 00d4 013083E2 		add	r3, r3, #1
+ 300 00d8 05304BE5 		strb	r3, [fp, #-5]
+ 301              	.L2:
+  99:../sdrx3.c    ****         {
+ 302              		.loc 1 99 0 is_stmt 0 discriminator 1
+ 303 00dc 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+ 304 00e0 070053E3 		cmp	r3, #7
+ 305 00e4 DAFFFF9A 		bls	.L5
+ 116:../sdrx3.c    ****         }
+ 117:../sdrx3.c    ****     }
+ 306              		.loc 1 117 0 is_stmt 1
+ 307 00e8 CAFFFFEA 		b	.L6
+ 308              		.cfi_endproc
+ 309              	.LFE0:
+ 311              		.align	2
+ 312              		.global	SDR_GpioIntrCb
+ 314              	SDR_GpioIntrCb:
+ 315              	.LFB1:
+ 118:../sdrx3.c    **** }
+ 119:../sdrx3.c    **** 
+ 120:../sdrx3.c    **** 
+ 121:../sdrx3.c    **** 
+ 122:../sdrx3.c    **** 
+ 123:../sdrx3.c    **** /* GPIO interrupt callback handler. This is received from
+ 124:../sdrx3.c    ****  * the interrupt context. So DebugPrint API is not available
+ 125:../sdrx3.c    ****  * from here. Set an event in the event group so that the
+ 126:../sdrx3.c    ****  * GPIO thread can print the event information. */
+ 127:../sdrx3.c    **** void SDR_GpioIntrCb (
+ 128:../sdrx3.c    ****         uint8_t gpioId /* Indicates the pin that triggered the interrupt */
+ 129:../sdrx3.c    ****         )
+ 130:../sdrx3.c    **** {
+ 316              		.loc 1 130 0
+ 317              		.cfi_startproc
+ 318              		@ args = 0, pretend = 0, frame = 16
+ 319              		@ frame_needed = 1, uses_anonymous_args = 0
+ 320 00ec 00482DE9 		stmfd	sp!, {fp, lr}
+ 321              	.LCFI2:
+ 322              		.cfi_def_cfa_offset 8
+ 323              		.cfi_offset 11, -8
+ 324              		.cfi_offset 14, -4
+ 325 00f0 04B08DE2 		add	fp, sp, #4
+ 326              	.LCFI3:
+ 327              		.cfi_def_cfa 11, 4
+ 328 00f4 10D04DE2 		sub	sp, sp, #16
+ 329 00f8 0030A0E1 		mov	r3, r0
+ 330 00fc 0D304BE5 		strb	r3, [fp, #-13]
+ 131:../sdrx3.c    ****     CyBool_t gpioValue = CyFalse;
+ 331              		.loc 1 131 0
+ 332 0100 0030A0E3 		mov	r3, #0
+ 333 0104 0C300BE5 		str	r3, [fp, #-12]
+ 132:../sdrx3.c    ****     CyU3PReturnStatus_t apiRetStatus = CY_U3P_SUCCESS;
+ 334              		.loc 1 132 0
+ 335 0108 0030A0E3 		mov	r3, #0
+ 336 010c 08300BE5 		str	r3, [fp, #-8]
+ 133:../sdrx3.c    **** 
+ 134:../sdrx3.c    ****     /* Get the status of the pin */
+ 135:../sdrx3.c    ****     apiRetStatus = CyU3PGpioGetValue (gpioId, &gpioValue);
+ 337              		.loc 1 135 0
+ 338 0110 0D205BE5 		ldrb	r2, [fp, #-13]	@ zero_extendqisi2
+ 339 0114 0C304BE2 		sub	r3, fp, #12
+ 340 0118 0200A0E1 		mov	r0, r2
+ 341 011c 0310A0E1 		mov	r1, r3
+ 342 0120 FEFFFFEB 		bl	CyU3PGpioGetValue
+ 343 0124 08000BE5 		str	r0, [fp, #-8]
+ 136:../sdrx3.c    ****     if (apiRetStatus == CY_U3P_SUCCESS)
+ 344              		.loc 1 136 0
+ 345 0128 08301BE5 		ldr	r3, [fp, #-8]
+ 346 012c 000053E3 		cmp	r3, #0
+ 137:../sdrx3.c    ****     {
+ 138:../sdrx3.c    ****         /* Check status of the pin */
+ 139:../sdrx3.c    ****         if (gpioValue == CyTrue)
+ 140:../sdrx3.c    ****         {
+ 141:../sdrx3.c    ****             /* Set GPIO high event */
+ 142:../sdrx3.c    ****         }
+ 143:../sdrx3.c    ****         else
+ 144:../sdrx3.c    ****         {
+ 145:../sdrx3.c    ****             /* Set GPIO low Event */
+ 146:../sdrx3.c    ****         }
+ 147:../sdrx3.c    ****     }
+ 148:../sdrx3.c    **** }
+ 347              		.loc 1 148 0
+ 348 0130 04D04BE2 		sub	sp, fp, #4
+ 349              		@ sp needed
+ 350 0134 0088BDE8 		ldmfd	sp!, {fp, pc}
+ 351              		.cfi_endproc
+ 352              	.LFE1:
+ 354              		.align	2
+ 355              		.global	ConfGPIOsimpleout
+ 357              	ConfGPIOsimpleout:
+ 358              	.LFB2:
+ 149:../sdrx3.c    **** CyU3PReturnStatus_t
+ 150:../sdrx3.c    **** ConfGPIOsimpleout( uint8_t gpioid)
+ 151:../sdrx3.c    **** {
+ 359              		.loc 1 151 0
+ 360              		.cfi_startproc
+ 361              		@ args = 0, pretend = 0, frame = 32
+ 362              		@ frame_needed = 1, uses_anonymous_args = 0
+ 363 0138 00482DE9 		stmfd	sp!, {fp, lr}
+ 364              	.LCFI4:
+ 365              		.cfi_def_cfa_offset 8
+ 366              		.cfi_offset 11, -8
+ 367              		.cfi_offset 14, -4
+ 368 013c 04B08DE2 		add	fp, sp, #4
+ 369              	.LCFI5:
+ 370              		.cfi_def_cfa 11, 4
+ 371 0140 20D04DE2 		sub	sp, sp, #32
+ 372 0144 0030A0E1 		mov	r3, r0
+ 373 0148 1D304BE5 		strb	r3, [fp, #-29]
+ 152:../sdrx3.c    **** 	 CyU3PReturnStatus_t apiRetStatus = CY_U3P_SUCCESS;
+ 374              		.loc 1 152 0
+ 375 014c 0030A0E3 		mov	r3, #0
+ 376 0150 08300BE5 		str	r3, [fp, #-8]
+ 153:../sdrx3.c    **** 	 CyU3PGpioSimpleConfig_t gpioConfig;
+ 154:../sdrx3.c    **** 
+ 155:../sdrx3.c    **** 	  apiRetStatus = CyU3PDeviceGpioOverride (gpioid, CyTrue);
+ 377              		.loc 1 155 0
+ 378 0154 1D305BE5 		ldrb	r3, [fp, #-29]	@ zero_extendqisi2
+ 379 0158 0300A0E1 		mov	r0, r3
+ 380 015c 0110A0E3 		mov	r1, #1
+ 381 0160 FEFFFFEB 		bl	CyU3PDeviceGpioOverride
+ 382 0164 08000BE5 		str	r0, [fp, #-8]
+ 156:../sdrx3.c    **** 	    if (apiRetStatus != 0)
+ 383              		.loc 1 156 0
+ 384 0168 08301BE5 		ldr	r3, [fp, #-8]
+ 385 016c 000053E3 		cmp	r3, #0
+ 386 0170 0100000A 		beq	.L10
+ 157:../sdrx3.c    **** 	    {
+ 158:../sdrx3.c    **** 	        /* Error Handling */
+ 159:../sdrx3.c    **** 	        SDR_ErrorHandler (apiRetStatus);
+ 387              		.loc 1 159 0
+ 388 0174 08001BE5 		ldr	r0, [fp, #-8]
+ 389 0178 FEFFFFEB 		bl	SDR_ErrorHandler
+ 390              	.L10:
+ 160:../sdrx3.c    **** 	    }
+ 161:../sdrx3.c    **** 	    /* Configure GPIO gpioid as output */
+ 162:../sdrx3.c    **** 	      gpioConfig.outValue = CyFalse;
+ 391              		.loc 1 162 0
+ 392 017c 0030A0E3 		mov	r3, #0
+ 393 0180 1C300BE5 		str	r3, [fp, #-28]
+ 163:../sdrx3.c    **** 	      gpioConfig.driveLowEn = CyTrue;
+ 394              		.loc 1 163 0
+ 395 0184 0130A0E3 		mov	r3, #1
+ 396 0188 18300BE5 		str	r3, [fp, #-24]
+ 164:../sdrx3.c    **** 	      gpioConfig.driveHighEn = CyTrue;
+ 397              		.loc 1 164 0
+ 398 018c 0130A0E3 		mov	r3, #1
+ 399 0190 14300BE5 		str	r3, [fp, #-20]
+ 165:../sdrx3.c    **** 	      gpioConfig.inputEn = CyFalse;
+ 400              		.loc 1 165 0
+ 401 0194 0030A0E3 		mov	r3, #0
+ 402 0198 10300BE5 		str	r3, [fp, #-16]
+ 166:../sdrx3.c    **** 	      gpioConfig.intrMode = CY_U3P_GPIO_NO_INTR;
+ 403              		.loc 1 166 0
+ 404 019c 0030A0E3 		mov	r3, #0
+ 405 01a0 0C304BE5 		strb	r3, [fp, #-12]
+ 167:../sdrx3.c    **** 	      apiRetStatus = CyU3PGpioSetSimpleConfig(gpioid , &gpioConfig);
+ 406              		.loc 1 167 0
+ 407 01a4 1D205BE5 		ldrb	r2, [fp, #-29]	@ zero_extendqisi2
+ 408 01a8 1C304BE2 		sub	r3, fp, #28
+ 409 01ac 0200A0E1 		mov	r0, r2
+ 410 01b0 0310A0E1 		mov	r1, r3
+ 411 01b4 FEFFFFEB 		bl	CyU3PGpioSetSimpleConfig
+ 412 01b8 08000BE5 		str	r0, [fp, #-8]
+ 168:../sdrx3.c    **** 	      if (apiRetStatus != CY_U3P_SUCCESS)
+ 413              		.loc 1 168 0
+ 414 01bc 08301BE5 		ldr	r3, [fp, #-8]
+ 415 01c0 000053E3 		cmp	r3, #0
+ 416 01c4 0100000A 		beq	.L11
+ 169:../sdrx3.c    **** 	      {
+ 170:../sdrx3.c    **** 	          /* Error handling */
+ 171:../sdrx3.c    **** 	          SDR_ErrorHandler (apiRetStatus);
+ 417              		.loc 1 171 0
+ 418 01c8 08001BE5 		ldr	r0, [fp, #-8]
+ 419 01cc FEFFFFEB 		bl	SDR_ErrorHandler
+ 420              	.L11:
+ 172:../sdrx3.c    **** 	      }
+ 173:../sdrx3.c    **** 	 return apiRetStatus;
+ 421              		.loc 1 173 0
+ 422 01d0 08301BE5 		ldr	r3, [fp, #-8]
+ 174:../sdrx3.c    **** }
+ 423              		.loc 1 174 0
+ 424 01d4 0300A0E1 		mov	r0, r3
+ 425 01d8 04D04BE2 		sub	sp, fp, #4
+ 426              		@ sp needed
+ 427 01dc 0088BDE8 		ldmfd	sp!, {fp, pc}
+ 428              		.cfi_endproc
+ 429              	.LFE2:
+ 431              		.align	2
+ 432              		.global	ConfGPIOPWM
+ 434              	ConfGPIOPWM:
+ 435              	.LFB3:
+ 175:../sdrx3.c    **** 
+ 176:../sdrx3.c    **** CyU3PReturnStatus_t
+ 177:../sdrx3.c    **** ConfGPIOPWM (uint8_t gpioid ,uint32_t value)
+ 178:../sdrx3.c    **** {
+ 436              		.loc 1 178 0
+ 437              		.cfi_startproc
+ 438              		@ args = 0, pretend = 0, frame = 48
+ 439              		@ frame_needed = 1, uses_anonymous_args = 0
+ 440 01e0 00482DE9 		stmfd	sp!, {fp, lr}
+ 441              	.LCFI6:
+ 442              		.cfi_def_cfa_offset 8
+ 443              		.cfi_offset 11, -8
+ 444              		.cfi_offset 14, -4
+ 445 01e4 04B08DE2 		add	fp, sp, #4
+ 446              	.LCFI7:
+ 447              		.cfi_def_cfa 11, 4
+ 448 01e8 30D04DE2 		sub	sp, sp, #48
+ 449 01ec 0030A0E1 		mov	r3, r0
+ 450 01f0 34100BE5 		str	r1, [fp, #-52]
+ 451 01f4 2D304BE5 		strb	r3, [fp, #-45]
+ 179:../sdrx3.c    **** 	  CyU3PGpioComplexConfig_t gpioConfig;
+ 180:../sdrx3.c    **** 	    CyU3PReturnStatus_t apiRetStatus = CY_U3P_SUCCESS;
+ 452              		.loc 1 180 0
+ 453 01f8 0030A0E3 		mov	r3, #0
+ 454 01fc 08300BE5 		str	r3, [fp, #-8]
+ 181:../sdrx3.c    **** 	    apiRetStatus = CyU3PDeviceGpioOverride ( gpioid, CyTrue);
+ 455              		.loc 1 181 0
+ 456 0200 2D305BE5 		ldrb	r3, [fp, #-45]	@ zero_extendqisi2
+ 457 0204 0300A0E1 		mov	r0, r3
+ 458 0208 0110A0E3 		mov	r1, #1
+ 459 020c FEFFFFEB 		bl	CyU3PDeviceGpioOverride
+ 460 0210 08000BE5 		str	r0, [fp, #-8]
+ 182:../sdrx3.c    **** 	   	    if (apiRetStatus != 0)
+ 461              		.loc 1 182 0
+ 462 0214 08301BE5 		ldr	r3, [fp, #-8]
+ 463 0218 000053E3 		cmp	r3, #0
+ 464 021c 0100000A 		beq	.L14
+ 183:../sdrx3.c    **** 	   	    {
+ 184:../sdrx3.c    **** 	   	        // Error Handling
+ 185:../sdrx3.c    **** 	   	        SDR_ErrorHandler (apiRetStatus);
+ 465              		.loc 1 185 0
+ 466 0220 08001BE5 		ldr	r0, [fp, #-8]
+ 467 0224 FEFFFFEB 		bl	SDR_ErrorHandler
+ 468              	.L14:
+ 186:../sdrx3.c    **** 	   	    }
+ 187:../sdrx3.c    ****     // Configure GPIO  as PWM output
+ 188:../sdrx3.c    ****     gpioConfig.outValue = CyFalse;
+ 469              		.loc 1 188 0
+ 470 0228 0030A0E3 		mov	r3, #0
+ 471 022c 28300BE5 		str	r3, [fp, #-40]
+ 189:../sdrx3.c    ****     gpioConfig.inputEn = CyFalse;
+ 472              		.loc 1 189 0
+ 473 0230 0030A0E3 		mov	r3, #0
+ 474 0234 1C300BE5 		str	r3, [fp, #-28]
+ 190:../sdrx3.c    ****     gpioConfig.driveLowEn = CyTrue;
+ 475              		.loc 1 190 0
+ 476 0238 0130A0E3 		mov	r3, #1
+ 477 023c 24300BE5 		str	r3, [fp, #-36]
+ 191:../sdrx3.c    ****     gpioConfig.driveHighEn = CyTrue;
+ 478              		.loc 1 191 0
+ 479 0240 0130A0E3 		mov	r3, #1
+ 480 0244 20300BE5 		str	r3, [fp, #-32]
+ 192:../sdrx3.c    ****     gpioConfig.pinMode = CY_U3P_GPIO_MODE_PWM;
+ 481              		.loc 1 192 0
+ 482 0248 0530A0E3 		mov	r3, #5
+ 483 024c 18304BE5 		strb	r3, [fp, #-24]
+ 193:../sdrx3.c    ****     gpioConfig.intrMode = CY_U3P_GPIO_NO_INTR;
+ 484              		.loc 1 193 0
+ 485 0250 0030A0E3 		mov	r3, #0
+ 486 0254 17304BE5 		strb	r3, [fp, #-23]
+ 194:../sdrx3.c    ****     gpioConfig.timerMode = CY_U3P_GPIO_TIMER_HIGH_FREQ;
+ 487              		.loc 1 194 0
+ 488 0258 0130A0E3 		mov	r3, #1
+ 489 025c 16304BE5 		strb	r3, [fp, #-22]
+ 195:../sdrx3.c    ****     gpioConfig.timer = 0;
+ 490              		.loc 1 195 0
+ 491 0260 0030A0E3 		mov	r3, #0
+ 492 0264 14300BE5 		str	r3, [fp, #-20]
+ 196:../sdrx3.c    ****     gpioConfig.period = CY_FX_PWM_PERIOD;
+ 493              		.loc 1 196 0
+ 494 0268 30309FE5 		ldr	r3, .L16
+ 495 026c 10300BE5 		str	r3, [fp, #-16]
+ 197:../sdrx3.c    ****     gpioConfig.threshold = value;
+ 496              		.loc 1 197 0
+ 497 0270 34301BE5 		ldr	r3, [fp, #-52]
+ 498 0274 0C300BE5 		str	r3, [fp, #-12]
+ 198:../sdrx3.c    ****     apiRetStatus = CyU3PGpioSetComplexConfig(gpioid, &gpioConfig);
+ 499              		.loc 1 198 0
+ 500 0278 2D205BE5 		ldrb	r2, [fp, #-45]	@ zero_extendqisi2
+ 501 027c 28304BE2 		sub	r3, fp, #40
+ 502 0280 0200A0E1 		mov	r0, r2
+ 503 0284 0310A0E1 		mov	r1, r3
+ 504 0288 FEFFFFEB 		bl	CyU3PGpioSetComplexConfig
+ 505 028c 08000BE5 		str	r0, [fp, #-8]
+ 199:../sdrx3.c    ****     return  apiRetStatus;
+ 506              		.loc 1 199 0
+ 507 0290 08301BE5 		ldr	r3, [fp, #-8]
+ 200:../sdrx3.c    **** }
+ 508              		.loc 1 200 0
+ 509 0294 0300A0E1 		mov	r0, r3
+ 510 0298 04D04BE2 		sub	sp, fp, #4
+ 511              		@ sp needed
+ 512 029c 0088BDE8 		ldmfd	sp!, {fp, pc}
+ 513              	.L17:
+ 514              		.align	2
+ 515              	.L16:
+ 516 02a0 7F130300 		.word	201599
+ 517              		.cfi_endproc
+ 518              	.LFE3:
+ 520              		.section	.rodata
+ 521              		.align	2
+ 522              	.LC0:
+ 523 0040 43795533 		.ascii	"CyU3PGpioInit failed, error code = %d\012\000"
+ 523      50477069 
+ 523      6F496E69 
+ 523      74206661 
+ 523      696C6564 
+ 524              		.text
+ 525              		.align	2
+ 526              		.global	SDR_GpioInit
+ 528              	SDR_GpioInit:
+ 529              	.LFB4:
+ 201:../sdrx3.c    **** 
+ 202:../sdrx3.c    **** /* Init GPIOs  */
+ 203:../sdrx3.c    **** void
+ 204:../sdrx3.c    **** SDR_GpioInit (void)
+ 205:../sdrx3.c    **** {
+ 530              		.loc 1 205 0
+ 531              		.cfi_startproc
+ 532              		@ args = 0, pretend = 0, frame = 16
+ 533              		@ frame_needed = 1, uses_anonymous_args = 0
+ 534 02a4 00482DE9 		stmfd	sp!, {fp, lr}
+ 535              	.LCFI8:
+ 536              		.cfi_def_cfa_offset 8
+ 537              		.cfi_offset 11, -8
+ 538              		.cfi_offset 14, -4
+ 539 02a8 04B08DE2 		add	fp, sp, #4
+ 540              	.LCFI9:
+ 541              		.cfi_def_cfa 11, 4
+ 542 02ac 10D04DE2 		sub	sp, sp, #16
+ 206:../sdrx3.c    ****     CyU3PGpioClock_t gpioClock;
+ 207:../sdrx3.c    ****     CyU3PReturnStatus_t apiRetStatus = CY_U3P_SUCCESS;
+ 543              		.loc 1 207 0
+ 544 02b0 0030A0E3 		mov	r3, #0
+ 545 02b4 08300BE5 		str	r3, [fp, #-8]
+ 208:../sdrx3.c    **** 
+ 209:../sdrx3.c    ****     /* Init the GPIO module */
+ 210:../sdrx3.c    ****     gpioClock.fastClkDiv = 2;
+ 546              		.loc 1 210 0
+ 547 02b8 0230A0E3 		mov	r3, #2
+ 548 02bc 14304BE5 		strb	r3, [fp, #-20]
+ 211:../sdrx3.c    ****     gpioClock.slowClkDiv = 0;
+ 549              		.loc 1 211 0
+ 550 02c0 0030A0E3 		mov	r3, #0
+ 551 02c4 13304BE5 		strb	r3, [fp, #-19]
+ 212:../sdrx3.c    ****     gpioClock.simpleDiv = CY_U3P_GPIO_SIMPLE_DIV_BY_2;
+ 552              		.loc 1 212 0
+ 553 02c8 0030A0E3 		mov	r3, #0
+ 554 02cc 0C304BE5 		strb	r3, [fp, #-12]
+ 213:../sdrx3.c    ****     gpioClock.clkSrc = CY_U3P_SYS_CLK;
+ 555              		.loc 1 213 0
+ 556 02d0 0330A0E3 		mov	r3, #3
+ 557 02d4 0B304BE5 		strb	r3, [fp, #-11]
+ 214:../sdrx3.c    ****     gpioClock.halfDiv = 0;
+ 558              		.loc 1 214 0
+ 559 02d8 0030A0E3 		mov	r3, #0
+ 560 02dc 10300BE5 		str	r3, [fp, #-16]
+ 215:../sdrx3.c    **** 
+ 216:../sdrx3.c    ****     apiRetStatus = CyU3PGpioInit(&gpioClock, SDR_GpioIntrCb);
+ 561              		.loc 1 216 0
+ 562 02e0 14304BE2 		sub	r3, fp, #20
+ 563 02e4 0300A0E1 		mov	r0, r3
+ 564 02e8 98109FE5 		ldr	r1, .L20
+ 565 02ec FEFFFFEB 		bl	CyU3PGpioInit
+ 566 02f0 08000BE5 		str	r0, [fp, #-8]
+ 217:../sdrx3.c    ****     if (apiRetStatus != 0)
+ 567              		.loc 1 217 0
+ 568 02f4 08301BE5 		ldr	r3, [fp, #-8]
+ 569 02f8 000053E3 		cmp	r3, #0
+ 570 02fc 0500000A 		beq	.L19
+ 218:../sdrx3.c    ****     {
+ 219:../sdrx3.c    ****         /* Error Handling */
+ 220:../sdrx3.c    ****         CyU3PDebugPrint (4, "CyU3PGpioInit failed, error code = %d\n", apiRetStatus);
+ 571              		.loc 1 220 0
+ 572 0300 0400A0E3 		mov	r0, #4
+ 573 0304 80109FE5 		ldr	r1, .L20+4
+ 574 0308 08201BE5 		ldr	r2, [fp, #-8]
+ 575 030c FEFFFFEB 		bl	CyU3PDebugPrint
+ 221:../sdrx3.c    ****         SDR_ErrorHandler (apiRetStatus);
+ 576              		.loc 1 221 0
+ 577 0310 08001BE5 		ldr	r0, [fp, #-8]
+ 578 0314 FEFFFFEB 		bl	SDR_ErrorHandler
+ 579              	.L19:
+ 222:../sdrx3.c    ****     }
+ 223:../sdrx3.c    **** 
+ 224:../sdrx3.c    ****     // Configure GPIO  as PWM output
+ 225:../sdrx3.c    ****     ConfGPIOPWM(24,CY_FX_PWM_25P_THRESHOLD);
+ 580              		.loc 1 225 0
+ 581 0318 1800A0E3 		mov	r0, #24
+ 582 031c 6C109FE5 		ldr	r1, .L20+8
+ 583 0320 FEFFFFEB 		bl	ConfGPIOPWM
+ 226:../sdrx3.c    ****     ConfGPIOsimpleout(21);
+ 584              		.loc 1 226 0
+ 585 0324 1500A0E3 		mov	r0, #21
+ 586 0328 FEFFFFEB 		bl	ConfGPIOsimpleout
+ 227:../sdrx3.c    ****     ConfGPIOsimpleout(22);
+ 587              		.loc 1 227 0
+ 588 032c 1600A0E3 		mov	r0, #22
+ 589 0330 FEFFFFEB 		bl	ConfGPIOsimpleout
+ 228:../sdrx3.c    ****     ConfGPIOsimpleout(23);
+ 590              		.loc 1 228 0
+ 591 0334 1700A0E3 		mov	r0, #23
+ 592 0338 FEFFFFEB 		bl	ConfGPIOsimpleout
+ 229:../sdrx3.c    ****     ConfGPIOsimpleout(26);
+ 593              		.loc 1 229 0
+ 594 033c 1A00A0E3 		mov	r0, #26
+ 595 0340 FEFFFFEB 		bl	ConfGPIOsimpleout
+ 230:../sdrx3.c    ****     ConfGPIOsimpleout(27);
+ 596              		.loc 1 230 0
+ 597 0344 1B00A0E3 		mov	r0, #27
+ 598 0348 FEFFFFEB 		bl	ConfGPIOsimpleout
+ 231:../sdrx3.c    ****     ConfGPIOsimpleout(28);
+ 599              		.loc 1 231 0
+ 600 034c 1C00A0E3 		mov	r0, #28
+ 601 0350 FEFFFFEB 		bl	ConfGPIOsimpleout
+ 232:../sdrx3.c    ****     ConfGPIOsimpleout(29);
+ 602              		.loc 1 232 0
+ 603 0354 1D00A0E3 		mov	r0, #29
+ 604 0358 FEFFFFEB 		bl	ConfGPIOsimpleout
+ 233:../sdrx3.c    **** 
+ 234:../sdrx3.c    ****     CyU3PGpioSetValue (21, 0);
+ 605              		.loc 1 234 0
+ 606 035c 1500A0E3 		mov	r0, #21
+ 607 0360 0010A0E3 		mov	r1, #0
+ 608 0364 FEFFFFEB 		bl	CyU3PGpioSetValue
+ 235:../sdrx3.c    ****     CyU3PGpioSetValue (22, 1);
+ 609              		.loc 1 235 0
+ 610 0368 1600A0E3 		mov	r0, #22
+ 611 036c 0110A0E3 		mov	r1, #1
+ 612 0370 FEFFFFEB 		bl	CyU3PGpioSetValue
+ 236:../sdrx3.c    ****     CyU3PGpioSetValue (28, 1);
+ 613              		.loc 1 236 0
+ 614 0374 1C00A0E3 		mov	r0, #28
+ 615 0378 0110A0E3 		mov	r1, #1
+ 616 037c FEFFFFEB 		bl	CyU3PGpioSetValue
+ 237:../sdrx3.c    **** }
+ 617              		.loc 1 237 0
+ 618 0380 04D04BE2 		sub	sp, fp, #4
+ 619              		@ sp needed
+ 620 0384 0088BDE8 		ldmfd	sp!, {fp, pc}
+ 621              	.L21:
+ 622              		.align	2
+ 623              	.L20:
+ 624 0388 00000000 		.word	SDR_GpioIntrCb
+ 625 038c 40000000 		.word	.LC0
+ 626 0390 DFC40000 		.word	50399
+ 627              		.cfi_endproc
+ 628              	.LFE4:
+ 630              		.align	2
+ 631              		.global	SDR_ApplnDebugInit
+ 633              	SDR_ApplnDebugInit:
+ 634              	.LFB5:
+ 238:../sdrx3.c    **** 
+ 239:../sdrx3.c    **** 
+ 240:../sdrx3.c    **** /* This function initializes the debug module. The debug prints
+ 241:../sdrx3.c    ****  * are routed to the UART and can be seen using a UART console
+ 242:../sdrx3.c    ****  * running at 115200 baud rate. */
+ 243:../sdrx3.c    **** void
+ 244:../sdrx3.c    **** SDR_ApplnDebugInit (void)
+ 245:../sdrx3.c    **** {
+ 635              		.loc 1 245 0
+ 636              		.cfi_startproc
+ 637              		@ args = 0, pretend = 0, frame = 32
+ 638              		@ frame_needed = 1, uses_anonymous_args = 0
+ 639 0394 00482DE9 		stmfd	sp!, {fp, lr}
+ 640              	.LCFI10:
+ 641              		.cfi_def_cfa_offset 8
+ 642              		.cfi_offset 11, -8
+ 643              		.cfi_offset 14, -4
+ 644 0398 04B08DE2 		add	fp, sp, #4
+ 645              	.LCFI11:
+ 646              		.cfi_def_cfa 11, 4
+ 647 039c 20D04DE2 		sub	sp, sp, #32
+ 246:../sdrx3.c    ****     CyU3PUartConfig_t uartConfig;
+ 247:../sdrx3.c    ****     CyU3PReturnStatus_t apiRetStatus = CY_U3P_SUCCESS;
+ 648              		.loc 1 247 0
+ 649 03a0 0030A0E3 		mov	r3, #0
+ 650 03a4 08300BE5 		str	r3, [fp, #-8]
+ 248:../sdrx3.c    **** 
+ 249:../sdrx3.c    ****     /* Initialize the UART for printing debug messages */
+ 250:../sdrx3.c    ****     apiRetStatus = CyU3PUartInit();
+ 651              		.loc 1 250 0
+ 652 03a8 FEFFFFEB 		bl	CyU3PUartInit
+ 653 03ac 08000BE5 		str	r0, [fp, #-8]
+ 251:../sdrx3.c    ****     if (apiRetStatus != CY_U3P_SUCCESS)
+ 654              		.loc 1 251 0
+ 655 03b0 08301BE5 		ldr	r3, [fp, #-8]
+ 656 03b4 000053E3 		cmp	r3, #0
+ 657 03b8 0100000A 		beq	.L23
+ 252:../sdrx3.c    ****     {
+ 253:../sdrx3.c    ****         /* Error handling */
+ 254:../sdrx3.c    ****         SDR_ErrorHandler(apiRetStatus);
+ 658              		.loc 1 254 0
+ 659 03bc 08001BE5 		ldr	r0, [fp, #-8]
+ 660 03c0 FEFFFFEB 		bl	SDR_ErrorHandler
+ 661              	.L23:
+ 255:../sdrx3.c    ****     }
+ 256:../sdrx3.c    **** 
+ 257:../sdrx3.c    ****     /* Set UART configuration */
+ 258:../sdrx3.c    ****     CyU3PMemSet ((uint8_t *)&uartConfig, 0, sizeof (uartConfig));
+ 662              		.loc 1 258 0
+ 663 03c4 20304BE2 		sub	r3, fp, #32
+ 664 03c8 0300A0E1 		mov	r0, r3
+ 665 03cc 0010A0E3 		mov	r1, #0
+ 666 03d0 1820A0E3 		mov	r2, #24
+ 667 03d4 FEFFFFEB 		bl	CyU3PMemSet
+ 259:../sdrx3.c    ****     uartConfig.baudRate = CY_U3P_UART_BAUDRATE_115200;
+ 668              		.loc 1 259 0
+ 669 03d8 AC309FE5 		ldr	r3, .L27
+ 670 03dc 10300BE5 		str	r3, [fp, #-16]
+ 260:../sdrx3.c    ****     uartConfig.stopBit = CY_U3P_UART_ONE_STOP_BIT;
+ 671              		.loc 1 260 0
+ 672 03e0 0130A0E3 		mov	r3, #1
+ 673 03e4 0C304BE5 		strb	r3, [fp, #-12]
+ 261:../sdrx3.c    ****     uartConfig.parity = CY_U3P_UART_NO_PARITY;
+ 674              		.loc 1 261 0
+ 675 03e8 0030A0E3 		mov	r3, #0
+ 676 03ec 0B304BE5 		strb	r3, [fp, #-11]
+ 262:../sdrx3.c    ****     uartConfig.txEnable = CyTrue;
+ 677              		.loc 1 262 0
+ 678 03f0 0130A0E3 		mov	r3, #1
+ 679 03f4 20300BE5 		str	r3, [fp, #-32]
+ 263:../sdrx3.c    ****     uartConfig.rxEnable = CyFalse;
+ 680              		.loc 1 263 0
+ 681 03f8 0030A0E3 		mov	r3, #0
+ 682 03fc 1C300BE5 		str	r3, [fp, #-28]
+ 264:../sdrx3.c    ****     uartConfig.flowCtrl = CyFalse;
+ 683              		.loc 1 264 0
+ 684 0400 0030A0E3 		mov	r3, #0
+ 685 0404 18300BE5 		str	r3, [fp, #-24]
+ 265:../sdrx3.c    ****     uartConfig.isDma = CyTrue;
+ 686              		.loc 1 265 0
+ 687 0408 0130A0E3 		mov	r3, #1
+ 688 040c 14300BE5 		str	r3, [fp, #-20]
+ 266:../sdrx3.c    **** 
+ 267:../sdrx3.c    ****     apiRetStatus = CyU3PUartSetConfig (&uartConfig, NULL);
+ 689              		.loc 1 267 0
+ 690 0410 20304BE2 		sub	r3, fp, #32
+ 691 0414 0300A0E1 		mov	r0, r3
+ 692 0418 0010A0E3 		mov	r1, #0
+ 693 041c FEFFFFEB 		bl	CyU3PUartSetConfig
+ 694 0420 08000BE5 		str	r0, [fp, #-8]
+ 268:../sdrx3.c    ****     if (apiRetStatus != CY_U3P_SUCCESS)
+ 695              		.loc 1 268 0
+ 696 0424 08301BE5 		ldr	r3, [fp, #-8]
+ 697 0428 000053E3 		cmp	r3, #0
+ 698 042c 0100000A 		beq	.L24
+ 269:../sdrx3.c    ****     {
+ 270:../sdrx3.c    ****         SDR_ErrorHandler(apiRetStatus);
+ 699              		.loc 1 270 0
+ 700 0430 08001BE5 		ldr	r0, [fp, #-8]
+ 701 0434 FEFFFFEB 		bl	SDR_ErrorHandler
+ 702              	.L24:
+ 271:../sdrx3.c    ****     }
+ 272:../sdrx3.c    **** 
+ 273:../sdrx3.c    ****     /* Set the UART transfer to a really large value. */
+ 274:../sdrx3.c    ****     apiRetStatus = CyU3PUartTxSetBlockXfer (0xFFFFFFFF);
+ 703              		.loc 1 274 0
+ 704 0438 0000E0E3 		mvn	r0, #0
+ 705 043c FEFFFFEB 		bl	CyU3PUartTxSetBlockXfer
+ 706 0440 08000BE5 		str	r0, [fp, #-8]
+ 275:../sdrx3.c    ****     if (apiRetStatus != CY_U3P_SUCCESS)
+ 707              		.loc 1 275 0
+ 708 0444 08301BE5 		ldr	r3, [fp, #-8]
+ 709 0448 000053E3 		cmp	r3, #0
+ 710 044c 0100000A 		beq	.L25
+ 276:../sdrx3.c    ****     {
+ 277:../sdrx3.c    ****         SDR_ErrorHandler(apiRetStatus);
+ 711              		.loc 1 277 0
+ 712 0450 08001BE5 		ldr	r0, [fp, #-8]
+ 713 0454 FEFFFFEB 		bl	SDR_ErrorHandler
+ 714              	.L25:
+ 278:../sdrx3.c    ****     }
+ 279:../sdrx3.c    **** 
+ 280:../sdrx3.c    ****     /* Initialize the debug module. */
+ 281:../sdrx3.c    ****     apiRetStatus = CyU3PDebugInit (CY_U3P_LPP_SOCKET_UART_CONS, 8);
+ 715              		.loc 1 281 0
+ 716 0458 0300A0E3 		mov	r0, #3
+ 717 045c 0810A0E3 		mov	r1, #8
+ 718 0460 FEFFFFEB 		bl	CyU3PDebugInit
+ 719 0464 08000BE5 		str	r0, [fp, #-8]
+ 282:../sdrx3.c    ****     if (apiRetStatus != CY_U3P_SUCCESS)
+ 720              		.loc 1 282 0
+ 721 0468 08301BE5 		ldr	r3, [fp, #-8]
+ 722 046c 000053E3 		cmp	r3, #0
+ 723 0470 0100000A 		beq	.L26
+ 283:../sdrx3.c    ****     {
+ 284:../sdrx3.c    ****         SDR_ErrorHandler(apiRetStatus);
+ 724              		.loc 1 284 0
+ 725 0474 08001BE5 		ldr	r0, [fp, #-8]
+ 726 0478 FEFFFFEB 		bl	SDR_ErrorHandler
+ 727              	.L26:
+ 285:../sdrx3.c    ****     }
+ 286:../sdrx3.c    **** 
+ 287:../sdrx3.c    ****     CyU3PDebugPreamble(CyFalse);
+ 728              		.loc 1 287 0
+ 729 047c 0000A0E3 		mov	r0, #0
+ 730 0480 FEFFFFEB 		bl	CyU3PDebugPreamble
+ 288:../sdrx3.c    **** }
+ 731              		.loc 1 288 0
+ 732 0484 04D04BE2 		sub	sp, fp, #4
+ 733              		@ sp needed
+ 734 0488 0088BDE8 		ldmfd	sp!, {fp, pc}
+ 735              	.L28:
+ 736              		.align	2
+ 737              	.L27:
+ 738 048c 00C20100 		.word	115200
+ 739              		.cfi_endproc
+ 740              	.LFE5:
+ 742              		.section	.rodata
+ 743 0067 00       		.align	2
+ 744              	.LC1:
+ 745 0068 4572726F 		.ascii	"Error! Invalid USB speed.\012\000"
+ 745      72212049 
+ 745      6E76616C 
+ 745      69642055 
+ 745      53422073 
+ 746 0083 00       		.align	2
+ 747              	.LC2:
+ 748 0084 43795533 		.ascii	"CyU3PSetEpConfig failed, Error code = %d\012\000"
+ 748      50536574 
+ 748      4570436F 
+ 748      6E666967 
+ 748      20666169 
+ 749 00ae 0000     		.align	2
+ 750              	.LC3:
+ 751 00b0 43795533 		.ascii	"CyU3PDmaChannelCreate failed, Error code = %d\012\000"
+ 751      50446D61 
+ 751      4368616E 
+ 751      6E656C43 
+ 751      72656174 
+ 752 00df 00       		.align	2
+ 753              	.LC4:
+ 754 00e0 43795533 		.ascii	"CyU3PDmaChannelSetXfer failed, Error code = %d\012\000"
+ 754      50446D61 
+ 754      4368616E 
+ 754      6E656C53 
+ 754      65745866 
+ 755              		.text
+ 756              		.align	2
+ 757              		.global	SDR_ApplnStart
+ 759              	SDR_ApplnStart:
+ 760              	.LFB6:
+ 289:../sdrx3.c    **** 
+ 290:../sdrx3.c    **** /* This function starts the application. This is called
+ 291:../sdrx3.c    ****  * when a SET_CONF event is received from the USB host. The endpoints
+ 292:../sdrx3.c    ****  * are configured and the DMA pipe is setup in this function. */
+ 293:../sdrx3.c    **** void
+ 294:../sdrx3.c    **** SDR_ApplnStart (
+ 295:../sdrx3.c    **** 		void)
+ 296:../sdrx3.c    **** {
+ 761              		.loc 1 296 0
+ 762              		.cfi_startproc
+ 763              		@ args = 0, pretend = 0, frame = 64
+ 764              		@ frame_needed = 1, uses_anonymous_args = 0
+ 765 0490 00482DE9 		stmfd	sp!, {fp, lr}
+ 766              	.LCFI12:
+ 767              		.cfi_def_cfa_offset 8
+ 768              		.cfi_offset 11, -8
+ 769              		.cfi_offset 14, -4
+ 770 0494 04B08DE2 		add	fp, sp, #4
+ 771              	.LCFI13:
+ 772              		.cfi_def_cfa 11, 4
+ 773 0498 40D04DE2 		sub	sp, sp, #64
+ 297:../sdrx3.c    **** 	uint16_t size = 0;
+ 774              		.loc 1 297 0
+ 775 049c 0030A0E3 		mov	r3, #0
+ 776 04a0 B6304BE1 		strh	r3, [fp, #-6]	@ movhi
+ 298:../sdrx3.c    **** 	CyU3PEpConfig_t epCfg;
+ 299:../sdrx3.c    **** 
+ 300:../sdrx3.c    **** 
+ 301:../sdrx3.c    **** 	CyU3PDmaMultiChannelConfig_t dmaCfg;
+ 302:../sdrx3.c    **** 	CyU3PReturnStatus_t apiRetStatus = CY_U3P_SUCCESS;
+ 777              		.loc 1 302 0
+ 778 04a4 0030A0E3 		mov	r3, #0
+ 779 04a8 0C300BE5 		str	r3, [fp, #-12]
+ 303:../sdrx3.c    **** 	CyU3PUSBSpeed_t usbSpeed = CyU3PUsbGetSpeed();
+ 780              		.loc 1 303 0
+ 781 04ac FEFFFFEB 		bl	CyU3PUsbGetSpeed
+ 782 04b0 0030A0E1 		mov	r3, r0
+ 783 04b4 0D304BE5 		strb	r3, [fp, #-13]
+ 304:../sdrx3.c    **** 
+ 305:../sdrx3.c    **** 	/* First identify the usb speed. Once that is identified,
+ 306:../sdrx3.c    **** 	 * create a DMA channel and start the transfer on this. */
+ 307:../sdrx3.c    **** 
+ 308:../sdrx3.c    **** 	/* Based on the Bus Speed configure the endpoint packet size */
+ 309:../sdrx3.c    **** 	switch (usbSpeed)
+ 784              		.loc 1 309 0
+ 785 04b8 0D305BE5 		ldrb	r3, [fp, #-13]	@ zero_extendqisi2
+ 786 04bc 020053E3 		cmp	r3, #2
+ 787 04c0 0600000A 		beq	.L31
+ 788 04c4 030053E3 		cmp	r3, #3
+ 789 04c8 0700000A 		beq	.L32
+ 790 04cc 010053E3 		cmp	r3, #1
+ 791 04d0 0800001A 		bne	.L40
+ 310:../sdrx3.c    **** 	{
+ 311:../sdrx3.c    **** 	case CY_U3P_FULL_SPEED:
+ 312:../sdrx3.c    **** 		size = 64;
+ 792              		.loc 1 312 0
+ 793 04d4 4030A0E3 		mov	r3, #64
+ 794 04d8 B6304BE1 		strh	r3, [fp, #-6]	@ movhi
+ 313:../sdrx3.c    **** 		break;
+ 795              		.loc 1 313 0
+ 796 04dc 0B0000EA 		b	.L34
+ 797              	.L31:
+ 314:../sdrx3.c    **** 
+ 315:../sdrx3.c    **** 	case CY_U3P_HIGH_SPEED:
+ 316:../sdrx3.c    **** 		size = 512;
+ 798              		.loc 1 316 0
+ 799 04e0 023CA0E3 		mov	r3, #512
+ 800 04e4 B6304BE1 		strh	r3, [fp, #-6]	@ movhi
+ 317:../sdrx3.c    **** 		break;
+ 801              		.loc 1 317 0
+ 802 04e8 080000EA 		b	.L34
+ 803              	.L32:
+ 318:../sdrx3.c    **** 
+ 319:../sdrx3.c    **** 	case CY_U3P_SUPER_SPEED:
+ 320:../sdrx3.c    **** 		size = 1024;
+ 804              		.loc 1 320 0
+ 805 04ec 013BA0E3 		mov	r3, #1024
+ 806 04f0 B6304BE1 		strh	r3, [fp, #-6]	@ movhi
+ 321:../sdrx3.c    **** 		break;
+ 807              		.loc 1 321 0
+ 808 04f4 050000EA 		b	.L34
+ 809              	.L40:
+ 322:../sdrx3.c    **** 
+ 323:../sdrx3.c    **** 	default:
+ 324:../sdrx3.c    **** 		CyU3PDebugPrint (4, "Error! Invalid USB speed.\n");
+ 810              		.loc 1 324 0
+ 811 04f8 0400A0E3 		mov	r0, #4
+ 812 04fc AC119FE5 		ldr	r1, .L41
+ 813 0500 FEFFFFEB 		bl	CyU3PDebugPrint
+ 325:../sdrx3.c    **** 		SDR_ErrorHandler (CY_U3P_ERROR_FAILURE);
+ 814              		.loc 1 325 0
+ 815 0504 4A00A0E3 		mov	r0, #74
+ 816 0508 FEFFFFEB 		bl	SDR_ErrorHandler
+ 326:../sdrx3.c    **** 		break;
+ 817              		.loc 1 326 0
+ 818 050c 0000A0E1 		mov	r0, r0	@ nop
+ 819              	.L34:
+ 327:../sdrx3.c    **** 	}
+ 328:../sdrx3.c    **** 
+ 329:../sdrx3.c    **** 	CyU3PMemSet ((uint8_t *)&epCfg, 0, sizeof (epCfg));
+ 820              		.loc 1 329 0
+ 821 0510 1C304BE2 		sub	r3, fp, #28
+ 822 0514 0300A0E1 		mov	r0, r3
+ 823 0518 0010A0E3 		mov	r1, #0
+ 824 051c 0C20A0E3 		mov	r2, #12
+ 825 0520 FEFFFFEB 		bl	CyU3PMemSet
+ 330:../sdrx3.c    **** 	epCfg.enable = CyTrue;
+ 826              		.loc 1 330 0
+ 827 0524 0130A0E3 		mov	r3, #1
+ 828 0528 1C300BE5 		str	r3, [fp, #-28]
+ 331:../sdrx3.c    **** 	epCfg.epType = CY_U3P_USB_EP_BULK;
+ 829              		.loc 1 331 0
+ 830 052c 0230A0E3 		mov	r3, #2
+ 831 0530 18304BE5 		strb	r3, [fp, #-24]
+ 332:../sdrx3.c    **** 	epCfg.burstLen = (usbSpeed == CY_U3P_SUPER_SPEED) ?
+ 832              		.loc 1 332 0
+ 833 0534 0D305BE5 		ldrb	r3, [fp, #-13]	@ zero_extendqisi2
+ 834 0538 030053E3 		cmp	r3, #3
+ 835 053c 0100001A 		bne	.L35
+ 836              		.loc 1 332 0 is_stmt 0 discriminator 1
+ 837 0540 0830A0E3 		mov	r3, #8
+ 838 0544 000000EA 		b	.L36
+ 839              	.L35:
+ 840              		.loc 1 332 0 discriminator 2
+ 841 0548 0130A0E3 		mov	r3, #1
+ 842              	.L36:
+ 843              		.loc 1 332 0 discriminator 3
+ 844 054c 12304BE5 		strb	r3, [fp, #-18]
+ 333:../sdrx3.c    **** 			(CY_FX_EP_BURST_LENGTH) : 1;
+ 334:../sdrx3.c    **** 	epCfg.streams = 0;
+ 845              		.loc 1 334 0 is_stmt 1 discriminator 3
+ 846 0550 0030A0E3 		mov	r3, #0
+ 847 0554 B6314BE1 		strh	r3, [fp, #-22]	@ movhi
+ 335:../sdrx3.c    **** 	epCfg.pcktSize = size;
+ 848              		.loc 1 335 0 discriminator 3
+ 849 0558 B6305BE1 		ldrh	r3, [fp, #-6]	@ movhi
+ 850 055c B4314BE1 		strh	r3, [fp, #-20]	@ movhi
+ 336:../sdrx3.c    **** 
+ 337:../sdrx3.c    **** 	/* Consumer endpoint configuration */
+ 338:../sdrx3.c    **** 	apiRetStatus = CyU3PSetEpConfig(CY_FX_EP_CONSUMER, &epCfg);
+ 851              		.loc 1 338 0 discriminator 3
+ 852 0560 1C304BE2 		sub	r3, fp, #28
+ 853 0564 8100A0E3 		mov	r0, #129
+ 854 0568 0310A0E1 		mov	r1, r3
+ 855 056c FEFFFFEB 		bl	CyU3PSetEpConfig
+ 856 0570 0C000BE5 		str	r0, [fp, #-12]
+ 339:../sdrx3.c    **** 	if (apiRetStatus != CY_U3P_SUCCESS)
+ 857              		.loc 1 339 0 discriminator 3
+ 858 0574 0C301BE5 		ldr	r3, [fp, #-12]
+ 859 0578 000053E3 		cmp	r3, #0
+ 860 057c 0500000A 		beq	.L37
+ 340:../sdrx3.c    **** 	{
+ 341:../sdrx3.c    **** 		CyU3PDebugPrint (4, "CyU3PSetEpConfig failed, Error code = %d\n", apiRetStatus);
+ 861              		.loc 1 341 0
+ 862 0580 0400A0E3 		mov	r0, #4
+ 863 0584 28119FE5 		ldr	r1, .L41+4
+ 864 0588 0C201BE5 		ldr	r2, [fp, #-12]
+ 865 058c FEFFFFEB 		bl	CyU3PDebugPrint
+ 342:../sdrx3.c    **** 		SDR_ErrorHandler (apiRetStatus);
+ 866              		.loc 1 342 0
+ 867 0590 0C001BE5 		ldr	r0, [fp, #-12]
+ 868 0594 FEFFFFEB 		bl	SDR_ErrorHandler
+ 869              	.L37:
+ 343:../sdrx3.c    **** 	}
+ 344:../sdrx3.c    **** 
+ 345:../sdrx3.c    **** 	/* Create a DMA MANUAL_IN channel for the producer socket. */
+ 346:../sdrx3.c    **** 	CyU3PMemSet ((uint8_t *)&dmaCfg, 0, sizeof (dmaCfg));
+ 870              		.loc 1 346 0
+ 871 0598 44304BE2 		sub	r3, fp, #68
+ 872 059c 0300A0E1 		mov	r0, r3
+ 873 05a0 0010A0E3 		mov	r1, #0
+ 874 05a4 2820A0E3 		mov	r2, #40
+ 875 05a8 FEFFFFEB 		bl	CyU3PMemSet
+ 347:../sdrx3.c    **** 	/* The buffer size will be same as packet size for the
+ 348:../sdrx3.c    **** 	 * full speed, high speed and super speed non-burst modes.
+ 349:../sdrx3.c    **** 	 * For super speed burst mode of operation, the buffers will be
+ 350:../sdrx3.c    **** 	 * 1024 * burst length so that a full burst can be completed.
+ 351:../sdrx3.c    **** 	 * This will mean that a buffer will be available only after it
+ 352:../sdrx3.c    **** 	 * has been filled or when a short packet is received. */
+ 353:../sdrx3.c    **** 
+ 354:../sdrx3.c    **** 	dmaCfg.size  = (size * CY_FX_EP_BURST_LENGTH );  // 16 * 1024   !!!!!!!!!!
+ 876              		.loc 1 354 0
+ 877 05ac B6305BE1 		ldrh	r3, [fp, #-6]	@ movhi
+ 878 05b0 8331A0E1 		mov	r3, r3, asl #3
+ 879 05b4 0338A0E1 		mov	r3, r3, asl #16
+ 880 05b8 2338A0E1 		mov	r3, r3, lsr #16
+ 881 05bc B4344BE1 		strh	r3, [fp, #-68]	@ movhi
+ 355:../sdrx3.c    **** 	dmaCfg.count = CY_FX_BULKSRCSINK_DMA_BUF_COUNT;  // 6
+ 882              		.loc 1 355 0
+ 883 05c0 0630A0E3 		mov	r3, #6
+ 884 05c4 B2344BE1 		strh	r3, [fp, #-66]	@ movhi
+ 356:../sdrx3.c    **** 	dmaCfg.validSckCount = 2;
+ 885              		.loc 1 356 0
+ 886 05c8 0230A0E3 		mov	r3, #2
+ 887 05cc B0344BE1 		strh	r3, [fp, #-64]	@ movhi
+ 357:../sdrx3.c    **** 
+ 358:../sdrx3.c    **** 	dmaCfg.dmaMode = CY_U3P_DMA_MODE_BYTE;  		// 2
+ 888              		.loc 1 358 0
+ 889 05d0 0030A0E3 		mov	r3, #0
+ 890 05d4 26304BE5 		strb	r3, [fp, #-38]
+ 359:../sdrx3.c    **** 	dmaCfg.notification = 0;
+ 891              		.loc 1 359 0
+ 892 05d8 0030A0E3 		mov	r3, #0
+ 893 05dc 24300BE5 		str	r3, [fp, #-36]
+ 360:../sdrx3.c    **** 	dmaCfg.cb = NULL;
+ 894              		.loc 1 360 0
+ 895 05e0 0030A0E3 		mov	r3, #0
+ 896 05e4 20300BE5 		str	r3, [fp, #-32]
+ 361:../sdrx3.c    **** 	dmaCfg.prodHeader = 0;
+ 897              		.loc 1 361 0
+ 898 05e8 0030A0E3 		mov	r3, #0
+ 899 05ec BC324BE1 		strh	r3, [fp, #-44]	@ movhi
+ 362:../sdrx3.c    **** 	dmaCfg.prodFooter = 0;
+ 900              		.loc 1 362 0
+ 901 05f0 0030A0E3 		mov	r3, #0
+ 902 05f4 BA324BE1 		strh	r3, [fp, #-42]	@ movhi
+ 363:../sdrx3.c    **** 	dmaCfg.consHeader = 0;
+ 903              		.loc 1 363 0
+ 904 05f8 0030A0E3 		mov	r3, #0
+ 905 05fc B8324BE1 		strh	r3, [fp, #-40]	@ movhi
+ 364:../sdrx3.c    **** 	dmaCfg.prodAvailCount = 0;
+ 906              		.loc 1 364 0
+ 907 0600 0030A0E3 		mov	r3, #0
+ 908 0604 BE324BE1 		strh	r3, [fp, #-46]	@ movhi
+ 365:../sdrx3.c    **** 
+ 366:../sdrx3.c    **** 	/* Create a DMA MANUAL_OUT channel for the consumer socket. */
+ 367:../sdrx3.c    **** 	dmaCfg.prodSckId[0] = CY_U3P_PIB_SOCKET_0;
+ 909              		.loc 1 367 0
+ 910 0608 013CA0E3 		mov	r3, #256
+ 911 060c BE334BE1 		strh	r3, [fp, #-62]	@ movhi
+ 368:../sdrx3.c    **** 	dmaCfg.prodSckId[1] = CY_U3P_PIB_SOCKET_1;
+ 912              		.loc 1 368 0
+ 913 0610 A0309FE5 		ldr	r3, .L41+8
+ 914 0614 BC334BE1 		strh	r3, [fp, #-60]	@ movhi
+ 369:../sdrx3.c    **** 	dmaCfg.consSckId[0] = CY_FX_EP_CONSUMER_SOCKET;
+ 915              		.loc 1 369 0
+ 916 0618 9C309FE5 		ldr	r3, .L41+12
+ 917 061c B6334BE1 		strh	r3, [fp, #-54]	@ movhi
+ 370:../sdrx3.c    **** 
+ 371:../sdrx3.c    **** 	apiRetStatus = CyU3PDmaMultiChannelCreate (&glChHandleBulkSrc, CY_U3P_DMA_TYPE_AUTO_MANY_TO_ONE , 
+ 918              		.loc 1 371 0
+ 919 0620 44304BE2 		sub	r3, fp, #68
+ 920 0624 94009FE5 		ldr	r0, .L41+16
+ 921 0628 0510A0E3 		mov	r1, #5
+ 922 062c 0320A0E1 		mov	r2, r3
+ 923 0630 FEFFFFEB 		bl	CyU3PDmaMultiChannelCreate
+ 924 0634 0C000BE5 		str	r0, [fp, #-12]
+ 372:../sdrx3.c    **** 	if (apiRetStatus != CY_U3P_SUCCESS)
+ 925              		.loc 1 372 0
+ 926 0638 0C301BE5 		ldr	r3, [fp, #-12]
+ 927 063c 000053E3 		cmp	r3, #0
+ 928 0640 0500000A 		beq	.L38
+ 373:../sdrx3.c    **** 	{
+ 374:../sdrx3.c    **** 		CyU3PDebugPrint (4, "CyU3PDmaChannelCreate failed, Error code = %d\n", apiRetStatus);
+ 929              		.loc 1 374 0
+ 930 0644 0400A0E3 		mov	r0, #4
+ 931 0648 74109FE5 		ldr	r1, .L41+20
+ 932 064c 0C201BE5 		ldr	r2, [fp, #-12]
+ 933 0650 FEFFFFEB 		bl	CyU3PDebugPrint
+ 375:../sdrx3.c    **** 		SDR_ErrorHandler(apiRetStatus);
+ 934              		.loc 1 375 0
+ 935 0654 0C001BE5 		ldr	r0, [fp, #-12]
+ 936 0658 FEFFFFEB 		bl	SDR_ErrorHandler
+ 937              	.L38:
+ 376:../sdrx3.c    **** 	}
+ 377:../sdrx3.c    **** 
+ 378:../sdrx3.c    **** 	/* Set DMA Channel transfer size */
+ 379:../sdrx3.c    **** 
+ 380:../sdrx3.c    **** 	apiRetStatus = CyU3PDmaMultiChannelSetXfer (&glChHandleBulkSrc, CY_FX_BULKSRCSINK_DMA_TX_SIZE, 0);
+ 938              		.loc 1 380 0
+ 939 065c 5C009FE5 		ldr	r0, .L41+16
+ 940 0660 0010A0E3 		mov	r1, #0
+ 941 0664 0020A0E3 		mov	r2, #0
+ 942 0668 FEFFFFEB 		bl	CyU3PDmaMultiChannelSetXfer
+ 943 066c 0C000BE5 		str	r0, [fp, #-12]
+ 381:../sdrx3.c    **** 	if (apiRetStatus != CY_U3P_SUCCESS)
+ 944              		.loc 1 381 0
+ 945 0670 0C301BE5 		ldr	r3, [fp, #-12]
+ 946 0674 000053E3 		cmp	r3, #0
+ 947 0678 0500000A 		beq	.L39
+ 382:../sdrx3.c    **** 	{
+ 383:../sdrx3.c    **** 		CyU3PDebugPrint (4, "CyU3PDmaChannelSetXfer failed, Error code = %d\n", apiRetStatus);
+ 948              		.loc 1 383 0
+ 949 067c 0400A0E3 		mov	r0, #4
+ 950 0680 40109FE5 		ldr	r1, .L41+24
+ 951 0684 0C201BE5 		ldr	r2, [fp, #-12]
+ 952 0688 FEFFFFEB 		bl	CyU3PDebugPrint
+ 384:../sdrx3.c    **** 		SDR_ErrorHandler(apiRetStatus);
+ 953              		.loc 1 384 0
+ 954 068c 0C001BE5 		ldr	r0, [fp, #-12]
+ 955 0690 FEFFFFEB 		bl	SDR_ErrorHandler
+ 956              	.L39:
+ 385:../sdrx3.c    **** 	}
+ 386:../sdrx3.c    **** 
+ 387:../sdrx3.c    **** 	/* Flush the endpoint memory */
+ 388:../sdrx3.c    **** 		CyU3PUsbFlushEp(CY_FX_EP_CONSUMER);
+ 957              		.loc 1 388 0
+ 958 0694 8100A0E3 		mov	r0, #129
+ 959 0698 FEFFFFEB 		bl	CyU3PUsbFlushEp
+ 389:../sdrx3.c    **** 
+ 390:../sdrx3.c    **** 	glIsApplnActive = CyTrue;
+ 960              		.loc 1 390 0
+ 961 069c 28309FE5 		ldr	r3, .L41+28
+ 962 06a0 0120A0E3 		mov	r2, #1
+ 963 06a4 002083E5 		str	r2, [r3]
+ 391:../sdrx3.c    **** }
+ 964              		.loc 1 391 0
+ 965 06a8 04D04BE2 		sub	sp, fp, #4
+ 966              		@ sp needed
+ 967 06ac 0088BDE8 		ldmfd	sp!, {fp, pc}
+ 968              	.L42:
+ 969              		.align	2
+ 970              	.L41:
+ 971 06b0 68000000 		.word	.LC1
+ 972 06b4 84000000 		.word	.LC2
+ 973 06b8 01010000 		.word	257
+ 974 06bc 01030000 		.word	769
+ 975 06c0 00000000 		.word	glChHandleBulkSrc
+ 976 06c4 B0000000 		.word	.LC3
+ 977 06c8 E0000000 		.word	.LC4
+ 978 06cc 00000000 		.word	glIsApplnActive
+ 979              		.cfi_endproc
+ 980              	.LFE6:
+ 982              		.align	2
+ 983              		.global	SDR_ApplnStop
+ 985              	SDR_ApplnStop:
+ 986              	.LFB7:
+ 392:../sdrx3.c    **** 
+ 393:../sdrx3.c    **** /* This function stops the application. This shall be called whenever a RESET
+ 394:../sdrx3.c    ****  * or DISCONNECT event is received from the USB host. The endpoints are
+ 395:../sdrx3.c    ****  * disabled and the DMA pipe is destroyed by this function. */
+ 396:../sdrx3.c    **** void
+ 397:../sdrx3.c    **** SDR_ApplnStop (
+ 398:../sdrx3.c    **** 		void)
+ 399:../sdrx3.c    **** {
+ 987              		.loc 1 399 0
+ 988              		.cfi_startproc
+ 989              		@ args = 0, pretend = 0, frame = 16
+ 990              		@ frame_needed = 1, uses_anonymous_args = 0
+ 991 06d0 00482DE9 		stmfd	sp!, {fp, lr}
+ 992              	.LCFI14:
+ 993              		.cfi_def_cfa_offset 8
+ 994              		.cfi_offset 11, -8
+ 995              		.cfi_offset 14, -4
+ 996 06d4 04B08DE2 		add	fp, sp, #4
+ 997              	.LCFI15:
+ 998              		.cfi_def_cfa 11, 4
+ 999 06d8 10D04DE2 		sub	sp, sp, #16
+ 400:../sdrx3.c    **** 	CyU3PEpConfig_t epCfg;
+ 401:../sdrx3.c    **** 	CyU3PReturnStatus_t apiRetStatus = CY_U3P_SUCCESS;
+ 1000              		.loc 1 401 0
+ 1001 06dc 0030A0E3 		mov	r3, #0
+ 1002 06e0 08300BE5 		str	r3, [fp, #-8]
+ 402:../sdrx3.c    **** 
+ 403:../sdrx3.c    **** 	/* Update the flag so that the application thread is notified of this. */
+ 404:../sdrx3.c    **** 	glIsApplnActive = CyFalse;
+ 1003              		.loc 1 404 0
+ 1004 06e4 70309FE5 		ldr	r3, .L45
+ 1005 06e8 0020A0E3 		mov	r2, #0
+ 1006 06ec 002083E5 		str	r2, [r3]
+ 405:../sdrx3.c    **** 
+ 406:../sdrx3.c    **** 	/* Disable endpoints. */
+ 407:../sdrx3.c    **** 	CyU3PMemSet ((uint8_t *)&epCfg, 0, sizeof (epCfg));
+ 1007              		.loc 1 407 0
+ 1008 06f0 14304BE2 		sub	r3, fp, #20
+ 1009 06f4 0300A0E1 		mov	r0, r3
+ 1010 06f8 0010A0E3 		mov	r1, #0
+ 1011 06fc 0C20A0E3 		mov	r2, #12
+ 1012 0700 FEFFFFEB 		bl	CyU3PMemSet
+ 408:../sdrx3.c    **** 	epCfg.enable = CyFalse;
+ 1013              		.loc 1 408 0
+ 1014 0704 0030A0E3 		mov	r3, #0
+ 1015 0708 14300BE5 		str	r3, [fp, #-20]
+ 409:../sdrx3.c    **** 
+ 410:../sdrx3.c    **** 	CyU3PDmaMultiChannelDestroy (&glChHandleBulkSrc);
+ 1016              		.loc 1 410 0
+ 1017 070c 4C009FE5 		ldr	r0, .L45+4
+ 1018 0710 FEFFFFEB 		bl	CyU3PDmaMultiChannelDestroy
+ 411:../sdrx3.c    **** 	CyU3PUsbFlushEp(CY_FX_EP_CONSUMER);
+ 1019              		.loc 1 411 0
+ 1020 0714 8100A0E3 		mov	r0, #129
+ 1021 0718 FEFFFFEB 		bl	CyU3PUsbFlushEp
+ 412:../sdrx3.c    **** 	/* Consumer endpoint configuration. */
+ 413:../sdrx3.c    **** 	apiRetStatus = CyU3PSetEpConfig(CY_FX_EP_CONSUMER, &epCfg);
+ 1022              		.loc 1 413 0
+ 1023 071c 14304BE2 		sub	r3, fp, #20
+ 1024 0720 8100A0E3 		mov	r0, #129
+ 1025 0724 0310A0E1 		mov	r1, r3
+ 1026 0728 FEFFFFEB 		bl	CyU3PSetEpConfig
+ 1027 072c 08000BE5 		str	r0, [fp, #-8]
+ 414:../sdrx3.c    **** 	if (apiRetStatus != CY_U3P_SUCCESS)
+ 1028              		.loc 1 414 0
+ 1029 0730 08301BE5 		ldr	r3, [fp, #-8]
+ 1030 0734 000053E3 		cmp	r3, #0
+ 1031 0738 0500000A 		beq	.L43
+ 415:../sdrx3.c    **** 	{
+ 416:../sdrx3.c    **** 		CyU3PDebugPrint (4, "CyU3PSetEpConfig failed, Error code = %d\n", apiRetStatus);
+ 1032              		.loc 1 416 0
+ 1033 073c 0400A0E3 		mov	r0, #4
+ 1034 0740 1C109FE5 		ldr	r1, .L45+8
+ 1035 0744 08201BE5 		ldr	r2, [fp, #-8]
+ 1036 0748 FEFFFFEB 		bl	CyU3PDebugPrint
+ 417:../sdrx3.c    **** 		SDR_ErrorHandler (apiRetStatus);
+ 1037              		.loc 1 417 0
+ 1038 074c 08001BE5 		ldr	r0, [fp, #-8]
+ 1039 0750 FEFFFFEB 		bl	SDR_ErrorHandler
+ 1040              	.L43:
+ 418:../sdrx3.c    **** 	}
+ 419:../sdrx3.c    **** 
+ 420:../sdrx3.c    **** }
+ 1041              		.loc 1 420 0
+ 1042 0754 04D04BE2 		sub	sp, fp, #4
+ 1043              		@ sp needed
+ 1044 0758 0088BDE8 		ldmfd	sp!, {fp, pc}
+ 1045              	.L46:
+ 1046              		.align	2
+ 1047              	.L45:
+ 1048 075c 00000000 		.word	glIsApplnActive
+ 1049 0760 00000000 		.word	glChHandleBulkSrc
+ 1050 0764 84000000 		.word	.LC2
+ 1051              		.cfi_endproc
+ 1052              	.LFE7:
+ 1054              		.section	.rodata
+ 1055              		.align	2
+ 1056              	.LC5:
+ 1057 0110 0A204359 		.ascii	"\012 CY_FX_RQT_GPIO_PWM failed, error code = %d\012"
+ 1057      5F46585F 
+ 1057      5251545F 
+ 1057      4750494F 
+ 1057      5F50574D 
+ 1058 013d 00       		.ascii	"\000"
+ 1059 013e 0000     		.align	2
+ 1060              	.LC6:
+ 1061 0140 0A0D4359 		.ascii	"\012\015CY_FX_RQT_I2C_WRITE failed, error code = 0x"
+ 1061      5F46585F 
+ 1061      5251545F 
+ 1061      4932435F 
+ 1061      57524954 
+ 1062 016d 25580A00 		.ascii	"%X\012\000"
+ 1063 0171 000000   		.align	2
+ 1064              	.LC7:
+ 1065 0174 0A0D4359 		.ascii	"\012\015CY_FX_RQT_I2C_READ failed, error code = 0x%"
+ 1065      5F46585F 
+ 1065      5251545F 
+ 1065      4932435F 
+ 1065      52454144 
+ 1066 01a1 580A00   		.ascii	"X\012\000"
+ 1067              		.text
+ 1068              		.align	2
+ 1069              		.global	SDR_ApplnUSBSetupCB
+ 1071              	SDR_ApplnUSBSetupCB:
+ 1072              	.LFB8:
+ 421:../sdrx3.c    **** 
+ 422:../sdrx3.c    **** /* Callback to handle the USB setup requests. */
+ 423:../sdrx3.c    **** CyBool_t
+ 424:../sdrx3.c    **** SDR_ApplnUSBSetupCB (
+ 425:../sdrx3.c    **** 		uint32_t setupdat0, /* SETUP Data 0 */
+ 426:../sdrx3.c    **** 		uint32_t setupdat1  /* SETUP Data 1 */
+ 427:../sdrx3.c    **** )
+ 428:../sdrx3.c    **** {
+ 1073              		.loc 1 428 0
+ 1074              		.cfi_startproc
+ 1075              		@ args = 0, pretend = 0, frame = 40
+ 1076              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1077 0768 00482DE9 		stmfd	sp!, {fp, lr}
+ 1078              	.LCFI16:
+ 1079              		.cfi_def_cfa_offset 8
+ 1080              		.cfi_offset 11, -8
+ 1081              		.cfi_offset 14, -4
+ 1082 076c 04B08DE2 		add	fp, sp, #4
+ 1083              	.LCFI17:
+ 1084              		.cfi_def_cfa 11, 4
+ 1085 0770 30D04DE2 		sub	sp, sp, #48
+ 1086 0774 28000BE5 		str	r0, [fp, #-40]
+ 1087 0778 2C100BE5 		str	r1, [fp, #-44]
+ 429:../sdrx3.c    **** 	uint8_t  bRequest, bReqType;
+ 430:../sdrx3.c    **** 	uint8_t  bType; // bTarget;
+ 431:../sdrx3.c    **** 	uint16_t wValue;
+ 432:../sdrx3.c    **** 	uint16_t wLength;
+ 433:../sdrx3.c    **** 	uint16_t wIndex;
+ 434:../sdrx3.c    ****     outxio_t * pdata;
+ 435:../sdrx3.c    ****     pwmxio_t * ppwm;
+ 436:../sdrx3.c    ****     uint32_t value;
+ 437:../sdrx3.c    ****     CyU3PReturnStatus_t apiRetStatus = 0;
+ 1088              		.loc 1 437 0
+ 1089 077c 0030A0E3 		mov	r3, #0
+ 1090 0780 10300BE5 		str	r3, [fp, #-16]
+ 438:../sdrx3.c    ****     CyBool_t isHandled = CyFalse;
+ 1091              		.loc 1 438 0
+ 1092 0784 0030A0E3 		mov	r3, #0
+ 1093 0788 14300BE5 		str	r3, [fp, #-20]
+ 439:../sdrx3.c    **** 
+ 440:../sdrx3.c    **** 
+ 441:../sdrx3.c    **** 	/* Decode the fields from the setup request. */
+ 442:../sdrx3.c    **** 	bReqType = (setupdat0 & CY_U3P_USB_REQUEST_TYPE_MASK);
+ 1094              		.loc 1 442 0
+ 1095 078c 28301BE5 		ldr	r3, [fp, #-40]
+ 1096 0790 15304BE5 		strb	r3, [fp, #-21]
+ 443:../sdrx3.c    **** 	bType    = (bReqType & CY_U3P_USB_TYPE_MASK);
+ 1097              		.loc 1 443 0
+ 1098 0794 15305BE5 		ldrb	r3, [fp, #-21]
+ 1099 0798 603003E2 		and	r3, r3, #96
+ 1100 079c 16304BE5 		strb	r3, [fp, #-22]
+ 444:../sdrx3.c    **** //	bTarget  = (bReqType & CY_U3P_USB_TARGET_MASK);
+ 445:../sdrx3.c    **** 	bRequest = ((setupdat0 & CY_U3P_USB_REQUEST_MASK) >> CY_U3P_USB_REQUEST_POS);
+ 1101              		.loc 1 445 0
+ 1102 07a0 28301BE5 		ldr	r3, [fp, #-40]
+ 1103 07a4 FF3C03E2 		and	r3, r3, #65280
+ 1104 07a8 2334A0E1 		mov	r3, r3, lsr #8
+ 1105 07ac 17304BE5 		strb	r3, [fp, #-23]
+ 446:../sdrx3.c    **** 	wValue   = ((setupdat0 & CY_U3P_USB_VALUE_MASK)   >> CY_U3P_USB_VALUE_POS);
+ 1106              		.loc 1 446 0
+ 1107 07b0 28301BE5 		ldr	r3, [fp, #-40]
+ 1108 07b4 2338A0E1 		mov	r3, r3, lsr #16
+ 1109 07b8 BA314BE1 		strh	r3, [fp, #-26]	@ movhi
+ 447:../sdrx3.c    **** 	wLength   = ((setupdat1 & CY_U3P_USB_LENGTH_MASK)   >> CY_U3P_USB_LENGTH_POS);
+ 1110              		.loc 1 447 0
+ 1111 07bc 2C301BE5 		ldr	r3, [fp, #-44]
+ 1112 07c0 2338A0E1 		mov	r3, r3, lsr #16
+ 1113 07c4 B6304BE1 		strh	r3, [fp, #-6]	@ movhi
+ 448:../sdrx3.c    **** 	wIndex   = ((setupdat1 & CY_U3P_USB_INDEX_MASK)   >> CY_U3P_USB_INDEX_POS);
+ 1114              		.loc 1 448 0
+ 1115 07c8 2C301BE5 		ldr	r3, [fp, #-44]
+ 1116 07cc BC314BE1 		strh	r3, [fp, #-28]	@ movhi
+ 449:../sdrx3.c    **** 
+ 450:../sdrx3.c    **** 
+ 451:../sdrx3.c    **** 	if (bType == CY_U3P_USB_VENDOR_RQT)
+ 1117              		.loc 1 451 0
+ 1118 07d0 16305BE5 		ldrb	r3, [fp, #-22]	@ zero_extendqisi2
+ 1119 07d4 400053E3 		cmp	r3, #64
+ 1120 07d8 DE00001A 		bne	.L48
+ 452:../sdrx3.c    **** 	{
+ 453:../sdrx3.c    **** 		isHandled = CyTrue;
+ 1121              		.loc 1 453 0
+ 1122 07dc 0130A0E3 		mov	r3, #1
+ 1123 07e0 14300BE5 		str	r3, [fp, #-20]
+ 454:../sdrx3.c    **** 		switch (bRequest)
+ 1124              		.loc 1 454 0
+ 1125 07e4 17305BE5 		ldrb	r3, [fp, #-23]	@ zero_extendqisi2
+ 1126 07e8 B03043E2 		sub	r3, r3, #176
+ 1127 07ec 0D0053E3 		cmp	r3, #13
+ 1128 07f0 03F19F97 		ldrls	pc, [pc, r3, asl #2]
+ 1129 07f4 D20000EA 		b	.L49
+ 1130              	.L51:
+ 1131 07f8 30080000 		.word	.L50
+ 1132 07fc 440B0000 		.word	.L49
+ 1133 0800 440B0000 		.word	.L49
+ 1134 0804 440B0000 		.word	.L49
+ 1135 0808 440B0000 		.word	.L49
+ 1136 080c 440B0000 		.word	.L49
+ 1137 0810 440B0000 		.word	.L49
+ 1138 0814 440B0000 		.word	.L49
+ 1139 0818 440B0000 		.word	.L49
+ 1140 081c 440B0000 		.word	.L49
+ 1141 0820 180A0000 		.word	.L52
+ 1142 0824 9C0A0000 		.word	.L53
+ 1143 0828 40080000 		.word	.L54
+ 1144 082c 88090000 		.word	.L55
+ 1145              	.L50:
+ 455:../sdrx3.c    **** 		{
+ 456:../sdrx3.c    **** 			case CY_FX_RQT_ID_CHECK:
+ 457:../sdrx3.c    **** 				CyU3PUsbSendEP0Data (8, (uint8_t *)glFirmwareID);
+ 1146              		.loc 1 457 0
+ 1147 0830 0800A0E3 		mov	r0, #8
+ 1148 0834 2C139FE5 		ldr	r1, .L65
+ 1149 0838 FEFFFFEB 		bl	CyU3PUsbSendEP0Data
+ 458:../sdrx3.c    **** 				break;
+ 1150              		.loc 1 458 0
+ 1151 083c C30000EA 		b	.L56
+ 1152              	.L54:
+ 459:../sdrx3.c    **** 
+ 460:../sdrx3.c    **** 			case CY_FX_RQT_GPIO_WRITE:
+ 461:../sdrx3.c    **** 				if(CyU3PUsbGetEP0Data(wLength, glEp0Buffer, NULL)== CY_U3P_SUCCESS)
+ 1153              		.loc 1 461 0
+ 1154 0840 B6305BE1 		ldrh	r3, [fp, #-6]
+ 1155 0844 0300A0E1 		mov	r0, r3
+ 1156 0848 1C139FE5 		ldr	r1, .L65+4
+ 1157 084c 0020A0E3 		mov	r2, #0
+ 1158 0850 FEFFFFEB 		bl	CyU3PUsbGetEP0Data
+ 1159 0854 0030A0E1 		mov	r3, r0
+ 1160 0858 000053E3 		cmp	r3, #0
+ 1161 085c 4800001A 		bne	.L57
+ 462:../sdrx3.c    **** 				{
+ 463:../sdrx3.c    **** 					pdata = (outxio_t *) &glEp0Buffer[1];
+ 1162              		.loc 1 463 0
+ 1163 0860 08339FE5 		ldr	r3, .L65+8
+ 1164 0864 20300BE5 		str	r3, [fp, #-32]
+ 464:../sdrx3.c    **** 					CyU3PGpioSetValue (21, (pdata->buffer[0] & OUTXIO0) == OUTXIO0 );
+ 1165              		.loc 1 464 0
+ 1166 0868 20301BE5 		ldr	r3, [fp, #-32]
+ 1167 086c 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1168 0870 013003E2 		and	r3, r3, #1
+ 1169 0874 000053E3 		cmp	r3, #0
+ 1170 0878 0030A003 		moveq	r3, #0
+ 1171 087c 0130A013 		movne	r3, #1
+ 1172 0880 FF3003E2 		and	r3, r3, #255
+ 1173 0884 1500A0E3 		mov	r0, #21
+ 1174 0888 0310A0E1 		mov	r1, r3
+ 1175 088c FEFFFFEB 		bl	CyU3PGpioSetValue
+ 465:../sdrx3.c    **** 					CyU3PGpioSetValue (22, (pdata->buffer[0] & OUTXIO1) == OUTXIO1 );
+ 1176              		.loc 1 465 0
+ 1177 0890 20301BE5 		ldr	r3, [fp, #-32]
+ 1178 0894 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1179 0898 023003E2 		and	r3, r3, #2
+ 1180 089c 000053E3 		cmp	r3, #0
+ 1181 08a0 0030A003 		moveq	r3, #0
+ 1182 08a4 0130A013 		movne	r3, #1
+ 1183 08a8 FF3003E2 		and	r3, r3, #255
+ 1184 08ac 1600A0E3 		mov	r0, #22
+ 1185 08b0 0310A0E1 		mov	r1, r3
+ 1186 08b4 FEFFFFEB 		bl	CyU3PGpioSetValue
+ 466:../sdrx3.c    **** 					CyU3PGpioSetValue (23, (pdata->buffer[0] & OUTXIO2) == OUTXIO2 );
+ 1187              		.loc 1 466 0
+ 1188 08b8 20301BE5 		ldr	r3, [fp, #-32]
+ 1189 08bc 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1190 08c0 043003E2 		and	r3, r3, #4
+ 1191 08c4 000053E3 		cmp	r3, #0
+ 1192 08c8 0030A003 		moveq	r3, #0
+ 1193 08cc 0130A013 		movne	r3, #1
+ 1194 08d0 FF3003E2 		and	r3, r3, #255
+ 1195 08d4 1700A0E3 		mov	r0, #23
+ 1196 08d8 0310A0E1 		mov	r1, r3
+ 1197 08dc FEFFFFEB 		bl	CyU3PGpioSetValue
+ 467:../sdrx3.c    **** 					CyU3PGpioSetValue (26, (pdata->buffer[0] & OUTXIO3) == OUTXIO3 );
+ 1198              		.loc 1 467 0
+ 1199 08e0 20301BE5 		ldr	r3, [fp, #-32]
+ 1200 08e4 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1201 08e8 083003E2 		and	r3, r3, #8
+ 1202 08ec 000053E3 		cmp	r3, #0
+ 1203 08f0 0030A003 		moveq	r3, #0
+ 1204 08f4 0130A013 		movne	r3, #1
+ 1205 08f8 FF3003E2 		and	r3, r3, #255
+ 1206 08fc 1A00A0E3 		mov	r0, #26
+ 1207 0900 0310A0E1 		mov	r1, r3
+ 1208 0904 FEFFFFEB 		bl	CyU3PGpioSetValue
+ 468:../sdrx3.c    **** 					CyU3PGpioSetValue (27, (pdata->buffer[0] & OUTXIO4) == OUTXIO4 );
+ 1209              		.loc 1 468 0
+ 1210 0908 20301BE5 		ldr	r3, [fp, #-32]
+ 1211 090c 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1212 0910 103003E2 		and	r3, r3, #16
+ 1213 0914 000053E3 		cmp	r3, #0
+ 1214 0918 0030A003 		moveq	r3, #0
+ 1215 091c 0130A013 		movne	r3, #1
+ 1216 0920 FF3003E2 		and	r3, r3, #255
+ 1217 0924 1B00A0E3 		mov	r0, #27
+ 1218 0928 0310A0E1 		mov	r1, r3
+ 1219 092c FEFFFFEB 		bl	CyU3PGpioSetValue
+ 469:../sdrx3.c    **** 					CyU3PGpioSetValue (28, (pdata->buffer[0] & OUTXIO5) == OUTXIO5 );
+ 1220              		.loc 1 469 0
+ 1221 0930 20301BE5 		ldr	r3, [fp, #-32]
+ 1222 0934 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1223 0938 203003E2 		and	r3, r3, #32
+ 1224 093c 000053E3 		cmp	r3, #0
+ 1225 0940 0030A003 		moveq	r3, #0
+ 1226 0944 0130A013 		movne	r3, #1
+ 1227 0948 FF3003E2 		and	r3, r3, #255
+ 1228 094c 1C00A0E3 		mov	r0, #28
+ 1229 0950 0310A0E1 		mov	r1, r3
+ 1230 0954 FEFFFFEB 		bl	CyU3PGpioSetValue
+ 470:../sdrx3.c    **** 					CyU3PGpioSetValue (29, (pdata->buffer[0] & OUTXIO6) == OUTXIO6 );
+ 1231              		.loc 1 470 0
+ 1232 0958 20301BE5 		ldr	r3, [fp, #-32]
+ 1233 095c 0030D3E5 		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1234 0960 403003E2 		and	r3, r3, #64
+ 1235 0964 000053E3 		cmp	r3, #0
+ 1236 0968 0030A003 		moveq	r3, #0
+ 1237 096c 0130A013 		movne	r3, #1
+ 1238 0970 FF3003E2 		and	r3, r3, #255
+ 1239 0974 1D00A0E3 		mov	r0, #29
+ 1240 0978 0310A0E1 		mov	r1, r3
+ 1241 097c FEFFFFEB 		bl	CyU3PGpioSetValue
+ 471:../sdrx3.c    **** 				}
+ 472:../sdrx3.c    **** 				break;
+ 1242              		.loc 1 472 0
+ 1243 0980 720000EA 		b	.L56
+ 1244              	.L57:
+ 1245 0984 710000EA 		b	.L56
+ 1246              	.L55:
+ 473:../sdrx3.c    **** 
+ 474:../sdrx3.c    **** 			case CY_FX_RQT_GPIO_PWM:
+ 475:../sdrx3.c    **** 				if(CyU3PUsbGetEP0Data(wLength, glEp0Buffer, NULL)== CY_U3P_SUCCESS)
+ 1247              		.loc 1 475 0
+ 1248 0988 B6305BE1 		ldrh	r3, [fp, #-6]
+ 1249 098c 0300A0E1 		mov	r0, r3
+ 1250 0990 D4119FE5 		ldr	r1, .L65+4
+ 1251 0994 0020A0E3 		mov	r2, #0
+ 1252 0998 FEFFFFEB 		bl	CyU3PUsbGetEP0Data
+ 1253 099c 0030A0E1 		mov	r3, r0
+ 1254 09a0 000053E3 		cmp	r3, #0
+ 1255 09a4 1A00001A 		bne	.L58
+ 476:../sdrx3.c    **** 				{
+ 477:../sdrx3.c    **** 					ppwm = (pwmxio_t *)&glEp0Buffer[1];
+ 1256              		.loc 1 477 0
+ 1257 09a8 C0319FE5 		ldr	r3, .L65+8
+ 1258 09ac 24300BE5 		str	r3, [fp, #-36]
+ 478:../sdrx3.c    **** 					value = ppwm->dutycicle;
+ 1259              		.loc 1 478 0
+ 1260 09b0 24301BE5 		ldr	r3, [fp, #-36]
+ 1261 09b4 003093E5 		ldr	r3, [r3]
+ 1262 09b8 0C300BE5 		str	r3, [fp, #-12]
+ 479:../sdrx3.c    **** 					if (value >= CY_FX_PWM_PERIOD)
+ 1263              		.loc 1 479 0
+ 1264 09bc 0C201BE5 		ldr	r2, [fp, #-12]
+ 1265 09c0 AC319FE5 		ldr	r3, .L65+12
+ 1266 09c4 030052E1 		cmp	r2, r3
+ 1267 09c8 0100009A 		bls	.L59
+ 480:../sdrx3.c    **** 						value = CY_FX_PWM_PERIOD -1;
+ 1268              		.loc 1 480 0
+ 1269 09cc A0319FE5 		ldr	r3, .L65+12
+ 1270 09d0 0C300BE5 		str	r3, [fp, #-12]
+ 1271              	.L59:
+ 481:../sdrx3.c    **** 					apiRetStatus = ConfGPIOPWM(24,value);
+ 1272              		.loc 1 481 0
+ 1273 09d4 1800A0E3 		mov	r0, #24
+ 1274 09d8 0C101BE5 		ldr	r1, [fp, #-12]
+ 1275 09dc FEFFFFEB 		bl	ConfGPIOPWM
+ 1276 09e0 10000BE5 		str	r0, [fp, #-16]
+ 482:../sdrx3.c    **** 					if (apiRetStatus != CY_U3P_SUCCESS)
+ 1277              		.loc 1 482 0
+ 1278 09e4 10301BE5 		ldr	r3, [fp, #-16]
+ 1279 09e8 000053E3 		cmp	r3, #0
+ 1280 09ec 0800000A 		beq	.L58
+ 483:../sdrx3.c    **** 					{
+ 484:../sdrx3.c    **** 						isHandled = CyFalse;
+ 1281              		.loc 1 484 0
+ 1282 09f0 0030A0E3 		mov	r3, #0
+ 1283 09f4 14300BE5 		str	r3, [fp, #-20]
+ 485:../sdrx3.c    **** 						CyU3PDebugPrint (4, "\n CY_FX_RQT_GPIO_PWM failed, error code = %d\n",
+ 1284              		.loc 1 485 0
+ 1285 09f8 0400A0E3 		mov	r0, #4
+ 1286 09fc 74119FE5 		ldr	r1, .L65+16
+ 1287 0a00 10201BE5 		ldr	r2, [fp, #-16]
+ 1288 0a04 FEFFFFEB 		bl	CyU3PDebugPrint
+ 486:../sdrx3.c    **** 								apiRetStatus);
+ 487:../sdrx3.c    **** 						SDR_ErrorHandler(apiRetStatus);
+ 1289              		.loc 1 487 0
+ 1290 0a08 10001BE5 		ldr	r0, [fp, #-16]
+ 1291 0a0c FEFFFFEB 		bl	SDR_ErrorHandler
+ 488:../sdrx3.c    **** 					}
+ 489:../sdrx3.c    **** 				}
+ 490:../sdrx3.c    **** 				break;
+ 1292              		.loc 1 490 0
+ 1293 0a10 4E0000EA 		b	.L56
+ 1294              	.L58:
+ 1295 0a14 4D0000EA 		b	.L56
+ 1296              	.L52:
+ 491:../sdrx3.c    **** 
+ 492:../sdrx3.c    **** 			case CY_FX_RQT_I2C_WRITE:
+ 493:../sdrx3.c    **** 				if(CyU3PUsbGetEP0Data(wLength, glEp0Buffer, NULL)== CY_U3P_SUCCESS)
+ 1297              		.loc 1 493 0
+ 1298 0a18 B6305BE1 		ldrh	r3, [fp, #-6]
+ 1299 0a1c 0300A0E1 		mov	r0, r3
+ 1300 0a20 44119FE5 		ldr	r1, .L65+4
+ 1301 0a24 0020A0E3 		mov	r2, #0
+ 1302 0a28 FEFFFFEB 		bl	CyU3PUsbGetEP0Data
+ 1303 0a2c 0030A0E1 		mov	r3, r0
+ 1304 0a30 000053E3 		cmp	r3, #0
+ 1305 0a34 1700001A 		bne	.L60
+ 494:../sdrx3.c    **** 				{
+ 495:../sdrx3.c    **** 					apiRetStatus = CyFxUsbI2cTransfer ( wIndex, wValue, wLength, glEp0Buffer, CyFalse);
+ 1306              		.loc 1 495 0
+ 1307 0a38 BC315BE1 		ldrh	r3, [fp, #-28]	@ movhi
+ 1308 0a3c FF1003E2 		and	r1, r3, #255
+ 1309 0a40 BA315BE1 		ldrh	r3, [fp, #-26]	@ movhi
+ 1310 0a44 FF2003E2 		and	r2, r3, #255
+ 1311 0a48 B6305BE1 		ldrh	r3, [fp, #-6]	@ movhi
+ 1312 0a4c FF3003E2 		and	r3, r3, #255
+ 1313 0a50 0000A0E3 		mov	r0, #0
+ 1314 0a54 00008DE5 		str	r0, [sp]
+ 1315 0a58 0100A0E1 		mov	r0, r1
+ 1316 0a5c 0210A0E1 		mov	r1, r2
+ 1317 0a60 0320A0E1 		mov	r2, r3
+ 1318 0a64 00319FE5 		ldr	r3, .L65+4
+ 1319 0a68 FEFFFFEB 		bl	CyFxUsbI2cTransfer
+ 1320 0a6c 10000BE5 		str	r0, [fp, #-16]
+ 496:../sdrx3.c    **** 					if (apiRetStatus != CY_U3P_SUCCESS)
+ 1321              		.loc 1 496 0
+ 1322 0a70 10301BE5 		ldr	r3, [fp, #-16]
+ 1323 0a74 000053E3 		cmp	r3, #0
+ 1324 0a78 0600000A 		beq	.L60
+ 497:../sdrx3.c    **** 					{
+ 498:../sdrx3.c    **** 						isHandled = CyFalse;
+ 1325              		.loc 1 498 0
+ 1326 0a7c 0030A0E3 		mov	r3, #0
+ 1327 0a80 14300BE5 		str	r3, [fp, #-20]
+ 499:../sdrx3.c    **** 						CyU3PDebugPrint (4, "\n\rCY_FX_RQT_I2C_WRITE failed, error code = 0x%X\n",apiRetStatus);
+ 1328              		.loc 1 499 0
+ 1329 0a84 0400A0E3 		mov	r0, #4
+ 1330 0a88 EC109FE5 		ldr	r1, .L65+20
+ 1331 0a8c 10201BE5 		ldr	r2, [fp, #-16]
+ 1332 0a90 FEFFFFEB 		bl	CyU3PDebugPrint
+ 500:../sdrx3.c    **** 					}
+ 501:../sdrx3.c    **** 				}
+ 502:../sdrx3.c    **** 				break;
+ 1333              		.loc 1 502 0
+ 1334 0a94 2D0000EA 		b	.L56
+ 1335              	.L60:
+ 1336 0a98 2C0000EA 		b	.L56
+ 1337              	.L53:
+ 503:../sdrx3.c    **** 
+ 504:../sdrx3.c    **** 			case CY_FX_RQT_I2C_READ:
+ 505:../sdrx3.c    **** 				CyU3PMemSet (glEp0Buffer, 0, sizeof (glEp0Buffer));
+ 1338              		.loc 1 505 0
+ 1339 0a9c C8009FE5 		ldr	r0, .L65+4
+ 1340 0aa0 0010A0E3 		mov	r1, #0
+ 1341 0aa4 2020A0E3 		mov	r2, #32
+ 1342 0aa8 FEFFFFEB 		bl	CyU3PMemSet
+ 506:../sdrx3.c    **** 				if (wLength >= 64) wLength = 64;
+ 1343              		.loc 1 506 0
+ 1344 0aac B6305BE1 		ldrh	r3, [fp, #-6]
+ 1345 0ab0 3F0053E3 		cmp	r3, #63
+ 1346 0ab4 0100009A 		bls	.L61
+ 1347              		.loc 1 506 0 is_stmt 0 discriminator 1
+ 1348 0ab8 4030A0E3 		mov	r3, #64
+ 1349 0abc B6304BE1 		strh	r3, [fp, #-6]	@ movhi
+ 1350              	.L61:
+ 507:../sdrx3.c    **** 				apiRetStatus = CyFxUsbI2cTransfer (wIndex, wValue, wLength,glEp0Buffer, CyTrue);
+ 1351              		.loc 1 507 0 is_stmt 1
+ 1352 0ac0 BC315BE1 		ldrh	r3, [fp, #-28]	@ movhi
+ 1353 0ac4 FF1003E2 		and	r1, r3, #255
+ 1354 0ac8 BA315BE1 		ldrh	r3, [fp, #-26]	@ movhi
+ 1355 0acc FF2003E2 		and	r2, r3, #255
+ 1356 0ad0 B6305BE1 		ldrh	r3, [fp, #-6]	@ movhi
+ 1357 0ad4 FF3003E2 		and	r3, r3, #255
+ 1358 0ad8 0100A0E3 		mov	r0, #1
+ 1359 0adc 00008DE5 		str	r0, [sp]
+ 1360 0ae0 0100A0E1 		mov	r0, r1
+ 1361 0ae4 0210A0E1 		mov	r1, r2
+ 1362 0ae8 0320A0E1 		mov	r2, r3
+ 1363 0aec 78309FE5 		ldr	r3, .L65+4
+ 1364 0af0 FEFFFFEB 		bl	CyFxUsbI2cTransfer
+ 1365 0af4 10000BE5 		str	r0, [fp, #-16]
+ 508:../sdrx3.c    **** 				if (apiRetStatus == CY_U3P_SUCCESS)
+ 1366              		.loc 1 508 0
+ 1367 0af8 10301BE5 		ldr	r3, [fp, #-16]
+ 1368 0afc 000053E3 		cmp	r3, #0
+ 1369 0b00 0400001A 		bne	.L62
+ 509:../sdrx3.c    **** 				{
+ 510:../sdrx3.c    **** 					apiRetStatus = CyU3PUsbSendEP0Data(wLength, glEp0Buffer);
+ 1370              		.loc 1 510 0
+ 1371 0b04 B6305BE1 		ldrh	r3, [fp, #-6]
+ 1372 0b08 0300A0E1 		mov	r0, r3
+ 1373 0b0c 58109FE5 		ldr	r1, .L65+4
+ 1374 0b10 FEFFFFEB 		bl	CyU3PUsbSendEP0Data
+ 1375 0b14 10000BE5 		str	r0, [fp, #-16]
+ 1376              	.L62:
+ 511:../sdrx3.c    **** 				}
+ 512:../sdrx3.c    **** 				if (apiRetStatus != CY_U3P_SUCCESS)
+ 1377              		.loc 1 512 0
+ 1378 0b18 10301BE5 		ldr	r3, [fp, #-16]
+ 1379 0b1c 000053E3 		cmp	r3, #0
+ 1380 0b20 0600000A 		beq	.L63
+ 513:../sdrx3.c    **** 				{
+ 514:../sdrx3.c    **** 					isHandled = CyFalse;
+ 1381              		.loc 1 514 0
+ 1382 0b24 0030A0E3 		mov	r3, #0
+ 1383 0b28 14300BE5 		str	r3, [fp, #-20]
+ 515:../sdrx3.c    **** 					CyU3PDebugPrint (4, "\n\rCY_FX_RQT_I2C_READ failed, error code = 0x%X\n",apiRetStatus);
+ 1384              		.loc 1 515 0
+ 1385 0b2c 0400A0E3 		mov	r0, #4
+ 1386 0b30 48109FE5 		ldr	r1, .L65+24
+ 1387 0b34 10201BE5 		ldr	r2, [fp, #-16]
+ 1388 0b38 FEFFFFEB 		bl	CyU3PDebugPrint
+ 516:../sdrx3.c    **** 				}
+ 517:../sdrx3.c    **** 				break;
+ 1389              		.loc 1 517 0
+ 1390 0b3c 030000EA 		b	.L56
+ 1391              	.L63:
+ 1392 0b40 020000EA 		b	.L56
+ 1393              	.L49:
+ 518:../sdrx3.c    **** 
+ 519:../sdrx3.c    **** 			default:
+ 520:../sdrx3.c    **** 				/* This is unknown request. */
+ 521:../sdrx3.c    **** 				isHandled = CyFalse;
+ 1394              		.loc 1 521 0
+ 1395 0b44 0030A0E3 		mov	r3, #0
+ 1396 0b48 14300BE5 		str	r3, [fp, #-20]
+ 522:../sdrx3.c    **** 				break;
+ 1397              		.loc 1 522 0
+ 1398 0b4c 0000A0E1 		mov	r0, r0	@ nop
+ 1399              	.L56:
+ 523:../sdrx3.c    **** 		}
+ 524:../sdrx3.c    **** 		return isHandled;
+ 1400              		.loc 1 524 0
+ 1401 0b50 14301BE5 		ldr	r3, [fp, #-20]
+ 1402 0b54 000000EA 		b	.L64
+ 1403              	.L48:
+ 525:../sdrx3.c    **** 	}
+ 526:../sdrx3.c    **** 	/* Fast enumeration is used. Only class, vendor and unknown requests
+ 527:../sdrx3.c    **** 	 * are received by this function. These are not handled in this
+ 528:../sdrx3.c    **** 	 * application. Hence return CyFalse. */
+ 529:../sdrx3.c    **** 	return CyFalse;
+ 1404              		.loc 1 529 0
+ 1405 0b58 0030A0E3 		mov	r3, #0
+ 1406              	.L64:
+ 530:../sdrx3.c    **** }
+ 1407              		.loc 1 530 0
+ 1408 0b5c 0300A0E1 		mov	r0, r3
+ 1409 0b60 04D04BE2 		sub	sp, fp, #4
+ 1410              		@ sp needed
+ 1411 0b64 0088BDE8 		ldmfd	sp!, {fp, pc}
+ 1412              	.L66:
+ 1413              		.align	2
+ 1414              	.L65:
+ 1415 0b68 00000000 		.word	glFirmwareID
+ 1416 0b6c 00000000 		.word	glEp0Buffer
+ 1417 0b70 01000000 		.word	glEp0Buffer+1
+ 1418 0b74 7E130300 		.word	201598
+ 1419 0b78 10010000 		.word	.LC5
+ 1420 0b7c 40010000 		.word	.LC6
+ 1421 0b80 74010000 		.word	.LC7
+ 1422              		.cfi_endproc
+ 1423              	.LFE8:
+ 1425              		.section	.rodata
+ 1426              		.align	2
+ 1427              	.LC8:
+ 1428 01a4 0A0D2047 		.ascii	"\012\015 GPIF overflow INT received\012\000"
+ 1428      50494620 
+ 1428      6F766572 
+ 1428      666C6F77 
+ 1428      20494E54 
+ 1429              		.text
+ 1430              		.align	2
+ 1431              		.global	SDR_ApplnGPIFEventCB
+ 1433              	SDR_ApplnGPIFEventCB:
+ 1434              	.LFB9:
+ 531:../sdrx3.c    **** /* This is a callback function to handle gpif events */
+ 532:../sdrx3.c    **** void
+ 533:../sdrx3.c    **** SDR_ApplnGPIFEventCB (
+ 534:../sdrx3.c    **** 		CyU3PGpifEventType event,               /* Event type that is being notified. */
+ 535:../sdrx3.c    **** 		uint8_t            currentState         /* Current state of the State Machine. */
+ 536:../sdrx3.c    **** )
+ 537:../sdrx3.c    **** {
+ 1435              		.loc 1 537 0
+ 1436              		.cfi_startproc
+ 1437              		@ args = 0, pretend = 0, frame = 8
+ 1438              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1439 0b84 00482DE9 		stmfd	sp!, {fp, lr}
+ 1440              	.LCFI18:
+ 1441              		.cfi_def_cfa_offset 8
+ 1442              		.cfi_offset 11, -8
+ 1443              		.cfi_offset 14, -4
+ 1444 0b88 04B08DE2 		add	fp, sp, #4
+ 1445              	.LCFI19:
+ 1446              		.cfi_def_cfa 11, 4
+ 1447 0b8c 08D04DE2 		sub	sp, sp, #8
+ 1448 0b90 0020A0E1 		mov	r2, r0
+ 1449 0b94 0130A0E1 		mov	r3, r1
+ 1450 0b98 05204BE5 		strb	r2, [fp, #-5]
+ 1451 0b9c 06304BE5 		strb	r3, [fp, #-6]
+ 538:../sdrx3.c    **** 	switch (event)
+ 1452              		.loc 1 538 0
+ 1453 0ba0 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+ 1454 0ba4 010053E3 		cmp	r3, #1
+ 1455 0ba8 0000000A 		beq	.L69
+ 539:../sdrx3.c    **** 	{
+ 540:../sdrx3.c    **** 	case CYU3P_GPIF_EVT_SM_INTERRUPT:
+ 541:../sdrx3.c    **** 	{
+ 542:../sdrx3.c    **** 		CyU3PDebugPrint (4, "\n\r GPIF overflow INT received\n");
+ 543:../sdrx3.c    **** 
+ 544:../sdrx3.c    **** 	}
+ 545:../sdrx3.c    **** 	break;
+ 546:../sdrx3.c    **** 
+ 547:../sdrx3.c    **** 	default:
+ 548:../sdrx3.c    **** 		break;
+ 1456              		.loc 1 548 0
+ 1457 0bac 030000EA 		b	.L67
+ 1458              	.L69:
+ 542:../sdrx3.c    **** 
+ 1459              		.loc 1 542 0
+ 1460 0bb0 0400A0E3 		mov	r0, #4
+ 1461 0bb4 0C109FE5 		ldr	r1, .L71
+ 1462 0bb8 FEFFFFEB 		bl	CyU3PDebugPrint
+ 545:../sdrx3.c    **** 
+ 1463              		.loc 1 545 0
+ 1464 0bbc 0000A0E1 		mov	r0, r0	@ nop
+ 1465              	.L67:
+ 549:../sdrx3.c    **** 	}
+ 550:../sdrx3.c    **** }
+ 1466              		.loc 1 550 0
+ 1467 0bc0 04D04BE2 		sub	sp, fp, #4
+ 1468              		@ sp needed
+ 1469 0bc4 0088BDE8 		ldmfd	sp!, {fp, pc}
+ 1470              	.L72:
+ 1471              		.align	2
+ 1472              	.L71:
+ 1473 0bc8 A4010000 		.word	.LC8
+ 1474              		.cfi_endproc
+ 1475              	.LFE9:
+ 1477              		.align	2
+ 1478              		.global	SDR_ApplnUSBEventCB
+ 1480              	SDR_ApplnUSBEventCB:
+ 1481              	.LFB10:
+ 551:../sdrx3.c    **** 
+ 552:../sdrx3.c    **** /* This is the callback function to handle the USB events. */
+ 553:../sdrx3.c    **** void
+ 554:../sdrx3.c    **** SDR_ApplnUSBEventCB (
+ 555:../sdrx3.c    **** 		CyU3PUsbEventType_t evtype, /* Event type */
+ 556:../sdrx3.c    **** 		uint16_t            evdata  /* Event data */
+ 557:../sdrx3.c    **** )
+ 558:../sdrx3.c    **** {
+ 1482              		.loc 1 558 0
+ 1483              		.cfi_startproc
+ 1484              		@ args = 0, pretend = 0, frame = 8
+ 1485              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1486 0bcc 00482DE9 		stmfd	sp!, {fp, lr}
+ 1487              	.LCFI20:
+ 1488              		.cfi_def_cfa_offset 8
+ 1489              		.cfi_offset 11, -8
+ 1490              		.cfi_offset 14, -4
+ 1491 0bd0 04B08DE2 		add	fp, sp, #4
+ 1492              	.LCFI21:
+ 1493              		.cfi_def_cfa 11, 4
+ 1494 0bd4 08D04DE2 		sub	sp, sp, #8
+ 1495 0bd8 0020A0E1 		mov	r2, r0
+ 1496 0bdc 0130A0E1 		mov	r3, r1
+ 1497 0be0 05204BE5 		strb	r2, [fp, #-5]
+ 1498 0be4 B8304BE1 		strh	r3, [fp, #-8]	@ movhi
+ 559:../sdrx3.c    **** 	switch (evtype)
+ 1499              		.loc 1 559 0
+ 1500 0be8 05305BE5 		ldrb	r3, [fp, #-5]	@ zero_extendqisi2
+ 1501 0bec 040053E3 		cmp	r3, #4
+ 1502 0bf0 0B00000A 		beq	.L75
+ 1503 0bf4 050053E3 		cmp	r3, #5
+ 1504 0bf8 0200000A 		beq	.L76
+ 1505 0bfc 010053E3 		cmp	r3, #1
+ 1506 0c00 0700000A 		beq	.L75
+ 560:../sdrx3.c    **** 	{
+ 561:../sdrx3.c    **** 	case CY_U3P_USB_EVENT_SETCONF:
+ 562:../sdrx3.c    **** 		/* If the application is already active
+ 563:../sdrx3.c    **** 		 * stop it before re-enabling. */
+ 564:../sdrx3.c    **** 		if (glIsApplnActive)
+ 565:../sdrx3.c    **** 		{
+ 566:../sdrx3.c    **** 			SDR_ApplnStop ();
+ 567:../sdrx3.c    **** 		}
+ 568:../sdrx3.c    **** 		/* Start the source sink function. */
+ 569:../sdrx3.c    **** 		SDR_ApplnStart ();
+ 570:../sdrx3.c    **** 		break;
+ 571:../sdrx3.c    **** 
+ 572:../sdrx3.c    **** 	case CY_U3P_USB_EVENT_RESET:
+ 573:../sdrx3.c    **** 	case CY_U3P_USB_EVENT_DISCONNECT:
+ 574:../sdrx3.c    **** 		/* Stop the source sink function. */
+ 575:../sdrx3.c    **** 		if (glIsApplnActive)
+ 576:../sdrx3.c    **** 		{
+ 577:../sdrx3.c    **** 			SDR_ApplnStop ();
+ 578:../sdrx3.c    **** 		}
+ 579:../sdrx3.c    **** 		break;
+ 580:../sdrx3.c    **** 
+ 581:../sdrx3.c    **** 	default:
+ 582:../sdrx3.c    **** 		break;
+ 1507              		.loc 1 582 0
+ 1508 0c04 0D0000EA 		b	.L73
+ 1509              	.L76:
+ 564:../sdrx3.c    **** 		{
+ 1510              		.loc 1 564 0
+ 1511 0c08 38309FE5 		ldr	r3, .L81
+ 1512 0c0c 003093E5 		ldr	r3, [r3]
+ 1513 0c10 000053E3 		cmp	r3, #0
+ 1514 0c14 0000000A 		beq	.L77
+ 566:../sdrx3.c    **** 		}
+ 1515              		.loc 1 566 0
+ 1516 0c18 FEFFFFEB 		bl	SDR_ApplnStop
+ 1517              	.L77:
+ 569:../sdrx3.c    **** 		break;
+ 1518              		.loc 1 569 0
+ 1519 0c1c FEFFFFEB 		bl	SDR_ApplnStart
+ 570:../sdrx3.c    **** 
+ 1520              		.loc 1 570 0
+ 1521 0c20 060000EA 		b	.L73
+ 1522              	.L75:
+ 575:../sdrx3.c    **** 		{
+ 1523              		.loc 1 575 0
+ 1524 0c24 1C309FE5 		ldr	r3, .L81
+ 1525 0c28 003093E5 		ldr	r3, [r3]
+ 1526 0c2c 000053E3 		cmp	r3, #0
+ 1527 0c30 0100000A 		beq	.L79
+ 577:../sdrx3.c    **** 		}
+ 1528              		.loc 1 577 0
+ 1529 0c34 FEFFFFEB 		bl	SDR_ApplnStop
+ 579:../sdrx3.c    **** 
+ 1530              		.loc 1 579 0
+ 1531 0c38 FFFFFFEA 		b	.L80
+ 1532              	.L79:
+ 1533              	.L80:
+ 1534 0c3c 0000A0E1 		mov	r0, r0	@ nop
+ 1535              	.L73:
+ 583:../sdrx3.c    **** 	}
+ 584:../sdrx3.c    **** }
+ 1536              		.loc 1 584 0
+ 1537 0c40 04D04BE2 		sub	sp, fp, #4
+ 1538              		@ sp needed
+ 1539 0c44 0088BDE8 		ldmfd	sp!, {fp, pc}
+ 1540              	.L82:
+ 1541              		.align	2
+ 1542              	.L81:
+ 1543 0c48 00000000 		.word	glIsApplnActive
+ 1544              		.cfi_endproc
+ 1545              	.LFE10:
+ 1547              		.section	.rodata
+ 1548 01c3 00       		.align	2
+ 1549              	.LC9:
+ 1550 01c4 0A0D4379 		.ascii	"\012\015CyU3PGpifSMStart failed, Error Code = %d\012"
+ 1550      55335047 
+ 1550      70696653 
+ 1550      4D537461 
+ 1550      72742066 
+ 1551 01ef 00       		.ascii	"\000"
+ 1552              		.text
+ 1553              		.align	2
+ 1554              		.global	SDR_StartGpif
+ 1556              	SDR_StartGpif:
+ 1557              	.LFB11:
+ 585:../sdrx3.c    **** 
+ 586:../sdrx3.c    **** void SDR_StartGpif(void)
+ 587:../sdrx3.c    **** {
+ 1558              		.loc 1 587 0
+ 1559              		.cfi_startproc
+ 1560              		@ args = 0, pretend = 0, frame = 8
+ 1561              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1562 0c4c 00482DE9 		stmfd	sp!, {fp, lr}
+ 1563              	.LCFI22:
+ 1564              		.cfi_def_cfa_offset 8
+ 1565              		.cfi_offset 11, -8
+ 1566              		.cfi_offset 14, -4
+ 1567 0c50 04B08DE2 		add	fp, sp, #4
+ 1568              	.LCFI23:
+ 1569              		.cfi_def_cfa 11, 4
+ 1570 0c54 08D04DE2 		sub	sp, sp, #8
+ 588:../sdrx3.c    **** 	CyU3PReturnStatus_t apiRetStatus = CY_U3P_SUCCESS;
+ 1571              		.loc 1 588 0
+ 1572 0c58 0030A0E3 		mov	r3, #0
+ 1573 0c5c 08300BE5 		str	r3, [fp, #-8]
+ 589:../sdrx3.c    **** /* Start the state machine. */
+ 590:../sdrx3.c    **** 	    	apiRetStatus = CyU3PGpifSMStart (RESET, ALPHA_RESET);
+ 1574              		.loc 1 590 0
+ 1575 0c60 0000A0E3 		mov	r0, #0
+ 1576 0c64 0410A0E3 		mov	r1, #4
+ 1577 0c68 FEFFFFEB 		bl	CyU3PGpifSMStart
+ 1578 0c6c 08000BE5 		str	r0, [fp, #-8]
+ 591:../sdrx3.c    **** 	    	if (apiRetStatus != CY_U3P_SUCCESS)
+ 1579              		.loc 1 591 0
+ 1580 0c70 08301BE5 		ldr	r3, [fp, #-8]
+ 1581 0c74 000053E3 		cmp	r3, #0
+ 1582 0c78 0300000A 		beq	.L83
+ 592:../sdrx3.c    **** 	    	{
+ 593:../sdrx3.c    **** 	    		CyU3PDebugPrint (4, "\n\rCyU3PGpifSMStart failed, Error Code = %d\n",apiRetStatus);
+ 1583              		.loc 1 593 0
+ 1584 0c7c 0400A0E3 		mov	r0, #4
+ 1585 0c80 0C109FE5 		ldr	r1, .L85
+ 1586 0c84 08201BE5 		ldr	r2, [fp, #-8]
+ 1587 0c88 FEFFFFEB 		bl	CyU3PDebugPrint
+ 1588              	.L83:
+ 594:../sdrx3.c    **** 
+ 595:../sdrx3.c    **** 	    	}
+ 596:../sdrx3.c    **** }
+ 1589              		.loc 1 596 0
+ 1590 0c8c 04D04BE2 		sub	sp, fp, #4
+ 1591              		@ sp needed
+ 1592 0c90 0088BDE8 		ldmfd	sp!, {fp, pc}
+ 1593              	.L86:
+ 1594              		.align	2
+ 1595              	.L85:
+ 1596 0c94 C4010000 		.word	.LC9
+ 1597              		.cfi_endproc
+ 1598              	.LFE11:
+ 1600              		.section	.rodata
+ 1601              		.align	2
+ 1602              	.LC10:
+ 1603 01f0 502D706F 		.ascii	"P-port Initialization failed, Error Code = %d\012\000"
+ 1603      72742049 
+ 1603      6E697469 
+ 1603      616C697A 
+ 1603      6174696F 
+ 1604 021f 00       		.align	2
+ 1605              	.LC11:
+ 1606 0220 43795533 		.ascii	"CyU3PGpifLoad failed, Error Code = %d\012\000"
+ 1606      50477069 
+ 1606      664C6F61 
+ 1606      64206661 
+ 1606      696C6564 
+ 1607 0247 00       		.align	2
+ 1608              	.LC12:
+ 1609 0248 43795533 		.ascii	"CyU3PUsbStart failed to Start, Error code = %d\012\000"
+ 1609      50557362 
+ 1609      53746172 
+ 1609      74206661 
+ 1609      696C6564 
+ 1610              		.align	2
+ 1611              	.LC13:
+ 1612 0278 55534220 		.ascii	"USB set device descriptor failed, Error code = %d\012"
+ 1612      73657420 
+ 1612      64657669 
+ 1612      63652064 
+ 1612      65736372 
+ 1613 02aa 00       		.ascii	"\000"
+ 1614 02ab 00       		.align	2
+ 1615              	.LC14:
+ 1616 02ac 55534220 		.ascii	"USB set configuration descriptor failed, Error code"
+ 1616      73657420 
+ 1616      636F6E66 
+ 1616      69677572 
+ 1616      6174696F 
+ 1617 02df 203D2025 		.ascii	" = %d\012\000"
+ 1617      640A00
+ 1618 02e6 0000     		.align	2
+ 1619              	.LC15:
+ 1620 02e8 55534220 		.ascii	"USB set device qualifier descriptor failed, Error c"
+ 1620      73657420 
+ 1620      64657669 
+ 1620      63652071 
+ 1620      75616C69 
+ 1621 031b 6F646520 		.ascii	"ode = %d\012\000"
+ 1621      3D202564 
+ 1621      0A00
+ 1622 0325 000000   		.align	2
+ 1623              	.LC16:
+ 1624 0328 55534220 		.ascii	"USB Set Other Speed Descriptor failed, Error Code ="
+ 1624      53657420 
+ 1624      4F746865 
+ 1624      72205370 
+ 1624      65656420 
+ 1625 035b 2025640A 		.ascii	" %d\012\000"
+ 1625      00
+ 1626              		.align	2
+ 1627              	.LC17:
+ 1628 0360 55534220 		.ascii	"USB Set Configuration Descriptor failed, Error Code"
+ 1628      53657420 
+ 1628      436F6E66 
+ 1628      69677572 
+ 1628      6174696F 
+ 1629 0393 203D2025 		.ascii	" = %d\012\000"
+ 1629      640A00
+ 1630 039a 0000     		.align	2
+ 1631              	.LC18:
+ 1632 039c 55534220 		.ascii	"USB set string descriptor failed, Error code = %d\012"
+ 1632      73657420 
+ 1632      73747269 
+ 1632      6E672064 
+ 1632      65736372 
+ 1633 03ce 00       		.ascii	"\000"
+ 1634 03cf 00       		.align	2
+ 1635              	.LC19:
+ 1636 03d0 55534220 		.ascii	"USB Connect failed, Error code = %d\012\000"
+ 1636      436F6E6E 
+ 1636      65637420 
+ 1636      6661696C 
+ 1636      65642C20 
+ 1637              		.text
+ 1638              		.align	2
+ 1639              		.global	SDR_ApplnInit
+ 1641              	SDR_ApplnInit:
+ 1642              	.LFB12:
+ 597:../sdrx3.c    **** 
+ 598:../sdrx3.c    **** /* This function initializes the USB Module, sets the enumeration descriptors.
+ 599:../sdrx3.c    ****  * This function does not start the bulk streaming and this is done only when
+ 600:../sdrx3.c    ****  * SET_CONF event is received. */
+ 601:../sdrx3.c    **** void
+ 602:../sdrx3.c    **** SDR_ApplnInit (void)
+ 603:../sdrx3.c    **** {
+ 1643              		.loc 1 603 0
+ 1644              		.cfi_startproc
+ 1645              		@ args = 0, pretend = 0, frame = 24
+ 1646              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1647 0c98 00482DE9 		stmfd	sp!, {fp, lr}
+ 1648              	.LCFI24:
+ 1649              		.cfi_def_cfa_offset 8
+ 1650              		.cfi_offset 11, -8
+ 1651              		.cfi_offset 14, -4
+ 1652 0c9c 04B08DE2 		add	fp, sp, #4
+ 1653              	.LCFI25:
+ 1654              		.cfi_def_cfa 11, 4
+ 1655 0ca0 18D04DE2 		sub	sp, sp, #24
+ 604:../sdrx3.c    **** 	CyU3PReturnStatus_t apiRetStatus = CY_U3P_SUCCESS;
+ 1656              		.loc 1 604 0
+ 1657 0ca4 0030A0E3 		mov	r3, #0
+ 1658 0ca8 08300BE5 		str	r3, [fp, #-8]
+ 605:../sdrx3.c    **** 	/**************************************GPIF****************************************************/
+ 606:../sdrx3.c    **** 	CyU3PPibClock_t pibClock;
+ 607:../sdrx3.c    **** 
+ 608:../sdrx3.c    **** 	/* Initialize the p-port block. */
+ 609:../sdrx3.c    **** 	pibClock.clkDiv = 2;
+ 1659              		.loc 1 609 0
+ 1660 0cac 0230A0E3 		mov	r3, #2
+ 1661 0cb0 B8314BE1 		strh	r3, [fp, #-24]	@ movhi
+ 610:../sdrx3.c    **** 	pibClock.clkSrc = CY_U3P_SYS_CLK;
+ 1662              		.loc 1 610 0
+ 1663 0cb4 0330A0E3 		mov	r3, #3
+ 1664 0cb8 0C304BE5 		strb	r3, [fp, #-12]
+ 611:../sdrx3.c    **** 	pibClock.isHalfDiv = CyFalse;
+ 1665              		.loc 1 611 0
+ 1666 0cbc 0030A0E3 		mov	r3, #0
+ 1667 0cc0 14300BE5 		str	r3, [fp, #-20]
+ 612:../sdrx3.c    **** 	/* Disable DLL for sync GPIF */
+ 613:../sdrx3.c    **** 	pibClock.isDllEnable = CyFalse;
+ 1668              		.loc 1 613 0
+ 1669 0cc4 0030A0E3 		mov	r3, #0
+ 1670 0cc8 10300BE5 		str	r3, [fp, #-16]
+ 614:../sdrx3.c    **** 	apiRetStatus = CyU3PPibInit(CyTrue, &pibClock);
+ 1671              		.loc 1 614 0
+ 1672 0ccc 18304BE2 		sub	r3, fp, #24
+ 1673 0cd0 0100A0E3 		mov	r0, #1
+ 1674 0cd4 0310A0E1 		mov	r1, r3
+ 1675 0cd8 FEFFFFEB 		bl	CyU3PPibInit
+ 1676 0cdc 08000BE5 		str	r0, [fp, #-8]
+ 615:../sdrx3.c    **** 	if (apiRetStatus != CY_U3P_SUCCESS)
+ 1677              		.loc 1 615 0
+ 1678 0ce0 08301BE5 		ldr	r3, [fp, #-8]
+ 1679 0ce4 000053E3 		cmp	r3, #0
+ 1680 0ce8 0500000A 		beq	.L88
+ 616:../sdrx3.c    **** 	{
+ 617:../sdrx3.c    **** 		CyU3PDebugPrint (4, "P-port Initialization failed, Error Code = %d\n",apiRetStatus);
+ 1681              		.loc 1 617 0
+ 1682 0cec 0400A0E3 		mov	r0, #4
+ 1683 0cf0 F0129FE5 		ldr	r1, .L102
+ 1684 0cf4 08201BE5 		ldr	r2, [fp, #-8]
+ 1685 0cf8 FEFFFFEB 		bl	CyU3PDebugPrint
+ 618:../sdrx3.c    **** 		SDR_ErrorHandler(apiRetStatus);
+ 1686              		.loc 1 618 0
+ 1687 0cfc 08001BE5 		ldr	r0, [fp, #-8]
+ 1688 0d00 FEFFFFEB 		bl	SDR_ErrorHandler
+ 1689              	.L88:
+ 619:../sdrx3.c    **** 	}
+ 620:../sdrx3.c    **** 
+ 621:../sdrx3.c    **** 	/* Load the GPIF configuration for Slave FIFO sync mode. */
+ 622:../sdrx3.c    **** 	apiRetStatus = CyU3PGpifLoad (&CyFxGpifConfig);
+ 1690              		.loc 1 622 0
+ 1691 0d04 E0029FE5 		ldr	r0, .L102+4
+ 1692 0d08 FEFFFFEB 		bl	CyU3PGpifLoad
+ 1693 0d0c 08000BE5 		str	r0, [fp, #-8]
+ 623:../sdrx3.c    **** 	if (apiRetStatus != CY_U3P_SUCCESS)
+ 1694              		.loc 1 623 0
+ 1695 0d10 08301BE5 		ldr	r3, [fp, #-8]
+ 1696 0d14 000053E3 		cmp	r3, #0
+ 1697 0d18 0500000A 		beq	.L89
+ 624:../sdrx3.c    **** 	{
+ 625:../sdrx3.c    **** 		CyU3PDebugPrint (4, "CyU3PGpifLoad failed, Error Code = %d\n",apiRetStatus);
+ 1698              		.loc 1 625 0
+ 1699 0d1c 0400A0E3 		mov	r0, #4
+ 1700 0d20 C8129FE5 		ldr	r1, .L102+8
+ 1701 0d24 08201BE5 		ldr	r2, [fp, #-8]
+ 1702 0d28 FEFFFFEB 		bl	CyU3PDebugPrint
+ 626:../sdrx3.c    **** 		SDR_ErrorHandler(apiRetStatus);
+ 1703              		.loc 1 626 0
+ 1704 0d2c 08001BE5 		ldr	r0, [fp, #-8]
+ 1705 0d30 FEFFFFEB 		bl	SDR_ErrorHandler
+ 1706              	.L89:
+ 627:../sdrx3.c    **** 	}
+ 628:../sdrx3.c    **** 
+ 629:../sdrx3.c    **** 
+ 630:../sdrx3.c    **** 	CyU3PGpifRegisterCallback(SDR_ApplnGPIFEventCB);
+ 1707              		.loc 1 630 0
+ 1708 0d34 B8029FE5 		ldr	r0, .L102+12
+ 1709 0d38 FEFFFFEB 		bl	CyU3PGpifRegisterCallback
+ 631:../sdrx3.c    **** 
+ 632:../sdrx3.c    **** 	/**********************************************************************************************/
+ 633:../sdrx3.c    **** 	/* Start the USB functionality. */
+ 634:../sdrx3.c    **** 	apiRetStatus = CyU3PUsbStart();
+ 1710              		.loc 1 634 0
+ 1711 0d3c FEFFFFEB 		bl	CyU3PUsbStart
+ 1712 0d40 08000BE5 		str	r0, [fp, #-8]
+ 635:../sdrx3.c    **** 	if (apiRetStatus != CY_U3P_SUCCESS)
+ 1713              		.loc 1 635 0
+ 1714 0d44 08301BE5 		ldr	r3, [fp, #-8]
+ 1715 0d48 000053E3 		cmp	r3, #0
+ 1716 0d4c 0500000A 		beq	.L90
+ 636:../sdrx3.c    **** 	{
+ 637:../sdrx3.c    **** 		CyU3PDebugPrint (4, "CyU3PUsbStart failed to Start, Error code = %d\n", apiRetStatus);
+ 1717              		.loc 1 637 0
+ 1718 0d50 0400A0E3 		mov	r0, #4
+ 1719 0d54 9C129FE5 		ldr	r1, .L102+16
+ 1720 0d58 08201BE5 		ldr	r2, [fp, #-8]
+ 1721 0d5c FEFFFFEB 		bl	CyU3PDebugPrint
+ 638:../sdrx3.c    **** 		SDR_ErrorHandler(apiRetStatus);
+ 1722              		.loc 1 638 0
+ 1723 0d60 08001BE5 		ldr	r0, [fp, #-8]
+ 1724 0d64 FEFFFFEB 		bl	SDR_ErrorHandler
+ 1725              	.L90:
+ 639:../sdrx3.c    **** 	}
+ 640:../sdrx3.c    **** 
+ 641:../sdrx3.c    **** 	/* The fast enumeration is the easiest way to setup a USB connection,
+ 642:../sdrx3.c    **** 	 * where all enumeration phase is handled by the library. Only the
+ 643:../sdrx3.c    **** 	 * class / vendor requests need to be handled by the application. */
+ 644:../sdrx3.c    **** 	CyU3PUsbRegisterSetupCallback(SDR_ApplnUSBSetupCB, CyTrue);
+ 1726              		.loc 1 644 0
+ 1727 0d68 8C029FE5 		ldr	r0, .L102+20
+ 1728 0d6c 0110A0E3 		mov	r1, #1
+ 1729 0d70 FEFFFFEB 		bl	CyU3PUsbRegisterSetupCallback
+ 645:../sdrx3.c    **** 
+ 646:../sdrx3.c    **** 	/* Setup the callback to handle the USB events. */
+ 647:../sdrx3.c    **** 	CyU3PUsbRegisterEventCallback(SDR_ApplnUSBEventCB);
+ 1730              		.loc 1 647 0
+ 1731 0d74 84029FE5 		ldr	r0, .L102+24
+ 1732 0d78 FEFFFFEB 		bl	CyU3PUsbRegisterEventCallback
+ 648:../sdrx3.c    **** 
+ 649:../sdrx3.c    **** 	/* Set the USB Enumeration descriptors */
+ 650:../sdrx3.c    **** 
+ 651:../sdrx3.c    **** 	/* Super speed device descriptor. */
+ 652:../sdrx3.c    **** 	apiRetStatus = CyU3PUsbSetDesc(CY_U3P_USB_SET_SS_DEVICE_DESCR, (int) NULL, (uint8_t *)CyFxUSB30Dev
+ 1733              		.loc 1 652 0
+ 1734 0d7c 0000A0E3 		mov	r0, #0
+ 1735 0d80 0010A0E3 		mov	r1, #0
+ 1736 0d84 78229FE5 		ldr	r2, .L102+28
+ 1737 0d88 FEFFFFEB 		bl	CyU3PUsbSetDesc
+ 1738 0d8c 08000BE5 		str	r0, [fp, #-8]
+ 653:../sdrx3.c    **** 	if (apiRetStatus != CY_U3P_SUCCESS)
+ 1739              		.loc 1 653 0
+ 1740 0d90 08301BE5 		ldr	r3, [fp, #-8]
+ 1741 0d94 000053E3 		cmp	r3, #0
+ 1742 0d98 0500000A 		beq	.L91
+ 654:../sdrx3.c    **** 	{
+ 655:../sdrx3.c    **** 		CyU3PDebugPrint (4, "USB set device descriptor failed, Error code = %d\n", apiRetStatus);
+ 1743              		.loc 1 655 0
+ 1744 0d9c 0400A0E3 		mov	r0, #4
+ 1745 0da0 60129FE5 		ldr	r1, .L102+32
+ 1746 0da4 08201BE5 		ldr	r2, [fp, #-8]
+ 1747 0da8 FEFFFFEB 		bl	CyU3PDebugPrint
+ 656:../sdrx3.c    **** 		SDR_ErrorHandler(apiRetStatus);
+ 1748              		.loc 1 656 0
+ 1749 0dac 08001BE5 		ldr	r0, [fp, #-8]
+ 1750 0db0 FEFFFFEB 		bl	SDR_ErrorHandler
+ 1751              	.L91:
+ 657:../sdrx3.c    **** 	}
+ 658:../sdrx3.c    **** 
+ 659:../sdrx3.c    **** 	/* High speed device descriptor. */
+ 660:../sdrx3.c    **** 	apiRetStatus = CyU3PUsbSetDesc(CY_U3P_USB_SET_HS_DEVICE_DESCR,(int) NULL, (uint8_t *)CyFxUSB20Devi
+ 1752              		.loc 1 660 0
+ 1753 0db4 0100A0E3 		mov	r0, #1
+ 1754 0db8 0010A0E3 		mov	r1, #0
+ 1755 0dbc 48229FE5 		ldr	r2, .L102+36
+ 1756 0dc0 FEFFFFEB 		bl	CyU3PUsbSetDesc
+ 1757 0dc4 08000BE5 		str	r0, [fp, #-8]
+ 661:../sdrx3.c    **** 	if (apiRetStatus != CY_U3P_SUCCESS)
+ 1758              		.loc 1 661 0
+ 1759 0dc8 08301BE5 		ldr	r3, [fp, #-8]
+ 1760 0dcc 000053E3 		cmp	r3, #0
+ 1761 0dd0 0500000A 		beq	.L92
+ 662:../sdrx3.c    **** 	{
+ 663:../sdrx3.c    **** 		CyU3PDebugPrint (4, "USB set device descriptor failed, Error code = %d\n", apiRetStatus);
+ 1762              		.loc 1 663 0
+ 1763 0dd4 0400A0E3 		mov	r0, #4
+ 1764 0dd8 28129FE5 		ldr	r1, .L102+32
+ 1765 0ddc 08201BE5 		ldr	r2, [fp, #-8]
+ 1766 0de0 FEFFFFEB 		bl	CyU3PDebugPrint
+ 664:../sdrx3.c    **** 		SDR_ErrorHandler(apiRetStatus);
+ 1767              		.loc 1 664 0
+ 1768 0de4 08001BE5 		ldr	r0, [fp, #-8]
+ 1769 0de8 FEFFFFEB 		bl	SDR_ErrorHandler
+ 1770              	.L92:
+ 665:../sdrx3.c    **** 	}
+ 666:../sdrx3.c    **** 
+ 667:../sdrx3.c    **** 	/* BOS descriptor */
+ 668:../sdrx3.c    **** 	apiRetStatus = CyU3PUsbSetDesc(CY_U3P_USB_SET_SS_BOS_DESCR,(int)NULL, (uint8_t *)CyFxUSBBOSDscr);
+ 1771              		.loc 1 668 0
+ 1772 0dec 0700A0E3 		mov	r0, #7
+ 1773 0df0 0010A0E3 		mov	r1, #0
+ 1774 0df4 14229FE5 		ldr	r2, .L102+40
+ 1775 0df8 FEFFFFEB 		bl	CyU3PUsbSetDesc
+ 1776 0dfc 08000BE5 		str	r0, [fp, #-8]
+ 669:../sdrx3.c    **** 	if (apiRetStatus != CY_U3P_SUCCESS)
+ 1777              		.loc 1 669 0
+ 1778 0e00 08301BE5 		ldr	r3, [fp, #-8]
+ 1779 0e04 000053E3 		cmp	r3, #0
+ 1780 0e08 0500000A 		beq	.L93
+ 670:../sdrx3.c    **** 	{
+ 671:../sdrx3.c    **** 		CyU3PDebugPrint (4, "USB set configuration descriptor failed, Error code = %d\n", apiRetStatus);
+ 1781              		.loc 1 671 0
+ 1782 0e0c 0400A0E3 		mov	r0, #4
+ 1783 0e10 FC119FE5 		ldr	r1, .L102+44
+ 1784 0e14 08201BE5 		ldr	r2, [fp, #-8]
+ 1785 0e18 FEFFFFEB 		bl	CyU3PDebugPrint
+ 672:../sdrx3.c    **** 		SDR_ErrorHandler(apiRetStatus);
+ 1786              		.loc 1 672 0
+ 1787 0e1c 08001BE5 		ldr	r0, [fp, #-8]
+ 1788 0e20 FEFFFFEB 		bl	SDR_ErrorHandler
+ 1789              	.L93:
+ 673:../sdrx3.c    **** 	}
+ 674:../sdrx3.c    **** 
+ 675:../sdrx3.c    **** 	/* Device qualifier descriptor */
+ 676:../sdrx3.c    **** 	apiRetStatus = CyU3PUsbSetDesc(CY_U3P_USB_SET_DEVQUAL_DESCR,(int) NULL, (uint8_t *)CyFxUSBDeviceQu
+ 1790              		.loc 1 676 0
+ 1791 0e24 0200A0E3 		mov	r0, #2
+ 1792 0e28 0010A0E3 		mov	r1, #0
+ 1793 0e2c E4219FE5 		ldr	r2, .L102+48
+ 1794 0e30 FEFFFFEB 		bl	CyU3PUsbSetDesc
+ 1795 0e34 08000BE5 		str	r0, [fp, #-8]
+ 677:../sdrx3.c    **** 	if (apiRetStatus != CY_U3P_SUCCESS)
+ 1796              		.loc 1 677 0
+ 1797 0e38 08301BE5 		ldr	r3, [fp, #-8]
+ 1798 0e3c 000053E3 		cmp	r3, #0
+ 1799 0e40 0500000A 		beq	.L94
+ 678:../sdrx3.c    **** 	{
+ 679:../sdrx3.c    **** 		CyU3PDebugPrint (4, "USB set device qualifier descriptor failed, Error code = %d\n", apiRetStatus
+ 1800              		.loc 1 679 0
+ 1801 0e44 0400A0E3 		mov	r0, #4
+ 1802 0e48 CC119FE5 		ldr	r1, .L102+52
+ 1803 0e4c 08201BE5 		ldr	r2, [fp, #-8]
+ 1804 0e50 FEFFFFEB 		bl	CyU3PDebugPrint
+ 680:../sdrx3.c    **** 		SDR_ErrorHandler(apiRetStatus);
+ 1805              		.loc 1 680 0
+ 1806 0e54 08001BE5 		ldr	r0, [fp, #-8]
+ 1807 0e58 FEFFFFEB 		bl	SDR_ErrorHandler
+ 1808              	.L94:
+ 681:../sdrx3.c    **** 	}
+ 682:../sdrx3.c    **** 
+ 683:../sdrx3.c    **** 	/* Super speed configuration descriptor */
+ 684:../sdrx3.c    **** 	apiRetStatus = CyU3PUsbSetDesc(CY_U3P_USB_SET_SS_CONFIG_DESCR,(int) NULL, (uint8_t *)CyFxUSBSSConf
+ 1809              		.loc 1 684 0
+ 1810 0e5c 0600A0E3 		mov	r0, #6
+ 1811 0e60 0010A0E3 		mov	r1, #0
+ 1812 0e64 B4219FE5 		ldr	r2, .L102+56
+ 1813 0e68 FEFFFFEB 		bl	CyU3PUsbSetDesc
+ 1814 0e6c 08000BE5 		str	r0, [fp, #-8]
+ 685:../sdrx3.c    **** 	if (apiRetStatus != CY_U3P_SUCCESS)
+ 1815              		.loc 1 685 0
+ 1816 0e70 08301BE5 		ldr	r3, [fp, #-8]
+ 1817 0e74 000053E3 		cmp	r3, #0
+ 1818 0e78 0500000A 		beq	.L95
+ 686:../sdrx3.c    **** 	{
+ 687:../sdrx3.c    **** 		CyU3PDebugPrint (4, "USB set configuration descriptor failed, Error code = %d\n", apiRetStatus);
+ 1819              		.loc 1 687 0
+ 1820 0e7c 0400A0E3 		mov	r0, #4
+ 1821 0e80 8C119FE5 		ldr	r1, .L102+44
+ 1822 0e84 08201BE5 		ldr	r2, [fp, #-8]
+ 1823 0e88 FEFFFFEB 		bl	CyU3PDebugPrint
+ 688:../sdrx3.c    **** 		SDR_ErrorHandler(apiRetStatus);
+ 1824              		.loc 1 688 0
+ 1825 0e8c 08001BE5 		ldr	r0, [fp, #-8]
+ 1826 0e90 FEFFFFEB 		bl	SDR_ErrorHandler
+ 1827              	.L95:
+ 689:../sdrx3.c    **** 	}
+ 690:../sdrx3.c    **** 
+ 691:../sdrx3.c    **** 	/* High speed configuration descriptor */
+ 692:../sdrx3.c    **** 	apiRetStatus = CyU3PUsbSetDesc(CY_U3P_USB_SET_HS_CONFIG_DESCR,(int) NULL, (uint8_t *)CyFxUSBHSConf
+ 1828              		.loc 1 692 0
+ 1829 0e94 0400A0E3 		mov	r0, #4
+ 1830 0e98 0010A0E3 		mov	r1, #0
+ 1831 0e9c 80219FE5 		ldr	r2, .L102+60
+ 1832 0ea0 FEFFFFEB 		bl	CyU3PUsbSetDesc
+ 1833 0ea4 08000BE5 		str	r0, [fp, #-8]
+ 693:../sdrx3.c    **** 	if (apiRetStatus != CY_U3P_SUCCESS)
+ 1834              		.loc 1 693 0
+ 1835 0ea8 08301BE5 		ldr	r3, [fp, #-8]
+ 1836 0eac 000053E3 		cmp	r3, #0
+ 1837 0eb0 0500000A 		beq	.L96
+ 694:../sdrx3.c    **** 	{
+ 695:../sdrx3.c    **** 		CyU3PDebugPrint (4, "USB Set Other Speed Descriptor failed, Error Code = %d\n", apiRetStatus);
+ 1838              		.loc 1 695 0
+ 1839 0eb4 0400A0E3 		mov	r0, #4
+ 1840 0eb8 68119FE5 		ldr	r1, .L102+64
+ 1841 0ebc 08201BE5 		ldr	r2, [fp, #-8]
+ 1842 0ec0 FEFFFFEB 		bl	CyU3PDebugPrint
+ 696:../sdrx3.c    **** 		SDR_ErrorHandler(apiRetStatus);
+ 1843              		.loc 1 696 0
+ 1844 0ec4 08001BE5 		ldr	r0, [fp, #-8]
+ 1845 0ec8 FEFFFFEB 		bl	SDR_ErrorHandler
+ 1846              	.L96:
+ 697:../sdrx3.c    **** 	}
+ 698:../sdrx3.c    **** 
+ 699:../sdrx3.c    **** 	/* Full speed configuration descriptor */
+ 700:../sdrx3.c    **** 	apiRetStatus = CyU3PUsbSetDesc(CY_U3P_USB_SET_FS_CONFIG_DESCR,(int) NULL, (uint8_t *)CyFxUSBFSConf
+ 1847              		.loc 1 700 0
+ 1848 0ecc 0300A0E3 		mov	r0, #3
+ 1849 0ed0 0010A0E3 		mov	r1, #0
+ 1850 0ed4 50219FE5 		ldr	r2, .L102+68
+ 1851 0ed8 FEFFFFEB 		bl	CyU3PUsbSetDesc
+ 1852 0edc 08000BE5 		str	r0, [fp, #-8]
+ 701:../sdrx3.c    **** 	if (apiRetStatus != CY_U3P_SUCCESS)
+ 1853              		.loc 1 701 0
+ 1854 0ee0 08301BE5 		ldr	r3, [fp, #-8]
+ 1855 0ee4 000053E3 		cmp	r3, #0
+ 1856 0ee8 0500000A 		beq	.L97
+ 702:../sdrx3.c    **** 	{
+ 703:../sdrx3.c    **** 		CyU3PDebugPrint (4, "USB Set Configuration Descriptor failed, Error Code = %d\n", apiRetStatus);
+ 1857              		.loc 1 703 0
+ 1858 0eec 0400A0E3 		mov	r0, #4
+ 1859 0ef0 38119FE5 		ldr	r1, .L102+72
+ 1860 0ef4 08201BE5 		ldr	r2, [fp, #-8]
+ 1861 0ef8 FEFFFFEB 		bl	CyU3PDebugPrint
+ 704:../sdrx3.c    **** 		SDR_ErrorHandler(apiRetStatus);
+ 1862              		.loc 1 704 0
+ 1863 0efc 08001BE5 		ldr	r0, [fp, #-8]
+ 1864 0f00 FEFFFFEB 		bl	SDR_ErrorHandler
+ 1865              	.L97:
+ 705:../sdrx3.c    **** 	}
+ 706:../sdrx3.c    **** 
+ 707:../sdrx3.c    **** 	/* String descriptor 0 */
+ 708:../sdrx3.c    **** 	apiRetStatus = CyU3PUsbSetDesc(CY_U3P_USB_SET_STRING_DESCR, 0, (uint8_t *)CyFxUSBStringLangIDDscr)
+ 1866              		.loc 1 708 0
+ 1867 0f04 0500A0E3 		mov	r0, #5
+ 1868 0f08 0010A0E3 		mov	r1, #0
+ 1869 0f0c 20219FE5 		ldr	r2, .L102+76
+ 1870 0f10 FEFFFFEB 		bl	CyU3PUsbSetDesc
+ 1871 0f14 08000BE5 		str	r0, [fp, #-8]
+ 709:../sdrx3.c    **** 	if (apiRetStatus != CY_U3P_SUCCESS)
+ 1872              		.loc 1 709 0
+ 1873 0f18 08301BE5 		ldr	r3, [fp, #-8]
+ 1874 0f1c 000053E3 		cmp	r3, #0
+ 1875 0f20 0500000A 		beq	.L98
+ 710:../sdrx3.c    **** 	{
+ 711:../sdrx3.c    **** 		CyU3PDebugPrint (4, "USB set string descriptor failed, Error code = %d\n", apiRetStatus);
+ 1876              		.loc 1 711 0
+ 1877 0f24 0400A0E3 		mov	r0, #4
+ 1878 0f28 08119FE5 		ldr	r1, .L102+80
+ 1879 0f2c 08201BE5 		ldr	r2, [fp, #-8]
+ 1880 0f30 FEFFFFEB 		bl	CyU3PDebugPrint
+ 712:../sdrx3.c    **** 		SDR_ErrorHandler(apiRetStatus);
+ 1881              		.loc 1 712 0
+ 1882 0f34 08001BE5 		ldr	r0, [fp, #-8]
+ 1883 0f38 FEFFFFEB 		bl	SDR_ErrorHandler
+ 1884              	.L98:
+ 713:../sdrx3.c    **** 	}
+ 714:../sdrx3.c    **** 
+ 715:../sdrx3.c    **** 	/* String descriptor 1 */
+ 716:../sdrx3.c    **** 	apiRetStatus = CyU3PUsbSetDesc(CY_U3P_USB_SET_STRING_DESCR, 1, (uint8_t *)CyFxUSBManufactureDscr);
+ 1885              		.loc 1 716 0
+ 1886 0f3c 0500A0E3 		mov	r0, #5
+ 1887 0f40 0110A0E3 		mov	r1, #1
+ 1888 0f44 F0209FE5 		ldr	r2, .L102+84
+ 1889 0f48 FEFFFFEB 		bl	CyU3PUsbSetDesc
+ 1890 0f4c 08000BE5 		str	r0, [fp, #-8]
+ 717:../sdrx3.c    **** 	if (apiRetStatus != CY_U3P_SUCCESS)
+ 1891              		.loc 1 717 0
+ 1892 0f50 08301BE5 		ldr	r3, [fp, #-8]
+ 1893 0f54 000053E3 		cmp	r3, #0
+ 1894 0f58 0500000A 		beq	.L99
+ 718:../sdrx3.c    **** 	{
+ 719:../sdrx3.c    **** 		CyU3PDebugPrint (4, "USB set string descriptor failed, Error code = %d\n", apiRetStatus);
+ 1895              		.loc 1 719 0
+ 1896 0f5c 0400A0E3 		mov	r0, #4
+ 1897 0f60 D0109FE5 		ldr	r1, .L102+80
+ 1898 0f64 08201BE5 		ldr	r2, [fp, #-8]
+ 1899 0f68 FEFFFFEB 		bl	CyU3PDebugPrint
+ 720:../sdrx3.c    **** 		SDR_ErrorHandler(apiRetStatus);
+ 1900              		.loc 1 720 0
+ 1901 0f6c 08001BE5 		ldr	r0, [fp, #-8]
+ 1902 0f70 FEFFFFEB 		bl	SDR_ErrorHandler
+ 1903              	.L99:
+ 721:../sdrx3.c    **** 	}
+ 722:../sdrx3.c    **** 
+ 723:../sdrx3.c    **** 	/* String descriptor 2 */
+ 724:../sdrx3.c    **** 	apiRetStatus = CyU3PUsbSetDesc(CY_U3P_USB_SET_STRING_DESCR, 2, (uint8_t *)CyFxUSBProductDscr);
+ 1904              		.loc 1 724 0
+ 1905 0f74 0500A0E3 		mov	r0, #5
+ 1906 0f78 0210A0E3 		mov	r1, #2
+ 1907 0f7c BC209FE5 		ldr	r2, .L102+88
+ 1908 0f80 FEFFFFEB 		bl	CyU3PUsbSetDesc
+ 1909 0f84 08000BE5 		str	r0, [fp, #-8]
+ 725:../sdrx3.c    **** 	if (apiRetStatus != CY_U3P_SUCCESS)
+ 1910              		.loc 1 725 0
+ 1911 0f88 08301BE5 		ldr	r3, [fp, #-8]
+ 1912 0f8c 000053E3 		cmp	r3, #0
+ 1913 0f90 0500000A 		beq	.L100
+ 726:../sdrx3.c    **** 	{
+ 727:../sdrx3.c    **** 		CyU3PDebugPrint (4, "USB set string descriptor failed, Error code = %d\n", apiRetStatus);
+ 1914              		.loc 1 727 0
+ 1915 0f94 0400A0E3 		mov	r0, #4
+ 1916 0f98 98109FE5 		ldr	r1, .L102+80
+ 1917 0f9c 08201BE5 		ldr	r2, [fp, #-8]
+ 1918 0fa0 FEFFFFEB 		bl	CyU3PDebugPrint
+ 728:../sdrx3.c    **** 		SDR_ErrorHandler(apiRetStatus);
+ 1919              		.loc 1 728 0
+ 1920 0fa4 08001BE5 		ldr	r0, [fp, #-8]
+ 1921 0fa8 FEFFFFEB 		bl	SDR_ErrorHandler
+ 1922              	.L100:
+ 729:../sdrx3.c    **** 	}
+ 730:../sdrx3.c    **** 
+ 731:../sdrx3.c    **** 	/* Connect the USB Pins with super speed operation enabled. */
+ 732:../sdrx3.c    **** 	apiRetStatus = CyU3PConnectState(CyTrue, CyTrue);
+ 1923              		.loc 1 732 0
+ 1924 0fac 0100A0E3 		mov	r0, #1
+ 1925 0fb0 0110A0E3 		mov	r1, #1
+ 1926 0fb4 FEFFFFEB 		bl	CyU3PConnectState
+ 1927 0fb8 08000BE5 		str	r0, [fp, #-8]
+ 733:../sdrx3.c    **** 	if (apiRetStatus != CY_U3P_SUCCESS)
+ 1928              		.loc 1 733 0
+ 1929 0fbc 08301BE5 		ldr	r3, [fp, #-8]
+ 1930 0fc0 000053E3 		cmp	r3, #0
+ 1931 0fc4 0500000A 		beq	.L87
+ 734:../sdrx3.c    **** 	{
+ 735:../sdrx3.c    **** 		CyU3PDebugPrint (4, "USB Connect failed, Error code = %d\n", apiRetStatus);
+ 1932              		.loc 1 735 0
+ 1933 0fc8 0400A0E3 		mov	r0, #4
+ 1934 0fcc 70109FE5 		ldr	r1, .L102+92
+ 1935 0fd0 08201BE5 		ldr	r2, [fp, #-8]
+ 1936 0fd4 FEFFFFEB 		bl	CyU3PDebugPrint
+ 736:../sdrx3.c    **** 		SDR_ErrorHandler(apiRetStatus);
+ 1937              		.loc 1 736 0
+ 1938 0fd8 08001BE5 		ldr	r0, [fp, #-8]
+ 1939 0fdc FEFFFFEB 		bl	SDR_ErrorHandler
+ 1940              	.L87:
+ 737:../sdrx3.c    **** 	}
+ 738:../sdrx3.c    **** 
+ 739:../sdrx3.c    **** 
+ 740:../sdrx3.c    **** }
+ 1941              		.loc 1 740 0
+ 1942 0fe0 04D04BE2 		sub	sp, fp, #4
+ 1943              		@ sp needed
+ 1944 0fe4 0088BDE8 		ldmfd	sp!, {fp, pc}
+ 1945              	.L103:
+ 1946              		.align	2
+ 1947              	.L102:
+ 1948 0fe8 F0010000 		.word	.LC10
+ 1949 0fec 00000000 		.word	CyFxGpifConfig
+ 1950 0ff0 20020000 		.word	.LC11
+ 1951 0ff4 00000000 		.word	SDR_ApplnGPIFEventCB
+ 1952 0ff8 48020000 		.word	.LC12
+ 1953 0ffc 00000000 		.word	SDR_ApplnUSBSetupCB
+ 1954 1000 00000000 		.word	SDR_ApplnUSBEventCB
+ 1955 1004 00000000 		.word	CyFxUSB30DeviceDscr
+ 1956 1008 78020000 		.word	.LC13
+ 1957 100c 00000000 		.word	CyFxUSB20DeviceDscr
+ 1958 1010 00000000 		.word	CyFxUSBBOSDscr
+ 1959 1014 AC020000 		.word	.LC14
+ 1960 1018 00000000 		.word	CyFxUSBDeviceQualDscr
+ 1961 101c E8020000 		.word	.LC15
+ 1962 1020 00000000 		.word	CyFxUSBSSConfigDscr
+ 1963 1024 00000000 		.word	CyFxUSBHSConfigDscr
+ 1964 1028 28030000 		.word	.LC16
+ 1965 102c 00000000 		.word	CyFxUSBFSConfigDscr
+ 1966 1030 60030000 		.word	.LC17
+ 1967 1034 00000000 		.word	CyFxUSBStringLangIDDscr
+ 1968 1038 9C030000 		.word	.LC18
+ 1969 103c 00000000 		.word	CyFxUSBManufactureDscr
+ 1970 1040 00000000 		.word	CyFxUSBProductDscr
+ 1971 1044 D0030000 		.word	.LC19
+ 1972              		.cfi_endproc
+ 1973              	.LFE12:
+ 1975              		.section	.rodata
+ 1976 03f5 000000   		.align	2
+ 1977              	.LC20:
+ 1978 03f8 0A0D2045 		.ascii	"\012\015 Error CyFxI2cInit() = 0x%X\012\000"
+ 1978      72726F72 
+ 1978      20437946 
+ 1978      78493263 
+ 1978      496E6974 
+ 1979 0417 00       		.align	2
+ 1980              	.LC21:
+ 1981 0418 0A0D2049 		.ascii	"\012\015 Init IOs\000"
+ 1981      6E697420 
+ 1981      494F7300 
+ 1982              		.text
+ 1983              		.align	2
+ 1984              		.global	SDR_AppThread_Entry
+ 1986              	SDR_AppThread_Entry:
+ 1987              	.LFB13:
+ 741:../sdrx3.c    **** 
+ 742:../sdrx3.c    **** /* Entry function for the SDR_AppThread. */
+ 743:../sdrx3.c    **** void
+ 744:../sdrx3.c    **** SDR_AppThread_Entry (
+ 745:../sdrx3.c    **** 		uint32_t input)
+ 746:../sdrx3.c    **** {
+ 1988              		.loc 1 746 0
+ 1989              		.cfi_startproc
+ 1990              		@ args = 0, pretend = 0, frame = 16
+ 1991              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1992 1048 00482DE9 		stmfd	sp!, {fp, lr}
+ 1993              	.LCFI26:
+ 1994              		.cfi_def_cfa_offset 8
+ 1995              		.cfi_offset 11, -8
+ 1996              		.cfi_offset 14, -4
+ 1997 104c 04B08DE2 		add	fp, sp, #4
+ 1998              	.LCFI27:
+ 1999              		.cfi_def_cfa 11, 4
+ 2000 1050 10D04DE2 		sub	sp, sp, #16
+ 2001 1054 10000BE5 		str	r0, [fp, #-16]
+ 747:../sdrx3.c    **** 	CyU3PReturnStatus_t apiRetStatus = CY_U3P_SUCCESS;
+ 2002              		.loc 1 747 0
+ 2003 1058 0030A0E3 		mov	r3, #0
+ 2004 105c 08300BE5 		str	r3, [fp, #-8]
+ 748:../sdrx3.c    **** 	/* Initialize the debug module */
+ 749:../sdrx3.c    **** 	SDR_ApplnDebugInit();
+ 2005              		.loc 1 749 0
+ 2006 1060 FEFFFFEB 		bl	SDR_ApplnDebugInit
+ 750:../sdrx3.c    **** 
+ 751:../sdrx3.c    **** 	/* Initialize GPIO IO */
+ 752:../sdrx3.c    **** 	SDR_GpioInit();
+ 2007              		.loc 1 752 0
+ 2008 1064 FEFFFFEB 		bl	SDR_GpioInit
+ 753:../sdrx3.c    **** 
+ 754:../sdrx3.c    ****     apiRetStatus = CyFxI2cInit ();
+ 2009              		.loc 1 754 0
+ 2010 1068 FEFFFFEB 		bl	CyFxI2cInit
+ 2011 106c 08000BE5 		str	r0, [fp, #-8]
+ 755:../sdrx3.c    **** 	if (apiRetStatus != CY_U3P_SUCCESS)
+ 2012              		.loc 1 755 0
+ 2013 1070 08301BE5 		ldr	r3, [fp, #-8]
+ 2014 1074 000053E3 		cmp	r3, #0
+ 2015 1078 0300000A 		beq	.L105
+ 756:../sdrx3.c    **** 		 {
+ 757:../sdrx3.c    **** 		   // Error handling
+ 758:../sdrx3.c    **** 		   CyU3PDebugPrint (4, "\n\r Error CyFxI2cInit() = 0x%X\n",apiRetStatus);
+ 2016              		.loc 1 758 0
+ 2017 107c 0400A0E3 		mov	r0, #4
+ 2018 1080 54109FE5 		ldr	r1, .L108
+ 2019 1084 08201BE5 		ldr	r2, [fp, #-8]
+ 2020 1088 FEFFFFEB 		bl	CyU3PDebugPrint
+ 2021              	.L105:
+ 759:../sdrx3.c    **** 		 }
+ 760:../sdrx3.c    **** 
+ 761:../sdrx3.c    **** 	CyU3PDebugPrint (4, "\n\r Init IOs");
+ 2022              		.loc 1 761 0
+ 2023 108c 0400A0E3 		mov	r0, #4
+ 2024 1090 48109FE5 		ldr	r1, .L108+4
+ 2025 1094 FEFFFFEB 		bl	CyU3PDebugPrint
+ 762:../sdrx3.c    **** 
+ 763:../sdrx3.c    **** 	/* Initialize the application */
+ 764:../sdrx3.c    **** 	SDR_ApplnInit();
+ 2026              		.loc 1 764 0
+ 2027 1098 FEFFFFEB 		bl	SDR_ApplnInit
+ 2028              	.L107:
+ 765:../sdrx3.c    **** 
+ 766:../sdrx3.c    **** //	SDR_ErrorHandler(0xca);
+ 767:../sdrx3.c    **** 
+ 768:../sdrx3.c    **** 	for (;;)
+ 769:../sdrx3.c    **** 	{
+ 770:../sdrx3.c    **** 		CyU3PThreadSleep (2000);
+ 2029              		.loc 1 770 0
+ 2030 109c 7D0EA0E3 		mov	r0, #2000
+ 2031 10a0 FEFFFFEB 		bl	_tx_thread_sleep
+ 771:../sdrx3.c    **** 
+ 772:../sdrx3.c    **** 		if (glIsApplnActive)
+ 2032              		.loc 1 772 0
+ 2033 10a4 38309FE5 		ldr	r3, .L108+8
+ 2034 10a8 003093E5 		ldr	r3, [r3]
+ 2035 10ac 000053E3 		cmp	r3, #0
+ 2036 10b0 0800000A 		beq	.L106
+ 773:../sdrx3.c    **** 		{
+ 774:../sdrx3.c    **** 			if(!glStartSDRGpif)
+ 2037              		.loc 1 774 0
+ 2038 10b4 2C309FE5 		ldr	r3, .L108+12
+ 2039 10b8 003093E5 		ldr	r3, [r3]
+ 2040 10bc 000053E3 		cmp	r3, #0
+ 2041 10c0 0400001A 		bne	.L106
+ 775:../sdrx3.c    **** 			{
+ 776:../sdrx3.c    **** 				glStartSDRGpif = CyTrue;
+ 2042              		.loc 1 776 0
+ 2043 10c4 1C309FE5 		ldr	r3, .L108+12
+ 2044 10c8 0120A0E3 		mov	r2, #1
+ 2045 10cc 002083E5 		str	r2, [r3]
+ 777:../sdrx3.c    **** 				SDR_StartGpif();
+ 2046              		.loc 1 777 0
+ 2047 10d0 FEFFFFEB 		bl	SDR_StartGpif
+ 778:../sdrx3.c    **** 			}
+ 779:../sdrx3.c    **** 		}
+ 780:../sdrx3.c    ****         /* Allow other ready threads to run. */
+ 781:../sdrx3.c    ****    //     CyU3PThreadRelinquish ();
+ 782:../sdrx3.c    **** 	}
+ 2048              		.loc 1 782 0
+ 2049 10d4 F0FFFFEA 		b	.L107
+ 2050              	.L106:
+ 2051 10d8 EFFFFFEA 		b	.L107
+ 2052              	.L109:
+ 2053              		.align	2
+ 2054              	.L108:
+ 2055 10dc F8030000 		.word	.LC20
+ 2056 10e0 18040000 		.word	.LC21
+ 2057 10e4 00000000 		.word	glIsApplnActive
+ 2058 10e8 00000000 		.word	glStartSDRGpif
+ 2059              		.cfi_endproc
+ 2060              	.LFE13:
+ 2062              		.section	.rodata
+ 2063              		.align	2
+ 2064              	.LC22:
+ 2065 0424 32313A42 		.ascii	"21:Bulk_src_sink\000"
+ 2065      756C6B5F 
+ 2065      7372635F 
+ 2065      73696E6B 
+ 2065      00
+ 2066 0435 00000000 		.text
+ 2066      00000000 
+ 2066      000000
+ 2067              		.align	2
+ 2068              		.global	CyFxApplicationDefine
+ 2070              	CyFxApplicationDefine:
+ 2071              	.LFB14:
+ 783:../sdrx3.c    **** }
+ 784:../sdrx3.c    **** 
+ 785:../sdrx3.c    **** /* Application define function which creates the threads. */
+ 786:../sdrx3.c    **** void
+ 787:../sdrx3.c    **** CyFxApplicationDefine (
+ 788:../sdrx3.c    **** 		void)
+ 789:../sdrx3.c    **** {
+ 2072              		.loc 1 789 0
+ 2073              		.cfi_startproc
+ 2074              		@ args = 0, pretend = 0, frame = 8
+ 2075              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2076 10ec 00482DE9 		stmfd	sp!, {fp, lr}
+ 2077              	.LCFI28:
+ 2078              		.cfi_def_cfa_offset 8
+ 2079              		.cfi_offset 11, -8
+ 2080              		.cfi_offset 14, -4
+ 2081 10f0 04B08DE2 		add	fp, sp, #4
+ 2082              	.LCFI29:
+ 2083              		.cfi_def_cfa 11, 4
+ 2084 10f4 28D04DE2 		sub	sp, sp, #40
+ 790:../sdrx3.c    **** 	void *ptr = NULL;
+ 2085              		.loc 1 790 0
+ 2086 10f8 0030A0E3 		mov	r3, #0
+ 2087 10fc 08300BE5 		str	r3, [fp, #-8]
+ 791:../sdrx3.c    **** 	uint32_t retThrdCreate = CY_U3P_SUCCESS;
+ 2088              		.loc 1 791 0
+ 2089 1100 0030A0E3 		mov	r3, #0
+ 2090 1104 0C300BE5 		str	r3, [fp, #-12]
+ 792:../sdrx3.c    **** 
+ 793:../sdrx3.c    **** 	/* Allocate the memory for the threads */
+ 794:../sdrx3.c    **** 	ptr = CyU3PMemAlloc (CY_FX_BULKSRCSINK_THREAD_STACK);
+ 2091              		.loc 1 794 0
+ 2092 1108 010AA0E3 		mov	r0, #4096
+ 2093 110c FEFFFFEB 		bl	CyU3PMemAlloc
+ 2094 1110 08000BE5 		str	r0, [fp, #-8]
+ 795:../sdrx3.c    **** 
+ 796:../sdrx3.c    **** 	/* Create the thread for the application */
+ 797:../sdrx3.c    **** 	retThrdCreate = CyU3PThreadCreate (&SDR_AppThread,      /* App thread structure */
+ 2095              		.loc 1 797 0
+ 2096 1114 08301BE5 		ldr	r3, [fp, #-8]
+ 2097 1118 00308DE5 		str	r3, [sp]
+ 2098 111c 013AA0E3 		mov	r3, #4096
+ 2099 1120 04308DE5 		str	r3, [sp, #4]
+ 2100 1124 0830A0E3 		mov	r3, #8
+ 2101 1128 08308DE5 		str	r3, [sp, #8]
+ 2102 112c 0830A0E3 		mov	r3, #8
+ 2103 1130 0C308DE5 		str	r3, [sp, #12]
+ 2104 1134 0030A0E3 		mov	r3, #0
+ 2105 1138 10308DE5 		str	r3, [sp, #16]
+ 2106 113c 0130A0E3 		mov	r3, #1
+ 2107 1140 14308DE5 		str	r3, [sp, #20]
+ 2108 1144 A830A0E3 		mov	r3, #168
+ 2109 1148 18308DE5 		str	r3, [sp, #24]
+ 2110 114c 28009FE5 		ldr	r0, .L113
+ 2111 1150 28109FE5 		ldr	r1, .L113+4
+ 2112 1154 28209FE5 		ldr	r2, .L113+8
+ 2113 1158 0030A0E3 		mov	r3, #0
+ 2114 115c FEFFFFEB 		bl	_txe_thread_create
+ 2115 1160 0C000BE5 		str	r0, [fp, #-12]
+ 798:../sdrx3.c    **** 			"21:Bulk_src_sink",                      /* Thread ID and thread name */
+ 799:../sdrx3.c    **** 			SDR_AppThread_Entry,              /* App thread entry function */
+ 800:../sdrx3.c    **** 			0,                                       /* No input parameter to thread */
+ 801:../sdrx3.c    **** 			ptr,                                     /* Pointer to the allocated thread stack */
+ 802:../sdrx3.c    **** 			CY_FX_BULKSRCSINK_THREAD_STACK,          /* App thread stack size */
+ 803:../sdrx3.c    **** 			CY_FX_BULKSRCSINK_THREAD_PRIORITY,       /* App thread priority */
+ 804:../sdrx3.c    **** 			CY_FX_BULKSRCSINK_THREAD_PRIORITY,       /* App thread priority */
+ 805:../sdrx3.c    **** 			CYU3P_NO_TIME_SLICE,                     /* No time slice for the application thread */
+ 806:../sdrx3.c    **** 			CYU3P_AUTO_START                         /* Start the thread immediately */
+ 807:../sdrx3.c    **** 	);
+ 808:../sdrx3.c    **** 
+ 809:../sdrx3.c    **** 	/* Check the return code */
+ 810:../sdrx3.c    **** 	if (retThrdCreate != 0)
+ 2116              		.loc 1 810 0
+ 2117 1164 0C301BE5 		ldr	r3, [fp, #-12]
+ 2118 1168 000053E3 		cmp	r3, #0
+ 2119 116c 0000000A 		beq	.L110
+ 2120              	.L112:
+ 811:../sdrx3.c    **** 	{
+ 812:../sdrx3.c    **** 		/* Thread Creation failed with the error code retThrdCreate */
+ 813:../sdrx3.c    **** 
+ 814:../sdrx3.c    **** 		/* Add custom recovery or debug actions here */
+ 815:../sdrx3.c    **** 
+ 816:../sdrx3.c    **** 		/* Application cannot continue */
+ 817:../sdrx3.c    **** 		/* Loop indefinitely */
+ 818:../sdrx3.c    **** 		while(1);
+ 2121              		.loc 1 818 0 discriminator 1
+ 2122 1170 FEFFFFEA 		b	.L112
+ 2123              	.L110:
+ 819:../sdrx3.c    **** 	}
+ 820:../sdrx3.c    **** }
+ 2124              		.loc 1 820 0
+ 2125 1174 04D04BE2 		sub	sp, fp, #4
+ 2126              		@ sp needed
+ 2127 1178 0088BDE8 		ldmfd	sp!, {fp, pc}
+ 2128              	.L114:
+ 2129              		.align	2
+ 2130              	.L113:
+ 2131 117c 00000000 		.word	SDR_AppThread
+ 2132 1180 24040000 		.word	.LC22
+ 2133 1184 00000000 		.word	SDR_AppThread_Entry
+ 2134              		.cfi_endproc
+ 2135              	.LFE14:
+ 2137              		.align	2
+ 2138              		.global	main
+ 2140              	main:
+ 2141              	.LFB15:
+ 821:../sdrx3.c    **** 
+ 822:../sdrx3.c    **** /*
+ 823:../sdrx3.c    ****  * Main function
+ 824:../sdrx3.c    ****  */
+ 825:../sdrx3.c    **** int
+ 826:../sdrx3.c    **** main (void)
+ 827:../sdrx3.c    **** {
+ 2142              		.loc 1 827 0
+ 2143              		.cfi_startproc
+ 2144              		@ args = 0, pretend = 0, frame = 48
+ 2145              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2146 1188 00482DE9 		stmfd	sp!, {fp, lr}
+ 2147              	.LCFI30:
+ 2148              		.cfi_def_cfa_offset 8
+ 2149              		.cfi_offset 11, -8
+ 2150              		.cfi_offset 14, -4
+ 2151 118c 04B08DE2 		add	fp, sp, #4
+ 2152              	.LCFI31:
+ 2153              		.cfi_def_cfa 11, 4
+ 2154 1190 30D04DE2 		sub	sp, sp, #48
+ 828:../sdrx3.c    **** 	CyU3PIoMatrixConfig_t io_cfg;
+ 829:../sdrx3.c    **** 	CyU3PReturnStatus_t status = CY_U3P_SUCCESS;
+ 2155              		.loc 1 829 0
+ 2156 1194 0030A0E3 		mov	r3, #0
+ 2157 1198 08300BE5 		str	r3, [fp, #-8]
+ 830:../sdrx3.c    **** 
+ 831:../sdrx3.c    **** 	/* Initialize the device */
+ 832:../sdrx3.c    **** 	status = CyU3PDeviceInit (NULL);
+ 2158              		.loc 1 832 0
+ 2159 119c 0000A0E3 		mov	r0, #0
+ 2160 11a0 FEFFFFEB 		bl	CyU3PDeviceInit
+ 2161 11a4 08000BE5 		str	r0, [fp, #-8]
+ 833:../sdrx3.c    **** 	if (status != CY_U3P_SUCCESS)
+ 2162              		.loc 1 833 0
+ 2163 11a8 08301BE5 		ldr	r3, [fp, #-8]
+ 2164 11ac 000053E3 		cmp	r3, #0
+ 2165 11b0 0000000A 		beq	.L116
+ 834:../sdrx3.c    **** 	{
+ 835:../sdrx3.c    **** 		goto handle_fatal_error;
+ 2166              		.loc 1 835 0
+ 2167 11b4 270000EA 		b	.L117
+ 2168              	.L116:
+ 836:../sdrx3.c    **** 	}
+ 837:../sdrx3.c    **** 
+ 838:../sdrx3.c    **** 	/* Initialize the caches. Enable instruction cache and keep data cache disabled.
+ 839:../sdrx3.c    **** 	 * The data cache is useful only when there is a large amount of CPU based memory
+ 840:../sdrx3.c    **** 	 * accesses. When used in simple cases, it can decrease performance due to large
+ 841:../sdrx3.c    **** 	 * number of cache flushes and cleans and also it adds to the complexity of the
+ 842:../sdrx3.c    **** 	 * code. */
+ 843:../sdrx3.c    **** 	status = CyU3PDeviceCacheControl (CyTrue, CyFalse, CyFalse);
+ 2169              		.loc 1 843 0
+ 2170 11b8 0100A0E3 		mov	r0, #1
+ 2171 11bc 0010A0E3 		mov	r1, #0
+ 2172 11c0 0020A0E3 		mov	r2, #0
+ 2173 11c4 FEFFFFEB 		bl	CyU3PDeviceCacheControl
+ 2174 11c8 08000BE5 		str	r0, [fp, #-8]
+ 844:../sdrx3.c    **** 	if (status != CY_U3P_SUCCESS)
+ 2175              		.loc 1 844 0
+ 2176 11cc 08301BE5 		ldr	r3, [fp, #-8]
+ 2177 11d0 000053E3 		cmp	r3, #0
+ 2178 11d4 0000000A 		beq	.L118
+ 845:../sdrx3.c    **** 	{
+ 846:../sdrx3.c    **** 		goto handle_fatal_error;
+ 2179              		.loc 1 846 0
+ 2180 11d8 1E0000EA 		b	.L117
+ 2181              	.L118:
+ 847:../sdrx3.c    **** 	}
+ 848:../sdrx3.c    **** 
+ 849:../sdrx3.c    **** 	/* Configure the IO matrix for the device. On the FX3 DVK board, the COM port
+ 850:../sdrx3.c    **** 	 * is connected to the IO(53:56). This means that either DQ32 mode should be
+ 851:../sdrx3.c    **** 	 * selected or lppMode should be set to UART_ONLY. Here we are choosing
+ 852:../sdrx3.c    **** 	 * UART_ONLY configuration. */
+ 853:../sdrx3.c    **** 	io_cfg.isDQ32Bit = CyTrue;
+ 2182              		.loc 1 853 0
+ 2183 11dc 0130A0E3 		mov	r3, #1
+ 2184 11e0 30300BE5 		str	r3, [fp, #-48]
+ 854:../sdrx3.c    **** 	io_cfg.useUart   = CyTrue;
+ 2185              		.loc 1 854 0
+ 2186 11e4 0130A0E3 		mov	r3, #1
+ 2187 11e8 2C300BE5 		str	r3, [fp, #-44]
+ 855:../sdrx3.c    **** #ifdef I2C_ACTIVE
+ 856:../sdrx3.c    **** 	io_cfg.useI2C    = CyTrue;
+ 2188              		.loc 1 856 0
+ 2189 11ec 0130A0E3 		mov	r3, #1
+ 2190 11f0 28300BE5 		str	r3, [fp, #-40]
+ 857:../sdrx3.c    **** #else
+ 858:../sdrx3.c    **** 	io_cfg.useI2C    = CyFalse;
+ 859:../sdrx3.c    **** #endif
+ 860:../sdrx3.c    **** 	io_cfg.useI2S    = CyFalse;
+ 2191              		.loc 1 860 0
+ 2192 11f4 0030A0E3 		mov	r3, #0
+ 2193 11f8 24300BE5 		str	r3, [fp, #-36]
+ 861:../sdrx3.c    **** 	io_cfg.useSpi    = CyFalse;
+ 2194              		.loc 1 861 0
+ 2195 11fc 0030A0E3 		mov	r3, #0
+ 2196 1200 20300BE5 		str	r3, [fp, #-32]
+ 862:../sdrx3.c    **** 	io_cfg.lppMode   = CY_U3P_IO_MATRIX_LPP_DEFAULT;
+ 2197              		.loc 1 862 0
+ 2198 1204 0030A0E3 		mov	r3, #0
+ 2199 1208 1A304BE5 		strb	r3, [fp, #-26]
+ 863:../sdrx3.c    **** 	/* No GPIOs are enabled. */
+ 864:../sdrx3.c    **** 	io_cfg.gpioSimpleEn[0]  = 0;
+ 2200              		.loc 1 864 0
+ 2201 120c 0030A0E3 		mov	r3, #0
+ 2202 1210 18300BE5 		str	r3, [fp, #-24]
+ 865:../sdrx3.c    **** 	io_cfg.gpioSimpleEn[1]  = 0;
+ 2203              		.loc 1 865 0
+ 2204 1214 0030A0E3 		mov	r3, #0
+ 2205 1218 14300BE5 		str	r3, [fp, #-20]
+ 866:../sdrx3.c    ****     /* GPIOs 50 is used as complex GPIO. */
+ 867:../sdrx3.c    ****     io_cfg.gpioComplexEn[0] = 0x01000000;  // GPIO24 PWM
+ 2206              		.loc 1 867 0
+ 2207 121c 0134A0E3 		mov	r3, #16777216
+ 2208 1220 10300BE5 		str	r3, [fp, #-16]
+ 868:../sdrx3.c    ****     io_cfg.gpioComplexEn[1] = 0x00000000;
+ 2209              		.loc 1 868 0
+ 2210 1224 0030A0E3 		mov	r3, #0
+ 2211 1228 0C300BE5 		str	r3, [fp, #-12]
+ 869:../sdrx3.c    **** 
+ 870:../sdrx3.c    **** 	status = CyU3PDeviceConfigureIOMatrix (&io_cfg);
+ 2212              		.loc 1 870 0
+ 2213 122c 30304BE2 		sub	r3, fp, #48
+ 2214 1230 0300A0E1 		mov	r0, r3
+ 2215 1234 FEFFFFEB 		bl	CyU3PDeviceConfigureIOMatrix
+ 2216 1238 08000BE5 		str	r0, [fp, #-8]
+ 871:../sdrx3.c    **** 	if (status != CY_U3P_SUCCESS)
+ 2217              		.loc 1 871 0
+ 2218 123c 08301BE5 		ldr	r3, [fp, #-8]
+ 2219 1240 000053E3 		cmp	r3, #0
+ 2220 1244 0000000A 		beq	.L119
+ 872:../sdrx3.c    **** 	{
+ 873:../sdrx3.c    **** 		goto handle_fatal_error;
+ 2221              		.loc 1 873 0
+ 2222 1248 020000EA 		b	.L117
+ 2223              	.L119:
+ 874:../sdrx3.c    **** 	}
+ 875:../sdrx3.c    **** 
+ 876:../sdrx3.c    **** 	/* This is a non returnable call for initializing the RTOS kernel */
+ 877:../sdrx3.c    **** 	CyU3PKernelEntry ();
+ 2224              		.loc 1 877 0
+ 2225 124c FEFFFFEB 		bl	_tx_initialize_kernel_enter
+ 878:../sdrx3.c    **** 
+ 879:../sdrx3.c    **** 	/* Dummy return to make the compiler happy */
+ 880:../sdrx3.c    **** 	return 0;
+ 2226              		.loc 1 880 0
+ 2227 1250 0030A0E3 		mov	r3, #0
+ 2228 1254 000000EA 		b	.L121
+ 2229              	.L117:
+ 881:../sdrx3.c    **** 
+ 882:../sdrx3.c    **** 	handle_fatal_error:
+ 883:../sdrx3.c    **** 
+ 884:../sdrx3.c    **** 	/* Cannot recover from this error. */
+ 885:../sdrx3.c    **** 	while (1);
+ 2230              		.loc 1 885 0 discriminator 1
+ 2231 1258 FEFFFFEA 		b	.L117
+ 2232              	.L121:
+ 886:../sdrx3.c    **** }
+ 2233              		.loc 1 886 0
+ 2234 125c 0300A0E1 		mov	r0, r3
+ 2235 1260 04D04BE2 		sub	sp, fp, #4
+ 2236              		@ sp needed
+ 2237 1264 0088BDE8 		ldmfd	sp!, {fp, pc}
+ 2238              		.cfi_endproc
+ 2239              	.LFE15:
+ 2241              	.Letext0:
+ 2242              		.file 2 "d:\\program files (x86)\\cypress\\ez-usb fx3 sdk\\1.3\\arm gcc\\arm-none-eabi\\include\\s
+ 2243              		.file 3 "D:\\Program Files (x86)\\Cypress\\EZ-USB FX3 SDK\\1.3\\\\firmware\\u3p_firmware\\inc/cyu3
+ 2244              		.file 4 "D:\\Program Files (x86)\\Cypress\\EZ-USB FX3 SDK\\1.3\\\\firmware\\u3p_firmware\\inc/cyfx
+ 2245              		.file 5 "D:\\Program Files (x86)\\Cypress\\EZ-USB FX3 SDK\\1.3\\\\firmware\\u3p_firmware\\inc/tx_p
+ 2246              		.file 6 "D:\\Program Files (x86)\\Cypress\\EZ-USB FX3 SDK\\1.3\\\\firmware\\u3p_firmware\\inc/tx_a
+ 2247              		.file 7 "D:\\Program Files (x86)\\Cypress\\EZ-USB FX3 SDK\\1.3\\\\firmware\\u3p_firmware\\inc/cyu3
+ 2248              		.file 8 "D:\\Program Files (x86)\\Cypress\\EZ-USB FX3 SDK\\1.3\\\\firmware\\u3p_firmware\\inc/cyu3
+ 2249              		.file 9 "D:\\Program Files (x86)\\Cypress\\EZ-USB FX3 SDK\\1.3\\\\firmware\\u3p_firmware\\inc/cyu3
+ 2250              		.file 10 "D:\\Program Files (x86)\\Cypress\\EZ-USB FX3 SDK\\1.3\\\\firmware\\u3p_firmware\\inc/cyu
+ 2251              		.file 11 "D:\\Program Files (x86)\\Cypress\\EZ-USB FX3 SDK\\1.3\\\\firmware\\u3p_firmware\\inc/cyu
+ 2252              		.file 12 "D:\\Program Files (x86)\\Cypress\\EZ-USB FX3 SDK\\1.3\\\\firmware\\u3p_firmware\\inc/cyu
+ 2253              		.file 13 "D:\\Program Files (x86)\\Cypress\\EZ-USB FX3 SDK\\1.3\\\\firmware\\u3p_firmware\\inc/cyu
+ 2254              		.file 14 "D:\\Program Files (x86)\\Cypress\\EZ-USB FX3 SDK\\1.3\\\\firmware\\u3p_firmware\\inc/cyu
+ 2255              		.file 15 "D:\\Program Files (x86)\\Cypress\\EZ-USB FX3 SDK\\1.3\\\\firmware\\u3p_firmware\\inc/cyu
+ 2256              		.file 16 "D:\\Program Files (x86)\\Cypress\\EZ-USB FX3 SDK\\1.3\\\\firmware\\u3p_firmware\\inc/cyu
+ 2257              		.file 17 "../sdrx3.h"
+ 2258              		.file 18 "../cyfxgpif2config.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 sdrx3.c
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:21     .data:00000000 CyFxGpifTransition
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:18     .data:00000000 $d
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:29     .data:00000008 CyFxGpifWavedata
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:58     .data:00000068 CyFxGpifWavedataPosition
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:70     .data:00000070 CyFxGpifRegValue
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:152    .rodata:00000000 CyFxGpifConfig
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:149    .rodata:00000000 $d
+                            *COM*:00000020 glEp0Buffer
+                            *COM*:00000002 glRecvdLen
+                            *COM*:000000a8 SDR_AppThread
+                            *COM*:000000e8 glChHandleBulkSrc
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:172    .bss:00000000 glIsApplnActive
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:169    .bss:00000000 $d
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:178    .bss:00000004 glStartSDRGpif
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:184    .bss:00000008 glDMARxCount
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:190    .bss:0000000c glDMATxCount
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:197    .rodata:00000020 glFirmwareID
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:208    .text:00000000 $a
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:211    .text:00000000 SDR_ErrorHandler
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:314    .text:000000ec SDR_GpioIntrCb
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:357    .text:00000138 ConfGPIOsimpleout
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:434    .text:000001e0 ConfGPIOPWM
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:516    .text:000002a0 $d
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:525    .text:000002a4 $a
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:528    .text:000002a4 SDR_GpioInit
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:624    .text:00000388 $d
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:630    .text:00000394 $a
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:633    .text:00000394 SDR_ApplnDebugInit
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:738    .text:0000048c $d
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:756    .text:00000490 $a
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:759    .text:00000490 SDR_ApplnStart
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:971    .text:000006b0 $d
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:982    .text:000006d0 $a
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:985    .text:000006d0 SDR_ApplnStop
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:1048   .text:0000075c $d
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:1068   .text:00000768 $a
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:1071   .text:00000768 SDR_ApplnUSBSetupCB
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:1131   .text:000007f8 $d
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:1147   .text:00000830 $a
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:1415   .text:00000b68 $d
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:1430   .text:00000b84 $a
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:1433   .text:00000b84 SDR_ApplnGPIFEventCB
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:1473   .text:00000bc8 $d
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:1477   .text:00000bcc $a
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:1480   .text:00000bcc SDR_ApplnUSBEventCB
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:1543   .text:00000c48 $d
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:1553   .text:00000c4c $a
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:1556   .text:00000c4c SDR_StartGpif
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:1596   .text:00000c94 $d
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:1638   .text:00000c98 $a
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:1641   .text:00000c98 SDR_ApplnInit
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:1948   .text:00000fe8 $d
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:1983   .text:00001048 $a
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:1986   .text:00001048 SDR_AppThread_Entry
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:2055   .text:000010dc $d
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:2067   .text:000010ec $a
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:2070   .text:000010ec CyFxApplicationDefine
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:2131   .text:0000117c $d
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:2137   .text:00001188 $a
+C:\Users\jason\AppData\Local\Temp\cc51jGb7.s:2140   .text:00001188 main
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+CyU3PGpioSetValue
+_tx_thread_sleep
+CyU3PGpioGetValue
+CyU3PDeviceGpioOverride
+CyU3PGpioSetSimpleConfig
+CyU3PGpioSetComplexConfig
+CyU3PGpioInit
+CyU3PDebugPrint
+CyU3PUartInit
+CyU3PMemSet
+CyU3PUartSetConfig
+CyU3PUartTxSetBlockXfer
+CyU3PDebugInit
+CyU3PDebugPreamble
+CyU3PUsbGetSpeed
+CyU3PSetEpConfig
+CyU3PDmaMultiChannelCreate
+CyU3PDmaMultiChannelSetXfer
+CyU3PUsbFlushEp
+CyU3PDmaMultiChannelDestroy
+CyU3PUsbSendEP0Data
+CyU3PUsbGetEP0Data
+CyFxUsbI2cTransfer
+CyU3PGpifSMStart
+CyU3PPibInit
+CyU3PGpifLoad
+CyU3PGpifRegisterCallback
+CyU3PUsbStart
+CyU3PUsbRegisterSetupCallback
+CyU3PUsbRegisterEventCallback
+CyU3PUsbSetDesc
+CyU3PConnectState
+CyFxUSB30DeviceDscr
+CyFxUSB20DeviceDscr
+CyFxUSBBOSDscr
+CyFxUSBDeviceQualDscr
+CyFxUSBSSConfigDscr
+CyFxUSBHSConfigDscr
+CyFxUSBFSConfigDscr
+CyFxUSBStringLangIDDscr
+CyFxUSBManufactureDscr
+CyFxUSBProductDscr
+CyFxI2cInit
+CyU3PMemAlloc
+_txe_thread_create
+CyU3PDeviceInit
+CyU3PDeviceCacheControl
+CyU3PDeviceConfigureIOMatrix
+_tx_initialize_kernel_enter

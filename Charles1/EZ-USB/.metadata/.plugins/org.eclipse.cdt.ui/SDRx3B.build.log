@@ -1,0 +1,52 @@
+21:10:41 **** Build of configuration Release for project SDRx3B ****
+cs-make all 
+'Building file: ../cyfx_gcc_startup.S'
+'Invoking: ARM Sourcery Windows GCC Assembler'
+arm-none-eabi-gcc -x assembler-with-cpp -I"D:\Program Files (x86)\Cypress\EZ-USB FX3 SDK\1.3\\firmware\u3p_firmware\inc" -Wall -Wa,-adhlns="cyfx_gcc_startup.o.lst" -c -fmessage-length=0 -MMD -MP -MF"cyfx_gcc_startup.d" -MT"cyfx_gcc_startup.d" -mcpu=arm926ej-s -mthumb-interwork -o "cyfx_gcc_startup.o" "../cyfx_gcc_startup.S"
+'Finished building: ../cyfx_gcc_startup.S'
+' '
+'Building file: ../cyfxbulkdscr.c'
+'Invoking: ARM Sourcery Windows GCC C Compiler'
+arm-none-eabi-gcc -D__CYU3P_TX__=1 -I"D:\Program Files (x86)\Cypress\EZ-USB FX3 SDK\1.3\\firmware\u3p_firmware\inc" -I"..\." -Os -Wall -Wa,-adhlns="cyfxbulkdscr.o.lst" -c -fmessage-length=0 -MMD -MP -MF"cyfxbulkdscr.d" -MT"cyfxbulkdscr.d" -mcpu=arm926ej-s -mthumb-interwork -o "cyfxbulkdscr.o" "../cyfxbulkdscr.c"
+'Finished building: ../cyfxbulkdscr.c'
+' '
+'Building file: ../cyfxtx.c'
+'Invoking: ARM Sourcery Windows GCC C Compiler'
+arm-none-eabi-gcc -D__CYU3P_TX__=1 -I"D:\Program Files (x86)\Cypress\EZ-USB FX3 SDK\1.3\\firmware\u3p_firmware\inc" -I"..\." -Os -Wall -Wa,-adhlns="cyfxtx.o.lst" -c -fmessage-length=0 -MMD -MP -MF"cyfxtx.d" -MT"cyfxtx.d" -mcpu=arm926ej-s -mthumb-interwork -o "cyfxtx.o" "../cyfxtx.c"
+'Finished building: ../cyfxtx.c'
+' '
+'Building file: ../i2cmodule.c'
+'Invoking: ARM Sourcery Windows GCC C Compiler'
+arm-none-eabi-gcc -D__CYU3P_TX__=1 -I"D:\Program Files (x86)\Cypress\EZ-USB FX3 SDK\1.3\\firmware\u3p_firmware\inc" -I"..\." -Os -Wall -Wa,-adhlns="i2cmodule.o.lst" -c -fmessage-length=0 -MMD -MP -MF"i2cmodule.d" -MT"i2cmodule.d" -mcpu=arm926ej-s -mthumb-interwork -o "i2cmodule.o" "../i2cmodule.c"
+'Finished building: ../i2cmodule.c'
+' '
+'Building file: ../sdrx3.c'
+'Invoking: ARM Sourcery Windows GCC C Compiler'
+arm-none-eabi-gcc -D__CYU3P_TX__=1 -I"D:\Program Files (x86)\Cypress\EZ-USB FX3 SDK\1.3\\firmware\u3p_firmware\inc" -I"..\." -Os -Wall -Wa,-adhlns="sdrx3.o.lst" -c -fmessage-length=0 -MMD -MP -MF"sdrx3.d" -MT"sdrx3.d" -mcpu=arm926ej-s -mthumb-interwork -o "sdrx3.o" "../sdrx3.c"
+'Finished building: ../sdrx3.c'
+' '
+'Building target: SDRx3B.elf'
+'Invoking: ARM Sourcery Windows GCC C Linker'
+arm-none-eabi-gcc  ./cyfx_gcc_startup.o ./cyfxbulkdscr.o ./cyfxtx.o ./i2cmodule.o ./sdrx3.o    -T"D:\Program Files (x86)\Cypress\EZ-USB FX3 SDK\1.3\/firmware/common/fx3.ld" -nostartfiles -Wl,-Map,SDRx3B.map -Wl,-d -Wl,--no-wchar-size-warning -Wl,--gc-sections -Wl,--entry,CyU3PFirmwareEntry "D:\Program Files (x86)\Cypress\EZ-USB FX3 SDK\1.3\\firmware\u3p_firmware\lib\fx3_release\cyfxapi.a" "D:\Program Files (x86)\Cypress\EZ-USB FX3 SDK\1.3\\firmware\u3p_firmware\lib\fx3_release\cyu3lpp.a" "D:\Program Files (x86)\Cypress\EZ-USB FX3 SDK\1.3\\firmware\u3p_firmware\lib\fx3_release\cyu3threadx.a" "D:\Program Files (x86)\Cypress\EZ-USB FX3 SDK\1.3\ARM GCC\\arm-none-eabi\lib\libc.a" "D:\Program Files (x86)\Cypress\EZ-USB FX3 SDK\1.3\ARM GCC\\lib\gcc\arm-none-eabi\4.8.1\libgcc.a" -mcpu=arm926ej-s -mthumb-interwork -o"SDRx3B.elf"
+'Finished building target: SDRx3B.elf'
+' '
+cs-make --no-print-directory post-build
+'Converting ELF to image (.img) format'
+"D:\Program Files (x86)\Cypress\EZ-USB FX3 SDK\1.3\\util\elf2img\elf2img.exe" -i SDRx3B.elf -o SDRx3B.img
+Note: 256 bytes of interrupt vector code have been removed from the image.
+      Use the "-vectorload yes" option to retain this code.
+
+' '
+'Invoking: ARM Sourcery Windows GNU Create Listing'
+arm-none-eabi-objdump -h -S SDRx3B.elf > "SDRx3B.lst"
+'Finished building: SDRx3B.lst'
+' '
+'Invoking: ARM Sourcery Windows GNU Print Size'
+arm-none-eabi-size  --format=berkeley SDRx3B.elf
+   text	   data	    bss	    dec	    hex	filename
+ 100068	   1204	   6008	 107280	  1a310	SDRx3B.elf
+'Finished building: SDRx3B.siz'
+' '
+
+21:10:44 Build Finished (took 2s.534ms)
+
