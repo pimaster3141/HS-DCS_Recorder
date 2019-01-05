@@ -8,6 +8,7 @@ import multiprocessing as mp
 import MPWorker
 # import ThreadWorker
 import G2Display
+import DebuggerDisplay
 import code
 import time
 
@@ -86,18 +87,18 @@ def stop():
 	print("SYSTEM HALTED");
 
 
-def debug(sampleClk = 2E6):
+def debug(sampleClk = 2E6, numChannels=1):
 	global display, DCSWorker, peekBuf, conn1, conn2, isDummy;
 	peekBuf = Q();
 	(conn1, conn2) = mp.Pipe()
 	
 	DCSWorker = None;
 
-	DCSWorker = MPWorker.MPWorker(conn2, None, peekBuf);
+	DCSWorker = MPWorker.MPWorker(conn2, "debugLog", peekBuf);
 	DCSWorker.start();
 
 	try:
-		display = DebuggerDisplay.G2GraphWindow(peekBuf, sampleClk, numChannels=4, refreshRate=2, bufferDepth=10000, dummy=False, dummyData=None)
+		display = DebuggerDisplay.G2GraphWindow(peekBuf, sampleClk, numChannels, refreshRate=5, bufferDepth=10, dummy=False, dummyData=None)
 
 		display.run();
 

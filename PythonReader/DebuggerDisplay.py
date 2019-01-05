@@ -17,6 +17,7 @@ class G2GraphWindow():
 		self._numChannels = numChannels;
 		self._refreshPeriod = 1.0/refreshRate;
 		self._bufferSize = bufferDepth*refreshRate+1;
+		self._bufferSizeBeta = 30*60*refreshRate+1;
 		self._sampleCLK = sampleCLK;
 
 		self._peeker = bufferPeek;
@@ -78,6 +79,7 @@ class G2GraphWindow():
 
 		#SET UP CONSTANTS
 		self.xVals = np.linspace(-1*bufferDepth, 0, self._bufferSize);
+		self.xValsBeta = np.linspace(-1*30, 0, self._bufferSizeBeta);
 
 		#SET UP DATA STRUCTURES
 		# self.g2PlotData = [];
@@ -96,12 +98,12 @@ class G2GraphWindow():
 			# self.g2PlotData.append(np.array([]));
 			self.snrPlotData.append(np.zeros([self._bufferSize, self.tauSize]));
 			self.countPlotData.append(np.zeros(self._bufferSize));
-			self.betaPlotData.append(np.zeros(self._bufferSize));
+			self.betaPlotData.append(np.zeros(self._bufferSizeBeta));
 			
 			self.g2Curve.append(self.g2Plot.plot(x=[1], y=[1], pen=G2GraphWindow.penColors[c]));
 			self.snrCurve.append(self.snrPlot.plot(x=[1], y=[1], pen=G2GraphWindow.penColors[c]));
 			self.countCurve.append(self.countPlot.plot(x=self.xVals, y=self.countPlotData[c], pen=G2GraphWindow.penColors[c]));
-			self.betaCurve.append(self.betaPlot.plot(x=self.xVals, y=self.betaPlotData[c], pen=G2GraphWindow.penColors[c]));
+			self.betaCurve.append(self.betaPlot.plot(x=self.xValsBeta, y=self.betaPlotData[c], pen=G2GraphWindow.penColors[c]));
 
 		self.circularCounter=0;
 		self._timer = pg.QtCore.QTimer();
@@ -152,7 +154,7 @@ class G2GraphWindow():
 
 					# UPDATE PLOTS
 					self.countCurve[c].setData(self.xVals, self.countPlotData[c]);
-					self.betaCurve[c].setData(self.xVals, self.betaPlotData[c]);
+					self.betaCurve[c].setData(self.xValsBeta, self.betaPlotData[c]);
 					self.g2Curve[c].setData(g2Data[1:,0], g2Data[1:, 1]);
 					tempSNR = (np.mean(self.snrPlotData[c], 0)-1)/np.std(self.snrPlotData[c], 0);
 					self.snrCurve[c].setData(g2Data[1:,0], tempSNR);
