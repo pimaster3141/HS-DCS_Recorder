@@ -12,7 +12,7 @@ class DCSReader(threading.Thread):
 	_READ_SIZE = 512000
 
 	_VENDOR_ID = 0x04B4;
-	_PRODUCT_ID = 0x00F1;
+	_PRODUCT_ID = 0x00F0;
 	_ENDPOINT_ID = 0x81;
 
 	def __init__(self, buffer):
