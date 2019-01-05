@@ -1,13 +1,14 @@
+
 tic;
 
 clear all;
-source = 'D:\Users\jason\DataDumps\DCS\Raw_Data\FingerPulseTests\';
-output = 'D:\Users\jason\DataDumps\DCS\Processed_Data\FingerPulseTests\'
+source = 'D:\Users\jason\DataDumps\DCS\Raw_Data\850Stability\';
+output = 'D:\Users\jason\DataDumps\DCS\Processed_Data\850Stability\'
 if ~exist(output, 'dir')
    mkdir(output);
 end
 fileList = {...
-    'janaFinger120Hz'...
+    'debugLog1Hz'...
 %     ,'palm120Hz'...
 %     ,'back120Hz'...
     
@@ -32,6 +33,3 @@ for ii = 1:length(fileList)
 end
 
 toc
-
-
-
