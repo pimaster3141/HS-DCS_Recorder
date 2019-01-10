@@ -8,7 +8,7 @@ import numpy as np
 
 class DCSReader(threading.Thread):
 
-	_TIMEOUT = 1000;
+	_TIMEOUT = 5000;
 	_READ_SIZE = 512000
 
 	_VENDOR_ID = 0x04B4;
@@ -43,11 +43,12 @@ class DCSReader(threading.Thread):
 
 	def shutdown(self):
 		self._isAlive = False;
-		del(self._dev);
 		self.join();
+		usb.util.dispose_resources(self._dev);
+		del(self._dev);
 
 def extractSignals(data):
-	# data = np.frombuffer(data, dtype=np.int8);
+# data = np.frombuffer(data, dtype=np.int8);
 	# vap = data < 0;
 	# vap = np.array(vap*128, dtype = np.uint8);
 	# data = data + vap;
