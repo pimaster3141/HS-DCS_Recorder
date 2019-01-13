@@ -2,15 +2,13 @@
 tic;
 
 clear all;
-source = 'D:\Users\jason\DataDumps\DCS\Raw_Data\850Stability\';
-output = 'D:\Users\jason\DataDumps\DCS\Processed_Data\850Stability\';
+source = 'D:\Users\jason\DataDumps\DCS\Raw_Data\Monkeys\M14\Charles1\';
+output = 'D:\Users\jason\DataDumps\DCS\Processed_Data\Monkeys\M14\Charles1\';
 if ~exist(output, 'dir')
    mkdir(output);
 end
 fileList = {...
-    'debugLog31Hz'...
-%     ,'palm120Hz'...
-%     ,'back120Hz'...
+    ,'rotation220Hz'...
     
     };
 
@@ -22,9 +20,9 @@ for ii = 1:length(fileList)
     end
 end
 
-fs = 2E6
+fs = 2.5E6
 rho = 2.5;
-average = [1 1];
+average = [1 4];
 
 for ii = 1:length(fileList)
     [tauList, g2, sigNoise, vap, beta, count, dbfit, fval] = AveragingCharlesExtract([source, char(fileList(ii))], fs, rho, average);

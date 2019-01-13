@@ -8,7 +8,7 @@ import numpy as np
 
 class DCSReader(threading.Thread):
 
-	_TIMEOUT = 1000;
+	_TIMEOUT = 2000;
 	_READ_SIZE = 512000
 
 	_VENDOR_ID = 0x04B4;
@@ -43,8 +43,9 @@ class DCSReader(threading.Thread):
 
 	def shutdown(self):
 		self._isAlive = False;
-		del(self._dev);
 		self.join();
+		usb.util.dispose_resources(self._dev);
+		del(self._dev);
 
 def extractSignals(data):
 	# data = np.frombuffer(data, dtype=np.int8);
@@ -59,14 +60,22 @@ def extractSignals(data):
 
 
 ################################################
-	byte1 = np.frombuffer(data[::2], dtype=np.int8);
-	# vap = data < 0;
-	vap1 = np.bitwise_and(byte1, 0x40);
-	vap2 = np.bitwise_and(byte1, 0x80);
+	dataStream = np.frombuffer(data, dtype=np.int16);
 
-	cn1 = np.bitwise_and(byte1, 0x07);
-	cn2 = np.bitwise_and(byte1, 0x38);
-	cn2 = np.right_shift(cn2, 3);
+	vap1 = np.bitwise_and(dataStream, 0x0001);
+	vap2 = np.bitwise_and(dataStream, 0x0002);
+	vap3 = np.bitwise_and(dataStream, 0x0003);
+	vap4 = np.bitwise_and(dataStream, 0x0004);
+
+	cn1 = np.bitwise_and(dataStream, 0x0070);
+	cn2 = np.bitwise_and(dataStream, 0x0380);
+	cn3 = np.bitwise_and(dataStream, 0x1C00);
+	cn4 = np.bitwise_and(dataStream, 0xE000);
+
+	cn1 = np.right_shift(cn1, 4);
+	cn2 = np.right_shift(cn2, 7);
+	cn3 = np.right_shift(cn3, 10);
+	cn4 = np.right_shift(cn4, 13);
 
 	ddata = np.diff(cn1);
 	e = np.array((ddata<0)*8, dtype=np.int8);
@@ -75,17 +84,6 @@ def extractSignals(data):
 	ddata = np.diff(cn2);
 	e = np.array((ddata<0)*8, dtype=np.int8);
 	cn2 = ddata + e;
-
-
-
-	byte2 = np.frombuffer(data[1::2], dtype=np.int8);
-	# vap = data < 0;
-	vap3 = np.bitwise_and(byte2, 0x40);
-	vap4 = np.bitwise_and(byte2, 0x80);
-
-	cn3 = np.bitwise_and(byte2, 0x07);
-	cn4 = np.bitwise_and(byte2, 0x38);
-	cn4 = np.right_shift(cn4, 3);
 
 	ddata = np.diff(cn3);
 	e = np.array((ddata<0)*8, dtype=np.int8);
