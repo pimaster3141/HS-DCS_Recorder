@@ -1,5 +1,6 @@
 import numpy as np
 from scipy import optimize 
+import multiprocessing as mp
 
 
 
@@ -32,5 +33,16 @@ def G1Fit(g1Data, tauList, SNR, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, mus
 	(params, params_covariance) = optimize.curve_fit(f, tauList, g1Data*SNR, p0=1E-8, bounds=(1E-10, 1E-7));
 	return params;
 
-def flowFit
+def flowFit(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=4):
+	SNR = np.std(g1Data, 1);
+
+	pool = mp.Pool(processes=numProcessors);
+	def fcn(g2Data):
+		g1Data = G1Calc(g2Data);
+		return G1Fit(g1Data, tauList, SNR, rho, no, wavelength, mua, musp);
+
+	data = pool.map(fcn, g1Data);
+
+	return data;
+
 
