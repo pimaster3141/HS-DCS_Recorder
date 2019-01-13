@@ -59,11 +59,17 @@ dkms.conf
 Charles*/PythonReader/output/*
 Charles*/PythonReader/__pycache__/*
 Charles*/PythonReader/__pycache__/
-Charles*/EZ-USB/.metadata/*
-Charles*/EZ-USB/.metadata/
-Charles*/EZ-USB/*/Debug/
-Charles*/EZ-USB/*/Release/
-Charles*/EZ-USB/*/.config/
-Charles*/EZ-USB/*/.launches/
+Charles*/EZ-USB/.*
+Charles*/EZ-USB/*/.*
+Charles*/CCS/.*
+Charles*/CCS/*/.*
+# Charles*/EZ-USB/.metadata/*
+# Charles*/EZ-USB/.metadata/
+# Charles*/EZ-USB/*/Debug/
+# Charles*/EZ-USB/*/Release/
+# Charles*/EZ-USB/*/.config/
+# Charles*/EZ-USB/*/.launches/
+# Charles*/EZ-USB/*/.launches/
+# Charles*/EZ-USB/.metdata
 *.pyc
 

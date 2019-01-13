@@ -1,7 +1,15 @@
 import numpy as np
 from scipy import optimize 
+import multiprocessing as mp
+from functools import partial
+import csv
+
+adB_BOUNDS = [1E-11 ,1E-6];
+BETA_BOUNDS = [0, 0.7];
 
 
+def calcSNR(g2Data):
+	return (np.mean(g2Data, axis=0) - 1) / (np.std(g2Data, axis=0));
 
 def calcBeta(g2Data, limit=5):
 	return np.mean(g2Data[1:limit]) -1;
@@ -9,7 +17,7 @@ def calcBeta(g2Data, limit=5):
 def G1Calc(g2Data):
 	beta = calcBeta(g2Data);
 	g1Data = np.sqrt(np.abs((g2Data-1)/beta));
-	return g1Data;
+	return g1Data, beta;
 
 def G1Analytical(alpha, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10):
 	k0=2*np.pi*no/(wavelength);
@@ -24,13 +32,70 @@ def G1Analytical(alpha, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, mu
 	g1=G1/G1_0;
 	return g1;
 
-def G1Fit(g1Data, tauList, SNR, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10):
-	def f(x, adB):
-		return G1Analytical(adB, x, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10)*SNR;
+def G2Analytical(alpha, beta, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10):
+	g1 = G1Analytical(alpha, tauList, rho, no, wavelength, mua, musp);
+	return np.square(g1) * beta + 1;
 
-	
-	(params, params_covariance) = optimize.curve_fit(f, tauList, g1Data*SNR, p0=1E-8, bounds=(1E-10, 1E-7));
+def G1Fit(g1Data, tauList, SNR, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10):
+	def f(tau, adB):
+		return G1Analytical(adB, tau, rho, no, wavelength, mua, musp)*SNR;
+
+	(params, params_covariance) = optimize.curve_fit(f, tauList, g1Data*SNR, p0=1E-8, bounds=adB_BOUNDS);
 	return params;
 
-def flowFit
+def G2Fit(g2Data, tauList, SNR, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10):
+	def f(tau, adB, beta):
+		return G2Analytical(adB, beta, tau, rho, no, wavelength, mua, musp)*SNR;
 
+	(params, params_covariance) = optimize.curve_fit(f, tauList, g2Data*SNR, p0=[1E-8, 0.3], bounds=((adB_BOUNDS[0], BETA_BOUNDS[0]), (adB_BOUNDS[1], BETA_BOUNDS[1])));
+	return params;
+
+def flowFitSingle(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=4):
+	g2Data = g2Data[:, 1:];
+	tauList = tauList[1:];
+
+	SNR = calcSNR(g2Data);
+
+	pool = mp.Pool(processes=numProcessors);
+	fcn = partial(G1Fit, tauList=tauList, SNR=SNR, rho=rho, no=no, wavelength=wavelength, mua=mua, musp=musp);
+
+	g1Data = np.array(pool.map(G1Calc, g2Data));
+	beta = g1Data[:, 1];
+	g1Data = g1Data[:, 0];
+
+	data = pool.map(fcn, g1Data);
+
+	return data, beta;
+
+def flowFitDual(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=4):
+	g2Data = g2Data[:, 1:];
+	tauList = tauList[1:];
+
+	SNR = calcSNR(g2Data);
+
+	pool = mp.Pool(processes=numProcessors);
+	fcn = partial(G2Fit, tauList=tauList, SNR=SNR, rho=rho, no=no, wavelength=wavelength, mua=mua, musp=musp);
+
+	data = np.array(pool.map(fcn, g2Data));
+
+	return data[:, 0], data[:, 1];
+
+
+def loadG2(filename):
+	g2Data = [];
+	with open(filename, 'r') as g2File:
+		g2Reader = csv.reader(g2File, quoting=csv.QUOTE_NONNUMERIC);
+		for row in g2Reader:
+			g2Data.append(row);
+
+	g2Data = np.array(g2Data);
+	return g2Data;
+
+def loadLegacy(path):
+	pool = mp.Pool(processes=4);
+
+	filenames = [path+'/G2Channel0', path+'/G2Channel1', path+'/G2Channel2', path+'/G2Channel3'];
+
+	g2Data = pool.map(loadG2, filenames);
+
+	return g2Data;

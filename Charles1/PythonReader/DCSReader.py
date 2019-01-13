@@ -8,7 +8,11 @@ import numpy as np
 
 class DCSReader(threading.Thread):
 
+<<<<<<< HEAD
 	_TIMEOUT = 2000;
+=======
+	_TIMEOUT = 5000;
+>>>>>>> a99825f0ab32423ec4966accbf32a297864c3f02
 	_READ_SIZE = 512000
 
 	_VENDOR_ID = 0x04B4;

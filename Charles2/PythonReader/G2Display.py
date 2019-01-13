@@ -30,7 +30,7 @@ class G2GraphWindow():
 			self.dataPayloadSize = int(self._sampleCLK*self._refreshPeriod);
 		else:
 			try:
-				self.dataPayloadSize = int(len(self._peeker.get(block=True, timeout=1)));
+				self.dataPayloadSize = int(len(self._peeker.get(block=True, timeout=5)));
 			except Exception as e:
 				print("HARDWARE ERROR");
 				raise(e);
