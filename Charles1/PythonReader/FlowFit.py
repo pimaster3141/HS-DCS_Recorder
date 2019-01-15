@@ -113,7 +113,7 @@ def loadLegacy(path, ssd=True):
 	if(ssd):
 		pool = mp.Pool(processes=4);
 
-	filenames = [path+'/G2Channel0', path+'/G2Channel1', path+'/G2Channel2', path+'/G2Channel3'];
+	filenames = [path+'/G2channel0', path+'/G2channel1', path+'/G2channel2', path+'/G2channel3'];
 
 	g2Data = pool.map(loadG2, filenames);
 
