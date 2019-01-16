@@ -17,8 +17,8 @@ def extractFlow(folder, averages, fs=2.5E6, rho=2, no=1.33, wavelength=8.48E-5, 
 
 def batchExtractFlow(folders, averages,fs=2.5E6, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=6):
 	for f in folders:
-		extractFlow(f, averages, fs, rho, no, wavelength, mua, msp, numProcessors);
-		
+		extractFlow(f, averages, fs, rho, no, wavelength, mua, musp, numProcessors);
+
 
 # def batchLegacyExtract(directory, folderList, averages, fs=2.5E6, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=6, ssd=True):
 # 	for folder in folderList:
