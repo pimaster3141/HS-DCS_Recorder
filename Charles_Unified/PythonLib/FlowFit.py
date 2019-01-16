@@ -2,7 +2,6 @@ import numpy as np
 from scipy import optimize 
 import multiprocessing as mp
 from functools import partial
-import csv
 
 adB_BOUNDS = [1E-11 ,1E-6];
 BETA_BOUNDS = [0.01, 0.7];
@@ -44,6 +43,7 @@ def G1Fit(g1Data, tauList, SNR, p0=1E-8, rho=2, no=1.33, wavelength=8.48E-5, mua
 	return params;
 
 def G2Fit(g2Data, tauList, SNR, p0=[1E-8, 0.2], rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, ECC=False):
+	# print("hello");
 	def f(tau, adB, beta):
 		return G2Analytical(adB, beta, tau, rho, no, wavelength, mua, musp)*SNR;
 
@@ -81,7 +81,7 @@ def flowFitSingle(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, 
 
 	return data, beta;
 
-def flowFitDual(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=4, ECC=False):
+def flowFitDual(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=4, chunksize=1, ECC=False):
 	g2Data = g2Data[:, 1:];
 	tauList = tauList[1:];
 
@@ -93,37 +93,9 @@ def flowFitDual(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, mu
 	pool = mp.Pool(processes=numProcessors);
 	fcn = partial(G2Fit, tauList=tauList, SNR=SNR, p0=p0, rho=rho, no=no, wavelength=wavelength, mua=mua, musp=musp, ECC=ECC);
 
-	data = np.array(pool.map(fcn, g2Data));
+	data = np.array(pool.map(fcn, g2Data, chunksize=chunksize));
 
 	return data[:, 0], data[:, 1];
 
-
-def loadG2(filename):
-	g2Data = [];
-	with open(filename, 'r') as g2File:
-		g2Reader = csv.reader(g2File, quoting=csv.QUOTE_NONNUMERIC);
-		for row in g2Reader:
-			g2Data.append(row);
-
-	g2Data = np.array(g2Data);
-	return g2Data;
-
-def loadLegacy(path, ssd=True):
-	pool = mp.Pool(processes=1);
-	if(ssd):
-		pool = mp.Pool(processes=4);
-
-	filenames = [path+'/G2channel0', path+'/G2channel1', path+'/G2channel2', path+'/G2channel3'];
-
-	g2Data = pool.map(loadG2, filenames);
-
-	tauList = [];
-	with open(path+'/TAU', 'r') as tauFile:
-		tauReader = csv.reader(tauFile, quoting=csv.QUOTE_NONNUMERIC);
-		for row in tauReader:
-			tauList.append(row);
-
-
-	return np.array(g2Data), np.array(tauList)[0];
 
 
