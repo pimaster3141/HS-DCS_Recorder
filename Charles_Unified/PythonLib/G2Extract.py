@@ -4,8 +4,12 @@ import numpy as np
 from functools import partial
 import os
 import csv
-import multiprocessign as mp
+import multiprocessing as mp
+import time
 
+
+BYTES_PER_SAMPLE = 2;
+SAMPLE_DTYPE = 'int16';
 
 def calculateG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, numProcessors=6):
 	print("Reading: " + filename);
@@ -32,7 +36,7 @@ def calculateG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, numProce
 	# count = np.swapaxes(count, 0, 1);
 	vap = np.array([item[1] for item in data]);
 	vap = np.swapaxes(vap, 0, 1);
-	print(time.time()-start);
+	print("G2 Computation time: " + str(time.time()-start));
 	return (g2Data, tauList, vap);
 
 def seekExtract(startIndex, windowSize, fs, levels, legacy, filename):
@@ -94,6 +98,7 @@ def loadTauList(filename):
 
 
 def writeG2Data(filename, g2, tau, vap, legacy, fs, intg, fs_out):
+	print("Writing G2 to Disk");
 	BW = int(1.0/intg + 0.5);
 
 	if not os.path.exists(filename + str(BW) +"Hz/"):
@@ -112,9 +117,10 @@ def writeG2Data(filename, g2, tau, vap, legacy, fs, intg, fs_out):
 		tauwriter = csv.writer(tauFile);
 		tauwriter.writerow(tau);
 
-	writeNotes((filename + str(BW) +"Hz"), legacy, fs, intg, fsout);
+	writeNotes((filename + str(BW) +"Hz"), legacy, fs, intg, fs_out);
 
 def writeNotes(folder, legacy, fs, intg, fsout):
+	print("Writing G2 Notes");
 	with open(folder + "/G2_Parameters.txt", 'w') as notes:
 		notes.write("Folder="+str(folder)+"\n");
 		notes.write("legacy="+str(legacy)+"\n");

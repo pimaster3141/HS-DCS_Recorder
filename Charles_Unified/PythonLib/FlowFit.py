@@ -43,7 +43,7 @@ def G1Fit(g1Data, tauList, SNR, p0=1E-8, rho=2, no=1.33, wavelength=8.48E-5, mua
 	return params;
 
 def G2Fit(g2Data, tauList, SNR, p0=[1E-8, 0.2], rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, ECC=False):
-	# print("hello");
+	print("hello");
 	def f(tau, adB, beta):
 		return G2Analytical(adB, beta, tau, rho, no, wavelength, mua, musp)*SNR;
 
@@ -92,7 +92,7 @@ def flowFitDual(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, mu
 	meanG2 = np.mean(g2Data, axis=0);
 	p0 = G2Fit(meanG2, tauList, SNR=SNR, rho=rho, no=no, wavelength=wavelength, mua=mua, musp=musp, ECC=ECC);
 
-
+	
 	pool = mp.Pool(processes=numProcessors);
 	fcn = partial(G2Fit, tauList=tauList, SNR=SNR, p0=p0, rho=rho, no=no, wavelength=wavelength, mua=mua, musp=musp, ECC=ECC);
 
