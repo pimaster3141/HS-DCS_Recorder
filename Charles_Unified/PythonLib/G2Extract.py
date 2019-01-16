@@ -21,11 +21,14 @@ def calculateG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, numProce
 
 	tauList = G2Calc.mtAuto(np.ones(windowSize), fs=fs, levels=16)[:,0];
 
-	startIndexes = np.arange(numSamples, dtype='uint8')*windowShift;
+	# print(numSamples);
+	# print(windowShift);
+	startIndexes = np.arange(numSamples, dtype=np.uint64)*windowShift;
+	# print(type(startIndexes[0]));
 	pool = mp.Pool(processes=numProcessors);
 	fcn = partial(seekExtract, windowSize=windowSize, fs=fs, levels=16, legacy=False, filename=filename);
 
-	data = pool.map(fcn, startIndexes, chunksize=50);
+	data = pool.map(fcn, startIndexes);
 
 	pool.close();
 	pool.join();
@@ -41,7 +44,8 @@ def calculateG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, numProce
 
 def seekExtract(startIndex, windowSize, fs, levels, legacy, filename):
 	f = open(filename, 'rb');
-	f.seek(startIndex*BYTES_PER_SAMPLE, os.SEEK_SET);
+	# print(startIndex);
+	f.seek(int(startIndex*BYTES_PER_SAMPLE), os.SEEK_SET);
 	data = np.fromfile(f, count=windowSize, dtype=SAMPLE_DTYPE);
 
 	channel, vap = HSDCSParser.parseCharles2(data);
