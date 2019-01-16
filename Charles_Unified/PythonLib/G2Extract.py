@@ -48,7 +48,12 @@ def seekExtract(startIndex, windowSize, fs, levels, legacy, filename):
 	f.seek(int(startIndex*BYTES_PER_SAMPLE), os.SEEK_SET);
 	data = np.fromfile(f, count=windowSize, dtype=SAMPLE_DTYPE);
 
-	channel, vap = HSDCSParser.parseCharles2(data);
+	channel = None;
+	vap = None;
+	if(legacy):
+		channel, vap = HSDCSParser.parseCharlesLegacy(data);
+	else:
+		channel, vap = HSDCSParser.parseCharles2(data);
 
 	g2Data = G2Calc.mtAutoQuad(channel, fs, levels);
 	# count = fs/g2Data[:,0];
@@ -57,7 +62,7 @@ def seekExtract(startIndex, windowSize, fs, levels, legacy, filename):
 
 	return (g2Data, vap)
 
-def loadLegacy(path, ssd=True):
+def loadG2(path, ssd=True):
 	pool = mp.Pool(processes=1);
 	if(ssd):
 		pool = mp.Pool(processes=4);
@@ -101,33 +106,40 @@ def loadTauList(filename):
 
 
 
-def writeG2Data(filename, g2, tau, vap, legacy, fs, intg, fs_out):
+def writeG2Data(folder, g2, tau, vap, legacy, fs, intg, fs_out):
 	print("Writing G2 to Disk");
-	BW = int(1.0/intg + 0.5);
-
-	if not os.path.exists(filename + str(BW) +"Hz/"):
-		os.makedirs(filename + str(BW) +"Hz/")
 
 	for c in range(4):
-		with open(filename + str(BW) +"Hz/G2channel"+str(c), 'w', newline='') as g2File:
+		with open(folder+"G2channel"+str(c), 'w', newline='') as g2File:
 			g2writer = csv.writer(g2File);
 			for g in g2[c]:
 				g2writer.writerow(g);
 
-		with open(filename + str(BW) +"Hz/VAPchannel"+str(c), 'wb') as vapFile:
+		with open(folder+"VAPchannel"+str(c), 'wb') as vapFile:
 			vapFile.write(bytes(vap[c]));
 
-	with open(filename + str(BW) +"Hz/TAU", 'w', newline='') as tauFile:
+	with open(folder+"TAU", 'w', newline='') as tauFile:
 		tauwriter = csv.writer(tauFile);
 		tauwriter.writerow(tau);
 
-	writeNotes((filename + str(BW) +"Hz"), legacy, fs, intg, fs_out);
+	writeNotes(folder, legacy, fs, intg, fs_out);
 
 def writeNotes(folder, legacy, fs, intg, fsout):
 	print("Writing G2 Notes");
-	with open(folder + "/G2_Parameters.txt", 'w') as notes:
+	with open(folder + "G2_Parameters.txt", 'w') as notes:
 		notes.write("Folder="+str(folder)+"\n");
 		notes.write("legacy="+str(legacy)+"\n");
 		notes.write("fs="+str(fs)+"\n");
 		notes.write("intg="+str(intg)+"\n");
 		notes.write("fsout="+str(fsout)+"\n");
+
+def createFolder(filename, intg):
+	BW = int(1.0/intg + 0.5);
+
+	folder = filename+str(BW)+"Hz/";
+
+	if not os.path.exists(folder):
+		print("Creating Directory: " + folder);
+		os.makedirs(folder);
+
+	return folder;

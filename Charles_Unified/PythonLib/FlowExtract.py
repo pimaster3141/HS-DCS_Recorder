@@ -23,6 +23,43 @@ def calculateFlow(g2Data, tauList, averages, fs=2.5E6, rho=2, no=1.33, wavelengt
 	print("Fit Computation time: " + str(time.time()-start));
 	return np.array(flows), np.array(betas), np.array(counts);
 
+def loadFlow(path):
+	flow = loadFlowChannel(path+'/flow');
+	beta = loadBetaChannel(path+'/beta');
+	count = loadCountChannel(path+'/count');
+
+	return (flow, beta, count)
+
+def loadFlowChannel(filename):
+	flowData = [];
+	with open(filename, 'r') as flowFile:
+		flowReader = csv.reader(flowFile, quoting=csv.QUOTE_NONNUMERIC);
+		for row in flowReader:
+			flowData.append(row);
+
+	flowData = np.array(flowData);
+	return flowData;
+
+def loadBetaChannel(filename):
+	betaData = [];
+	with open(filename, 'r') as betaFile:
+		betaReader = csv.reader(betaFile, quoting=csv.QUOTE_NONNUMERIC);
+		for row in betaReader:
+			betaData.append(row);
+
+	betaData = np.array(betaData);
+	return betaData;
+
+def loadCountChannel(filename):
+	countData = [];
+	with open(filename, 'r') as countFile:
+		countReader = csv.reader(countFile, quoting=csv.QUOTE_NONNUMERIC);
+		for row in countReader:
+			countData.append(row);
+
+	countData = np.array(countData);
+	return countData;
+
 def writeFlowData(folder, flow, beta, count, averages, rho, no, wavelength, mua, musp):
 	print("Writing Files");
 	with open(folder + "/flow", 'w', newline='') as flowFile:
