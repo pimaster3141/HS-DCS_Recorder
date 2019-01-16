@@ -32,7 +32,9 @@ def fullExtract(filename, averages, legacy=False, fs=2.5E6, intg=0.05, fsout=200
 	FlowExtract.writeFlowData(folder, flows, betas, counts, averages, rho, no, wavelength, mua, musp);
 	print("Completed Flow");
 
-
+def batchFullExtract(files, averages, legacy=False, fs=2.5E6, intg=0.05, fsout=200, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=6):
+	for f in files:
+		fullExtract(f, averages, legacy, fs, intg, fsout, rho, no, wavelength, mua, musp, numProcessors)
 # def batchLegacyExtract(directory, folderList, averages, fs=2.5E6, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=6, ssd=True):
 # 	for folder in folderList:
 # 		print("File: " +directory+folder);
