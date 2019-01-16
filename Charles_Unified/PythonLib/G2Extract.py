@@ -9,7 +9,7 @@ import time
 
 
 BYTES_PER_SAMPLE = 2;
-SAMPLE_DTYPE = 'int16';
+SAMPLE_DTYPE = np.int16;
 
 def calculateG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, numProcessors=6):
 	print("Reading: " + filename);
@@ -26,9 +26,9 @@ def calculateG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, numProce
 	startIndexes = np.arange(numSamples, dtype=np.uint64)*windowShift;
 	# print(type(startIndexes[0]));
 	pool = mp.Pool(processes=numProcessors);
-	fcn = partial(seekExtract, windowSize=windowSize, fs=fs, levels=16, legacy=False, filename=filename);
+	fcn = partial(seekExtract, windowSize=windowSize, fs=fs, levels=16, legacy=legacy, filename=filename);
 
-	data = pool.map(fcn, startIndexes);
+	data = pool.map(fcn, startIndexes, chunksize=1);
 
 	pool.close();
 	pool.join();
@@ -54,6 +54,7 @@ def seekExtract(startIndex, windowSize, fs, levels, legacy, filename):
 		channel, vap = HSDCSParser.parseCharlesLegacy(data);
 	else:
 		channel, vap = HSDCSParser.parseCharles2(data);
+	# return(np.ones([4, 113]), np.ones([4, 1]));
 
 	g2Data = G2Calc.mtAutoQuad(channel, fs, levels);
 	# count = fs/g2Data[:,0];

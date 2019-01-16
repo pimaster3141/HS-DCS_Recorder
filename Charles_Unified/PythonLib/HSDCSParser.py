@@ -51,8 +51,8 @@ def parseCharlesLegacy(dataStream):
 
 	# cn1 = np.right_shift(cn1, 0);
 	cn2 = np.right_shift(cn2, 3);
-	cn3 = np.right_shift(cn3, 11);
-	cn4 = np.right_shift(cn4, 14);
+	cn3 = np.right_shift(cn3, 8);
+	cn4 = np.right_shift(cn4, 11);
 
 	ddata = np.diff(cn1);
 	e = np.array((ddata<0)*8, dtype=np.int8);
