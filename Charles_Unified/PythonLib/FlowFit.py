@@ -61,7 +61,7 @@ def G2Fit(g2Data, tauList, SNR, p0=[1E-8, 0.2], rho=2, no=1.33, wavelength=8.48E
 		# print(SNR);
 		return(0, 0);
 
-def flowFitSingle(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=4):
+def flowFitSingle(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=6):
 	g2Data = g2Data[:, 1:];
 	tauList = tauList[1:];
 
@@ -79,9 +79,12 @@ def flowFitSingle(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, 
 
 	data = pool.map(fcn, g1Data);
 
+	pool.close();
+	pool.join();
+
 	return data, beta;
 
-def flowFitDual(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=4, chunksize=1, ECC=False):
+def flowFitDual(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=6, chunksize=1, ECC=False):
 	g2Data = g2Data[:, 1:];
 	tauList = tauList[1:];
 
@@ -94,6 +97,9 @@ def flowFitDual(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, mu
 	fcn = partial(G2Fit, tauList=tauList, SNR=SNR, p0=p0, rho=rho, no=no, wavelength=wavelength, mua=mua, musp=musp, ECC=ECC);
 
 	data = np.array(pool.map(fcn, g2Data, chunksize=chunksize));
+
+	pool.close();
+	pool.join();
 
 	return data[:, 0], data[:, 1];
 
