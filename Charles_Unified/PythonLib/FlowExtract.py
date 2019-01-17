@@ -2,6 +2,7 @@ import FlowFit
 import numpy as np
 import time
 import csv
+import hdf5storage as matWriter
 
 
 def calculateFlow(g2Data, tauList, averages, fs=2.5E6, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=6):
@@ -9,19 +10,32 @@ def calculateFlow(g2Data, tauList, averages, fs=2.5E6, rho=2, no=1.33, wavelengt
 	flows = [];
 	betas = [];
 	counts = [];
+	g2Avgs = [];
 	for i in range(len(averages)):
 		print("Fitting Channel Average: " + str(averages[i]));
 		average = averages[i];
-		g2Avg = np.mean(g2Data[average[0]:average[1]+1], axis=0);
-		flow, beta = FlowFit.flowFitDual(g2Avg, tauList, rho, no, wavelength, mua, musp, numProcessors, chunksize=200, ECC=False);
-		count = fs/g2Avg[:, 0];
+		g2Avg = np.mean(g2Data[:, :, average[0]:average[1]+1], axis=2);
+		flow, beta = FlowFit.flowFitDual(np.swapaxes(g2Avg, 0, 1), tauList, rho, no, wavelength, mua, musp, numProcessors, chunksize=200, ECC=False);
+		count = fs/g2Avg[0, :];
 
 		flows.append(flow);
 		betas.append(beta);
 		counts.append(count);
+		g2Avgs.append(g2Avg);
+
+	flows = np.array(flows);
+	betas = np.array(betas);
+	counts = np.array(counts);
+	g2Avgs = np.array(g2Avgs);
+
+	flows = np.swapaxes(flows, 0, 1);
+	betas = np.swapaxes(betas, 0, 1);
+	counts = np.swapaxes(counts, 0, 1);
+	g2Avgs = np.swapaxes(g2Avgs, 0, 2);
+	g2Avgs = np.swapaxes(g2Avgs, 0, 1);
 
 	print("Fit Computation time: " + str(time.time()-start));
-	return np.array(flows), np.array(betas), np.array(counts);
+	return flows, betas, counts, g2Avgs;
 
 def loadFlow(path):
 	flow = loadFlowChannel(path+'/flow');
@@ -38,6 +52,7 @@ def loadFlowChannel(filename):
 			flowData.append(row);
 
 	flowData = np.array(flowData);
+	flows = np.swapaxes(flows, 0, 1);
 	return flowData;
 
 def loadBetaChannel(filename):
@@ -48,6 +63,7 @@ def loadBetaChannel(filename):
 			betaData.append(row);
 
 	betaData = np.array(betaData);
+	betas = np.swapaxes(betas, 0, 1);
 	return betaData;
 
 def loadCountChannel(filename):
@@ -58,10 +74,35 @@ def loadCountChannel(filename):
 			countData.append(row);
 
 	countData = np.array(countData);
+	counts = np.swapaxes(count, 0, 1);
 	return countData;
+
+def writeFlowMatlab(filename, flow, beta, count, g2Avg, averages, rho, no, wavelength, mua, musp):
+	print("Creating Matlab File: " + filename);
+	outData = {};
+
+	averages = np.array(averages);
+
+	outData['dbfit'] = flow;
+	outData['beta'] = beta;
+	outData['count'] = count;
+	outData['g2'] = g2Avg;
+	outData['average'] = averages;
+	outData['rho'] = rho;
+	outData['no'] = no;
+	outData['wavelength'] = wavelength;
+	outData['mua'] = mua;
+	outData['musp'] = musp;
+
+	matWriter.savemat(filename, outData);
 
 def writeFlowData(folder, flow, beta, count, averages, rho, no, wavelength, mua, musp):
 	print("Writing Files");
+
+	flows = np.swapaxes(flows, 0, 1);
+	betas = np.swapaxes(betas, 0, 1);
+	counts = np.swapaxes(count, 0, 1);
+
 	with open(folder + "/flow", 'w', newline='') as flowFile:
 		flowWriter = csv.writer(flowFile);
 		for f in flow:

@@ -6,6 +6,8 @@ import os
 import csv
 import multiprocessing as mp
 import time
+# import h5py;
+import hdf5storage as matWriter
 
 
 BYTES_PER_SAMPLE = 2;
@@ -34,11 +36,13 @@ def calculateG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, numProce
 	pool.join();
 
 	g2Data = np.array([item[0] for item in data]);
+	g2Data = np.swapaxes(g2Data, 1, 2);
 	g2Data = np.swapaxes(g2Data, 0, 1);
+
 	# count = np.array([item[1] for item in data]);
 	# count = np.swapaxes(count, 0, 1);
 	vap = np.array([item[1] for item in data]);
-	vap = np.swapaxes(vap, 0, 1);
+	# vap = np.swapaxes(vap, 0, 1);
 	print("G2 Computation time: " + str(time.time()-start));
 	return (g2Data, tauList, vap);
 
@@ -80,7 +84,14 @@ def loadG2(path, ssd=True):
 
 	tauList = loadTauList(path+'/TAU');
 
-	return np.array(g2Data), tauList, np.array(vapData);
+	g2Data = np.array(g2Data);
+	g2Data = np.swapaxes(g2Data, 0, 2);
+	# g2Data = np.swapaxes(g2Data, 0, 1);
+
+	vapData = np.array(vapData);
+	vapData = np.swapaxes(vapData, 0, 1);
+
+	return g2Data, tauList, vapData;
 
 def loadG2Channel(filename):
 	g2Data = [];
@@ -105,21 +116,42 @@ def loadTauList(filename):
 			tauList.append(row);
 	return np.array(tauList)[0];
 
+def writeG2Matlab(filename, g2, tau, vap, legacy, fs, intg, fsout):
 
+	BW = int(1.0/intg + 0.5);
+	folder = filename+str(BW)+"Hz";
+
+	print("Creating Matlab File: " + folder);
+	outData = {};
+
+	outData['g2Raw'] = g2;
+	outData['tauList'] = tau;
+	outData['vap'] = vap;
+	outData['legacy'] = legacy;
+	outData['fs'] = fs;
+	outData['intg'] = intg;
+	outData['fsout'] = fsout;
+
+	matWriter.savemat(folder, outData);
+
+	return folder;
 
 def writeG2Data(folder, g2, tau, vap, legacy, fs, intg, fs_out):
 	print("Writing G2 to Disk");
+	vap = np.swapaxes(vap, 0, 1);
+	g2 = np.swapaxes(g2, 0, 2);
+	# g2 = np.swapaxes(g2, 0, 1);
 
-	for c in range(4):
-		with open(folder+"G2channel"+str(c), 'w', newline='') as g2File:
+	for c in range(len(g2)):
+		with open(folder+"/G2channel"+str(c), 'w', newline='') as g2File:
 			g2writer = csv.writer(g2File);
 			for g in g2[c]:
 				g2writer.writerow(g);
 
-		with open(folder+"VAPchannel"+str(c), 'wb') as vapFile:
+		with open(folder+"/VAPchannel"+str(c), 'wb') as vapFile:
 			vapFile.write(bytes(vap[c]));
 
-	with open(folder+"TAU", 'w', newline='') as tauFile:
+	with open(folder+"/TAU", 'w', newline='') as tauFile:
 		tauwriter = csv.writer(tauFile);
 		tauwriter.writerow(tau);
 
@@ -127,7 +159,7 @@ def writeG2Data(folder, g2, tau, vap, legacy, fs, intg, fs_out):
 
 def writeNotes(folder, legacy, fs, intg, fsout):
 	print("Writing G2 Notes");
-	with open(folder + "G2_Parameters.txt", 'w') as notes:
+	with open(folder + "/G2_Parameters.txt", 'w') as notes:
 		notes.write("Folder="+str(folder)+"\n");
 		notes.write("legacy="+str(legacy)+"\n");
 		notes.write("fs="+str(fs)+"\n");
@@ -137,7 +169,7 @@ def writeNotes(folder, legacy, fs, intg, fsout):
 def createFolder(filename, intg):
 	BW = int(1.0/intg + 0.5);
 
-	folder = filename+str(BW)+"Hz/";
+	folder = filename+str(BW)+"Hz";
 
 	if not os.path.exists(folder):
 		print("Creating Directory: " + folder);
