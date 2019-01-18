@@ -6,8 +6,11 @@ import warnings
 def mtAuto(data, fs=10E6, levels=16):
 	with warnings.catch_warnings():
 		warnings.simplefilter("ignore");
-		
-		out = mt.autocorrelate(data, m=levels, deltat=1.0/fs, normalize=True);
+		try:
+			out = mt.autocorrelate(data, m=levels, deltat=1.0/fs, normalize=True);
+		except:
+			data[0] = 1;
+			out = mt.autocorrelate(data, m=levels, deltat=1.0/fs, normalize=True);
 		out[:,1] = out[:,1]+1;
 		return out;
 
