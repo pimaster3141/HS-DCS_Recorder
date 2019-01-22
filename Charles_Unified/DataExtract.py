@@ -1,8 +1,20 @@
+from sys import platform
+if platform == "linux" or platform == "linux2":
+    pass
+elif platform == "darwin":
+    raise Exception("Unsupported OS: " + str(platform));
+elif platform == "win32":
+    raise Exception("Unsupported OS: " + str(platform));
+
+print("Compiling and Loading Libraries...")
+import setuptools
+import pyximport; pyximport.install()
 import sys
 sys.path.insert(0, 'PythonLib');
 
 import FlowExtract
 import G2Extract
+print("Done");
 
 def extractG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, numProcessors=6):
 	print("Extracting: " + filename);
