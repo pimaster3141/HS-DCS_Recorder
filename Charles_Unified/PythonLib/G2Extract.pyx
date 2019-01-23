@@ -1,6 +1,6 @@
 import setuptools
 import pyximport; pyximport.install()
-import G2Extract
+# import G2Extract
 import HSDCSParser
 import G2Calc
 import numpy as np

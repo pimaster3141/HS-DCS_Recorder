@@ -7,10 +7,10 @@ elif platform == "win32":
     raise Exception("Unsupported OS: " + str(platform));
 
 print("Compiling and Loading Libraries...")
-import setuptools
-import pyximport; pyximport.install()
 import sys
 sys.path.insert(0, 'PythonLib');
+import setuptools
+import pyximport; pyximport.install()
 
 import FlowExtract
 import G2Extract
