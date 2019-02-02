@@ -6,13 +6,23 @@ import queue
 class DataHandler(mp.Process):
 	_TIMEOUT = 1
 
-	def __init__(self, MPI, dataPipe, bufferSize, packetSize, filename=None):
+	def __init__(self, MPI, dataPipe, bufferSize, sampleSize=2, filename=None):
 		mp.Process.__init(self);
 
-		self.MPI = MPI;
-		self.dataPipe = dataPipe;
+		self.sampleSizeCode = None;
+		if(sampleSize == 2):
+			self.sampleSizeCode = 'h';
+		else:
+			raise Exception("Sample Size Code not implemented");
 
-		self.dataBuffer = array.array('h', [0]*(bufferSize/packetSize));
+		self.MPI = MPI;
+		self.dataPipe = dataPipe;if(int(bufferSize/sampleSize)*sampleSize != bufferSize):
+			raise Exception("Sample Size not integer multiple of buffer size");
+
+		if(int(bufferSize/sampleSize)*sampleSize != bufferSize):
+			raise Exception("Sample Size not integer multiple of buffer size");
+
+		self.dataBuffer = array.array(self.sampleSizeCode, [0]*(bufferSize/sampleSize));
 
 		self.realtimeData = False;
 		self.realtimeQueue = mp.Queue(1000);

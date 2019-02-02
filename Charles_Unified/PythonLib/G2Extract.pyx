@@ -16,7 +16,10 @@ import hdf5storage as matWriter
 BYTES_PER_SAMPLE = 2;
 SAMPLE_DTYPE = np.int16;
 
-def calculateG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, numProcessors=6):
+def calculateG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, numProcessors=None):
+	if(numProcessors==None):
+		numProcessors = mp.cpu_count();
+		
 	print("Reading: " + filename);
 	start = time.time();
 	fsize = os.stat(filename).st_size;

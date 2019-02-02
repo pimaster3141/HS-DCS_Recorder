@@ -7,7 +7,10 @@ import csv
 import hdf5storage as matWriter
 
 
-def calculateFlow(g2Data, tauList, averages, fs=2.5E6, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=6):
+def calculateFlow(g2Data, tauList, averages, fs=2.5E6, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None):
+	if(numProcessors==None):
+		numProcessors = mp.cpu_count();
+
 	start = time.time();
 	flows = [];
 	betas = [];
