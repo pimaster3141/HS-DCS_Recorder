@@ -14,11 +14,12 @@ import pyximport; pyximport.install()
 
 import FlowExtract
 import G2Extract
+import os
 print("Done");
 
 def extractG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, numProcessors=None):
 	if(numProcessors==None):
-		numProcessors = mp.cpu_count();
+		numProcessors = os.cpu_count();
 		
 	print("Extracting: " + filename);
 	(g, t, v) = G2Extract.calculateG2(filename, legacy, fs, intg, fsout, numProcessors);
@@ -28,7 +29,7 @@ def extractG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, numProcess
 
 def extractFlow(folder, averages, fs=2.5E6, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None):
 	if(numProcessors==None):
-		numProcessors = mp.cpu_count();
+		numProcessors = os.cpu_count();
 		
 	print("Extracting: " + folder);
 	(g, t, v) = G2Extract.loadG2(folder);
@@ -38,14 +39,14 @@ def extractFlow(folder, averages, fs=2.5E6, rho=2, no=1.33, wavelength=8.48E-5, 
 
 def batchExtractFlow(folders, averages,fs=2.5E6, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None):
 	if(numProcessors==None):
-		numProcessors = mp.cpu_count();
+		numProcessors = os.cpu_count();
 		
 	for f in folders:
 		extractFlow(f, averages, fs, rho, no, wavelength, mua, musp, numProcessors);
 
 def fullExtract(filename, averages, legacy=False, fs=2.5E6, intg=0.05, fsout=200, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None):
 	if(numProcessors==None):
-		numProcessors = mp.cpu_count();
+		numProcessors = os.cpu_count();
 		
 	print("Extracting: " + filename);
 	(g, t, v) = G2Extract.calculateG2(filename, legacy, fs, intg, fsout, numProcessors);
@@ -58,14 +59,14 @@ def fullExtract(filename, averages, legacy=False, fs=2.5E6, intg=0.05, fsout=200
 
 def batchFullExtract(files, averages, legacy=False, fs=2.5E6, intg=0.05, fsout=200, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None):
 	if(numProcessors==None):
-		numProcessors = mp.cpu_count();
+		numProcessors = os.cpu_count();
 		
 	for f in files:
 		fullExtract(f, averages, legacy, fs, intg, fsout, rho, no, wavelength, mua, musp, numProcessors)
 
 def csv2Matlab(filename, averages, legacy=False, fs=2.5E6, intg=0.05, fsout=200, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None):
 	if(numProcessors==None):
-		numProcessors = mp.cpu_count();
+		numProcessors = os.cpu_count();
 		
 	folder = G2Extract.createFolder(filename, intg);
 	(g,t,v) = G2Extract.loadG2(folder);
@@ -77,7 +78,7 @@ def csv2Matlab(filename, averages, legacy=False, fs=2.5E6, intg=0.05, fsout=200,
 
 def fullExtractMatlab(filename, averages, legacy=False, fs=2.5E6, intg=0.05, fsout=200, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None):
 	if(numProcessors==None):
-		numProcessors = mp.cpu_count();
+		numProcessors = os.cpu_count();
 		
 	print("Extracting: " + filename);
 	(g, t, v) = G2Extract.calculateG2(filename, legacy, fs, intg, fsout, numProcessors);
@@ -90,7 +91,7 @@ def fullExtractMatlab(filename, averages, legacy=False, fs=2.5E6, intg=0.05, fso
 
 def batchFullExtractMatlab(files, averages, legacy=False, fs=2.5E6, intg=0.05, fsout=200, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None):
 	if(numProcessors==None):
-		numProcessors = mp.cpu_count();
+		numProcessors = os.cpu_count();
 		
 	for f in files:
 		fullExtractMatlab(f, averages, legacy, fs, intg, fsout, rho, no, wavelength, mua, musp, numProcessors);
