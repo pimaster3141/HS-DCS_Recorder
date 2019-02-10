@@ -11,6 +11,7 @@ import multiprocessing as mp
 import time
 # import h5py;
 import hdf5storage as matWriter
+import tqdm
 
 
 BYTES_PER_SAMPLE = 2;
@@ -36,7 +37,8 @@ def calculateG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, numProce
 	pool = mp.Pool(processes=numProcessors);
 	fcn = partial(seekExtract, windowSize=windowSize, fs=fs, levels=16, legacy=legacy, filename=filename);
 
-	data = pool.map(fcn, startIndexes, chunksize=100);
+	# data = pool.map(fcn, startIndexes, chunksize=100);
+	data = list(tqdm.tqdm(pool.imap(fcn, startIndexes, chunksize=max(int(len(startIndexes)/100), 100)), total=len(startIndexes)));
 
 	pool.close();
 	pool.join();

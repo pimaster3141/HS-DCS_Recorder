@@ -3,17 +3,19 @@ import pyximport; pyximport.install()
 import multiprocessing as mp
 import HSDCSParser
 import numpy as np
+import os
 
 class DataProcessor(mp.Process):
 
-	def __init__(self, MPI, inputBuffer, legacy, bufferSize, sampleSize=2, numProcessors=None):
+	QUEUE_TIMEOUT = 2000;
+	G2_LEVELS = 8;
+
+	def __init__(self, MPI, inputBuffer, legacy, fs, packetMultiple=1, sampleSize=2, calcFlow=True, numProcessors=None):
 		mp.Process.__init__(self);
 		self.MPI = MPI;
 		self.inputBuffer = inputBuffer;
 
-		if(int(bufferSize/sampleSize)*sampleSize != bufferSize):
-			raise Exception("Sample Size not integer multiple of buffer size");
-		self.packetSize = buffersize/sampleSize;
+		self.packetMultiple = packetMultiple;
 
 		self.npDtype = None;
 		if(sampleSize == 2):
@@ -23,25 +25,35 @@ class DataProcessor(mp.Process):
 
 		self.numProcessors = numProcessors;
 		if(numProcessors==None):
-			self.numProcessors = mp.cpu_count;
+			self.numProcessors = os.cpu_count;
+
+		self.fs = fs;
+		
+		self.pool = mp.Pool(processes=self.numProcessors);
 
 
 		self.isAlive = True;
 
 
 	def run(self):
-		pool = mp.Pool(processes=self.numProcessors);
 
 
 		try:
+			initialData = np.zeros(self.packetSize*self.packetMultiple, dtype=npDtype);
 			while(self.isAlive):
-				inWaiting = inputBuffer.qsize();
-				data = np.zeros((inWaiting, self.packetSize), dtype=npDtype)
+				for i in range(self.packetMultiple):
+					initialData[i*packetSize:i*(packetSize+1)] = self.inputBuffer.get(block=True, timeout=QUEUE_TIMEOUT);
+
+
+				inWaiting = int(inputBuffer.qsize()/self.packetMultiple);
+				data = np.zeros((inWaiting+1, self.packetSize*self.packetMultiple), dtype=npDtype)
+				data[0] = initialData;
 
 				for i in range(inWaiting):
-					data[i] = self.inputBuffer.get_nowait();
+					for j in range(self.packetMultiple):
+						data[i+1][i*packetSize:i*(packetSize+1)] = self.inputBuffer.get_nowait();
 
-				data = np.ravel(data);
+				# data = np.ravel(data);
 
 				channel = None;
 				vap = None;
@@ -50,4 +62,24 @@ class DataProcessor(mp.Process):
 				else:
 					channel, vap = HSDCSParser.parseCharles2(data);
 
+				g2Data = G2Calc.mtAutoQuad(channel, self.fs, G2_LEVELS);
+				vap = np.array((np.mean(vap, axis=1)+0.5), dtype=np.int8);
 				
+
+		except Exception as e:
+			try:
+				self.MPI.put_nowait(e);
+			except Exception as ei:
+				pass
+		finally:
+			self.shutdown();
+
+
+	def shutdown(self):
+		self.isAlive = False;
+		self
+
+	def stop(self):
+		self.shutdown();
+		self.join();
+
