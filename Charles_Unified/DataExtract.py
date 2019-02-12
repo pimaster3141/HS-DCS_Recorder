@@ -22,7 +22,7 @@ def extractG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, numProcess
 		numProcessors = os.cpu_count();
 		
 	print("Extracting: " + filename);
-	(g, t, v) = G2Extract.calculateG2(filename, legacy, fs, intg, fsout, numProcessors);
+	(g, t, v) = G2Extract.processG2(filename, legacy, fs, intg, fsout, numProcessors);
 	folder = G2Extract.createFolder(filename, intg);
 	G2Extract.writeG2Data(folder, g, t, v, legacy, fs, intg, fsout);
 	print("Completed G2");
@@ -49,7 +49,7 @@ def fullExtract(filename, averages, legacy=False, fs=2.5E6, intg=0.05, fsout=200
 		numProcessors = os.cpu_count();
 		
 	print("Extracting: " + filename);
-	(g, t, v) = G2Extract.calculateG2(filename, legacy, fs, intg, fsout, numProcessors);
+	(g, t, v) = G2Extract.processG2(filename, legacy, fs, intg, fsout, numProcessors);
 	folder = G2Extract.createFolder(filename, intg);
 	G2Extract.writeG2Data(folder, g, t, v, legacy, fs, intg, fsout);
 	print("Completed G2");
@@ -81,7 +81,7 @@ def fullExtractMatlab(filename, averages, legacy=False, fs=2.5E6, intg=0.05, fso
 		numProcessors = os.cpu_count();
 		
 	print("Extracting: " + filename);
-	(g, t, v) = G2Extract.calculateG2(filename, legacy, fs, intg, fsout, numProcessors);
+	(g, t, v) = G2Extract.processG2(filename, legacy, fs, intg, fsout, numProcessors);
 	print(len(t));
 	filename = G2Extract.writeG2Matlab(filename, g, t, v, legacy, fs, intg, fsout);
 	print("Completed G2");

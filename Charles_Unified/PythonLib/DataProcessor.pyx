@@ -3,17 +3,22 @@ import pyximport; pyximport.install()
 import multiprocessing as mp
 import HSDCSParser
 import numpy as np
+import os
+from functools import partial
+import G2Extract
 
 class DataProcessor(mp.Process):
 
-	def __init__(self, MPI, inputBuffer, legacy, bufferSize, sampleSize=2, numProcessors=None):
+	QUEUE_TIMEOUT = 2000;
+	G2_LEVELS = 8;
+
+	def __init__(self, MPI, inputBuffer, legacy, fs, packetMultiple=1, sampleSize=2, calcFlow=True, numProcessors=None):
 		mp.Process.__init__(self);
 		self.MPI = MPI;
 		self.inputBuffer = inputBuffer;
-
-		if(int(bufferSize/sampleSize)*sampleSize != bufferSize):
-			raise Exception("Sample Size not integer multiple of buffer size");
-		self.packetSize = buffersize/sampleSize;
+		self.legacy = legacy;
+		self.packetMultiple = packetMultiple;
+		self.calcFlow = calcFlow;
 
 		self.npDtype = None;
 		if(sampleSize == 2):
@@ -23,31 +28,63 @@ class DataProcessor(mp.Process):
 
 		self.numProcessors = numProcessors;
 		if(numProcessors==None):
-			self.numProcessors = mp.cpu_count;
+			self.numProcessors = os.cpu_count;
 
+		self.fs = fs;
+		self.pool = mp.Pool(processes=self.numProcessors);
+
+		self.g2Buffer = mp.Queue(1000);
+		self.flowBuffer = mp.Queue(1000);
 
 		self.isAlive = True;
 
-
 	def run(self):
-		pool = mp.Pool(processes=self.numProcessors);
-
-
 		try:
+			initialData = np.zeros(self.packetSize*self.packetMultiple, dtype=npDtype);
+			g2Fcn = partial(G2Extract.calculateG2, fs=self.fs, levels=G2_LEVELS, legacy=self.legacy);
+			flowFcn = partial(G2Extract.calculateG2, fs=self.fs, levels=G2_LEVELS, legacy=self.legacy);
 			while(self.isAlive):
-				inWaiting = inputBuffer.qsize();
-				data = np.zeros((inWaiting, self.packetSize), dtype=npDtype)
+				for i in range(self.packetMultiple):
+					initialData[i*packetSize:i*(packetSize+1)] = self.inputBuffer.get(block=True, timeout=QUEUE_TIMEOUT);
+
+
+				inWaiting = int(inputBuffer.qsize()/self.packetMultiple);
+				data = np.zeros((inWaiting+1, self.packetSize*self.packetMultiple), dtype=npDtype)
+				data[0] = initialData;
 
 				for i in range(inWaiting):
-					data[i] = self.inputBuffer.get_nowait();
+					for j in range(self.packetMultiple):
+						data[i+1][i*packetSize:i*(packetSize+1)] = self.inputBuffer.get_nowait();
 
-				data = np.ravel(data);
 
-				channel = None;
-				vap = None;
-				if(legacy):
-					channel, vap = HSDCSParser.parseCharlesLegacy(data);
-				else:
-					channel, vap = HSDCSParser.parseCharles2(data);
+				g2Data = self.pool.map(g2Fcn, data);
 
-				
+				self.g2Buffer.put_nowait(g2Data);
+
+				if(self.calcFlow):
+					flowData = self.pool.map()
+
+		except Exception as e:
+			try:
+				self.MPI.put_nowait(e);
+			except Exception as ei:
+				pass
+		finally:
+			self.shutdown();
+
+	def shutdown(self):
+		self.isAlive = False;
+		self.pool.close();
+		self.pool.join();
+
+	def stop(self):
+		if(self.isAlive):
+			self.shutdown();
+			self.join();
+			try:
+				self.MPI.put_nowait("Stopping Processor");
+			except Exception as ei:
+				pass
+
+	def getBuffers(self):
+		return self.g2Buffer, self.flowBuffer;

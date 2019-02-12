@@ -11,12 +11,13 @@ import multiprocessing as mp
 import time
 # import h5py;
 import hdf5storage as matWriter
+import tqdm
 
 
 BYTES_PER_SAMPLE = 2;
 SAMPLE_DTYPE = np.int16;
 
-def calculateG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, numProcessors=None):
+def processG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, numProcessors=None):
 	if(numProcessors==None):
 		numProcessors = mp.cpu_count();
 		
@@ -36,7 +37,8 @@ def calculateG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, numProce
 	pool = mp.Pool(processes=numProcessors);
 	fcn = partial(seekExtract, windowSize=windowSize, fs=fs, levels=16, legacy=legacy, filename=filename);
 
-	data = pool.map(fcn, startIndexes, chunksize=100);
+	# data = pool.map(fcn, startIndexes, chunksize=100);
+	data = list(tqdm.tqdm(pool.imap(fcn, startIndexes, chunksize=max(int(len(startIndexes)/100), 100)), total=len(startIndexes)));
 
 	pool.close();
 	pool.join();
@@ -57,7 +59,12 @@ def seekExtract(startIndex, windowSize, fs, levels, legacy, filename):
 	# print(startIndex);
 	f.seek(int(startIndex*BYTES_PER_SAMPLE), os.SEEK_SET);
 	data = np.fromfile(f, count=windowSize, dtype=SAMPLE_DTYPE);
+	f.close();
+	(g2Data, vap) = calculateG2(data, fs, levels, legacy);
 
+	return (g2Data, vap);
+
+def calculateG2(data, fs, levels, legacy):
 	channel = None;
 	vap = None;
 	if(legacy):
@@ -69,9 +76,9 @@ def seekExtract(startIndex, windowSize, fs, levels, legacy, filename):
 	g2Data = G2Calc.mtAutoQuad(channel, fs, levels);
 	# count = fs/g2Data[:,0];
 	vap = np.array((np.mean(vap, axis=1)+.5), dtype=np.int8);
-	f.close();
 
-	return (g2Data, vap)
+	return(g2Data, vap);
+
 
 def loadG2(path, ssd=True):
 	pool = mp.Pool(processes=1);

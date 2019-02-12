@@ -64,9 +64,13 @@ class DataHandler(mp.Process):
 		self.outFile.close();
 
 	def stop(self):
-		self.shutdown();
-		self.join();
-
+		if(self.isAlive):
+			self.shutdown();
+			self.join();
+			try:
+				self.MPI.put_nowait("Stopping Handler");
+			except Exception as ei:
+				pass
 
 	def getRealtimeQueue(self):
 		return self.realtimeQueue;

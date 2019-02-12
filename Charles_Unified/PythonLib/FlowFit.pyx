@@ -2,6 +2,7 @@ import numpy as np
 from scipy import optimize 
 import multiprocessing as mp
 from functools import partial
+import tqdm
 
 adB_BOUNDS = [1E-11 ,1E-6];
 BETA_BOUNDS = [0.01, 0.7];
@@ -76,7 +77,8 @@ def flowFitSingle(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, 
 	beta = g1Data[:, 1];
 	g1Data = g1Data[:, 0];
 
-	data = pool.map(fcn, g1Data);
+	# data = pool.map(fcn, g1Data);
+	data = np.array(list(tqdm.tqdm(pool.imap(fcn, g1Data, chunksize=max(int(len(g1Data)/100), 100)), total=len(g1Data))));
 
 	pool.close();
 	pool.join();
@@ -95,7 +97,8 @@ def flowFitDual(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, mu
 	pool = mp.Pool(processes=numProcessors);
 	fcn = partial(G2Fit, tauList=tauList, SNR=SNR, p0=p0, rho=rho, no=no, wavelength=wavelength, mua=mua, musp=musp, ECC=ECC);
 
-	data = np.array(pool.map(fcn, g2Data, chunksize=chunksize));
+	# data = np.array(pool.map(fcn, g2Data, chunksize=chunksize));
+	data = np.array(list(tqdm.tqdm(pool.imap(fcn, g2Data, chunksize=max(int(len(g2Data)/100), 100)), total=len(g2Data))));
 
 	pool.close();
 	pool.join();
