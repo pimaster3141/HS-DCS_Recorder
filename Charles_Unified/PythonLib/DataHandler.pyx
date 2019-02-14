@@ -5,6 +5,7 @@ import queue
 
 class DataHandler(mp.Process):
 	_TIMEOUT = 1
+	QUEUE_DEPTH = 100;
 
 	def __init__(self, MPI, dataPipe, bufferSize, sampleSize=2, filename=None):
 		mp.Process.__init(self);
@@ -25,7 +26,7 @@ class DataHandler(mp.Process):
 		self.dataBuffer = array.array(self.sampleSizeCode, [0]*(bufferSize/sampleSize));
 
 		self.realtimeData = False;
-		self.realtimeQueue = mp.Queue(1000);
+		self.realtimeQueue = mp.Queue(QUEUE_DEPTH);
 
 		self.outFile = None;
 		self.debug = True;

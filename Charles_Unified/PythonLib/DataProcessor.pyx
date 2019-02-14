@@ -10,9 +10,10 @@ import G2Extract
 class DataProcessor(mp.Process):
 
 	QUEUE_TIMEOUT = 2000;
+	QUEUE_DEPTH = 100;
 	G2_LEVELS = 8;
 
-	def __init__(self, MPI, inputBuffer, legacy, fs, packetMultiple=1, sampleSize=2, calcFlow=True, numProcessors=None):
+	def __init__(self, MPI, inputBuffer, averages, legacy, fs, bufferSize, sampleSize=2, packetMultiple=1, calcFlow=True, SNRBufferDepth=50 numProcessors=None):
 		mp.Process.__init__(self);
 		self.MPI = MPI;
 		self.inputBuffer = inputBuffer;
@@ -30,12 +31,18 @@ class DataProcessor(mp.Process):
 		if(numProcessors==None):
 			self.numProcessors = os.cpu_count;
 
+		self.tauList = G2Calc.mtAuto(np.ones(int(bufferSize/sampleSize)), fs=fs, levels=G2_LEVELS);
+		self.SNRBuffer = np.zeros((SNRBufferDepth, ))
+		for i in range(SNRBufferDepth):
+
 		self.fs = fs;
 		self.pool = mp.Pool(processes=self.numProcessors);
 
-		self.g2Buffer = mp.Queue(1000);
-		self.flowBuffer = mp.Queue(1000);
+		self.g2Buffer = mp.Queue(QUEUE_DEPTH);
+		self.countBuffer = mp.Queue(QUEUE_DEPTH);
+		self.flowBuffer = mp.Queue(QUEUE_DEPTH);
 
+		
 		self.isAlive = True;
 
 	def run(self):
