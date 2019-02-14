@@ -31,9 +31,9 @@ class DataProcessor(mp.Process):
 		if(numProcessors==None):
 			self.numProcessors = os.cpu_count;
 
-		self.tauList = G2Calc.mtAuto(np.ones(int(bufferSize/sampleSize)), fs=fs, levels=G2_LEVELS);
-		self.SNRBuffer = np.zeros((SNRBufferDepth, ))
-		for i in range(SNRBufferDepth):
+		self.tauList = G2Calc.mtAuto(np.ones(int(bufferSize/sampleSize)*packetMultiple), fs=fs, levels=G2_LEVELS);
+		self.SNRBuffer = np.ones((SNRBufferDepth, length(self.tauList)));
+		self.SNRBuffer[0] = np.zeros(length(self.tauList));
 
 		self.fs = fs;
 		self.pool = mp.Pool(processes=self.numProcessors);
@@ -43,14 +43,14 @@ class DataProcessor(mp.Process):
 		self.flowBuffer = mp.Queue(QUEUE_DEPTH);
 
 		
-		self.isAlive = True;
+		self.isDead = mp.Event();
 
 	def run(self):
 		try:
 			initialData = np.zeros(self.packetSize*self.packetMultiple, dtype=npDtype);
 			g2Fcn = partial(G2Extract.calculateG2, fs=self.fs, levels=G2_LEVELS, legacy=self.legacy);
-			flowFcn = partial(G2Extract.calculateG2, fs=self.fs, levels=G2_LEVELS, legacy=self.legacy);
-			while(self.isAlive):
+
+			while(not self.isDead.is_set()):
 				for i in range(self.packetMultiple):
 					initialData[i*packetSize:i*(packetSize+1)] = self.inputBuffer.get(block=True, timeout=QUEUE_TIMEOUT);
 
@@ -61,14 +61,17 @@ class DataProcessor(mp.Process):
 
 				for i in range(inWaiting):
 					for j in range(self.packetMultiple):
-						data[i+1][i*packetSize:i*(packetSize+1)] = self.inputBuffer.get_nowait();
-
+						data[i+1][j*packetSize:j*(packetSize+1)] = self.inputBuffer.get_nowait();
 
 				g2Data = self.pool.map(g2Fcn, data);
-
 				self.g2Buffer.put_nowait(g2Data);
 
+
+
 				if(self.calcFlow):
+
+
+
 					flowData = self.pool.map()
 
 		except Exception as e:
@@ -80,13 +83,13 @@ class DataProcessor(mp.Process):
 			self.shutdown();
 
 	def shutdown(self):
-		self.isAlive = False;
+		self.isDead.set();
 		self.pool.close();
 		self.pool.join();
 
 	def stop(self):
-		if(self.isAlive):
-			self.shutdown();
+		if(not self.isDead.is_set()):
+			self.isDead.set();
 			self.join();
 			try:
 				self.MPI.put_nowait("Stopping Processor");
@@ -94,4 +97,7 @@ class DataProcessor(mp.Process):
 				pass
 
 	def getBuffers(self):
-		return self.g2Buffer, self.flowBuffer;
+		return self.g2Buffer, self.countBuffer, self.flowBuffer;
+
+	def getTauList(self):
+		return self.tauList;
