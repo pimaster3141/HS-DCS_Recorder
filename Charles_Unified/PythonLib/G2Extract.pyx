@@ -1,7 +1,7 @@
 import setuptools
 import pyximport; pyximport.install()
 # import G2Extract
-import HSDCSParser
+# import HSDCSParser
 import G2Calc
 import numpy as np
 from functools import partial
@@ -60,25 +60,9 @@ def seekExtract(startIndex, windowSize, fs, levels, legacy, filename):
 	f.seek(int(startIndex*BYTES_PER_SAMPLE), os.SEEK_SET);
 	data = np.fromfile(f, count=windowSize, dtype=SAMPLE_DTYPE);
 	f.close();
-	(g2Data, vap) = calculateG2(data, fs, levels, legacy);
+	(g2Data, vap) = G2Calc.calculateG2(data, fs, levels, legacy);
 
 	return (g2Data, vap);
-
-def calculateG2(data, fs, levels, legacy):
-	channel = None;
-	vap = None;
-	if(legacy):
-		channel, vap = HSDCSParser.parseCharlesLegacy(data);
-	else:
-		channel, vap = HSDCSParser.parseCharles2(data);
-	# return(np.ones([4, 113]), np.ones([4, 1]));
-
-	g2Data = G2Calc.mtAutoQuad(channel, fs, levels);
-	# count = fs/g2Data[:,0];
-	vap = np.array((np.mean(vap, axis=1)+.5), dtype=np.int8);
-
-	return(g2Data, vap);
-
 
 def loadG2(path, ssd=True):
 	pool = mp.Pool(processes=1);

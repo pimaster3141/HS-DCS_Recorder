@@ -2,13 +2,17 @@ import multiprocessing as mp
 import array
 import queue
 
+import threading
+
 
 class DataHandler(mp.Process):
+# class DataHandler(threading.Thread):
 	_TIMEOUT = 1
 	QUEUE_DEPTH = 100;
 
 	def __init__(self, MPI, dataPipe, bufferSize, sampleSize=2, filename=None):
 		mp.Process.__init__(self);
+		# threading.Thread.__init__(self);
 
 		self.sampleSizeCode = None;
 		if(sampleSize == 2):
@@ -18,9 +22,6 @@ class DataHandler(mp.Process):
 
 		self.MPI = MPI;
 		self.dataPipe = dataPipe;
-		if(int(bufferSize/sampleSize)*sampleSize != bufferSize):
-			raise Exception("Sample Size not integer multiple of buffer size");
-
 		if(int(bufferSize/sampleSize)*sampleSize != bufferSize):
 			raise Exception("Sample Size not integer multiple of buffer size");
 
@@ -41,6 +42,7 @@ class DataHandler(mp.Process):
 	def run(self):
 		try: 
 			while(not self.isDead.is_set()):
+				print("go");
 				if(self.dataPipe.poll(DataHandler._TIMEOUT)):
 					self.dataPipe.recv_bytes_into(self.dataBuffer);
 
@@ -48,9 +50,13 @@ class DataHandler(mp.Process):
 						self.dataBuffer.tofile(self.outFile);
 
 					if(self.realtimeData.is_set()):
+						print("data in");
 						if(not self.realtimeQueue.full()):
 							self.realtimeQueue.put_nowait(self.dataBuffer);
+							print("Data Placed");
+							pass
 						else:
+							print("FULL!");
 							self.MPI.put_nowait("Realtime Buffer Overrun");
 							self.realtimeData.clear();
 

@@ -1,5 +1,6 @@
 import multipletau as mt
 import numpy as np
+import HSDCSParser
 
 import warnings
 
@@ -21,3 +22,19 @@ def mtAutoQuad(data, fs=2.5E6, levels=16):
 	g23 = mtAuto(data[3,:], fs, levels)[:,1];
 
 	return np.array((g20, g21, g22, g23));
+
+def calculateG2(data, fs, levels, legacy):
+	channel = None;
+	vap = None;
+	if(legacy):
+		channel, vap = HSDCSParser.parseCharlesLegacy(data);
+	else:
+		channel, vap = HSDCSParser.parseCharles2(data);
+	# return(np.ones([4, 113]), np.ones([4, 1]));
+
+	g2Data = mtAutoQuad(channel, fs, levels);
+	# count = fs/g2Data[:,0];
+	vap = np.array((np.mean(vap, axis=1)+.5), dtype=np.int8);
+
+	return(g2Data, vap);
+

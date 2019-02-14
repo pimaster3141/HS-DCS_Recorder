@@ -14,26 +14,80 @@ import pyximport; pyximport.install()
 
 import FX3
 import DataHandler
+import DataProcessor
 import multiprocessing as mp
 import os
+import code
 print("Done");
 
+
+
+MPIFX3 = None;
+MPIHandler = None;
+MPIProcessor = None;
+dev = None;
+handler = None;
+processor = None;
+
 def init(inFile, outFile):
+	global MPIFX3, MPIHandler, MPIProcessor
+	global dev, handler, processor
 	MPIFX3 = mp.Queue();
 	MPIHandler = mp.Queue();
+	MPIProcessor = mp.Queue();
 
 	dev = FX3.Emulator(MPIFX3, inFile);
 	pipe = dev.getPipe();
 	buffSize = dev.getBufferSize();
 
 	handler = DataHandler.DataHandler(MPIHandler, pipe, buffSize, filename=outFile);
+	realtime = handler.getRealtimeQueue();
+	handler.enableRealtime();
 
-	return (MPIFX3, MPIHandler, dev, handler);
+	processor = DataProcessor.DataProcessor(MPIProcessor, realtime, [[0,0]], legacy=False, fs=2.5E6, bufferSize=buffSize);
 
-def run(dev, handler):
-	dev.start();
+	# return (MPIFX3, MPIHandler, MPIProcessor, dev, handler, processor);
+
+def run():
+	global MPIFX3, MPIHandler, MPIProcessor
+	global dev, handler, processor
+	# processor.start();
 	handler.start();
+	dev.start();
 
-def stop(dev, handler):
-	dev.stop();
+def stop():
+	global MPIFX3, MPIHandler, MPIProcessor
+	global dev, handler, processor
+	# processor.stop();
+	print("processor stop");
 	handler.stop();
+	print("handler stop");
+	dev.stop();
+	print("dev stop");
+
+def qstat():
+	global MPIFX3, MPIHandler, MPIProcessor
+	global dev, handler, processor
+	print(MPIFX3.qsize());
+	print(MPIHandler.qsize());
+	print(MPIProcessor.qsize());
+
+def readAll():
+	s = MPIFX3.qsize();
+	for i in range(s):
+		print(MPIFX3.get());
+
+	print("");
+	s = MPIHandler.qsize();
+	for i in range(s):
+		print(MPIHandler.get());
+
+	print("");
+	s = MPIProcessor.qsize();
+	for i in range(s):
+		print(MPIProcessor.get());
+
+
+
+
+code.interact(local = locals());
