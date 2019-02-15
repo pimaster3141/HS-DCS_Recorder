@@ -18,6 +18,7 @@ import DataProcessor
 import multiprocessing as mp
 import os
 import code
+import time
 print("Done");
 
 
@@ -51,7 +52,7 @@ def init(inFile, outFile):
 def run():
 	global MPIFX3, MPIHandler, MPIProcessor
 	global dev, handler, processor
-	# processor.start();
+	processor.start();
 	handler.start();
 	dev.start();
 
@@ -59,11 +60,14 @@ def stop():
 	global MPIFX3, MPIHandler, MPIProcessor
 	global dev, handler, processor
 	dev.stop();
+	dev.join();
 	print("dev stop");
 	handler.stop();
+	handler.join();
 	print("handler stop");
-	# processor.stop();
-	# print("processor stop");
+	processor.stop();
+	processor.join()
+	print("processor stop");
 
 def qstat():
 	global MPIFX3, MPIHandler, MPIProcessor
@@ -89,5 +93,6 @@ def readAll():
 
 
 
-init('../Charles2/PythonReader/output/test', 'testDebug');
+# init('../Charles2/PythonReader/output/test', 'testDebug');
+init('../Charles2/PythonReader/output/test', None);
 code.interact(local = locals());

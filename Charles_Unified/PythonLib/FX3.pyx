@@ -51,15 +51,18 @@ class DCS(mp.Process):
 		self.isDead.set();
 		self.device.reset();
 		usb.util.dispose_resources(self.device);
+		try:
+			self.MPI.put_nowait("Stopping FX3");
+		except Exception as ei:
+			pass
+		finally:
+			self.MPI.close();
+			self.MPI.cancel_join_thread();
 
 	def stop(self):
 		if(not self.isDead.is_set()):
 			self.isDead.set();
 			self.join();
-			try:
-				self.MPI.put_nowait("Stopping FX3");
-			except Exception as ei:
-				pass
 		
 	def getPipe(self):
 		return self.pipeOut;
@@ -71,6 +74,7 @@ class DCS(mp.Process):
 class Emulator(mp.Process):
 	_TIMEOUT = 2000;
 	_READ_SIZE = 262144;	#512KB = 524288 base2
+	_NUM_BYTES = 2;
 
 	def __init__(self, MPI, dummyFile, bufferSize=_READ_SIZE, fs=2.5E6):
 		mp.Process.__init__(self);
@@ -81,20 +85,21 @@ class Emulator(mp.Process):
 		(self.pipeOut, self.pipeIn) = mp.Pipe(duplex=False);
 		self._packet = usb.util.create_buffer(self.bufferSize);
 
-		self.loadClk = float(bufferSize)/fs;
+		self.loadClk = float(bufferSize)/fs/Emulator._NUM_BYTES;
 
 		self.isDead = mp.Event();
 
 	def run(self):			
 		try:
+			tstart = time.time();
 			while(not self.isDead.is_set()):
-				tstart = time.time();
 				# self.pipeOut.send_bytes(self._dev.read(DCS._ENDPOINT_ID, self.bufferSize, DCS._TIMEOUT));
 				self._packet = self.file.read(self.bufferSize);
 				if(len(self._packet) != self.bufferSize):
 					raise Exception("Device not ready");
 				self.pipeIn.send_bytes(self._packet);
 				trun = time.time() - tstart;
+				tstart = time.time();
 
 				time.sleep(max(0, self.loadClk-trun));
 
@@ -109,15 +114,19 @@ class Emulator(mp.Process):
 	def shutdown(self):
 		self.isDead.set();
 		self.file.close();
+		try:
+			self.MPI.put_nowait("Stopping FX3");
+			time.sleep(1);
+		except Exception as ei:
+			pass
+		finally:
+			self.MPI.close();
+			self.MPI.cancel_join_thread();
 
 	def stop(self):
 		if(not self.isDead.is_set()):
 			self.isDead.set();
-			self.join();
-			try:
-				self.MPI.put_nowait("Stopping FX3");
-			except Exception as ei:
-				pass
+			# self.join();
 		
 	def getPipe(self):
 		return self.pipeOut;
