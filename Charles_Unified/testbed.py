@@ -58,12 +58,12 @@ def run():
 def stop():
 	global MPIFX3, MPIHandler, MPIProcessor
 	global dev, handler, processor
-	# processor.stop();
-	print("processor stop");
-	handler.stop();
-	print("handler stop");
 	dev.stop();
 	print("dev stop");
+	handler.stop();
+	print("handler stop");
+	# processor.stop();
+	# print("processor stop");
 
 def qstat():
 	global MPIFX3, MPIHandler, MPIProcessor
@@ -89,5 +89,5 @@ def readAll():
 
 
 
-
+init('../Charles2/PythonReader/output/test', 'testDebug');
 code.interact(local = locals());
