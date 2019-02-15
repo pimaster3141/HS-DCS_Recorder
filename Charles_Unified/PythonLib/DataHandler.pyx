@@ -9,7 +9,7 @@ import threading
 class DataHandler(mp.Process):
 # class DataHandler(threading.Thread):
 	_TIMEOUT = 1
-	QUEUE_DEPTH = 500;
+	QUEUE_DEPTH = 100;
 
 	def __init__(self, MPI, dataPipe, bufferSize, sampleSize=2, filename=None):
 		mp.Process.__init__(self);

@@ -151,3 +151,13 @@ class DataProcessor(mp.Process):
 
 	def getTauList(self):
 		return self.tauList;
+
+	def getFs(self):
+		return self.fs;
+
+	def getTWindow(self):
+		return self.packetSize*self.packetMultiple/self.fs;
+
+	def isFlowEnabled(self):
+		return self.calcFlow;
+
