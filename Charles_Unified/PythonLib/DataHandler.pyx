@@ -69,7 +69,8 @@ class DataHandler(mp.Process):
 
 	def shutdown(self):
 		self.isDead.set();
-		self.outFile.close();
+		if(not self.outFile == None):
+			self.outFile.close();
 		
 		time.sleep(0.5);
 		while(True):

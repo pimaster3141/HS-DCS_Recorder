@@ -60,14 +60,15 @@ def stop():
 	global MPIFX3, MPIHandler, MPIProcessor
 	global dev, handler, processor
 	dev.stop();
-	dev.join();
 	print("dev stop");
 	handler.stop();
-	handler.join();
 	print("handler stop");
 	processor.stop();
-	processor.join()
 	print("processor stop");
+	
+	dev.join();
+	handler.join();
+	processor.join()
 
 def qstat():
 	global MPIFX3, MPIHandler, MPIProcessor
