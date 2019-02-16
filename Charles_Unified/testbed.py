@@ -30,6 +30,7 @@ MPIProcessor = None;
 dev = None;
 handler = None;
 processor = None;
+display = None;
 
 def init(inFile, outFile):
 	global MPIFX3, MPIHandler, MPIProcessor
@@ -53,9 +54,11 @@ def init(inFile, outFile):
 def run():
 	global MPIFX3, MPIHandler, MPIProcessor
 	global dev, handler, processor
+	global display
 	processor.start();
 	handler.start();
 	dev.start();
+	display = Display.GraphWindow(processor);
 
 def stop():
 	global MPIFX3, MPIHandler, MPIProcessor

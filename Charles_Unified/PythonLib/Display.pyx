@@ -7,10 +7,10 @@ import numpy as np
 import DataProcessor
 
 class GraphWindow():
-	penColors = ['w', 'y', 'g', 'b'];
-	QUEUE_TIMEOUT = 1;	
+	PEN_COLORS = ['w', 'y', 'g', 'b'];
+	QUEUE_TIMEOUT = 5;	
 
-	def __init__(self, processor, detph=10, legacy=False):
+	def __init__(self, processor, depth=10, legacy=False):
 		self.processor = processor;
 		(self.g2Source, self.flowSource) = self.processor.getBuffers();
 		self.tauList = self.processor.getTauList();
@@ -19,8 +19,11 @@ class GraphWindow():
 		self.calcFlow = self.processor.isFlowEnabled();
 
 		self.numSamples = int((depth/self.samplePeriod)+0.5);
+
+		self.setupDataBuffers();
+		self.setupPlots(legacy);
 		
-	def setupWindow(self, legacy):
+	def setupPlots(self, legacy):
 		self.win = None;
 		if(legacy):
 			self.win = pg.GraphicsWindow("Charles Sr.");
@@ -58,21 +61,38 @@ class GraphWindow():
 			self.flowPlot = self.win.addPlot(title="Fitted Flow", labels={'left':('aDb'), 'bottom':('Time', 's')}, row=3, col=0, colspan=2);
 			self.flowPlot.setMouseEnabled(x=False, y=False);
 
-	def loadInitialData(self):
-		data = self.g2Source.get(block=True, timeout=GraphWindow.QUEUE_TIMEOUT);
+		self.setupCurves();
 
-		g2Data = np.array([item[0] for item in data]);
-		self.numG2Channels = len(g2Data[0]);
+	def setupCurves(self):
+		self.g2Curves = [];
+		self.vapCurves = [];
+		self.snrCurves = [];
+		self.betaCurves = [];
+		self.countCurves = [];
+		self.flowcurves = [];
+
+		for c in range(self.numG2Channels):
+			self.g2Curves.append(self.g2Plot.plot(x=self.tauList, y=self.g2Buffer[0,c,:], pen=GraphWindow.PEN_COLORS[c], name='CH'+str(c)));
+			self.snrCurves.append(self.snrPlot.plot(x=self.tauList, y=np.mean(self.g2Buffer[:,c,:], axis=0), pen=GraphWindow.PEN_COLORS[c], name='CH'+str(c)));
+			self.vapCurves.append(self.vapPlot.plot(x=self.numSamples, y=self.vapBuffer[:,c], pen=GraphWindow.PEN_COLORS[c], name='CH'+str(c)));
+			self.countCurves.append(self.countPlot.plot(x=self.numSamples, y=self.countBuffer[:,c], pen=GraphWindow.PEN_COLORS[c], name='CH'+str(c)));
+
+			if(not self.calcFlow):
+				self.betaCurves.append(self.betaPlot.plot(x=self.numSamples, y=self.betaBuffer[:,c], pen=GraphWindow.PEN_COLORS[c], name='CH'+str(c)));
+
+		if(self.calcFlow):
+			pass;
+
+	def setupDataBuffers(self):
+		g2QueueData = self.g2Source.get(block=True, timeout=GraphWindow.QUEUE_TIMEOUT);
+		self.numG2Channels = len(g2QueueData[0][0]);
+		self.numVapChannels = len(g2QueueData[0][1]);
 		
 		self.g2Buffer = np.zeros((self.numSamples, self.numG2Channels, len(self.tauList)));
-		self.g2Buffer[0:len(g2Data)] = g2Data;
-
-		vapData = np.array([item[1] for item in data]);
-		self.numVapChannels = len(vapData[0]);
-		
 		self.vapBuffer = np.zeros((self.numSamples, self.numVapChannels));
-		self.vapBuffer[0:len(vapData)] = vapData;
+		self.countBuffer = np.zeros((self.numSamples, self.numG2Channels));
 
+		flowQueueData = None;
 		self.numFlowChannels = None;
 		self.flowBuffer = None;
 		self.betaBuffer = None;
@@ -80,18 +100,32 @@ class GraphWindow():
 			data = self.flowSource.get(block=True, timeout=GraphWindow.QUEUE_TIMEOUT);
 
 			flowData = data[:, 0];
-			
+			pass
+		else:
+			self.betaBuffer = np.zeros((self.numSamples, self.numG2Channels));
+
+		self.updateDataBuffers(g2QueueData, flowQueueData);
 
 
+	def updateDataBuffers(self, g2QueueData, flowQueueData):
+		numShift = len(g2QueueData);
+		g2Data = np.flip([item[0] for item in g2QueueData], axis=0);
+		vapData = np.flip([item[1] for item in g2QueueData], axis=0);
 
-	def 
+		self.g2Buffer = np.roll(self.g2Buffer, -1*numShift, axis=0);
+		self.g2Buffer[0:numShift] = g2Data;
 
+		self.vapBuffer = np.roll(self.vapBuffer, -1*numShift, axis=0);
+		self.vapBuffer[0:numShift] = vapData;
 
+		self.countBuffer = np.roll(self.countBuffer, -1*numShift, axis=0);
+		self.countBuffer[0:numShift] = self.fs/g2Data[:, :, 0];
 
-		flowData = None;
 		if(self.calcFlow):
-			flowData = self.flowSource.get(block=True, timeout=GraphWindow.QUEUE_TIMEOUT);
-
+			pass
+		else:
+			self.betaBuffer = np.roll(self.betaBuffer, -1*numShift);
+			self.betaBuffer[0:numShift] = np.mean(g2Data[:, :, 1:4], axis=2);
 
 
 
