@@ -111,7 +111,7 @@ class GraphWindow():
 		self.betaBuffer = None;
 		if(self.calcFlow):
 			flowQueueData = self.flowSource.get(block=True, timeout=GraphWindow.QUEUE_TIMEOUT);
-			self.numFlowChannels = len(flowQueueData[0][0])
+			self.numFlowChannels = len(flowQueueData)
 			self.flowBuffer = np.zeros((self.numSamples, self.numFlowChannels));
 			self.betaBuffer = np.zeros((self.numSamples, self.numFlowChannels));
 		else:
@@ -137,9 +137,11 @@ class GraphWindow():
 		self.vapBuffer[-numShift:] = vapData;
 
 		if(self.calcFlow):
-			numShift = len(flowQueueData);
-			flowData = np.array([item[0] for item in flowQueueData]);
-			betaData = np.array([item[1] for item in flowQueueData]);
+			numShift = len(flowQueueData[0]);
+			flowData = np.array([item[:,0] for item in flowQueueData]);
+			betaData = np.array([item[:,1] for item in flowQueueData]);
+			print(flowData);
+			print(betaData);
 
 			self.flowBuffer = np.roll(self.flowBuffer, -1*numShift, axis=0);
 			self.flowBuffer[-numShift:] = flowData;

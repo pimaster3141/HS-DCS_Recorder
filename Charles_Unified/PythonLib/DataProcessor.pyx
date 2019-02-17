@@ -13,15 +13,15 @@ import time
 
 import threading
 
-class DataProcessor(mp.Process):
-# class DataProcessor(threading.Thread):
+# class DataProcessor(mp.Process):
+class DataProcessor(threading.Thread):
 	QUEUE_TIMEOUT = 1;
 	QUEUE_DEPTH = 100;
 	G2_LEVELS = 8;
 
 	def __init__(self, MPI, inputBuffer, averages, legacy, fs, bufferSize, sampleSize=2, packetMultiple=1, calcFlow=False, SNRBufferDepth=50, numProcessors=None):
-		mp.Process.__init__(self);
-		# threading.Thread.__init__(self);
+		# mp.Process.__init__(self);
+		threading.Thread.__init__(self);
 		self.MPI = MPI;
 		self.inputBuffer = inputBuffer;
 		self.averages = averages
@@ -85,7 +85,7 @@ class DataProcessor(mp.Process):
 					pass
 
 				# print(len(g2Data[0][0][0]))
-				# time.sleep(0.2)
+				time.sleep(0.2)
 
 				if(self.calcFlow):
 					g2Data = np.swapaxes(np.array([item[0] for item in g2Data]), 0, 1)[:,:,1:];
