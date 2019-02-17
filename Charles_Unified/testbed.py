@@ -59,6 +59,7 @@ def run():
 	handler.start();
 	dev.start();
 	display = Display.GraphWindow(processor);
+	display.run();
 
 def stop():
 	global MPIFX3, MPIHandler, MPIProcessor
@@ -99,5 +100,5 @@ def readAll():
 
 
 # init('../Charles2/PythonReader/output/test', 'testDebug');
-init('../Charles2/PythonReader/output/test', None);
+init('../Charles2/PythonReader/output/japan_flat', None);
 code.interact(local = locals());

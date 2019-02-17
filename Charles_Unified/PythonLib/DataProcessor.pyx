@@ -12,15 +12,15 @@ import time
 
 import threading
 
-class DataProcessor(mp.Process):
-# class DataProcessor(threading.Thread):
+# class DataProcessor(mp.Process):
+class DataProcessor(threading.Thread):
 	QUEUE_TIMEOUT = 1;
 	QUEUE_DEPTH = 100;
 	G2_LEVELS = 8;
 
-	def __init__(self, MPI, inputBuffer, averages, legacy, fs, bufferSize, sampleSize=2, packetMultiple=2, calcFlow=False, SNRBufferDepth=50, numProcessors=None):
-		mp.Process.__init__(self);
-		# threading.Thread.__init__(self);
+	def __init__(self, MPI, inputBuffer, averages, legacy, fs, bufferSize, sampleSize=2, packetMultiple=1, calcFlow=False, SNRBufferDepth=50, numProcessors=None):
+		# mp.Process.__init__(self);
+		threading.Thread.__init__(self);
 		self.MPI = MPI;
 		self.inputBuffer = inputBuffer;
 		self.averages = averages
@@ -40,10 +40,9 @@ class DataProcessor(mp.Process):
 			self.numProcessors = os.cpu_count();
 
 		self.packetSize = int(bufferSize/sampleSize);
-		self.tauList = G2Calc.mtAuto(np.ones(self.packetSize*packetMultiple), fs=fs, levels=DataProcessor.G2_LEVELS)[:,0];
+		self.tauList = G2Calc.mtAuto(np.ones(self.packetSize*self.packetMultiple-1), fs=fs, levels=DataProcessor.G2_LEVELS)[:,0];
 		self.SNRBuffer = np.ones((SNRBufferDepth, len(self.tauList)));
 		self.SNRBuffer[0] = np.zeros(len(self.tauList));
-
 
 		self.g2Buffer = mp.Queue(DataProcessor.QUEUE_DEPTH);
 		# self.countBuffer = mp.Queue(DataProcessor.QUEUE_DEPTH);
@@ -69,7 +68,7 @@ class DataProcessor(mp.Process):
 				# print(inWaiting);			
 				data = np.zeros((inWaiting+1, self.packetSize*self.packetMultiple), dtype=self.npDtype)
 				data[0] = initialData;
-				
+
 				try:
 					for i in range(inWaiting):
 						for j in range(self.packetMultiple):
@@ -87,10 +86,7 @@ class DataProcessor(mp.Process):
 				# time.sleep(0.2)
 
 				if(self.calcFlow):
-					pass
-
-			# print("IM DYING!!! But its natural");
-			
+					pass			
 
 		except Exception as e:
 			# print("SHITBALLS IM MURDERED");

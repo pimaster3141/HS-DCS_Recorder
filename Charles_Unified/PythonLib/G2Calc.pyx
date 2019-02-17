@@ -30,11 +30,14 @@ def calculateG2(data, fs, levels, legacy):
 		channel, vap = HSDCSParser.parseCharlesLegacy(data);
 	else:
 		channel, vap = HSDCSParser.parseCharles2(data);
-	# return(np.ones([4, 113]), np.ones([4, 1]));
 
 	g2Data = mtAutoQuad(channel, fs, levels);
-	# count = fs/g2Data[:,0];
 	vap = np.array((np.mean(vap, axis=1)+.5), dtype=np.int8);
 
 	return(g2Data, vap);
 
+def calcSNR(g2Data):
+	return np.abs((np.mean(g2Data, axis=0) - 1) / (np.std(g2Data, axis=0)));
+
+def calcBeta(g2Data, limit=5):
+	return np.mean(g2Data[1:limit]) -1;

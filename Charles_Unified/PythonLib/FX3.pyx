@@ -85,7 +85,7 @@ class Emulator(mp.Process):
 		(self.pipeOut, self.pipeIn) = mp.Pipe(duplex=False);
 		self._packet = usb.util.create_buffer(self.bufferSize);
 
-		self.loadClk = float(bufferSize)/fs/Emulator._NUM_BYTES;
+		self.loadClk = float(bufferSize)/fs;
 
 		self.isDead = mp.Event();
 

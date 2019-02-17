@@ -1,3 +1,6 @@
+import setuptools
+import pyximport; pyximport.install()
+import G2Calc
 import numpy as np
 from scipy import optimize 
 import multiprocessing as mp
@@ -7,15 +10,8 @@ import tqdm
 adB_BOUNDS = [1E-11 ,1E-6];
 BETA_BOUNDS = [0.01, 0.7];
 
-
-def calcSNR(g2Data):
-	return np.abs((np.mean(g2Data, axis=0) - 1) / (np.std(g2Data, axis=0)));
-
-def calcBeta(g2Data, limit=5):
-	return np.mean(g2Data[1:limit]) -1;
-
 def G1Calc(g2Data):
-	beta = calcBeta(g2Data);
+	beta = G2Calc.calcBeta(g2Data);
 	g1Data = np.sqrt(np.abs((g2Data-1)/beta));
 	return g1Data, beta;
 
@@ -65,7 +61,7 @@ def flowFitSingle(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, 
 	g2Data = g2Data[:, 1:];
 	tauList = tauList[1:];
 
-	SNR = calcSNR(g2Data);
+	SNR = G2Calc.calcSNR(g2Data);
 	meanG2 = np.mean(g2Data, axis=0);
 	meanG1 = G1Calc(g2Data);
 	p0 = G1Fit(meanG1, tauList, SNR=SNR, rho=rho, no=no, wavelength=wavelength, mua=mua, musp=musp);
@@ -89,7 +85,7 @@ def flowFitDual(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, mu
 	g2Data = g2Data[:, 1:];
 	tauList = tauList[1:];
 
-	SNR = calcSNR(g2Data);
+	SNR = G2Calc.calcSNR(g2Data);
 	meanG2 = np.mean(g2Data, axis=0);
 	p0 = G2Fit(meanG2, tauList, SNR=SNR, rho=rho, no=no, wavelength=wavelength, mua=mua, musp=musp, ECC=ECC);
 
