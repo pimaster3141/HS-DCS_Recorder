@@ -2,6 +2,7 @@ import setuptools
 import pyximport; pyximport.install()
 import multiprocessing as mp
 import HSDCSParser
+import FlowFit
 import numpy as np
 import os
 from functools import partial
@@ -12,15 +13,15 @@ import time
 
 import threading
 
-# class DataProcessor(mp.Process):
-class DataProcessor(threading.Thread):
+class DataProcessor(mp.Process):
+# class DataProcessor(threading.Thread):
 	QUEUE_TIMEOUT = 1;
 	QUEUE_DEPTH = 100;
 	G2_LEVELS = 8;
 
 	def __init__(self, MPI, inputBuffer, averages, legacy, fs, bufferSize, sampleSize=2, packetMultiple=1, calcFlow=False, SNRBufferDepth=50, numProcessors=None):
-		# mp.Process.__init__(self);
-		threading.Thread.__init__(self);
+		mp.Process.__init__(self);
+		# threading.Thread.__init__(self);
 		self.MPI = MPI;
 		self.inputBuffer = inputBuffer;
 		self.averages = averages
@@ -41,8 +42,10 @@ class DataProcessor(threading.Thread):
 
 		self.packetSize = int(bufferSize/sampleSize);
 		self.tauList = G2Calc.mtAuto(np.ones(self.packetSize*self.packetMultiple-1), fs=fs, levels=DataProcessor.G2_LEVELS)[:,0];
-		self.SNRBuffer = np.ones((SNRBufferDepth, len(self.tauList)));
-		self.SNRBuffer[0] = np.zeros(len(self.tauList));
+		
+
+		self.snrBuffer = np.ones((len(self.averages), SNRBufferDepth, len(self.tauList)-1));
+		self.snrBuffer[0,:,:] = 0;
 
 		self.g2Buffer = mp.Queue(DataProcessor.QUEUE_DEPTH);
 		# self.countBuffer = mp.Queue(DataProcessor.QUEUE_DEPTH);
@@ -56,7 +59,6 @@ class DataProcessor(threading.Thread):
 			self.pool = mp.Pool(processes=self.numProcessors);
 			initialData = np.zeros(self.packetSize*self.packetMultiple, dtype=self.npDtype);
 			g2Fcn = partial(G2Calc.calculateG2, fs=self.fs, levels=DataProcessor.G2_LEVELS, legacy=self.legacy);
-
 			while(not self.isDead.is_set()):				
 				try:
 					for i in range(self.packetMultiple):
@@ -86,7 +88,27 @@ class DataProcessor(threading.Thread):
 				# time.sleep(0.2)
 
 				if(self.calcFlow):
-					pass			
+					g2Data = np.swapaxes(np.array([item[0] for item in g2Data]), 0, 1)[:,:,1:];
+					flowData = []
+					for c in  range(len(self.averages)):
+						avg = self.averages[c]
+						meanG2 = np.mean(g2Data[avg[0]:avg[1]+1], axis=0);
+						self.snrBuffer = np.roll(self.snrBuffer, -1*(inWaiting+1), axis=1);
+						self.snrBuffer[c, -(inWaiting+1):] = meanG2;
+						SNR = G2Calc.calcSNR(self.snrBuffer[c]);
+
+						fcn=partial(FlowFit.G2Fit, tauList=self.tauList[1:], SNR=SNR);
+						data=np.array(self.pool.map(fcn, meanG2));
+						flowData.append(data);
+					try:
+						self.flowBuffer.put_nowait(flowData); #(g2, vap)
+					except queue.Full:
+						pass
+
+
+
+
+
 
 		except Exception as e:
 			# print("SHITBALLS IM MURDERED");
