@@ -10,6 +10,7 @@ from functools import partial
 import G2Calc
 import queue
 import time
+import psutil
 
 import threading
 
@@ -55,8 +56,10 @@ class DataProcessor(mp.Process):
 		self.isDead = mp.Event();
 
 	def run(self):
+		p = psutil.Process(os.getpid());
+		p.nice(15);
 		try:
-			self.pool = mp.Pool(processes=self.numProcessors);
+			self.pool = mp.Pool(processes=self.numProcessors, initializer=limit_cpu);
 			initialData = np.zeros(self.packetSize*self.packetMultiple, dtype=self.npDtype);
 			g2Fcn = partial(G2Calc.calculateG2, fs=self.fs, levels=DataProcessor.G2_LEVELS, legacy=self.legacy);
 			while(not self.isDead.is_set()):				
@@ -184,3 +187,6 @@ class DataProcessor(mp.Process):
 	def isFlowEnabled(self):
 		return self.calcFlow;
 
+def limit_cpu():
+	p = psutil.Process(os.getpid());
+	p.nice(15);

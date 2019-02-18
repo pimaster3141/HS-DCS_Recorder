@@ -3,6 +3,8 @@ import usb.core
 import usb.util
 import array
 import time
+import psutil
+import os
 
 class DCS(mp.Process):
 	_TIMEOUT = 2000;
@@ -28,6 +30,8 @@ class DCS(mp.Process):
 
 
 	def run(self):
+		p = psutil.Process(os.getpid());
+		p.nice(-18);
 		try:
 			self.device.read(DCS._ENDPOINT_ID, 524288, DCS._TIMEOUT);
 		except Exception as e:
@@ -93,7 +97,9 @@ class Emulator(mp.Process):
 
 		self.isDead = mp.Event();
 
-	def run(self):			
+	def run(self):	
+		p = psutil.Process(os.getpid());
+		p.nice(-15);
 		try:
 			tstart = time.time();
 			while(not self.isDead.is_set()):
