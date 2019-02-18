@@ -5,9 +5,9 @@ import code
 
 charles = None
 
-def start(filename, version=None, sampleClk=None, averages=[[0,3]]):
+def start(filename, version=None, sampleClk=None, averages=[[0,3]], demo=False):
 	global charles;
-	charles = CharlesSystem.CharlesSystem(filename, version, sampleClk, averages);
+	charles = CharlesSystem.CharlesSystem(filename, version, sampleClk, averages, demo);
 	charles.start();
 
 def stop():
@@ -18,4 +18,4 @@ def stop():
 
 
 print("Starting Up...");
-code.interact(local = locals());
+# code.interact(local = locals());

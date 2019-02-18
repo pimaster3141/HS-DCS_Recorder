@@ -27,7 +27,7 @@ class CharlesSystem():
 	BYTES_PER_SAMPLE = 2;
 
 	
-	def __init__(self, outFile, version=None, fs=None, averages=[[0, 3]]):
+	def __init__(self, outFile, version=None, fs=None, averages=[[0, 3]], demo=False):
 		devices, kind = findDevices(version);
 		self.dev = devices[0];
 		self.legacy = kind[0];
@@ -38,11 +38,20 @@ class CharlesSystem():
 		if(self.fs == None):
 			self.fs = self.bench();
 
+		with open(str(outFile)+".params", 'w') as f:
+			f.write("fs="+str(self.fs)+"\n");
+			f.write("legacy="+str(self.legacy)+"\n");
+			f.write("averages="+str(averages)+"\n");
+
 		self.MPIFX3 = mp.Queue();
 		self.MPIHandler = mp.Queue();
 		self.MPIProcessor = mp.Queue();
 
-		self.FX3 = FX3.DCS(self.MPIFX3, self.dev)
+		self.FX3 = None;
+		if(demo):
+			self.FX3 = FX3.Emulator(self.MPIFX3, '../Charles2/PythonReader/output/japan_flat');
+		else:
+			self.FX3 = FX3.DCS(self.MPIFX3, self.dev)
 
 		fxPipe = self.FX3.getPipe();
 		fxBufferSize = self.FX3.getBufferSize();

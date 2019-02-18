@@ -46,7 +46,7 @@ class DataHandler(mp.Process):
 
 	def run(self):
 		p = psutil.Process(os.getpid());
-		p.nice(-15);
+		p.nice(-13);
 		try: 
 			while(not self.isDead.is_set()):				
 				if(self.dataPipe.poll(DataHandler._TIMEOUT)):					

@@ -52,12 +52,13 @@ class GraphWindow():
 
 		self.betaPlot = self.win.addPlot(title="Beta", labels={'bottom':('Time', 's')}, row=0, col=1);
 		self.betaPlot.setMouseEnabled(x=False, y=False);
+		self.betaPlot.showGrid(x=False, y=True);
 
 		self.snrPlot = self.win.addPlot(title="SNR", labels={'left':('SNR'),'bottom':('Time', 's')}, row=1, col=0);
 		self.snrPlot.setMouseEnabled(x=False, y=False);
 		self.snrPlot.enableAutoRange(x=False, y=True);
 		self.snrPlot.setLogMode(x=True, y=False);
-		self.snrPlot.showGrid(x=False, y=True);
+		self.snrPlot.showGrid(x=True, y=True);
 
 		self.vapPlot = self.win.addPlot(title="Vaporizer", labels={'bottom':('Time', 's')}, row=1, col=1);
 		self.vapPlot.setMouseEnabled(x=False, y=False);
@@ -67,11 +68,13 @@ class GraphWindow():
 		self.countPlot = self.win.addPlot(title="Photon Count", labels={'left':('Count', 'cps'),'bottom':('Time', 's')}, row=2, col=0, colspan=2);
 		self.countPlot.setMouseEnabled(x=False, y=False);
 		self.countPlot.enableAutoRange(x=True, y=True);
+		self.countPlot.showGrid(x=False, y=True);
 
 		self.flowPlot = None;
 		if(self.calcFlow):
 			self.flowPlot = self.win.addPlot(title="Fitted Flow", labels={'left':('aDb'), 'bottom':('Time', 's')}, row=3, col=0, colspan=2);
 			self.flowPlot.setMouseEnabled(x=False, y=False);
+			self.flowPlot.showGrid(x=False, y=True);
 
 		self.setupCurves();
 
@@ -198,9 +201,9 @@ class GraphWindow():
 	def closeEvent(self, event):
 		print("Closing");
 		event.accept();
+		self.stop();
 		if(not self.stopFcn == None):
 			self.stopFcn();
-		self.stop();
 
 	def stop(self):
 		self.isAlive = False;

@@ -31,7 +31,7 @@ class DCS(mp.Process):
 
 	def run(self):
 		p = psutil.Process(os.getpid());
-		p.nice(-18);
+		p.nice(-15);
 		try:
 			self.device.read(DCS._ENDPOINT_ID, 524288, DCS._TIMEOUT);
 		except Exception as e:
