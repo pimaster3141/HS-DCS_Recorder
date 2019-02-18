@@ -58,7 +58,7 @@ def run():
 	processor.start();
 	handler.start();
 	dev.start();
-	display = Display.GraphWindow(processor);
+	display = Display.GraphWindow(processor, stopFcn=stop);
 	display.run();
 
 def stop():

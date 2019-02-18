@@ -13,7 +13,7 @@ class GraphWindow():
 	PEN_COLORS = ['w', 'y', 'g', 'b'];
 	QUEUE_TIMEOUT = 5;	
 
-	def __init__(self, processor, depth=10, legacy=False, refreshRate=10):
+	def __init__(self, processor, depth=10, legacy=False, refreshRate=20, stopFcn=None):
 		self.processor = processor;
 		(self.g2Source, self.flowSource) = self.processor.getBuffers();
 		self.tauList = self.processor.getTauList();
@@ -27,6 +27,7 @@ class GraphWindow():
 
 		self._lastTime = time.time();
 		self._refreshPeriod = 1/refreshRate;
+		self.stopFcn = stopFcn;
 		self.isAlive = True;
 
 		self.setupDataBuffers();
@@ -38,7 +39,8 @@ class GraphWindow():
 			self.win = pg.GraphicsWindow("Charles Sr.");
 		else:
 			self.win = pg.GraphicsWindow("Charles Jr.");
-		self.win.resize(1000, 800);
+		self.win.resize(1200, 900);
+		self.win.closeEvent = self.closeEvent;
 
 		self.g2Plot = self.win.addPlot(title="G2", labels={'left':('g2'),'bottom':('Delay Time', 's')}, row=0, col=0);
 		self.g2Plot.setMouseEnabled(x=False, y=False);
@@ -87,35 +89,29 @@ class GraphWindow():
 			self.snrCurves.append(self.snrPlot.plot(x=self.tauList, y=snrData[c], pen=GraphWindow.PEN_COLORS[c], name='CH'+str(c)));
 			self.vapCurves.append(self.vapPlot.plot(x=self.xData, y=self.vapBuffer[:,c], pen=GraphWindow.PEN_COLORS[c], name='CH'+str(c)));
 			self.countCurves.append(self.countPlot.plot(x=self.xData, y=self.countBuffer[:,c], pen=GraphWindow.PEN_COLORS[c], name='CH'+str(c)));
-
-			if(not self.calcFlow):
-				self.betaCurves.append(self.betaPlot.plot(x=self.xData, y=self.betaBuffer[:,c], pen=GraphWindow.PEN_COLORS[c], name='CH'+str(c)));
+			self.betaCurves.append(self.betaPlot.plot(x=self.xData, y=self.betaBuffer[:,c], pen=GraphWindow.PEN_COLORS[c], name='CH'+str(c)));
 
 		if(self.calcFlow):
 			for c in range(self.numFlowChannels):
 				self.flowCurves.append(self.flowPlot.plot(x=self.xData, y=self.flowBuffer[:,c], pen=GraphWindow.PEN_COLORS[c], name='CH'+str(c)));
-				self.betaCurves.append(self.betaPlot.plot(x=self.xData, y=self.betaBuffer[:,c], pen=GraphWindow.PEN_COLORS[c], name='CH'+str(c)));
 
 	def setupDataBuffers(self):
 		g2QueueData = self.g2Source.get(block=True, timeout=GraphWindow.QUEUE_TIMEOUT);
 		self.numG2Channels = len(g2QueueData[0][0]);
 		self.numVapChannels = len(g2QueueData[0][1]);
 		
-		self.g2Buffer = np.zeros((self.numSamples, self.numG2Channels, len(self.tauList)));
+		self.g2Buffer = np.ones((self.numSamples, self.numG2Channels, len(self.tauList)));
 		self.vapBuffer = np.zeros((self.numSamples, self.numVapChannels));
 		self.countBuffer = np.zeros((self.numSamples, self.numG2Channels));
+		self.betaBuffer = np.zeros((self.numSamples, self.numG2Channels));
 
 		flowQueueData = None;
 		self.numFlowChannels = None;
 		self.flowBuffer = None;
-		self.betaBuffer = None;
 		if(self.calcFlow):
 			flowQueueData = self.flowSource.get(block=True, timeout=GraphWindow.QUEUE_TIMEOUT);
 			self.numFlowChannels = len(flowQueueData)
 			self.flowBuffer = np.zeros((self.numSamples, self.numFlowChannels));
-			self.betaBuffer = np.zeros((self.numSamples, self.numFlowChannels));
-		else:
-			self.betaBuffer = np.zeros((self.numSamples, self.numG2Channels));
 
 		self.updateDataBuffers(g2QueueData, flowQueueData);
 
@@ -136,22 +132,16 @@ class GraphWindow():
 		self.vapBuffer = np.roll(self.vapBuffer, -1*numShift, axis=0);
 		self.vapBuffer[-numShift:] = vapData;
 
+		betaData = np.mean(g2Data[:,:,1:4], axis=2)-1;
+		self.betaBuffer = np.roll(self.betaBuffer, -1*numShift, axis=0);
+		self.betaBuffer[-numShift:] = betaData;
+
 		if(self.calcFlow):
 			numShift = len(flowQueueData[0]);
-			flowData = np.array([item[:,0] for item in flowQueueData]);
-			betaData = np.array([item[:,1] for item in flowQueueData]);
-			print(flowData);
-			print(betaData);
+			flowData = flowQueueData;
 
 			self.flowBuffer = np.roll(self.flowBuffer, -1*numShift, axis=0);
-			self.flowBuffer[-numShift:] = flowData;
-
-			self.betaBuffer = np.roll(self.betaBuffer, -1*numShift, axis=0);
-			self.betaBuffer[-numShift:] = betaData;
-		else:
-			betaData = np.mean(g2Data[:,:,1:4], axis=2)-1;
-			self.betaBuffer = np.roll(self.betaBuffer, -1*numShift, axis=0);
-			self.betaBuffer[-numShift:] = betaData;
+			self.flowBuffer[-numShift:] = np.swapaxes(flowData, 0, 1);
 
 	def redrawCurves(self):
 		snrData = G2Calc.calcSNR(self.g2Buffer);
@@ -160,24 +150,21 @@ class GraphWindow():
 			self.snrCurves[c].setData(x=self.tauList, y=snrData[c]);
 			self.vapCurves[c].setData(x=self.xData, y=self.vapBuffer[:,c]);
 			self.countCurves[c].setData(x=self.xData, y=self.countBuffer[:,c]);
-
-			if(not self.calcFlow):
-				self.betaCurves[c].setData(x=self.xData, y=self.betaBuffer[:,c]);
+			self.betaCurves[c].setData(x=self.xData, y=self.betaBuffer[:,c]);
 
 		if(self.calcFlow):
 			for c in range(self.numFlowChannels):
 				self.flowCurves[c].setData(x=self.xData, y=self.flowBuffer[:,c]);
-				self.betaCurves[c].setData(x=self.xData, y=self.betaBuffer[:,c]);	
 
 
 	def updateRoutine(self):
 		g2QueueData = self.g2Source.get(block=True, timeout=GraphWindow.QUEUE_TIMEOUT);
-		g2QueueData = GraphWindow.emptyBuffer(self.g2Source, g2QueueData);
+		# g2QueueData = GraphWindow.emptyBuffer(self.g2Source, g2QueueData);
 
 		flowQueueData = None;
 		if(self.calcFlow):
 			flowQueueData = self.flowSource.get(block=True, timeout=GraphWindow.QUEUE_TIMEOUT);
-			flowQueueData = GraphWindow.emptyBuffer(self.flowSource, flowQueueData);
+			# flowQueueData = GraphWindow.emptyBuffer(self.flowSource, flowQueueData);
 
 		self.updateDataBuffers(g2QueueData, flowQueueData);
 		self.redrawCurves();
@@ -197,7 +184,7 @@ class GraphWindow():
 		else:
 			return;
 
-	def emptyBuffer(buf, initial):
+	def emptyBuffer(buf, initial): #DO NOT USE FOR FLOW
 		try:
 			while(True):
 				data = buf.get_nowait();
@@ -205,6 +192,18 @@ class GraphWindow():
 		except queue.Empty:
 			pass;
 		return initial;
+
+	def closeEvent(self, event):
+		print("Closing");
+		event.accept();
+		self.win.close();
+		self.stop();
+
+	def stop(self):
+		if(not self.stopFcn == None):
+			self.stopFcn();
+		self.isAlive = False;
+
 
 
 

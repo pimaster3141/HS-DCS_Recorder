@@ -13,15 +13,15 @@ import time
 
 import threading
 
-# class DataProcessor(mp.Process):
-class DataProcessor(threading.Thread):
+class DataProcessor(mp.Process):
+# class DataProcessor(threading.Thread):
 	QUEUE_TIMEOUT = 1;
 	QUEUE_DEPTH = 100;
 	G2_LEVELS = 8;
 
 	def __init__(self, MPI, inputBuffer, averages, legacy, fs, bufferSize, sampleSize=2, packetMultiple=1, calcFlow=False, SNRBufferDepth=50, numProcessors=None):
-		# mp.Process.__init__(self);
-		threading.Thread.__init__(self);
+		mp.Process.__init__(self);
+		# threading.Thread.__init__(self);
 		self.MPI = MPI;
 		self.inputBuffer = inputBuffer;
 		self.averages = averages
@@ -76,7 +76,9 @@ class DataProcessor(threading.Thread):
 						for j in range(self.packetMultiple):
 							data[i+1][j*self.packetSize:(j+1)*self.packetSize] = self.inputBuffer.get(block=True, timeout=DataProcessor.QUEUE_TIMEOUT);
 				except queue.Empty:
+					print("FUCK");
 					pass
+
 
 				g2Data = self.pool.map(g2Fcn, data);
 				try:
@@ -85,7 +87,7 @@ class DataProcessor(threading.Thread):
 					pass
 
 				# print(len(g2Data[0][0][0]))
-				time.sleep(0.2)
+				# time.sleep(0.2)
 
 				if(self.calcFlow):
 					g2Data = np.swapaxes(np.array([item[0] for item in g2Data]), 0, 1)[:,:,1:];
@@ -98,7 +100,7 @@ class DataProcessor(threading.Thread):
 						SNR = G2Calc.calcSNR(self.snrBuffer[c]);
 
 						fcn=partial(FlowFit.G2Fit, tauList=self.tauList[1:], SNR=SNR);
-						data=np.array(self.pool.map(fcn, meanG2));
+						data=np.array(self.pool.map(fcn, meanG2))[:, 0];
 						flowData.append(data);
 					try:
 						self.flowBuffer.put_nowait(flowData); #(g2, vap)
@@ -152,7 +154,7 @@ class DataProcessor(threading.Thread):
 		self.flowBuffer.cancel_join_thread();
 		try:
 			self.MPI.put_nowait("Stopping Processor");
-			time.sleep(1);
+			time.sleep(0.5);
 		except Exception as ei:
 			pass
 		finally:

@@ -2,6 +2,8 @@ import multiprocessing as mp
 import array
 import queue
 import time
+# import numpy as np
+import copy
 
 import threading
 
@@ -50,10 +52,9 @@ class DataHandler(mp.Process):
 						self.dataBuffer.tofile(self.outFile);						
 
 					if(self.realtimeData.is_set()):						
-						if(not self.realtimeQueue.full()):							
-							self.realtimeQueue.put_nowait(self.dataBuffer);							
-							pass
-						else:														
+						try:							
+							self.realtimeQueue.put_nowait(copy.copy(self.dataBuffer));						
+						except queue.Full:														
 							self.MPI.put_nowait("Realtime Buffer Overrun");							
 							self.realtimeData.clear();																
 
@@ -87,7 +88,7 @@ class DataHandler(mp.Process):
 		self.realtimeQueue.cancel_join_thread();
 		try:				
 			self.MPI.put_nowait("Stopping Handler");
-			time.sleep(1);				
+			time.sleep(0.5);				
 		except Exception as ei:
 			pass
 		finally:
