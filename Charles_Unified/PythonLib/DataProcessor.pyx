@@ -102,6 +102,9 @@ class DataProcessor(mp.Process):
 						fcn=partial(FlowFit.G2Fit, tauList=self.tauList[1:], SNR=SNR);
 						data=np.array(self.pool.map(fcn, meanG2))[:, 0];
 						flowData.append(data);
+
+					flowData = np.array(flowData);
+					flowData = np.swapaxes(flowData, 0, 1);
 					try:
 						self.flowBuffer.put_nowait(flowData); #(g2, vap)
 					except queue.Full:

@@ -13,7 +13,7 @@ class GraphWindow():
 	PEN_COLORS = ['w', 'y', 'g', 'b'];
 	QUEUE_TIMEOUT = 5;	
 
-	def __init__(self, processor, depth=10, legacy=False, refreshRate=20, stopFcn=None):
+	def __init__(self, processor, depth=10, legacy=False, refreshRate=30, stopFcn=None):
 		self.processor = processor;
 		(self.g2Source, self.flowSource) = self.processor.getBuffers();
 		self.tauList = self.processor.getTauList();
@@ -110,7 +110,7 @@ class GraphWindow():
 		self.flowBuffer = None;
 		if(self.calcFlow):
 			flowQueueData = self.flowSource.get(block=True, timeout=GraphWindow.QUEUE_TIMEOUT);
-			self.numFlowChannels = len(flowQueueData)
+			self.numFlowChannels = len(flowQueueData[0])
 			self.flowBuffer = np.zeros((self.numSamples, self.numFlowChannels));
 
 		self.updateDataBuffers(g2QueueData, flowQueueData);
@@ -137,11 +137,11 @@ class GraphWindow():
 		self.betaBuffer[-numShift:] = betaData;
 
 		if(self.calcFlow):
-			numShift = len(flowQueueData[0]);
+			numShift = len(flowQueueData);
 			flowData = flowQueueData;
 
 			self.flowBuffer = np.roll(self.flowBuffer, -1*numShift, axis=0);
-			self.flowBuffer[-numShift:] = np.swapaxes(flowData, 0, 1);
+			self.flowBuffer[-numShift:] = flowData;
 
 	def redrawCurves(self):
 		snrData = G2Calc.calcSNR(self.g2Buffer);
@@ -159,12 +159,12 @@ class GraphWindow():
 
 	def updateRoutine(self):
 		g2QueueData = self.g2Source.get(block=True, timeout=GraphWindow.QUEUE_TIMEOUT);
-		# g2QueueData = GraphWindow.emptyBuffer(self.g2Source, g2QueueData);
+		g2QueueData = GraphWindow.emptyBuffer(self.g2Source, g2QueueData);
 
 		flowQueueData = None;
 		if(self.calcFlow):
 			flowQueueData = self.flowSource.get(block=True, timeout=GraphWindow.QUEUE_TIMEOUT);
-			# flowQueueData = GraphWindow.emptyBuffer(self.flowSource, flowQueueData);
+			flowQueueData = GraphWindow.emptyBuffer(self.flowSource, flowQueueData.tolist());
 
 		self.updateDataBuffers(g2QueueData, flowQueueData);
 		self.redrawCurves();
@@ -188,6 +188,8 @@ class GraphWindow():
 		try:
 			while(True):
 				data = buf.get_nowait();
+				if(type(data) == np.ndarray):
+					data = data.tolist();
 				initial = initial+data;
 		except queue.Empty:
 			pass;
@@ -196,13 +198,13 @@ class GraphWindow():
 	def closeEvent(self, event):
 		print("Closing");
 		event.accept();
-		self.win.close();
+		if(not self.stopFcn == None):
+			self.stopFcn();
 		self.stop();
 
 	def stop(self):
-		if(not self.stopFcn == None):
-			self.stopFcn();
 		self.isAlive = False;
+		self.win.close();
 
 
 

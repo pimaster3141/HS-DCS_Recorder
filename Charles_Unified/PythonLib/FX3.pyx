@@ -18,6 +18,12 @@ class DCS(mp.Process):
 		self.bufferSize = bufferSize;
 		(self.pipeOut, self.pipeIn) = mp.Pipe(duplex=False);
 		self._packet = usb.util.create_buffer(self.bufferSize);
+
+		try:
+			self.device.read(DCS._ENDPOINT_ID, 524288, DCS._TIMEOUT);
+		except:
+			raise Exception("UNKNOWN HARDWARE ERROR");
+
 		self.isDead = mp.Event();
 
 
@@ -49,8 +55,6 @@ class DCS(mp.Process):
 
 	def shutdown(self):
 		self.isDead.set();
-		self.device.reset();
-		usb.util.dispose_resources(self.device);
 		try:
 			self.MPI.put_nowait("Stopping FX3");
 		except Exception as ei:
