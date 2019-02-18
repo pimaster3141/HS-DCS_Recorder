@@ -47,7 +47,7 @@ def init(inFile, outFile):
 	realtime = handler.getRealtimeQueue();
 	handler.enableRealtime();
 
-	processor = DataProcessor.DataProcessor(MPIProcessor, realtime, [[0,2],[3,3]], legacy=False, fs=2.5E6, bufferSize=buffSize, calcFlow=True, numProcessors=None);
+	processor = DataProcessor.DataProcessor(MPIProcessor, realtime, [[0,2],[3,3]], legacy=False, fs=2.5E6, bufferSize=buffSize, calcFlow=True, numProcessors=2);
 
 	# return (MPIFX3, MPIHandler, MPIProcessor, dev, handler, processor);
 
@@ -99,6 +99,6 @@ def readAll():
 
 
 
-# init('../Charles2/PythonReader/output/test', 'testDebug');
-init('../Charles2/PythonReader/output/japan_flat', None);
+init('../Charles2/PythonReader/output/test', 'testDebug');
+# init('../Charles2/PythonReader/output/japan_flat', None);
 code.interact(local = locals());

@@ -18,4 +18,4 @@ def stop():
 
 
 print("Starting Up...");
-# code.interact(local = locals());
+code.interact(local = locals());

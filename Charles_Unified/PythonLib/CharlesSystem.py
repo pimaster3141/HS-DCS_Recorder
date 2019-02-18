@@ -23,11 +23,13 @@ print("Done")
 class CharlesSystem():
 	VENDOR_ID = 0x04B4;
 	PRODUCT_IDs = [0x00F1,0x00F0];
-	BENCHMARK_SIZE = 52428800; # should be 10s at 2.5MHz
+	BENCHMARK_SIZE = 5242880; # should be 10s at 2.5MHz
 	BYTES_PER_SAMPLE = 2;
 
 	
 	def __init__(self, outFile, version=None, fs=None, averages=[[0, 3]], demo=False):
+		
+		self.isStarted = False;
 		devices, kind = findDevices(version);
 		self.dev = devices[0];
 		self.legacy = kind[0];
@@ -37,11 +39,13 @@ class CharlesSystem():
 		self.fs = fs;
 		if(self.fs == None):
 			self.fs = self.bench();
+			print("Device is " + str(self.fs/1E6) + "Msps");
 
-		with open(str(outFile)+".params", 'w') as f:
-			f.write("fs="+str(self.fs)+"\n");
-			f.write("legacy="+str(self.legacy)+"\n");
-			f.write("averages="+str(averages)+"\n");
+		if(not outFile==None):
+			with open(str(outFile)+".params", 'w') as f:
+				f.write("fs="+str(self.fs)+"\n");
+				f.write("legacy="+str(self.legacy)+"\n");
+				f.write("averages="+str(averages)+"\n");
 
 		self.MPIFX3 = mp.Queue();
 		self.MPIHandler = mp.Queue();
@@ -55,15 +59,13 @@ class CharlesSystem():
 
 		fxPipe = self.FX3.getPipe();
 		fxBufferSize = self.FX3.getBufferSize();
-		self.handler = DataHandler.DataHandler(self.MPIHandler, fxPipe, fxBufferSize, sampleSize=BYTES_PER_SAMPLE, filename=self.outFile);
+		self.handler = DataHandler.DataHandler(self.MPIHandler, fxPipe, fxBufferSize, sampleSize=CharlesSystem.BYTES_PER_SAMPLE, filename=self.outFile);
 
 		handlerBuffer = self.handler.getRealtimeQueue();
 		self.handler.enableRealtime();
-		self.processor = DataProcessor.DataProcessor(self.MPIProcessor, handlerBuffer, averages, self.legacy, self.fs, fxBufferSize, sampleSize=BYTES_PER_SAMPLE, calcFlow=True);
+		self.processor = DataProcessor.DataProcessor(self.MPIProcessor, handlerBuffer, averages, self.legacy, self.fs, fxBufferSize, sampleSize=CharlesSystem.BYTES_PER_SAMPLE, calcFlow=True);
 
-		self.display = Display.GraphWindow(self.processor, self.legacy, stopFcn=self.stop);
 
-		self.isStarted = False;
 		print("Device Initialized!");		
 
 	def stop(self):
@@ -72,7 +74,7 @@ class CharlesSystem():
 			return;
 
 		print("Halting Device");
-		self.dev.stop();
+		self.FX3.stop();
 		self.handler.stop();
 		self.processor.stop();
 		self.display.stop();
@@ -118,7 +120,9 @@ class CharlesSystem():
 	def start(self):
 		if(self.isStarted):
 			print("Device already running");
-			return;
+			return;		
+
+		self.display = Display.GraphWindow(self.processor, self.legacy, stopFcn=self.stop);
 
 		self.isStarted = True;
 		print("Starting Charles!");
@@ -134,25 +138,25 @@ class CharlesSystem():
 			print("Benchmarking Device ~10s");
 			s = 0.0;
 			e = 0.0;
-			try:
-				dev.read(0x81, 524288, 500);
-				s = time.time();
-				dev.read(0x81, BENCHMARK_SIZE, 20000);
-				e = time.time();
-			except:
-				raise Exception("UNKNOWN HARDWARE ERROR");
+			# try:
+			self.dev.read(0x81, 524288, 5000);
+			s = time.time();
+			self.dev.read(0x81, CharlesSystem.BENCHMARK_SIZE, 20000);
+			e = time.time();
+			# except Exception as e:
+			# 	raise Exception("UNKNOWN HARDWARE ERROR");
 
-			return int((BENCHMARK_SIZE/BYTES_PER_SAMPLE)/(e-s));
+			return int((CharlesSystem.BENCHMARK_SIZE/CharlesSystem.BYTES_PER_SAMPLE)/(e-s));
 
 
 def findDevices(version):
 	devicesGen = None;
 	if(version == None):
-		devicesGen = usb.core.find(idVendor=VENDOR_ID, find_all=True);
+		devicesGen = usb.core.find(idVendor=CharlesSystem.VENDOR_ID, find_all=True);
 	elif(version == 1):
-		devicesGen = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_IDs[0], find_all=True);
+		devicesGen = usb.core.find(idVendor=CharlesSystem.VENDOR_ID, idProduct=CharlesSystem.PRODUCT_IDs[0], find_all=True);
 	elif(version == 2):
-		devicesGen = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_IDs[1], find_all=True);
+		devicesGen = usb.core.find(idVendor=CharlesSystem.VENDOR_ID, idProduct=CharlesSystem.PRODUCT_IDs[1], find_all=True);
 	else:
 		raise Exception("UNSUPPORTED VERSON" + str(version));
 
