@@ -18,28 +18,26 @@ import DataProcessor
 import Display
 import multiprocessing as mp
 import time
+import psutil
 print("Done")
 
 class CharlesSystem():
 	VENDOR_ID = 0x04B4;
 	PRODUCT_IDs = [0x00F1,0x00F0];
-	BENCHMARK_SIZE = 5242880; # should be 10s at 2.5MHz
+	BENCHMARK_SIZE = 5242880*2; # should be 10s at 2.5MHz
 	BYTES_PER_SAMPLE = 2;
 
 	
-	def __init__(self, outFile, version=None, fs=None, averages=[[0, 3]], demo=False):
+	def __init__(self, outFile, version=None, fs=None, averages=[[0, 3]], numProcessors=None, demo=False):
 		
 		self.isStarted = False;
-		devices, kind = findDevices(version);
-		self.dev = devices[0];
-		self.legacy = kind[0];
-		self.dev.set_configuration();
 		self.outFile = outFile;
+		self.demo = demo;
 
-		self.fs = fs;
-		if(self.fs == None):
-			self.fs = self.bench();
-			print("Device is " + str(self.fs/1E6) + "Msps");
+		self.numProcessors = numProcessors;
+		if(numProcessors==None):
+			self.numProcessors = psutil.cpu_count(logical=False);
+			print("Autoselecting core count = " + str(self.numProcessors));
 
 		if(not outFile==None):
 			with open(str(outFile)+".params", 'w') as f:
@@ -52,10 +50,23 @@ class CharlesSystem():
 		self.MPIProcessor = mp.Queue();
 
 		self.FX3 = None;
-		if(demo):
+		self.dev = None;
+		self.legacy = False;
+		self.fs = 2E6;
+		if(self.demo):
 			self.FX3 = FX3.Emulator(self.MPIFX3, '../Charles2/PythonReader/output/japan_flat');
 		else:
+			devices, kind = findDevices(version);
+			self.dev = devices[0];
+			self.legacy = kind[0];
+			self.dev.reset();
+			self.dev.set_configuration();
 			self.FX3 = FX3.DCS(self.MPIFX3, self.dev)
+
+			self.fs = fs;
+			if(self.fs == None):
+				self.fs = self.bench();
+				print("Device is " + str(self.fs/1E6) + "Msps");
 
 		fxPipe = self.FX3.getPipe();
 		fxBufferSize = self.FX3.getBufferSize();
@@ -63,58 +74,35 @@ class CharlesSystem():
 
 		handlerBuffer = self.handler.getRealtimeQueue();
 		self.handler.enableRealtime();
-		self.processor = DataProcessor.DataProcessor(self.MPIProcessor, handlerBuffer, averages, self.legacy, self.fs, fxBufferSize, sampleSize=CharlesSystem.BYTES_PER_SAMPLE, calcFlow=True);
+		self.processor = DataProcessor.DataProcessor(self.MPIProcessor, handlerBuffer, averages, legacy=self.legacy, fs=self.fs, bufferSize=fxBufferSize, sampleSize=CharlesSystem.BYTES_PER_SAMPLE, calcFlow=True, numProcessors=numProcessors);
 
 
 		print("Device Initialized!");		
 
 	def stop(self):
-		if(self.isStarted):
-			print("Device already halted");
-			return;
+		# if(not self.isStarted):
+		# 	print("Device already halted");
+		# 	return;
 
 		print("Halting Device");
+
+		self.readAllMPI();
 		self.FX3.stop();
 		self.handler.stop();
 		self.processor.stop();
 		self.display.stop();
 
-		self.dev.join();
+		self.FX3.join();
 		self.handler.join();
 		self.processor.join();
 
+		# time.sleep(1);
 
-		s = self.MPIFX3.qsize();
-		for i in range(s):
-			try:
-				print(self.MPIFX3.get());
-			except Exception as e:
-				print("WARNING: ")
-				print(e);
-				continue;
+		self.readAllMPI();
 
-		print("");
-		s = self.MPIHandler.qsize();
-		for i in range(s):
-			try:
-				print(self.MPIHandler.get());
-			except Exception as e:
-				print("WARNING: ")
-				print(e);
-				continue;
-
-		print("");
-		s = self.MPIProcessor.qsize();
-		for i in range(s):
-			try:
-				print(self.MPIProcessor.get());
-			except Exception as e:
-				print("WARNING: ")
-				print(e);
-				continue;
-
-		self.device.reset();
-		usb.util.dispose_resources(self.device);
+		if(not self.demo):
+			self.dev.reset();
+			usb.util.dispose_resources(self.dev);
 		print("Device Halted");
 
 	def start(self):
@@ -122,14 +110,14 @@ class CharlesSystem():
 			print("Device already running");
 			return;		
 
-		self.display = Display.GraphWindow(self.processor, self.legacy, stopFcn=self.stop);
-
 		self.isStarted = True;
 		print("Starting Charles!");
-		processor.start();
-		handler.start();
-		dev.start();
-		display.run();
+		self.processor.start();
+		self.handler.start();
+		self.FX3.start();
+		self.display = Display.GraphWindow(self.processor, legacy=self.legacy, stopFcn=self.stop);
+		self.display.run();
+		print("Device Running");
 
 	def bench(self):
 		if(self.isStarted):
@@ -147,6 +135,36 @@ class CharlesSystem():
 			# 	raise Exception("UNKNOWN HARDWARE ERROR");
 
 			return int((CharlesSystem.BENCHMARK_SIZE/CharlesSystem.BYTES_PER_SAMPLE)/(e-s));
+
+	def readAllMPI(self):
+		s = self.MPIFX3.qsize();
+		for i in range(s):
+			try:
+				print(self.MPIFX3.get(False));
+			except Exception as e:
+				print("WARNING: ")
+				print(e);
+				continue;
+
+		print("");
+		s = self.MPIHandler.qsize();
+		for i in range(s):
+			try:
+				print(self.MPIHandler.get(False));
+			except Exception as e:
+				print("WARNING: ")
+				print(e);
+				continue;
+
+		print("");
+		s = self.MPIProcessor.qsize();
+		for i in range(s):
+			try:
+				print(self.MPIProcessor.get(False));
+			except Exception as e:
+				print("WARNING: ")
+				print(e);
+				continue;
 
 
 def findDevices(version):

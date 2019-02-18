@@ -47,7 +47,7 @@ def G2Fit(g2Data, tauList, SNR, p0=[1E-9, 0.15], rho=2, no=1.33, wavelength=8.48
 		(params, params_covariance) = optimize.curve_fit(f, tauList, g2Data*SNR, p0, bounds=((adB_BOUNDS[0], BETA_BOUNDS[0]), (adB_BOUNDS[1], BETA_BOUNDS[1])));
 		return params;
 	except:
-		print("fit Error:");
+		# print("fit Error:");
 		if(ECC):
 			g1Data, beta = G1Calc(g2Data);
 			flow = G1Fit(g1Data, tauList, SNR, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10);

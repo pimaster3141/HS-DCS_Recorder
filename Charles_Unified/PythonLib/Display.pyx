@@ -202,12 +202,12 @@ class GraphWindow():
 		print("Closing");
 		event.accept();
 		self.stop();
+		self.win.close();
 		if(not self.stopFcn == None):
 			self.stopFcn();
 
 	def stop(self):
 		self.isAlive = False;
-		self.win.close();
 
 
 

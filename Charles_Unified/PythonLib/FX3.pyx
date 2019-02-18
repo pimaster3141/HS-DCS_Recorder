@@ -23,7 +23,7 @@ class DCS(mp.Process):
 
 		try:
 			self.device.read(DCS._ENDPOINT_ID, 524288, DCS._TIMEOUT);
-		except:
+		except Exception as e:
 			raise Exception("UNKNOWN HARDWARE ERROR");
 
 		self.isDead = mp.Event();

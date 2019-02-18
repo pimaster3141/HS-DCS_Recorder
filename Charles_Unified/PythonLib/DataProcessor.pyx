@@ -18,7 +18,7 @@ class DataProcessor(mp.Process):
 # class DataProcessor(threading.Thread):
 	QUEUE_TIMEOUT = 1;
 	QUEUE_DEPTH = 100;
-	G2_LEVELS = 8;
+	G2_LEVELS = 6;
 
 	def __init__(self, MPI, inputBuffer, averages, legacy, fs, bufferSize, sampleSize=2, packetMultiple=1, calcFlow=False, SNRBufferDepth=50, numProcessors=None):
 		mp.Process.__init__(self);
@@ -39,7 +39,7 @@ class DataProcessor(mp.Process):
 
 		self.numProcessors = numProcessors;
 		if(numProcessors==None):
-			self.numProcessors = os.cpu_count();
+			self.numProcessors = psutil.cpu_count(logical=False);
 
 		self.packetSize = int(bufferSize/sampleSize);
 		self.tauList = G2Calc.mtAuto(np.ones(self.packetSize*self.packetMultiple-1), fs=fs, levels=DataProcessor.G2_LEVELS)[:,0];
