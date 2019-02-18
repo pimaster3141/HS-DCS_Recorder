@@ -113,11 +113,6 @@ class DataProcessor(mp.Process):
 					except queue.Full:
 						pass
 
-
-
-
-
-
 		except Exception as e:
 			# print("SHITBALLS IM MURDERED");
 			# raise(e);
