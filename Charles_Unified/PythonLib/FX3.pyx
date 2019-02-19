@@ -7,7 +7,7 @@ import psutil
 import os
 
 class DCS(mp.Process):
-	_TIMEOUT = 2000;
+	_TIMEOUT = 5000;
 	_READ_SIZE = 262144;	#512KB = 524288 base2
 
 	_ENDPOINT_ID = 0x81;

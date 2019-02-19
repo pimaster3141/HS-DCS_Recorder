@@ -24,7 +24,8 @@ print("Done")
 class CharlesSystem():
 	VENDOR_ID = 0x04B4;
 	PRODUCT_IDs = [0x00F1,0x00F0];
-	BENCHMARK_SIZE = 5242880*2; # should be 10s at 2.5MHz
+	BENCHMARK_SIZE = 524288; # should be 10s at 2.5MHz
+	BENCHMARK_ITERS = 100
 	BYTES_PER_SAMPLE = 2;
 
 	
@@ -126,15 +127,15 @@ class CharlesSystem():
 			print("Benchmarking Device ~10s");
 			s = 0.0;
 			e = 0.0;
-			# try:
-			self.dev.read(0x81, 524288, 5000);
+			self.dev.read(0x81, 524288, 500);
 			s = time.time();
-			self.dev.read(0x81, CharlesSystem.BENCHMARK_SIZE, 20000);
+			for i in range(CharlesSystem.BENCHMARK_ITERS):
+				self.dev.read(0x81, CharlesSystem.BENCHMARK_SIZE, 5000);
 			e = time.time();
 			# except Exception as e:
 			# 	raise Exception("UNKNOWN HARDWARE ERROR");
 
-			return int((CharlesSystem.BENCHMARK_SIZE/CharlesSystem.BYTES_PER_SAMPLE)/(e-s));
+			return int((CharlesSystem.BENCHMARK_SIZE*CharlesSystem.BENCHMARK_ITERS/CharlesSystem.BYTES_PER_SAMPLE)/(e-s));
 
 	def readAllMPI(self):
 		s = self.MPIFX3.qsize();
