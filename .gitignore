@@ -67,6 +67,7 @@ Charles*/CCS/*/.*
 Charles*/CCS/*/targetConfigs/
 Charles*/CCS/*/Debug/
 Charles*/CCS/*/Release/
+Charles*/GPIF_II_SM/projectfiles/
 # Charles*/EZ-USB/.metadata/*
 # Charles*/EZ-USB/.metadata/
 # Charles*/EZ-USB/*/Debug/
