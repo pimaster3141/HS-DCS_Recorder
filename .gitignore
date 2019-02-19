@@ -61,8 +61,12 @@ Charles*/PythonReader/__pycache__/*
 Charles*/PythonReader/__pycache__/
 Charles*/EZ-USB/.*
 Charles*/EZ-USB/*/.*
+Charles*/EZ-USB/*/Release/
 Charles*/CCS/.*
 Charles*/CCS/*/.*
+Charles*/CCS/*/targetConfigs/
+Charles*/CCS/*/Debug/
+Charles*/CCS/*/Release/
 # Charles*/EZ-USB/.metadata/*
 # Charles*/EZ-USB/.metadata/
 # Charles*/EZ-USB/*/Debug/
