@@ -18,7 +18,7 @@ from os.path import expanduser
 import sys
 sys.path.insert(0, 'PythonLib');
 # import CharlesSystem
-import RunCharles
+# import CMDCharles
 
 class HSDCS():
     def __init__(self, master):
@@ -104,7 +104,7 @@ class HSDCS():
 
     def save_as(self):
         if self.hasStarted == 0:
-            fname = filedialog.asksaveasfilename(filetypes=[('text files', '.txt'),('all files', '.*')], defaultextension="")
+            fname = filedialog.asksaveasfilename(filetypes=[('all files', '.*')], defaultextension="")
             if fname is None: # asksaveasfile return `None` if dialog closed with "cancel".
                 return
             else:
@@ -127,8 +127,9 @@ class HSDCS():
             self.startTime = time.time()
             try:
 #                runner.start(self.fname)
-                RunCharles.start(self.fname)
-            except: 
+                start(self.fname, demo=True);
+            except Exception as e:
+                print(e); 
                 self.status['text']='Unable to start DCS. Abort.'
                 self.stopButt['state'] = 'disabled'
                 self.startButt['state'] = 'normal'
@@ -139,7 +140,7 @@ class HSDCS():
                 
     def stop(self):
         if self.hasStarted == 1:
-            runner.stop()
+            stop()
             self.stopButt['state'] = 'disabled'
             self.startButt['state'] = 'normal'
             self.saveButt['state'] = 'normal'
@@ -194,10 +195,28 @@ class HSDCS():
 ##########################################################################
 # -------------------------- RUN PROGRAM --------------------------------#
 ##########################################################################
+import sys
+sys.path.insert(0, 'PythonLib');
+import CharlesSystem
+
+charles = None
+
+def start(filename, version=None, sampleClk=None, averages=[[0,3]], demo=False):
+    global charles;
+    charles = CharlesSystem.CharlesSystem(filename, version=version, fs=sampleClk, averages=averages, demo=demo);
+    charles.start();
+
+def stop():
+    global charles;
+    if(not charles == None):
+        charles.stop();
+    charles = None;
+
+
 
 root = Tk()  
 app = HSDCS(root)
-root.mainloop()
+root.mainloop()./
 del app
 
 # code.interact(local=locals())

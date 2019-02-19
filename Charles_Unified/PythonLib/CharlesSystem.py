@@ -40,12 +40,6 @@ class CharlesSystem():
 			self.numProcessors = psutil.cpu_count(logical=False);
 			print("Autoselecting core count = " + str(self.numProcessors));
 
-		if(not outFile==None):
-			with open(str(outFile)+".params", 'w') as f:
-				f.write("fs="+str(self.fs)+"\n");
-				f.write("legacy="+str(self.legacy)+"\n");
-				f.write("averages="+str(averages)+"\n");
-
 		self.MPIFX3 = mp.Queue();
 		self.MPIHandler = mp.Queue();
 		self.MPIProcessor = mp.Queue();
@@ -68,6 +62,12 @@ class CharlesSystem():
 			if(self.fs == None):
 				self.fs = self.bench();
 				print("Device is " + str(self.fs/1E6) + "Msps");
+
+			if(not outFile==None):
+				with open(str(outFile)+".params", 'w') as f:
+					f.write("fs="+str(self.fs)+"\n");
+					f.write("legacy="+str(self.legacy)+"\n");
+					f.write("averages="+str(averages)+"\n");
 
 		fxPipe = self.FX3.getPipe();
 		fxBufferSize = self.FX3.getBufferSize();
@@ -147,7 +147,7 @@ class CharlesSystem():
 				print(e);
 				continue;
 
-		print("");
+		# print("");
 		s = self.MPIHandler.qsize();
 		for i in range(s):
 			try:
@@ -157,7 +157,7 @@ class CharlesSystem():
 				print(e);
 				continue;
 
-		print("");
+		# print("");
 		s = self.MPIProcessor.qsize();
 		for i in range(s):
 			try:

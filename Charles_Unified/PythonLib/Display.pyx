@@ -8,12 +8,15 @@ import DataProcessor
 import G2Calc
 import queue
 import time
+import warnings
 
 class GraphWindow():
 	PEN_COLORS = ['w', 'y', 'g', 'b'];
 	QUEUE_TIMEOUT = 5;	
 
 	def __init__(self, processor, depth=10, legacy=False, refreshRate=30, stopFcn=None):
+		warnings.catch_warnings();
+		warnings.simplefilter("ignore");
 		self.processor = processor;
 		(self.g2Source, self.flowSource) = self.processor.getBuffers();
 		self.tauList = self.processor.getTauList();
@@ -208,6 +211,9 @@ class GraphWindow():
 
 	def stop(self):
 		self.isAlive = False;
+
+	def closeWindow(self):
+		self.win.close();
 
 
 

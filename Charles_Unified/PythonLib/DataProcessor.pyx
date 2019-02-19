@@ -95,6 +95,7 @@ class DataProcessor(mp.Process):
 				if(self.calcFlow):
 					g2Data = np.swapaxes(np.array([item[0] for item in g2Data]), 0, 1)[:,:,1:];
 					flowData = []
+					flowData = np.zeros((len(g2Data[0]), len(self.averages)));
 					for c in  range(len(self.averages)):
 						avg = self.averages[c]
 						meanG2 = np.mean(g2Data[avg[0]:avg[1]+1], axis=0);
@@ -104,10 +105,11 @@ class DataProcessor(mp.Process):
 
 						fcn=partial(FlowFit.G2Fit, tauList=self.tauList[1:], SNR=SNR);
 						data=np.array(self.pool.map(fcn, meanG2))[:, 0];
-						flowData.append(data);
+						# flowData.append(data);
+						flowData[:,c] = data;
 
-					flowData = np.array(flowData);
-					flowData = np.swapaxes(flowData, 0, 1);
+					# flowData = np.array(flowData);
+					# flowData = np.swapaxes(flowData, 0, 1);
 					try:
 						self.flowBuffer.put_nowait(flowData); #(g2, vap)
 					except queue.Full:
