@@ -22,7 +22,7 @@ int main(void)
 	WDTCTL = WDTPW | WDTHOLD;	// stop watchdog timer
 	
 	initSystem();
-	initClk();
+//	initClk();
 
 //	P1OUT=0;
 
@@ -43,7 +43,8 @@ void initSystem(void)
     P2DIR |= BIT0;  // DETECTOR PSU
     P7DIR |= BIT4+BIT5+BIT6;    // LASER INTERLOCKS
 
-//    P1OUT = MCLK_XTAL_SRC + SCLK_XTAL_SRC;
+    P1OUT = MCLK_XTAL_SRC + SCLK_XTAL_SRC;
+
     P2OUT = 1;
     P7OUT = 0;
 

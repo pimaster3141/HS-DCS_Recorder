@@ -49,7 +49,7 @@ class GraphWindow():
 		self.g2Plot.setMouseEnabled(x=False, y=False);
 		self.g2Plot.enableAutoRange(x=False, y=False);
 		self.g2Plot.setLogMode(x=True, y=False);
-		self.g2Plot.setYRange(0.9, 1.6);
+		self.g2Plot.setYRange(0.99, 1.3);
 		self.g2Plot.showGrid(x=True, y=True);
 		self.g2Legend = self.g2Plot.addLegend(offset=(-1,1));
 
