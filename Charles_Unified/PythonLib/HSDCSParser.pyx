@@ -6,8 +6,8 @@ def parseCharles2(dataStream):
 
 	vap1 = np.bitwise_and(dataStream, 0x0001)>0;
 	vap2 = np.bitwise_and(dataStream, 0x0002)>0;
-	vap3 = np.bitwise_and(dataStream, 0x0003)>0;
-	vap4 = np.bitwise_and(dataStream, 0x0004)>0;
+	vap3 = np.bitwise_and(dataStream, 0x0004)>0;
+	vap4 = np.bitwise_and(dataStream, 0x0008)>0;
 
 	cn1 = np.bitwise_and(dataStream, 0x0070);
 	cn2 = np.bitwise_and(dataStream, 0x0380);
