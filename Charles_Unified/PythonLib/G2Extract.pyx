@@ -38,7 +38,7 @@ def processG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, numProcess
 	fcn = partial(seekExtract, windowSize=windowSize, fs=fs, levels=16, legacy=legacy, filename=filename);
 
 	# data = pool.map(fcn, startIndexes, chunksize=100);
-	data = list(tqdm.tqdm(pool.imap(fcn, startIndexes, chunksize=max(int(len(startIndexes)/100/numProcessors), 100)), total=len(startIndexes)));
+	data = list(tqdm.tqdm(pool.imap(fcn, startIndexes, chunksize=max(int(len(startIndexes)/10000/numProcessors), 100)), total=len(startIndexes)));
 
 	pool.close();
 	pool.join();
