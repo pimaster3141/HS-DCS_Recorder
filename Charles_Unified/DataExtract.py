@@ -15,6 +15,8 @@ import pyximport; pyximport.install()
 import FlowExtract
 import G2Extract
 import os
+
+import psutil
 print("Done");
 
 # def extractG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, numProcessors=None):
@@ -76,9 +78,23 @@ print("Done");
 # 	FlowExtract.writeFlowMatlab(filename, flows, betas, counts, g2a, averages, rho, no, wavelength, mua, musp);
 # 	print("Completed Flow");
 
-def fullExtractMatlab(filename, averages, legacy=False, fs=2.5E6, intg=0.05, fsout=200, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None):
+def fullExtractMatlab(filename, averages, legacy=None, fs=2.5E6, intg=0.05, fsout=200, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None):
 	if(numProcessors==None):
-		numProcessors = os.cpu_count();
+		numProcessors = psutil.cpu_count(logical=False);
+		print("Autoselecting Core Count: " + str(numProcessors));
+
+	if(fs==None):
+		with open(f+'.params') as temp:
+			value = temp.readline();
+			fs = int(''.join(list(filter(str.isdigit, value))));
+		print("Autoelecting fs: "+str(fs));
+
+	if(legacy==None):
+		with open(f+'.params') as temp:
+			value = temp.readline();
+			value = temp.readline();
+			legacy = 'True' in value;
+		print("Autoselecting Legacy: " + str(legacy));
 		
 	print("Extracting: " + filename);
 	(g, t, v) = G2Extract.processG2(filename, legacy, fs, intg, fsout, numProcessors);
@@ -88,16 +104,11 @@ def fullExtractMatlab(filename, averages, legacy=False, fs=2.5E6, intg=0.05, fso
 	FlowExtract.writeFlowMatlab(filename, flows, betas, counts, g2a, averages, rho, no, wavelength, mua, musp);
 	print("Completed Flow");
 
-def batchFullExtractMatlab(files, averages, legacy=False, fs=None, intg=0.05, fsout=200, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None):
+def batchFullExtractMatlab(files, averages, legacy=None, fs=None, intg=0.05, fsout=200, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None):
 	if(numProcessors==None):
-		numProcessors = os.cpu_count();
+		numProcessors = psutil.cpu_count(logical=False);
 		
 	for f in files:
-		if(fs==None):
-			with open(f+'.params') as temp:
-				value = temp.readline();
-				fs = int(''.join(list(filter(str.isdigit, value))));
-		print(fs);
 		fullExtractMatlab(f, averages, legacy, fs, intg, fsout, rho, no, wavelength, mua, musp, numProcessors);
 
 
