@@ -82,14 +82,13 @@ def fullExtractMatlab(filename, averages, legacy=False, fs=2.5E6, intg=0.05, fso
 		
 	print("Extracting: " + filename);
 	(g, t, v) = G2Extract.processG2(filename, legacy, fs, intg, fsout, numProcessors);
-	print(len(t));
 	filename = G2Extract.writeG2Matlab(filename, g, t, v, legacy, fs, intg, fsout);
 	print("Completed G2");
 	(flows, betas, counts, g2a) = FlowExtract.calculateFlow(g, t, averages, fs, rho, no, wavelength, mua, musp, numProcessors);
 	FlowExtract.writeFlowMatlab(filename, flows, betas, counts, g2a, averages, rho, no, wavelength, mua, musp);
 	print("Completed Flow");
 
-def batchFullExtractMatlab(files, averages, legacy=False, fs=2.5E6, intg=0.05, fsout=200, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None):
+def batchFullExtractMatlab(files, averages, legacy=False, fs=None, intg=0.05, fsout=200, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None):
 	if(numProcessors==None):
 		numProcessors = os.cpu_count();
 		
