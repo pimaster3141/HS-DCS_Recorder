@@ -43,45 +43,45 @@ def calculateFlow(g2Data, tauList, averages, fs=2.5E6, rho=2, no=1.33, wavelengt
 	print("Fit Computation time: " + str(time.time()-start));
 	return flows, betas, counts, g2Avgs;
 
-def loadFlow(path):
-	flow = loadFlowChannel(path+'/flow');
-	beta = loadBetaChannel(path+'/beta');
-	count = loadCountChannel(path+'/count');
+# def loadFlow(path):
+# 	flow = loadFlowChannel(path+'/flow');
+# 	beta = loadBetaChannel(path+'/beta');
+# 	count = loadCountChannel(path+'/count');
 
-	return (flow, beta, count)
+# 	return (flow, beta, count)
 
-def loadFlowChannel(filename):
-	flowData = [];
-	with open(filename, 'r') as flowFile:
-		flowReader = csv.reader(flowFile, quoting=csv.QUOTE_NONNUMERIC);
-		for row in flowReader:
-			flowData.append(row);
+# def loadFlowChannel(filename):
+# 	flowData = [];
+# 	with open(filename, 'r') as flowFile:
+# 		flowReader = csv.reader(flowFile, quoting=csv.QUOTE_NONNUMERIC);
+# 		for row in flowReader:
+# 			flowData.append(row);
 
-	flowData = np.array(flowData);
-	flowData = np.swapaxes(flowData, 0, 1);
-	return flowData;
+# 	flowData = np.array(flowData);
+# 	flowData = np.swapaxes(flowData, 0, 1);
+# 	return flowData;
 
-def loadBetaChannel(filename):
-	betaData = [];
-	with open(filename, 'r') as betaFile:
-		betaReader = csv.reader(betaFile, quoting=csv.QUOTE_NONNUMERIC);
-		for row in betaReader:
-			betaData.append(row);
+# def loadBetaChannel(filename):
+# 	betaData = [];
+# 	with open(filename, 'r') as betaFile:
+# 		betaReader = csv.reader(betaFile, quoting=csv.QUOTE_NONNUMERIC);
+# 		for row in betaReader:
+# 			betaData.append(row);
 
-	betaData = np.array(betaData);
-	betaData = np.swapaxes(betaData, 0, 1);
-	return betaData;
+# 	betaData = np.array(betaData);
+# 	betaData = np.swapaxes(betaData, 0, 1);
+# 	return betaData;
 
-def loadCountChannel(filename):
-	countData = [];
-	with open(filename, 'r') as countFile:
-		countReader = csv.reader(countFile, quoting=csv.QUOTE_NONNUMERIC);
-		for row in countReader:
-			countData.append(row);
+# def loadCountChannel(filename):
+# 	countData = [];
+# 	with open(filename, 'r') as countFile:
+# 		countReader = csv.reader(countFile, quoting=csv.QUOTE_NONNUMERIC);
+# 		for row in countReader:
+# 			countData.append(row);
 
-	countData = np.array(countData);
-	countData = np.swapaxes(countData, 0, 1);
-	return countData;
+# 	countData = np.array(countData);
+# 	countData = np.swapaxes(countData, 0, 1);
+# 	return countData;
 
 def writeFlowMatlab(filename, flow, beta, count, g2Avg, averages, rho, no, wavelength, mua, musp):
 	print("Creating Matlab File: " + filename);
@@ -102,37 +102,37 @@ def writeFlowMatlab(filename, flow, beta, count, g2Avg, averages, rho, no, wavel
 
 	matWriter.savemat(filename, outData);
 
-def writeFlowData(folder, flows, betas, counts, averages, rho, no, wavelength, mua, musp):
-	print("Writing Files");
+# def writeFlowData(folder, flows, betas, counts, averages, rho, no, wavelength, mua, musp):
+# 	print("Writing Files");
 
-	flows = np.swapaxes(flows, 0, 1);
-	betas = np.swapaxes(betas, 0, 1);
-	counts = np.swapaxes(counts, 0, 1);
+# 	flows = np.swapaxes(flows, 0, 1);
+# 	betas = np.swapaxes(betas, 0, 1);
+# 	counts = np.swapaxes(counts, 0, 1);
 
-	with open(folder + "/flow", 'w', newline='') as flowFile:
-		flowWriter = csv.writer(flowFile);
-		for f in flows:
-			flowWriter.writerow(f);
+# 	with open(folder + "/flow", 'w', newline='') as flowFile:
+# 		flowWriter = csv.writer(flowFile);
+# 		for f in flows:
+# 			flowWriter.writerow(f);
 
-	with open(folder + "/beta", 'w', newline='') as betaFile:
-		betaWriter = csv.writer(betaFile);
-		for b in betas:
-			betaWriter.writerow(b);
+# 	with open(folder + "/beta", 'w', newline='') as betaFile:
+# 		betaWriter = csv.writer(betaFile);
+# 		for b in betas:
+# 			betaWriter.writerow(b);
 
-	with open(folder + "/count", 'w', newline='') as countFile:
-		countWriter = csv.writer(countFile);
-		for c in counts:
-			countWriter.writerow(c);
+# 	with open(folder + "/count", 'w', newline='') as countFile:
+# 		countWriter = csv.writer(countFile);
+# 		for c in counts:
+# 			countWriter.writerow(c);
 
-	writeNotes(folder, averages, rho, no, wavelength, mua, musp);
-	return;
+# 	writeNotes(folder, averages, rho, no, wavelength, mua, musp);
+# 	return;
 
-def writeNotes(folder, averages, rho, no, wavelength, mua, musp):
-	print("Writing Flow Notes");
-	with open(folder + "/Flow_Parameters.txt", 'w', newline='') as countFile:
-		countFile.write("averages=" + str(averages) + "\n");
-		countFile.write("rho=" + str(rho) + "\n");
-		countFile.write("no=" + str(no) + "\n");
-		countFile.write("wavelength=" + str(wavelength) + "\n");
-		countFile.write("mua=" + str(mua) + "\n");
-		countFile.write("musp=" + str(musp) + "\n");
+# def writeNotes(folder, averages, rho, no, wavelength, mua, musp):
+# 	print("Writing Flow Notes");
+# 	with open(folder + "/Flow_Parameters.txt", 'w', newline='') as countFile:
+# 		countFile.write("averages=" + str(averages) + "\n");
+# 		countFile.write("rho=" + str(rho) + "\n");
+# 		countFile.write("no=" + str(no) + "\n");
+# 		countFile.write("wavelength=" + str(wavelength) + "\n");
+# 		countFile.write("mua=" + str(mua) + "\n");
+# 		countFile.write("musp=" + str(musp) + "\n");

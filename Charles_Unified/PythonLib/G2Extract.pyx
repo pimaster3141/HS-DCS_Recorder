@@ -64,54 +64,54 @@ def seekExtract(startIndex, windowSize, fs, levels, legacy, filename):
 
 	return (g2Data, vap);
 
-def loadG2(path, ssd=True):
-	pool = mp.Pool(processes=1);
-	if(ssd):
-		pool = mp.Pool(processes=4);
+# def loadG2(path, ssd=True):
+# 	pool = mp.Pool(processes=1);
+# 	if(ssd):
+# 		pool = mp.Pool(processes=4);
 
-	filenames = [path+'/G2channel0', path+'/G2channel1', path+'/G2channel2', path+'/G2channel3'];
+# 	filenames = [path+'/G2channel0', path+'/G2channel1', path+'/G2channel2', path+'/G2channel3'];
 
-	g2Data = pool.map(loadG2Channel, filenames);
+# 	g2Data = pool.map(loadG2Channel, filenames);
 
-	filenames = [path+'/VAPchannel0', path+'/VAPchannel1', path+'/VAPchannel2', path+'/VAPchannel3'];
+# 	filenames = [path+'/VAPchannel0', path+'/VAPchannel1', path+'/VAPchannel2', path+'/VAPchannel3'];
 
-	vapData = pool.map(loadVAPChannel, filenames);
-	pool.close();
-	pool.join();
+# 	vapData = pool.map(loadVAPChannel, filenames);
+# 	pool.close();
+# 	pool.join();
 
-	tauList = loadTauList(path+'/TAU');
+# 	tauList = loadTauList(path+'/TAU');
 
-	g2Data = np.array(g2Data);
-	g2Data = np.swapaxes(g2Data, 0, 2);
-	# g2Data = np.swapaxes(g2Data, 0, 1);
+# 	g2Data = np.array(g2Data);
+# 	g2Data = np.swapaxes(g2Data, 0, 2);
+# 	# g2Data = np.swapaxes(g2Data, 0, 1);
 
-	vapData = np.array(vapData);
-	vapData = np.swapaxes(vapData, 0, 1);
+# 	vapData = np.array(vapData);
+# 	vapData = np.swapaxes(vapData, 0, 1);
 
-	return g2Data, tauList, vapData;
+# 	return g2Data, tauList, vapData;
 
-def loadG2Channel(filename):
-	g2Data = [];
-	with open(filename, 'r') as g2File:
-		g2Reader = csv.reader(g2File, quoting=csv.QUOTE_NONNUMERIC);
-		for row in g2Reader:
-			g2Data.append(row);
+# def loadG2Channel(filename):
+# 	g2Data = [];
+# 	with open(filename, 'r') as g2File:
+# 		g2Reader = csv.reader(g2File, quoting=csv.QUOTE_NONNUMERIC);
+# 		for row in g2Reader:
+# 			g2Data.append(row);
 
-	g2Data = np.array(g2Data);
-	return g2Data;
+# 	g2Data = np.array(g2Data);
+# 	return g2Data;
 
-def loadVAPChannel(filename):
-	with open(filename, 'rb') as vapFile:
-		vapData = np.fromfile(vapFile, dtype='int8');
-		return vapData
+# def loadVAPChannel(filename):
+# 	with open(filename, 'rb') as vapFile:
+# 		vapData = np.fromfile(vapFile, dtype='int8');
+# 		return vapData
 
-def loadTauList(filename):
-	tauList = [];
-	with open(filename, 'r') as tauFile:
-		tauReader = csv.reader(tauFile, quoting=csv.QUOTE_NONNUMERIC);
-		for row in tauReader:
-			tauList.append(row);
-	return np.array(tauList)[0];
+# def loadTauList(filename):
+# 	tauList = [];
+# 	with open(filename, 'r') as tauFile:
+# 		tauReader = csv.reader(tauFile, quoting=csv.QUOTE_NONNUMERIC);
+# 		for row in tauReader:
+# 			tauList.append(row);
+# 	return np.array(tauList)[0];
 
 def writeG2Matlab(filename, g2, tau, vap, legacy, fs, intg, fsout):
 
@@ -133,43 +133,32 @@ def writeG2Matlab(filename, g2, tau, vap, legacy, fs, intg, fsout):
 
 	return folder;
 
-def writeG2Data(folder, g2, tau, vap, legacy, fs, intg, fs_out):
-	print("Writing G2 to Disk");
-	vap = np.swapaxes(vap, 0, 1);
-	g2 = np.swapaxes(g2, 0, 2);
-	# g2 = np.swapaxes(g2, 0, 1);
+# def writeG2Data(folder, g2, tau, vap, legacy, fs, intg, fs_out):
+# 	print("Writing G2 to Disk");
+# 	vap = np.swapaxes(vap, 0, 1);
+# 	g2 = np.swapaxes(g2, 0, 2);
+# 	# g2 = np.swapaxes(g2, 0, 1);
 
-	for c in range(len(g2)):
-		with open(folder+"/G2channel"+str(c), 'w', newline='') as g2File:
-			g2writer = csv.writer(g2File);
-			for g in g2[c]:
-				g2writer.writerow(g);
+# 	for c in range(len(g2)):
+# 		with open(folder+"/G2channel"+str(c), 'w', newline='') as g2File:
+# 			g2writer = csv.writer(g2File);
+# 			for g in g2[c]:
+# 				g2writer.writerow(g);
 
-		with open(folder+"/VAPchannel"+str(c), 'wb') as vapFile:
-			vapFile.write(bytes(vap[c]));
+# 		with open(folder+"/VAPchannel"+str(c), 'wb') as vapFile:
+# 			vapFile.write(bytes(vap[c]));
 
-	with open(folder+"/TAU", 'w', newline='') as tauFile:
-		tauwriter = csv.writer(tauFile);
-		tauwriter.writerow(tau);
+# 	with open(folder+"/TAU", 'w', newline='') as tauFile:
+# 		tauwriter = csv.writer(tauFile);
+# 		tauwriter.writerow(tau);
 
-	writeNotes(folder, legacy, fs, intg, fs_out);
+# 	writeNotes(folder, legacy, fs, intg, fs_out);
 
-def writeNotes(folder, legacy, fs, intg, fsout):
-	print("Writing G2 Notes");
-	with open(folder + "/G2_Parameters.txt", 'w') as notes:
-		notes.write("Folder="+str(folder)+"\n");
-		notes.write("legacy="+str(legacy)+"\n");
-		notes.write("fs="+str(fs)+"\n");
-		notes.write("intg="+str(intg)+"\n");
-		notes.write("fsout="+str(fsout)+"\n");
-
-def createFolder(filename, intg):
-	BW = int(1.0/intg + 0.5);
-
-	folder = filename+str(BW)+"Hz";
-
-	if not os.path.exists(folder):
-		print("Creating Directory: " + folder);
-		os.makedirs(folder);
-
-	return folder;
+# def writeNotes(folder, legacy, fs, intg, fsout):
+# 	print("Writing G2 Notes");
+# 	with open(folder + "/G2_Parameters.txt", 'w') as notes:
+# 		notes.write("Folder="+str(folder)+"\n");
+# 		notes.write("legacy="+str(legacy)+"\n");
+# 		notes.write("fs="+str(fs)+"\n");
+# 		notes.write("intg="+str(intg)+"\n");
+# 		notes.write("fsout="+str(fsout)+"\n");

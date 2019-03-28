@@ -10,11 +10,6 @@ import tqdm
 adB_BOUNDS = [1E-11 ,1E-6];
 BETA_BOUNDS = [0.01, 0.7];
 
-def G1Calc(g2Data):
-	beta = G2Calc.calcBeta(g2Data);
-	g1Data = np.sqrt(np.abs((g2Data-1)/beta));
-	return g1Data, beta;
-
 def G1Analytical(alpha, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10):
 	k0=2*np.pi*no/(wavelength);
 	k=np.sqrt(3*mua*musp+6*musp*musp*k0*k0*alpha*tauList);
@@ -49,7 +44,7 @@ def G2Fit(g2Data, tauList, SNR, p0=[1E-9, 0.15], rho=2, no=1.33, wavelength=8.48
 	except:
 		# print("fit Error:");
 		if(ECC):
-			g1Data, beta = G1Calc(g2Data);
+			g1Data, beta = G2Calc.G1Calc(g2Data);
 			flow = G1Fit(g1Data, tauList, SNR, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10);
 			return flow, beta;
 		# print(g2Data)
@@ -63,13 +58,13 @@ def flowFitSingle(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, 
 
 	SNR = G2Calc.calcSNR(g2Data);
 	meanG2 = np.mean(g2Data, axis=0);
-	meanG1 = G1Calc(g2Data);
+	meanG1 = G2Calc.G1Calc(g2Data);
 	p0 = G1Fit(meanG1, tauList, SNR=SNR, rho=rho, no=no, wavelength=wavelength, mua=mua, musp=musp);
 
 	pool = mp.Pool(processes=numProcessors);
 	fcn = partial(G1Fit, tauList=tauList, SNR=SNR, p0=p0, rho=rho, no=no, wavelength=wavelength, mua=mua, musp=musp);
 
-	g1Data = np.array(pool.map(G1Calc, g2Data));
+	g1Data = np.array(pool.map(G2Calc.G1Calc, g2Data));
 	beta = g1Data[:, 1];
 	g1Data = g1Data[:, 0];
 
