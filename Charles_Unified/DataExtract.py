@@ -84,13 +84,13 @@ def fullExtractMatlab(filename, averages, legacy=None, fs=2.5E6, intg=0.05, fsou
 		print("Autoselecting Core Count: " + str(numProcessors));
 
 	if(fs==None):
-		with open(f+'.params') as temp:
+		with open(filename+'.params') as temp:
 			value = temp.readline();
 			fs = int(''.join(list(filter(str.isdigit, value))));
 		print("Autoelecting fs: "+str(fs));
 
 	if(legacy==None):
-		with open(f+'.params') as temp:
+		with open(filename+'.params') as temp:
 			value = temp.readline();
 			value = temp.readline();
 			legacy = 'True' in value;
