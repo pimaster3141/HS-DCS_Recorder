@@ -78,7 +78,7 @@ print("Done");
 # 	FlowExtract.writeFlowMatlab(filename, flows, betas, counts, g2a, averages, rho, no, wavelength, mua, musp);
 # 	print("Completed Flow");
 
-def fullExtractMatlab(filename, averages, legacy=None, fs=2.5E6, intg=0.05, fsout=200, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None):
+def fullExtractMatlab(filename, averages, legacy=None, fs=2.5E6, intg=0.05, fsout=200, levels=16, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None):
 	if(numProcessors==None):
 		numProcessors = psutil.cpu_count(logical=False);
 		print("Autoselecting Core Count: " + str(numProcessors));
@@ -104,12 +104,12 @@ def fullExtractMatlab(filename, averages, legacy=None, fs=2.5E6, intg=0.05, fsou
 	FlowExtract.writeFlowMatlab(filename, flows, betas, counts, g2a, averages, rho, no, wavelength, mua, musp);
 	print("Completed Flow");
 
-def batchFullExtractMatlab(files, averages, legacy=None, fs=None, intg=0.05, fsout=200, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None):
+def batchFullExtractMatlab(files, averages, legacy=None, fs=None, intg=0.05, fsout=200, levels=16, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None):
 	if(numProcessors==None):
 		numProcessors = psutil.cpu_count(logical=False);
 		
 	for f in files:
-		fullExtractMatlab(f, averages, legacy, fs, intg, fsout, rho, no, wavelength, mua, musp, numProcessors);
+		fullExtractMatlab(f, averages, legacy, fs, intg, fsout, levels, rho, no, wavelength, mua, musp, numProcessors);
 
 
 
