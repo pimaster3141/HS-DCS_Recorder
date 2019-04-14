@@ -15,7 +15,7 @@ class DataHandler(mp.Process):
 	_TIMEOUT = 1
 	QUEUE_DEPTH = 100;
 
-	def __init__(self, MPI, dataPipe, bufferSize, sampleSize=2, filename=None):
+	def __init__(self, MPI, dataPipe, bufferSize, sampleSize=2, directory='./output/', filename=None):
 		mp.Process.__init__(self);
 		# threading.Thread.__init__(self);
 
@@ -36,10 +36,16 @@ class DataHandler(mp.Process):
 		self.realtimeQueue = mp.Queue(DataHandler.QUEUE_DEPTH);
 
 		self.outFile = None;
+		self.directory = directory;
 		self.debug = True;
 		if(filename != None):
-			self.outFile = open(filename, 'wb');
+			if(not(directory[-1] == '/')):
+				 self.directory = directory + '/'
+			self.outFile = open(self.directory + filename, 'wb');
 			self.debug = False;
+
+		self.fileUpdateQueue = mp.Queue(2);
+		self.isOutFileUpdate = mp.Event();
 
 		self.isDead = mp.Event();
 
@@ -60,7 +66,13 @@ class DataHandler(mp.Process):
 							self.realtimeQueue.put_nowait(copy.copy(self.dataBuffer));						
 						except queue.Full:														
 							self.MPI.put_nowait("Realtime Buffer Overrun");							
-							self.realtimeData.clear();																
+							self.realtimeData.clear();		
+
+				if(self.isOutFileUpdate.is_set()):
+					filename = self.fileUpdateQueue.get(False);
+					self.outFile.close();
+					self.outFile = open(filename, 'wb');
+					self.isOutFileUpdate.clear();												
 
 		except Exception as e:			
 			try:				
@@ -113,4 +125,22 @@ class DataHandler(mp.Process):
 
 	def disableRealtime(self):
 		self.realtimeData.clear();
+
+	def updateOutFile(self, directory=None, filename):
+		if(directory == None):
+			directory = self.directory;
+
+		if(not (type(x) == str)):
+			raise Exception("Filename not a string");
+
+		if(not(directory[-1] == '/')):
+			 directory = directory + '/'
+
+		filename = directory+filename;
+
+		self.fileUpdateQueue.put(filename);
+		self.isOutFileUpdate.set();
+		while(self.isOutFileUpdate.is_set()):
+			time.sleep(0.5);
+
 
