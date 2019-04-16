@@ -27,6 +27,8 @@ class DCS(mp.Process):
 			raise Exception("UNKNOWN HARDWARE ERROR");
 
 		self.isDead = mp.Event();
+		self.isPaused = mp.Event();
+		# self.isPaused.set();
 
 
 	def run(self):
@@ -48,7 +50,10 @@ class DCS(mp.Process):
 				numRead = self.device.read(DCS._ENDPOINT_ID ,self._packet, DCS._TIMEOUT);
 				if((numRead) != self.bufferSize):
 					raise Exception("Device not ready");
-				self.pipeIn.send_bytes(self._packet);
+
+				if(not self.isPaused.is_set()):
+					self.pipeIn.send_bytes(self._packet);
+
 		except Exception as e:
 			try:
 				self.MPI.put_nowait(e);
@@ -78,6 +83,12 @@ class DCS(mp.Process):
 	def getBufferSize(self):
 		return self.bufferSize;
 
+	def pause(self):
+		self.isPaused.set();
+
+	def resume(self):
+		self.isPaused.clear();
+
 
 class Emulator(mp.Process):
 	_TIMEOUT = 2000;
@@ -96,6 +107,8 @@ class Emulator(mp.Process):
 		self.loadClk = float(bufferSize)/fs;
 
 		self.isDead = mp.Event();
+		self.isPaused = mp.Event();
+		# self.isPaused.set();
 
 	def run(self):	
 		p = psutil.Process(os.getpid());
@@ -107,7 +120,10 @@ class Emulator(mp.Process):
 				self._packet = self.file.read(self.bufferSize);
 				if(len(self._packet) != self.bufferSize):
 					raise Exception("Device not ready");
-				self.pipeIn.send_bytes(self._packet);
+
+				if(not self.isPaused.is_set()):	
+					self.pipeIn.send_bytes(self._packet);
+
 				trun = time.time() - tstart;
 				tstart = time.time();
 
@@ -143,3 +159,9 @@ class Emulator(mp.Process):
 
 	def getBufferSize(self):
 		return self.bufferSize;
+
+	def pause(self):
+		self.isPaused.set();
+
+	def resume(self):
+		self.isPaused.clear();

@@ -15,7 +15,7 @@ class DataHandler(mp.Process):
 	_TIMEOUT = 1
 	QUEUE_DEPTH = 100;
 
-	def __init__(self, MPI, dataPipe, bufferSize, sampleSize=2, directory='./output/', filename=None):
+	def __init__(self, MPI, dataPipe, bufferSize, sampleSize=2, filename=None, directory='./output/'):
 		mp.Process.__init__(self);
 		# threading.Thread.__init__(self);
 
@@ -36,13 +36,17 @@ class DataHandler(mp.Process):
 		self.realtimeQueue = mp.Queue(DataHandler.QUEUE_DEPTH);
 
 		self.outFile = None;
+		if(directory == None):
+			directory = '';
 		self.directory = directory;
-		self.debug = True;
+		self.debug = mp.Event();
+		self.debug.set();
 		if(filename != None):
 			if(not(directory[-1] == '/')):
-				 self.directory = directory + '/'
+				self.directory = directory + '/'
+			os.makedirs(self.directory, exist_ok=True);
 			self.outFile = open(self.directory + filename, 'wb');
-			self.debug = False;
+			self.debug.clear();
 
 		self.fileUpdateQueue = mp.Queue(2);
 		self.isOutFileUpdate = mp.Event();
@@ -58,7 +62,7 @@ class DataHandler(mp.Process):
 				if(self.dataPipe.poll(DataHandler._TIMEOUT)):					
 					self.dataPipe.recv_bytes_into(self.dataBuffer);					
 
-					if(not self.debug):						
+					if(not self.debug.is_set()):						
 						self.dataBuffer.tofile(self.outFile);						
 
 					if(self.realtimeData.is_set()):						
@@ -126,21 +130,29 @@ class DataHandler(mp.Process):
 	def disableRealtime(self):
 		self.realtimeData.clear();
 
-	def updateOutFile(self, directory=None, filename):
+	def updateOutFile(self, filename, directory=None):
 		if(directory == None):
 			directory = self.directory;
+		else:
+			if(not (type(directory) == str)):
+				raise Exception("Directory not a string");
+			if(not(directory[-1] == '/')):
+				directory = directory + '/'
+			os.makedirs(directory, exist_ok=True);
 
-		if(not (type(x) == str)):
-			raise Exception("Filename not a string");
+		if(filename == None):
+			self.debug.set();
+			return;
+		else:
+			if(not (type(filename) == str)):
+				raise Exception("Filename not a string");
+			self.debug.clear();
 
-		if(not(directory[-1] == '/')):
-			 directory = directory + '/'
+			filename = directory+filename;
 
-		filename = directory+filename;
-
-		self.fileUpdateQueue.put(filename);
-		self.isOutFileUpdate.set();
-		while(self.isOutFileUpdate.is_set()):
-			time.sleep(0.5);
+			self.fileUpdateQueue.put(filename);
+			self.isOutFileUpdate.set();
+			while(self.isOutFileUpdate.is_set()):
+				time.sleep(0.5);
 
 
