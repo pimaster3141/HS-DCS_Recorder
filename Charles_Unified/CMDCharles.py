@@ -1,5 +1,6 @@
 import sys
 sys.path.insert(0, 'PythonLib');
+sys.path.insert(0, 'PythonLib/System');
 import CharlesSystem
 import code
 

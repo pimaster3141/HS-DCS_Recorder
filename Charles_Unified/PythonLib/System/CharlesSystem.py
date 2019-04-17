@@ -10,11 +10,11 @@ print("Compiling and Loading Libraries...")
 
 import setuptools
 import pyximport; pyximport.install()
-
-import usb
 import FX3
 import DataHandler
 import DataProcessor
+
+import usb
 import Display
 import multiprocessing as mp
 import time
@@ -29,7 +29,7 @@ class CharlesSystem():
 	BYTES_PER_SAMPLE = 2;
 
 	
-	def __init__(self, outFile, version=None, fs=None, averages=[[0, 3]], numProcessors=None, demo=False):
+	def __init__(self, outFile=None, version=None, fs=None, averages=[[0, 3]], numProcessors=None, demo=False):
 		
 		self.isStarted = False;
 		self.outFile = outFile;
@@ -50,6 +50,7 @@ class CharlesSystem():
 		self.fs = 2E6;
 		if(self.demo):
 			self.FX3 = FX3.Emulator(self.MPIFX3, 'flat_initial');
+			
 		else:
 			devices, kind = findDevices(version);
 			self.dev = devices[0];
