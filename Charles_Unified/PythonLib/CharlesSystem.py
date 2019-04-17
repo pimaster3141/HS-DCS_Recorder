@@ -49,7 +49,7 @@ class CharlesSystem():
 		self.legacy = False;
 		self.fs = 2E6;
 		if(self.demo):
-			self.FX3 = FX3.Emulator(self.MPIFX3, '../Charles2/PythonReader/output/japan_flat');
+			self.FX3 = FX3.Emulator(self.MPIFX3, 'flat_initial');
 		else:
 			devices, kind = findDevices(version);
 			self.dev = devices[0];
