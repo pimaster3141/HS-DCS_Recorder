@@ -97,7 +97,7 @@ def fullExtractMatlab(filename, averages, legacy=None, fs=2.5E6, intg=0.05, fsou
 		print("Autoselecting Legacy: " + str(legacy));
 		
 	print("Extracting: " + filename);
-	(g, t, v) = G2Extract.processG2(filename, legacy, fs, intg, fsout, numProcessors);
+	(g, t, v) = G2Extract.processG2(filename, legacy, fs, intg, fsout, levels, numProcessors);
 	filename = G2Extract.writeG2Matlab(filename, g, t, v, legacy, fs, intg, fsout);
 	print("Completed G2");
 	(flows, betas, counts, g2a) = FlowExtract.calculateFlow(g, t, averages, fs, rho, no, wavelength, mua, musp, numProcessors);
