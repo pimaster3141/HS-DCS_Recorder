@@ -28,14 +28,14 @@ def processG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, levels=16,
 	windowShift = int(fs/fsout);
 	numSamples = np.floor(((fsize/BYTES_PER_SAMPLE)-windowSize)/windowShift)+1;
 
-	tauList = G2Calc.mtAuto(np.ones(windowSize), fs=fs, levels)[:,0];
+	tauList = G2Calc.mtAuto(np.ones(windowSize), fs=fs, levels=levels)[:,0];
 
 	# print(numSamples);
 	# print(windowShift);
 	startIndexes = np.arange(numSamples, dtype=np.uint64)*windowShift;
 	# print(type(startIndexes[0]));
 	pool = mp.Pool(processes=numProcessors);
-	fcn = partial(seekExtract, windowSize=windowSize, fs=fs, levels, legacy=legacy, filename=filename);
+	fcn = partial(seekExtract, windowSize=windowSize, fs=fs, levels=levels, legacy=legacy, filename=filename);
 
 	# data = pool.map(fcn, startIndexes, chunksize=100);
 	data = list(tqdm.tqdm(pool.imap(fcn, startIndexes, chunksize=max(int(len(startIndexes)/10000/numProcessors), 100)), total=len(startIndexes)));
