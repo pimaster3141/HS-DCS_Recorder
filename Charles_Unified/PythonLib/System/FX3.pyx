@@ -1,7 +1,7 @@
 import multiprocessing as mp
 import usb.core
 import usb.util
-import array
+# import array
 import time
 import psutil
 import os
@@ -79,12 +79,6 @@ class DCS(mp.Process):
 
 	def getBufferSize(self):
 		return self.bufferSize;
-
-	def pause(self):
-		self.isPaused.set();
-
-	def resume(self):
-		self.isPaused.clear();
 
 
 class Emulator(mp.Process):
