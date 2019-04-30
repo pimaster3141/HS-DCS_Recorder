@@ -179,7 +179,7 @@ class GraphWindow():
 		if(self.isAlive):
 			try:
 				self.updateRoutine();
-			except queue.Empty, OSError:
+			except (queue.Empty, OSError):
 				self.isAlive = False;
 
 			current = time.time();

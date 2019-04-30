@@ -53,7 +53,7 @@ class DataHandler(mp.Process):
 
 		self.isDead = mp.Event();
 		self.isPaused = mp.Event();
-		self.isPaused.set();
+		# self.isPaused.set();
 
 
 	def run(self):
