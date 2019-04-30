@@ -78,3 +78,5 @@ Charles*/GPIF_II_SM/projectfiles/
 # Charles*/EZ-USB/.metdata
 *.pyc
 
+__pycache__/
+output/
