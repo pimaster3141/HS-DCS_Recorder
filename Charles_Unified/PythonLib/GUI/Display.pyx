@@ -9,12 +9,14 @@ import G2Calc
 import queue
 import time
 import warnings
+import Checker
+import PushNotification
 
 class GraphWindow():
 	PEN_COLORS = ['w', 'y', 'g', 'b'];
 	QUEUE_TIMEOUT = 5;	
 
-	def __init__(self, processor, depth=10, legacy=False, refreshRate=30, stopFcn=None):
+	def __init__(self, processor, depth=10, legacy=False, refreshRate=30, stopFcn=None, checkers=True):
 		warnings.catch_warnings();
 		warnings.simplefilter("ignore");
 		self.processor = processor;
@@ -32,6 +34,11 @@ class GraphWindow():
 		self._refreshPeriod = 1/refreshRate;
 		self.stopFcn = stopFcn;
 		self.isAlive = True;
+
+		self.pusher = PushNotification.Pusher();
+		self.pulseCheck = Checker.PulseChecker(self.pusher, 1/self.samplePeriod);
+		self.betaCheck = Checker.BetaChecker(self.pusher);
+
 
 		self.setupDataBuffers();
 		self.setupPlots(legacy);
@@ -148,6 +155,10 @@ class GraphWindow():
 
 			self.flowBuffer = np.roll(self.flowBuffer, -1*numShift, axis=0);
 			self.flowBuffer[-numShift:] = flowData;
+
+		self.betaCheck.check(betaData);
+		self.pulseCheck.check(self.vapBuffer[:,2]);
+
 
 	def redrawCurves(self):
 		snrData = G2Calc.calcSNR(self.g2Buffer);
