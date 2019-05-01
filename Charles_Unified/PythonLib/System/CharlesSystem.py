@@ -29,10 +29,15 @@ class CharlesSystem():
 	BYTES_PER_SAMPLE = 2;
 
 	
-	def __init__(self, outFile=None, version=None, fs=None, averages=[[0, 3]], numProcessors=None, demo=False):
+	def __init__(self, outFile=None, directory='./output/', version=None, fs=None, averages=[[0, 3]], numProcessors=None, demo=False):
 		
 		self.isStarted = False;
 		self.outFile = outFile;
+		self.directory = directory;
+		if (directory == None):
+			directory = './output/';
+		if(not(directory[-1] == '/')):
+			self.directory = directory + '/'
 		self.demo = demo;
 
 		self.numProcessors = numProcessors;
@@ -54,6 +59,10 @@ class CharlesSystem():
 			devices, kind = findDevices(version);
 			self.dev = devices[0];
 			self.legacy = kind[0];
+			if(self.legacy):
+				self.directory = self.directory+"Charles1/";
+			else:
+				self.directory = self.directory+"Charles2/";
 			self.dev.reset();
 			self.dev.set_configuration();
 			self.FX3 = FX3.DCS(self.MPIFX3, self.dev)
@@ -64,7 +73,7 @@ class CharlesSystem():
 				print("Device is " + str(self.fs/1E6) + "Msps");
 
 			if(not outFile==None):
-				with open(str(outFile)+".params", 'w') as f:
+				with open(self.directory+str(outFile)+".params", 'w') as f:
 					f.write("fs="+str(self.fs)+"\n");
 					f.write("legacy="+str(self.legacy)+"\n");
 					f.write("averages="+str(averages)+"\n");

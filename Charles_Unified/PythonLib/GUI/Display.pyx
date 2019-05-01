@@ -157,7 +157,7 @@ class GraphWindow():
 			self.flowBuffer[-numShift:] = flowData;
 
 		self.betaCheck.check(betaData);
-		self.pulseCheck.check(self.vapBuffer[:,2]);
+		self.pulseCheck.check(self.vapBuffer[:,1]);
 
 
 	def redrawCurves(self):

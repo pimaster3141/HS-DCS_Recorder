@@ -2,7 +2,7 @@ import time;
 import numpy as np
 
 class PulseChecker():
-	CHECK_INTERVAL = 5;
+	CHECK_INTERVAL = 2;
 
 	def __init__(self, pusher, sampleRate, highBPM=150, lowBPM=40, quietTimeout=30):
 		self.pusher = pusher;
@@ -20,12 +20,10 @@ class PulseChecker():
 			self.lastCheck = current;
 
 			data = self.findEdges(pulseBuffer);
-			hr = np.mean(np.diff(data))/self.sampleRate*60;
-
-			print hr;
-			
+			hr = np.mean(np.diff(data))/self.sampleRate*60;			
 			if(hr > self.highBPM or hr < self.lowBPM):
 				self.pusher.send("EKG FAULT - HR: " + str(int(hr)) + "BPM");
+				print("EKG FAULT - HR: " + str(int(hr)) + "BPM");
 				self.lastTrigger = current;
 
 	def findEdges(self, data, rising=True):
@@ -44,7 +42,7 @@ class PulseChecker():
 class BetaChecker():
 	FM_THRESHOLD = 0.1;
 	SM_THRESHOLD = 0.3;
-	THRESHOLD_CUTOFF = 2;
+	THRESHOLD_CUTOFF = 1;
 
 	def __init__(self, pusher, fewMode=True, quietTimeout=30):
 		self.pusher = pusher;
@@ -69,6 +67,7 @@ class BetaChecker():
 				else:
 					if((current - self.faultStart) > BetaChecker.THRESHOLD_CUTOFF):
 						self.pusher.send("LASER INSTABILITY - Beta: " + str(np.mean(data)));
+						print("LASER INSTABILITY - Beta: " + str(np.mean(data)));
 						self.lastTrigger = current;
 						self.inFault = False;
 			else:
