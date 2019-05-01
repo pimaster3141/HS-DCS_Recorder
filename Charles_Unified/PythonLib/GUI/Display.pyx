@@ -39,6 +39,7 @@ class GraphWindow():
 		self.pulseCheck = Checker.PulseChecker(self.pusher, 1/self.samplePeriod);
 		self.betaCheck = Checker.BetaChecker(self.pusher);
 
+		self.legacy = legacy;
 
 		self.setupDataBuffers();
 		self.setupPlots(legacy);

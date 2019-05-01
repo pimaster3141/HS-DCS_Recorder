@@ -19,6 +19,7 @@ import Display
 import multiprocessing as mp
 import time
 import psutil
+import os
 print("Done")
 
 class CharlesSystem():
@@ -63,6 +64,7 @@ class CharlesSystem():
 				self.directory = self.directory+"Charles1/";
 			else:
 				self.directory = self.directory+"Charles2/";
+			os.makedirs(self.directory, exist_ok=True);
 			self.dev.reset();
 			self.dev.set_configuration();
 			self.FX3 = FX3.DCS(self.MPIFX3, self.dev)
@@ -80,7 +82,7 @@ class CharlesSystem():
 
 		fxPipe = self.FX3.getPipe();
 		fxBufferSize = self.FX3.getBufferSize();
-		self.handler = DataHandler.DataHandler(self.MPIHandler, fxPipe, fxBufferSize, sampleSize=CharlesSystem.BYTES_PER_SAMPLE, filename=self.outFile);
+		self.handler = DataHandler.DataHandler(self.MPIHandler, fxPipe, fxBufferSize, sampleSize=CharlesSystem.BYTES_PER_SAMPLE, filename=self.outFile, directory=self.directory);
 
 		handlerBuffer = self.handler.getRealtimeQueue();
 		self.handler.enableRealtime();

@@ -4,7 +4,7 @@ import numpy as np
 class PulseChecker():
 	CHECK_INTERVAL = 2;
 
-	def __init__(self, pusher, sampleRate, highBPM=150, lowBPM=70, quietTimeout=30):
+	def __init__(self, pusher, sampleRate, highBPM=200, lowBPM=70, quietTimeout=30):
 		self.pusher = pusher;
 		self.sampleRate = sampleRate;
 		self.highBPM = highBPM;
@@ -14,13 +14,16 @@ class PulseChecker():
 		self.lastTrigger = time.time();
 		self.lastCheck = time.time();
 
+		print(sampleRate);
+
 	def check(self, pulseBuffer):
 		current = time.time();
 		if((current - self.lastCheck)>PulseChecker.CHECK_INTERVAL and (current - self.lastTrigger)>self.quietTimeout):
 			self.lastCheck = current;
 
 			data = self.findEdges(pulseBuffer);
-			hr = np.mean(np.diff(data))/self.sampleRate*60;			
+			hr = self.sampleRate/np.mean(np.diff(data))*60;	
+			# print(hr);		
 			if(hr > self.highBPM or hr < self.lowBPM):
 				self.pusher.send("EKG FAULT - HR: " + str(int(hr)) + "BPM");
 				print("EKG FAULT - HR: " + str(int(hr)) + "BPM");
