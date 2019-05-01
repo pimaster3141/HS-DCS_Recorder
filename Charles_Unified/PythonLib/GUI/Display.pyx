@@ -156,8 +156,9 @@ class GraphWindow():
 			self.flowBuffer = np.roll(self.flowBuffer, -1*numShift, axis=0);
 			self.flowBuffer[-numShift:] = flowData;
 
-		self.betaCheck.check(betaData);
-		self.pulseCheck.check(self.vapBuffer[:,1]);
+		if(not self.legacy):
+			self.betaCheck.check(betaData);
+			self.pulseCheck.check(self.vapBuffer[:,1]);
 
 
 	def redrawCurves(self):

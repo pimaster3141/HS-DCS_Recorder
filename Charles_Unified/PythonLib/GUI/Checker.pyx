@@ -4,7 +4,7 @@ import numpy as np
 class PulseChecker():
 	CHECK_INTERVAL = 2;
 
-	def __init__(self, pusher, sampleRate, highBPM=150, lowBPM=40, quietTimeout=30):
+	def __init__(self, pusher, sampleRate, highBPM=150, lowBPM=70, quietTimeout=30):
 		self.pusher = pusher;
 		self.sampleRate = sampleRate;
 		self.highBPM = highBPM;
