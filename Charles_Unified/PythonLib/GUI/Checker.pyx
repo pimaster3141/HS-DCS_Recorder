@@ -43,7 +43,7 @@ class PulseChecker():
 
 
 class BetaChecker():
-	FM_THRESHOLD = 0.1;
+	FM_THRESHOLD = 0.125;
 	SM_THRESHOLD = 0.3;
 	THRESHOLD_CUTOFF = 1;
 
