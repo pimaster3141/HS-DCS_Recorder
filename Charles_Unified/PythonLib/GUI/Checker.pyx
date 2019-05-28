@@ -43,9 +43,9 @@ class PulseChecker():
 
 
 class BetaChecker():
-	FM_THRESHOLD = 0.125;
+	FM_THRESHOLD = 0.14;
 	SM_THRESHOLD = 0.3;
-	THRESHOLD_CUTOFF = 1;
+	THRESHOLD_CUTOFF = 0.5;
 
 	def __init__(self, pusher, fewMode=True, quietTimeout=30):
 		self.pusher = pusher;
