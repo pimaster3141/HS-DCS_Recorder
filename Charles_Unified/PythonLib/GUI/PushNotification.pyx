@@ -24,7 +24,7 @@ class Pusher():
 		if(not self.notify == None):
 			try:
 				# self.notify.send(str(message));
-				thread = Thread(target=self.notify.send , args=(str(message)));
+				thread = Thread(target=self.notify.send , args=(str(message),));
 				thread.start();
 			except:
 				print("Cannot send message - Check internet");
