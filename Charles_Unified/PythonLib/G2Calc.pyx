@@ -32,7 +32,8 @@ def calculateG2(data, fs, levels, legacy):
 		channel, vap = HSDCSParser.parseCharles2(data);
 
 	g2Data = mtAutoQuad(channel, fs, levels);
-	vap = np.array((np.mean(vap, axis=1)+.5), dtype=np.int8);
+	# vap = np.array((np.mean(vap, axis=1)+.5), dtype=np.int8);
+	vap = np.array((np.mean(vap, axis=1)>0.05), dtype=np.int8);
 
 	return(g2Data, vap);
 
