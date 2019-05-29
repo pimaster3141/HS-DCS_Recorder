@@ -1,4 +1,5 @@
 from notify_run import Notify
+from thread import start_new_thread
 
 class Pusher():
 	def __init__(self, showQR=True, register=False):
@@ -22,7 +23,8 @@ class Pusher():
 	def send(self, message):
 		if(not self.notify == None):
 			try:
-				self.notify.send(str(message));
+				# self.notify.send(str(message));
+				start_new_thread(self.notify.send , (str(message)));
 			except:
 				print("Cannot send message - Check internet");
 		
