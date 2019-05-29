@@ -2,18 +2,28 @@ from notify_run import Notify
 
 class Pusher():
 	def __init__(self, showQR=True, register=False):
-		self.notify = Notify();
-		x = None;
-		if(register):
-			x = self.notify.register();
-		else:					
-			try:
-				x = self.notify.info()
-			except:
+		self.notify = None;
+		try:
+			self.notify = Notify();
+			x = None;
+			if(register):
 				x = self.notify.register();
-		if(showQR):
-			print(x);
+			else:					
+				try:
+					x = self.notify.info()
+				except:
+					x = self.notify.register();
+			if(showQR):
+				print(x);
+		except:
+			print("Error initializing notification - skipping");
+			pass;
 
 	def send(self, message):
-		self.notify.send(str(message));
+		if(not self.notify == None):
+			try:
+				self.notify.send(str(message));
+			except:
+				print("Cannot send message - Check internet");
+		
 
