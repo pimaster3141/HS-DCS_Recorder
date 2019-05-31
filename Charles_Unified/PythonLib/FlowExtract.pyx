@@ -83,7 +83,7 @@ def calculateFlow(g2Data, tauList, averages, fs=2.5E6, rho=2, no=1.33, wavelengt
 # 	countData = np.swapaxes(countData, 0, 1);
 # 	return countData;
 
-def writeFlowMatlab(filename, flow, beta, count, g2Avg, averages, rho, no, wavelength, mua, musp):
+def writeFlowMatlab(filename, flow, beta, count, g2Avg, averages, rho, no, wavelength, mua, musp saveG2=False):
 	print("Creating Matlab File: " + filename);
 	outData = {};
 
@@ -92,7 +92,8 @@ def writeFlowMatlab(filename, flow, beta, count, g2Avg, averages, rho, no, wavel
 	outData['dbfit'] = flow;
 	outData['beta'] = beta;
 	outData['count'] = count;
-	outData['g2'] = g2Avg;
+	if(saveG2):
+		outData['g2'] = g2Avg;
 	outData['average'] = averages;
 	outData['rho'] = rho;
 	outData['no'] = no;

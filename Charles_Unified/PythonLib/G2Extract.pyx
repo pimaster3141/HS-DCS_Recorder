@@ -113,7 +113,7 @@ def seekExtract(startIndex, windowSize, fs, levels, legacy, filename):
 # 			tauList.append(row);
 # 	return np.array(tauList)[0];
 
-def writeG2Matlab(filename, g2, tau, vap, legacy, fs, intg, fsout):
+def writeG2Matlab(filename, g2, tau, vap, legacy, fs, intg, fsout saveG2=False):
 
 	BW = int(1.0/intg + 0.5);
 	folder = filename+str(BW)+"Hz";
@@ -121,7 +121,8 @@ def writeG2Matlab(filename, g2, tau, vap, legacy, fs, intg, fsout):
 	print("Creating Matlab File: " + folder);
 	outData = {};
 
-	outData['g2Raw'] = g2;
+	if(saveG2):
+		outData['g2Raw'] = g2;
 	outData['tauList'] = tau;
 	outData['vap'] = vap;
 	outData['legacy'] = legacy;
