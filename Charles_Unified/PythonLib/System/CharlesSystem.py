@@ -102,8 +102,11 @@ class CharlesSystem():
 		self.FX3.stop();
 		self.handler.stop();
 		self.processor.stop();
-		self.display.stop();
-
+		try:
+			self.display.stop();
+		except:
+			print("Error stopping Display");
+			
 		self.FX3.join();
 		self.handler.join();
 		self.processor.join();

@@ -22,7 +22,7 @@ int main(void)
 	WDTCTL = WDTPW | WDTHOLD;	// stop watchdog timer
 	
 	initSystem();
-//	initClk();
+	initClk();
 
 //	P1OUT=0;
 
@@ -45,7 +45,7 @@ void initSystem(void)
     P2OUT = 1;
     P7OUT = 0;
 
-//    UCSCTL4 = SELM_3+SELS_3+SELA_3;
+    UCSCTL4 = SELM_3+SELS_3+SELA_3;
     return;
 }
 
@@ -53,7 +53,7 @@ void initClk(void)
 {
 
 
-    P1OUT=0;
+//    P1OUT=0;
 
     P1SEL |= BIT0;  // SET ACLK OUTPUT
     P5SEL |= BIT2;  // CFG XTAL INPUT
@@ -84,6 +84,7 @@ void initClk(void)
 
 
     UCSCTL5 |= DIVA_2;  // divide aclk /4
+//    UCSCTL5 = DIVA_0;
     P1OUT |= SCLK_MCU_BYP;  // OVERRIDE SYSCLK
 
 }

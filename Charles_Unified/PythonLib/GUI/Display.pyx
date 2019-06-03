@@ -16,7 +16,7 @@ class GraphWindow():
 	PEN_COLORS = ['w', 'y', 'g', 'b'];
 	QUEUE_TIMEOUT = 5;	
 
-	def __init__(self, processor, depth=10, legacy=False, refreshRate=30, stopFcn=None, checkers=True):
+	def __init__(self, processor, depth=10, legacy=False, refreshRate=20, stopFcn=None, checkers=True):
 		warnings.catch_warnings();
 		warnings.simplefilter("ignore");
 		self.processor = processor;
@@ -166,6 +166,7 @@ class GraphWindow():
 		snrData = G2Calc.calcSNR(self.g2Buffer);
 		for c in range(self.numG2Channels):
 			self.g2Curves[c].setData(x=self.tauList, y=self.g2Buffer[-1,c,:]);
+			# self.g2Curves[c].setData(x=self.tauList, y=np.mean(self.g2Buffer[:,c,:], axis=0));
 			self.snrCurves[c].setData(x=self.tauList, y=snrData[c]);
 			self.vapCurves[c].setData(x=self.xData, y=self.vapBuffer[:,c]);
 			self.countCurves[c].setData(x=self.xData, y=self.countBuffer[:,c]);
