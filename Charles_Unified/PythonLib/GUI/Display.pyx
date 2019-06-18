@@ -165,8 +165,8 @@ class GraphWindow():
 	def redrawCurves(self):
 		snrData = G2Calc.calcSNR(self.g2Buffer);
 		for c in range(self.numG2Channels):
-			self.g2Curves[c].setData(x=self.tauList, y=self.g2Buffer[-1,c,:]);
-			# self.g2Curves[c].setData(x=self.tauList, y=np.mean(self.g2Buffer[:,c,:], axis=0));
+			# self.g2Curves[c].setData(x=self.tauList, y=self.g2Buffer[-1,c,:]);
+			self.g2Curves[c].setData(x=self.tauList, y=np.mean(self.g2Buffer[:,c,:], axis=0));
 			self.snrCurves[c].setData(x=self.tauList, y=snrData[c]);
 			self.vapCurves[c].setData(x=self.xData, y=self.vapBuffer[:,c]);
 			self.countCurves[c].setData(x=self.xData, y=self.countBuffer[:,c]);

@@ -83,8 +83,8 @@ void initClk(void)
     }
 
 
-    UCSCTL5 |= DIVA_2;  // divide aclk /4
-//    UCSCTL5 = DIVA_0;
+//    UCSCTL5 |= DIVA_2;  // divide aclk /4
+    UCSCTL5 = DIVA_0;
     P1OUT |= SCLK_MCU_BYP;  // OVERRIDE SYSCLK
 
 }
