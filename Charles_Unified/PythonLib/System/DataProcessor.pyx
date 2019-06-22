@@ -30,7 +30,8 @@ class DataProcessor(mp.Process):
 		self.averages = averages
 		self.legacy = legacy;
 		self.fs = fs;
-		self.packetMultiple = packetMultiple;
+		# self.packetMultiple = packetMultiple;
+		self.packetMultiple = 8;
 		self.calcFlow = calcFlow;
 
 		self.npDtype = None;
