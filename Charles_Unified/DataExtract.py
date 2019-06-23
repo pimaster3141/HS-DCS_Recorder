@@ -101,7 +101,7 @@ def fullExtractMatlab(filename, averages, legacy=None, fs=2.5E6, intg=0.05, fsou
 	filename = G2Extract.writeG2Matlab(filename, g, t, v, legacy, fs, intg, fsout, saveG2=False);
 	print("Completed G2");
 	(flows, betas, counts, g2a) = FlowExtract.calculateFlow(g, t, averages, fs, rho, no, wavelength, mua, musp, numProcessors);
-	FlowExtract.writeFlowMatlab(filename, flows, betas, counts, g2a, averages, rho, no, wavelength, mua, musp, saveG2=True);
+	FlowExtract.writeFlowMatlab(filename, flows, betas, counts, g2a, averages, rho, no, wavelength, mua, musp, saveG2=False);
 	print("Completed Flow");
 
 def batchFullExtractMatlab(files, averages, legacy=None, fs=None, intg=0.05, fsout=200, levels=16, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None):
