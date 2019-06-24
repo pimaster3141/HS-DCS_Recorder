@@ -103,6 +103,8 @@ def writeFlowMatlab(filename, flow, beta, count, g2Avg, averages, rho, no, wavel
 
 	matWriter.savemat(filename, outData);
 
+	del(outData);
+
 # def writeFlowData(folder, flows, betas, counts, averages, rho, no, wavelength, mua, musp):
 # 	print("Writing Files");
 

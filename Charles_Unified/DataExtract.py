@@ -17,6 +17,7 @@ import G2Extract
 import os
 
 import psutil
+import gc
 print("Done");
 
 # def extractG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, numProcessors=None):
@@ -103,6 +104,16 @@ def fullExtractMatlab(filename, averages, legacy=None, fs=2.5E6, intg=0.05, fsou
 	(flows, betas, counts, g2a) = FlowExtract.calculateFlow(g, t, averages, fs, rho, no, wavelength, mua, musp, numProcessors);
 	FlowExtract.writeFlowMatlab(filename, flows, betas, counts, g2a, averages, rho, no, wavelength, mua, musp, saveG2=False);
 	print("Completed Flow");
+
+	del(g);
+	del(t); 
+	del(v);
+	del(flows);
+	del(betas);
+	del(counts);
+	del(g2a);
+	del(filename);
+	gc.collect();
 
 def batchFullExtractMatlab(files, averages, legacy=None, fs=None, intg=0.05, fsout=200, levels=16, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None):
 	if(numProcessors==None):

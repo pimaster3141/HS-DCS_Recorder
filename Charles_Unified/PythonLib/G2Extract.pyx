@@ -132,6 +132,8 @@ def writeG2Matlab(filename, g2, tau, vap, legacy, fs, intg, fsout, saveG2=False)
 
 	matWriter.savemat(folder, outData);
 
+	del(outData);
+
 	return folder;
 
 # def writeG2Data(folder, g2, tau, vap, legacy, fs, intg, fs_out):
