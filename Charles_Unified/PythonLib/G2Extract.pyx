@@ -51,6 +51,8 @@ def processG2(filename, legacy=False, fs=2.5E6, intg=0.05, fsout=200, levels=16,
 	# count = np.swapaxes(count, 0, 1);
 	vap = np.array([item[1] for item in data]);
 	# vap = np.swapaxes(vap, 0, 1);
+	del(pool);
+	del(data);
 	print("G2 Computation time: " + str(time.time()-start));
 	return (g2Data, tauList, vap);
 
@@ -61,6 +63,8 @@ def seekExtract(startIndex, windowSize, fs, levels, legacy, filename):
 	data = np.fromfile(f, count=windowSize, dtype=SAMPLE_DTYPE);
 	f.close();
 	(g2Data, vap) = G2Calc.calculateG2(data, fs, levels, legacy);
+
+	del(data);
 
 	return (g2Data, vap);
 

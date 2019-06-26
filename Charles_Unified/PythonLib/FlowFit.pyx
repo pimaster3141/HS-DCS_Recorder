@@ -94,6 +94,9 @@ def flowFitDual(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, mu
 	pool.close();
 	pool.join();
 
+	del(pool);
+	
+
 	return data[:, 0], data[:, 1];
 
 
