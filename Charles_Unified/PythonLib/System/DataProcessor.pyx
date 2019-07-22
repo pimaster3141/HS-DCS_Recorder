@@ -22,7 +22,7 @@ class DataProcessor(mp.Process):
 	QUEUE_DEPTH = 100;
 	G2_LEVELS = 6;
 
-	def __init__(self, MPI, inputBuffer, averages, legacy, fs, bufferSize, sampleSize=2, packetMultiple=4, calcFlow=False, SNRBufferDepth=500, numProcessors=None):
+	def __init__(self, MPI, inputBuffer, averages, legacy, fs, bufferSize, sampleSize=2, packetMultiple=2, calcFlow=False, SNRBufferDepth=500, numProcessors=None):
 		mp.Process.__init__(self);
 		# threading.Thread.__init__(self);
 		self.MPI = MPI;
@@ -30,8 +30,8 @@ class DataProcessor(mp.Process):
 		self.averages = averages
 		self.legacy = legacy;
 		self.fs = fs;
-		# self.packetMultiple = packetMultiple;
-		self.packetMultiple = 8;
+		self.packetMultiple = packetMultiple;
+		# self.packetMultiple = 8;
 		self.calcFlow = calcFlow;
 
 		self.npDtype = None;
