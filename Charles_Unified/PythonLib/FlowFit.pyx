@@ -7,12 +7,12 @@ import multiprocessing as mp
 from functools import partial
 import tqdm
 
-adB_BOUNDS = [1E-11 ,1E-6];
+aDb_BOUNDS = [1E-11 ,1E-6];
 BETA_BOUNDS = [0.01, 0.7];
 
-def G1Analytical(alpha, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10):
+def G1Analytical(aDb, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10):
 	k0=2*np.pi*no/(wavelength);
-	k=np.sqrt(3*mua*musp+6*musp*musp*k0*k0*alpha*tauList);
+	k=np.sqrt(3*mua*musp+6*musp*musp*k0*k0*aDb*tauList);
 	n=no/1;
 	Reff=-1.44/(n*n)+0.710/n+0.668+0.00636*n;
 	zb=(2*(1+Reff))/(3*musp*(1-Reff));
@@ -23,15 +23,103 @@ def G1Analytical(alpha, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, mu
 	g1=G1/G1_0;
 	return g1;
 
-def G2Analytical(alpha, beta, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10):
-	g1 = G1Analytical(alpha, tauList, rho, no, wavelength, mua, musp);
+def G1Analytical_2Layer(aDb1, aDb2, tauList, d=0.2, rho=2, no1=1.33, no2=1.33, wavelength=8.48E-5, mua1=0.1, mua2=0.1, musp1=10, musp2=10):
+	la1 = 1/mua1; #absoption length
+	la2 = 1/mua2;
+	lt1 = 1/(mua1+musp1); #transport mean free path
+	lt2 = 1/(mua2+musp2);
+
+	k1 = 2*pi*no1/wavelength; #wavenumber
+	k2 = 2*pi*no2/wavelength;
+	c = 3*10^10; #(cm/s)
+
+	tau1 = ((k1^2*aDb1)^-1); #single_scattering correlation time
+	tau2 = ((k2^2*aDb2)^-1); #aDb: effective brownian motion 
+
+	a1 = sqrt(3/(lt1*la1)+6.*tauList/(tau1*lt1^2));
+	a2 = sqrt(3/(lt2*la2)+6.*tauList/(tau2*lt2^2));
+	#loss of correlation due to the motion of scatters
+
+	b1 = @(s) sqrt(a1.^2+s.^2); # s: radial spatial frequency
+	b2 = @(s) sqrt(a2.^2+s.^2);
+
+	z0 = 1/musp1; #extrapolation length
+	zs = 1/musp1; #some boundary
+
+	D1 = c*lt1/3; #photon diffusion coefficient
+	D2 = c*lt2/3;
+
+	# TODO:
+	# #for N = 2:
+	# numerator = @(s) (b1(s).*D1.*cosh(b1(s).*(d1-zs))...
+	#      +b2(s).*D2.*sinh(b1(s).*(d1-zs)));
+	# denominator = @(s) (b1(s).*(D1+b2(s).*D2.*z0).*cosh(b1(s).*d1)...
+	#      +(b2(s).*D2+b1(s).^2.*D1.*z0).*sinh(b1(s)*d1));
+	# #d: thickess of layer
+
+	# G1_f = @(s) numerator(s)./denominator(s); #in fourier domain 
+
+	# J = @(s) besselj(0,rho.*s);
+
+	# func1 = @(s) G1_f(s).*J(s).*s;
+
+	# temp = integral(func1,0,300, 'ArrayValued',true);
+
+	# G1 = (1/2*pi).*temp; #unnormalized
+
+	# # calculate G1 when tau = 0 #
+	# tau = 0;
+
+	# a1 = sqrt(3/(lt1*la1)+6.*tau/(tau1*lt1^2));
+	# a2 = sqrt(3/(lt2*la2)+6.*tau/(tau2*lt2^2));
+	# #loss of correlation due to the motion of scatters
+
+	# b1 = @(s) sqrt(a1.^2+s.^2); # s: radial spatial frequency
+	# b2 = @(s) sqrt(a2.^2+s.^2);
+
+	# z0 = 1/musp1; #extrapolation length
+	# zs = 1/musp1; #some boundary
+
+	# D1 = c*lt1/3; #photon diffusion coefficient
+	# D2 = c*lt2/3;
+
+	# #for N = 2:
+	# numerator = @(s) (b1(s).*D1.*cosh(b1(s).*(d1-zs))...
+	#      +b2(s).*D2.*sinh(b1(s).*(d1-zs)));
+	# denominator = @(s) (b1(s).*(D1+b2(s).*D2.*z0).*cosh(b1(s).*d1)...
+	#      +(b2(s).*D2+b1(s).^2.*D1.*z0).*sinh(b1(s)*d1));
+	# #d: thickess of layer
+
+	# G1_f = @(s) numerator(s)./denominator(s); #in fourier domain 
+
+	# J = @(s) besselj(0,rho.*s);
+
+	# func1 = @(s) G1_f(s).*J(s).*s;
+
+	# temp = integral(func1,0,300, 'ArrayValued',true);
+
+	# G1_0 = (1/2*pi).*temp; #unnormalized
+	# #
+
+	# g1 = G1/G1_0; #normalized g1
+
+	# return g1;
+
+	pass
+
+def G2Analytical(aDb, beta, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10):
+	g1 = G1Analytical(aDb, tauList, rho, no, wavelength, mua, musp);
 	return np.square(g1) * beta + 1;
+
+def G2Analytical_2Layer(aDb1, aDb2, beta, tauList, d=0.2, rho=2, no1=1.33, no2=1.33, wavelength=8.48E-5, mua1=0.1, mua2=0.1, musp1=10, musp2=10)
+	g1 = G1Analytical_2Layer(aDb1, aDb2, beta, tauList, d, rho, no1, no2, wavelength, mua1, mua2, musp1, musp2);
+	return np.squre(g1) * beta + 1;
 
 def G1Fit(g1Data, tauList, SNR, p0=1E-8, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10):
 	def f(tau, adB):
 		return G1Analytical(adB, tau, rho, no, wavelength, mua, musp)*SNR;
 
-	(params, params_covariance) = optimize.curve_fit(f, tauList, g1Data*SNR, p0, bounds=adB_BOUNDS);
+	(params, params_covariance) = optimize.curve_fit(f, tauList, g1Data*SNR, p0, bounds=aDb_BOUNDS);
 	return params;
 
 def G2Fit(g2Data, tauList, SNR, p0=[1E-9, 0.15], rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, ECC=False):
@@ -39,7 +127,25 @@ def G2Fit(g2Data, tauList, SNR, p0=[1E-9, 0.15], rho=2, no=1.33, wavelength=8.48
 		return G2Analytical(adB, beta, tau, rho, no, wavelength, mua, musp)*SNR;
 
 	try:
-		(params, params_covariance) = optimize.curve_fit(f, tauList, g2Data*SNR, p0, bounds=((adB_BOUNDS[0], BETA_BOUNDS[0]), (adB_BOUNDS[1], BETA_BOUNDS[1])));
+		(params, params_covariance) = optimize.curve_fit(f, tauList, g2Data*SNR, p0, bounds=((aDb_BOUNDS[0], BETA_BOUNDS[0]), (aDb_BOUNDS[1], BETA_BOUNDS[1])));
+		return params;
+	except:
+		# print("fit Error:");
+		if(ECC):
+			g1Data, beta = G2Calc.G1Calc(g2Data);
+			flow = G1Fit(g1Data, tauList, SNR, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10);
+			return flow, beta;
+		# print(g2Data)
+		# print(tauList)
+		# print(SNR);
+		return(0, 0);
+
+def G2Fit_2Layer(g2Data, tauList, SNR, p0=[1E-9, 1E-9, 0.15], d=0.2, rho=2, no1=1.33, no2=1.33, wavelength=8.48E-5, mua1=0.1, mua2=0.1, musp1=10, musp2=10, ECC=False):
+	def f(tau, adB, beta):
+		return G2Analytical(adB, beta, tau, rho, no, wavelength, mua, musp)*SNR;
+
+	try:
+		(params, params_covariance) = optimize.curve_fit(f, tauList, g2Data*SNR, p0, bounds=((aDb_BOUNDS[0], BETA_BOUNDS[0]), (aDb_BOUNDS[1], BETA_BOUNDS[1])));
 		return params;
 	except:
 		# print("fit Error:");
