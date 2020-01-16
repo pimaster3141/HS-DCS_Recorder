@@ -24,6 +24,8 @@ def G1Analytical(aDb, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp
 	return g1;
 
 def G1Analytical_2Layer(aDb1, aDb2, tauList, d=0.2, rho=2, no1=1.33, no2=1.33, wavelength=8.48E-5, mua1=0.1, mua2=0.1, musp1=10, musp2=10):
+	tauList = np.array(tauList);
+
 	la1 = 1/mua1; #absoption length
 	la2 = 1/mua2;
 	lt1 = 1/(mua1+musp1); #transport mean free path
@@ -31,17 +33,14 @@ def G1Analytical_2Layer(aDb1, aDb2, tauList, d=0.2, rho=2, no1=1.33, no2=1.33, w
 
 	k1 = 2*pi*no1/wavelength; #wavenumber
 	k2 = 2*pi*no2/wavelength;
-	c = 3*10^10; #(cm/s)
+	c = 3*10**10; #(cm/s)
 
-	tau1 = ((k1^2*aDb1)^-1); #single_scattering correlation time
-	tau2 = ((k2^2*aDb2)^-1); #aDb: effective brownian motion 
+	tau1 = ((k1**2*aDb1)**-1); #single_scattering correlation time
+	tau2 = ((k2**2*aDb2)**-1); #aDb: effective brownian motion 
 
-	a1 = sqrt(3/(lt1*la1)+6.*tauList/(tau1*lt1^2));
-	a2 = sqrt(3/(lt2*la2)+6.*tauList/(tau2*lt2^2));
+	a1 = sqrt(3/(lt1*la1)+6*tauList/(tau1*lt1**2));
+	a2 = sqrt(3/(lt2*la2)+6*tauList/(tau2*lt2**2));
 	#loss of correlation due to the motion of scatters
-
-	b1 = @(s) sqrt(a1.^2+s.^2); # s: radial spatial frequency
-	b2 = @(s) sqrt(a2.^2+s.^2);
 
 	z0 = 1/musp1; #extrapolation length
 	zs = 1/musp1; #some boundary
@@ -49,61 +48,54 @@ def G1Analytical_2Layer(aDb1, aDb2, tauList, d=0.2, rho=2, no1=1.33, no2=1.33, w
 	D1 = c*lt1/3; #photon diffusion coefficient
 	D2 = c*lt2/3;
 
-	# TODO:
-	# #for N = 2:
-	# numerator = @(s) (b1(s).*D1.*cosh(b1(s).*(d1-zs))...
-	#      +b2(s).*D2.*sinh(b1(s).*(d1-zs)));
-	# denominator = @(s) (b1(s).*(D1+b2(s).*D2.*z0).*cosh(b1(s).*d1)...
-	#      +(b2(s).*D2+b1(s).^2.*D1.*z0).*sinh(b1(s)*d1));
-	# #d: thickess of layer
 
-	# G1_f = @(s) numerator(s)./denominator(s); #in fourier domain 
+	#for N = 2:
+	numerator = @(s) (sqrt(a1**2+s**2)*D1*cosh(sqrt(a1**2+s**2)*(d-zs))+sqrt(a2**2+s**2)*D2*sinh(sqrt(a1**2+s**2)*(d-zs)));
+	denominator = @(s) (sqrt(a1**2+s**2)*(D1+sqrt(a2**2+s**2)*D2*z0)*cosh(sqrt(a1**2+s**2)*d)+(sqrt(a2**2+s**2)*D2+sqrt(a1**2+s**2)**2*D1*z0)*sinh(sqrt(a1**2+s**2)*d));
+	#d: thickess of layer
 
-	# J = @(s) besselj(0,rho.*s);
+	G1_f = @(s) numerator(s)./denominator(s); #in fourier domain 
 
-	# func1 = @(s) G1_f(s).*J(s).*s;
+	J = @(s) besselj(0,rho*s);
 
-	# temp = integral(func1,0,300, 'ArrayValued',true);
+	func1 = @(s) G1_f(s)*J(s)*s;
 
-	# G1 = (1/2*pi).*temp; #unnormalized
+	temp = integral(func1,0,300, 'ArrayValued',true);
 
-	# # calculate G1 when tau = 0 #
-	# tau = 0;
+	G1 = (1/2*pi)*temp; #unnormalized
 
-	# a1 = sqrt(3/(lt1*la1)+6.*tau/(tau1*lt1^2));
-	# a2 = sqrt(3/(lt2*la2)+6.*tau/(tau2*lt2^2));
-	# #loss of correlation due to the motion of scatters
+	# calculate G1 when tau = 0 #
+	tau = 0;
 
-	# b1 = @(s) sqrt(a1.^2+s.^2); # s: radial spatial frequency
-	# b2 = @(s) sqrt(a2.^2+s.^2);
+	a1 = sqrt(3/(lt1*la1)+6*tau/(tau1*lt1**2));
+	a2 = sqrt(3/(lt2*la2)+6*tau/(tau2*lt2**2));
+	#loss of correlation due to the motion of scatters
+	
+	z0 = 1/musp1; #extrapolation length
+	zs = 1/musp1; #some boundary
 
-	# z0 = 1/musp1; #extrapolation length
-	# zs = 1/musp1; #some boundary
+	D1 = c*lt1/3; #photon diffusion coefficient
+	D2 = c*lt2/3;
 
-	# D1 = c*lt1/3; #photon diffusion coefficient
-	# D2 = c*lt2/3;
+	#for N = 2:
+	numerator = @(s) (sqrt(a1**2+s**2)*D1*cosh(sqrt(a1**2+s**2)*(d-zs))+sqrt(a2**2+s**2)*D2*sinh(sqrt(a1**2+s**2)*(d-zs)));
+	denominator = @(s) (sqrt(a1**2+s**2)*(D1+sqrt(a2**2+s**2)*D2*z0)*cosh(sqrt(a1**2+s**2)*d)+(sqrt(a2**2+s**2)*D2+sqrt(a1**2+s**2)**2*D1*z0)*sinh(sqrt(a1**2+s**2)*d));
+	#d: thickess of layer
 
-	# #for N = 2:
-	# numerator = @(s) (b1(s).*D1.*cosh(b1(s).*(d1-zs))...
-	#      +b2(s).*D2.*sinh(b1(s).*(d1-zs)));
-	# denominator = @(s) (b1(s).*(D1+b2(s).*D2.*z0).*cosh(b1(s).*d1)...
-	#      +(b2(s).*D2+b1(s).^2.*D1.*z0).*sinh(b1(s)*d1));
-	# #d: thickess of layer
+	G1_f = @(s) numerator(s)./denominator(s); #in fourier domain 
 
-	# G1_f = @(s) numerator(s)./denominator(s); #in fourier domain 
+	J = @(s) besselj(0,rho*s);
 
-	# J = @(s) besselj(0,rho.*s);
+	func1 = @(s) G1_f(s)*J(s)*s;
 
-	# func1 = @(s) G1_f(s).*J(s).*s;
+	temp = integral(func1,0,300, 'ArrayValued',true);
 
-	# temp = integral(func1,0,300, 'ArrayValued',true);
+	G1_0 = (1/2*pi)*temp; #unnormalized
+	#
 
-	# G1_0 = (1/2*pi).*temp; #unnormalized
-	# #
+	g1 = G1/G1_0; #normalized g1
 
-	# g1 = G1/G1_0; #normalized g1
-
-	# return g1;
+	return g1;
 
 	pass
 
