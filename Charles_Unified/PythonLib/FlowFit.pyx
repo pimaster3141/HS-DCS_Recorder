@@ -116,15 +116,15 @@ def G2Analytical_2Layer(aDb1, aDb2, beta, tauList, d=0.2, rho=2, no1=1.33, no2=1
 	return np.squre(g1) * beta + 1;
 
 def G1Fit(g1Data, tauList, SNR, p0=1E-8, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10):
-	def f(tau, adB):
-		return G1Analytical(adB, tau, rho, no, wavelength, mua, musp)*SNR;
+	def f(tau, aDb):
+		return G1Analytical(aDb, tau, rho, no, wavelength, mua, musp)*SNR;
 
 	(params, params_covariance) = optimize.curve_fit(f, tauList, g1Data*SNR, p0, bounds=aDb_BOUNDS);
 	return params;
 
 def G2Fit(g2Data, tauList, SNR, p0=[1E-9, 0.15], rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, ECC=False):
-	def f(tau, adB, beta):
-		return G2Analytical(adB, beta, tau, rho, no, wavelength, mua, musp)*SNR;
+	def f(tau, aDb, beta):
+		return G2Analytical(aDb, beta, tau, rho, no, wavelength, mua, musp)*SNR;
 
 	try:
 		(params, params_covariance) = optimize.curve_fit(f, tauList, g2Data*SNR, p0, bounds=((aDb_BOUNDS[0], BETA_BOUNDS[0]), (aDb_BOUNDS[1], BETA_BOUNDS[1])));
@@ -141,11 +141,11 @@ def G2Fit(g2Data, tauList, SNR, p0=[1E-9, 0.15], rho=2, no=1.33, wavelength=8.48
 		return(0, 0);
 
 def G2Fit_2Layer(g2Data, tauList, SNR, p0=[1E-9, 1E-9, 0.15], d=0.2, rho=2, no1=1.33, no2=1.33, wavelength=8.48E-5, mua1=0.1, mua2=0.1, musp1=10, musp2=10, ECC=False):
-	def f(tau, adB, beta):
-		return G2Analytical(adB, beta, tau, rho, no, wavelength, mua, musp)*SNR;
+	def f(tau, aDb1, aDb2, beta):
+		return G2Analytical_2Layer(aDb1, aDb2, beta, tau, d, rho, no1, no2, wavelength, mua1, mua2, musp1, musp2)*SNR;
 
 	try:
-		(params, params_covariance) = optimize.curve_fit(f, tauList, g2Data*SNR, p0, bounds=((aDb_BOUNDS[0], BETA_BOUNDS[0]), (aDb_BOUNDS[1], BETA_BOUNDS[1])));
+		(params, params_covariance) = optimize.curve_fit(f, tauList, g2Data*SNR, p0, bounds=((aDb_BOUNDS[0], aDb_BOUNDS[0], BETA_BOUNDS[0]), (aDb_BOUNDS[1], aDb_BOUNDS[1], BETA_BOUNDS[1])));
 		return params;
 	except:
 		# print("fit Error:");
@@ -156,7 +156,7 @@ def G2Fit_2Layer(g2Data, tauList, SNR, p0=[1E-9, 1E-9, 0.15], d=0.2, rho=2, no1=
 		# print(g2Data)
 		# print(tauList)
 		# print(SNR);
-		return(0, 0);
+		return(0, 0, 0);
 
 def flowFitSingle(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=6):
 	g2Data = g2Data[:, 1:];
@@ -204,6 +204,30 @@ def flowFitDual(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, mu
 	
 
 	return data[:, 0], data[:, 1];
+
+
+def flowFitDual_2Layer(g2Data, tauList, d=0.2, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=6, chunksize=1, ECC=False):
+	g2Data = g2Data[:, 1:];
+	tauList = tauList[1:];
+
+	SNR = G2Calc.calcSNR(g2Data);
+	meanG2 = np.mean(g2Data, axis=0);
+	p0 = G2Fit_2Layer(meanG2, tauList, SNR=SNR, d=0.2, rho=2, no1=1.33, no2=1.33, wavelength=8.48E-5, mua1=0.1, mua2=0.1, musp1=10, musp2=10, ECC=False);
+
+
+	pool = mp.Pool(processes=numProcessors);
+	fcn = partial(G2Fit, tauList=tauList, SNR=SNR, p0=p0, d=0.2, rho=2, no1=1.33, no2=1.33, wavelength=8.48E-5, mua1=0.1, mua2=0.1, musp1=10, musp2=10, ECC=False);
+
+	# data = np.array(pool.map(fcn, g2Data, chunksize=chunksize));
+	data = np.array(list(tqdm.tqdm(pool.imap(fcn, g2Data, chunksize=max(int(len(g2Data)/200/numProcessors), 100)), total=len(g2Data))));
+
+	pool.close();
+	pool.join();
+
+	del(pool);
+	
+
+	return data[:, 0], data[:, 1], data[:, 2];
 
 
 
