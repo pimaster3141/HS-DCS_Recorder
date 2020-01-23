@@ -26,76 +26,76 @@ def G1Analytical(aDb, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp
 def G1Analytical_2Layer(aDb1, aDb2, tauList, d=0.2, rho=2, no1=1.33, no2=1.33, wavelength=8.48E-5, mua1=0.1, mua2=0.1, musp1=10, musp2=10):
 	tauList = np.array(tauList);
 
-	la1 = 1/mua1; #absoption length
-	la2 = 1/mua2;
-	lt1 = 1/(mua1+musp1); #transport mean free path
-	lt2 = 1/(mua2+musp2);
+	# la1 = 1/mua1; #absoption length
+	# la2 = 1/mua2;
+	# lt1 = 1/(mua1+musp1); #transport mean free path
+	# lt2 = 1/(mua2+musp2);
 
-	k1 = 2*pi*no1/wavelength; #wavenumber
-	k2 = 2*pi*no2/wavelength;
-	c = 3*10**10; #(cm/s)
+	# k1 = 2*pi*no1/wavelength; #wavenumber
+	# k2 = 2*pi*no2/wavelength;
+	# c = 3*10**10; #(cm/s)
 
-	tau1 = ((k1**2*aDb1)**-1); #single_scattering correlation time
-	tau2 = ((k2**2*aDb2)**-1); #aDb: effective brownian motion 
+	# tau1 = ((k1**2*aDb1)**-1); #single_scattering correlation time
+	# tau2 = ((k2**2*aDb2)**-1); #aDb: effective brownian motion 
 
-	a1 = sqrt(3/(lt1*la1)+6*tauList/(tau1*lt1**2));
-	a2 = sqrt(3/(lt2*la2)+6*tauList/(tau2*lt2**2));
-	#loss of correlation due to the motion of scatters
+	# a1 = sqrt(3/(lt1*la1)+6*tauList/(tau1*lt1**2));
+	# a2 = sqrt(3/(lt2*la2)+6*tauList/(tau2*lt2**2));
+	# #loss of correlation due to the motion of scatters
 
-	z0 = 1/musp1; #extrapolation length
-	zs = 1/musp1; #some boundary
+	# z0 = 1/musp1; #extrapolation length
+	# zs = 1/musp1; #some boundary
 
-	D1 = c*lt1/3; #photon diffusion coefficient
-	D2 = c*lt2/3;
+	# D1 = c*lt1/3; #photon diffusion coefficient
+	# D2 = c*lt2/3;
 
 
-	#for N = 2:
-	numerator = @(s) (sqrt(a1**2+s**2)*D1*cosh(sqrt(a1**2+s**2)*(d-zs))+sqrt(a2**2+s**2)*D2*sinh(sqrt(a1**2+s**2)*(d-zs)));
-	denominator = @(s) (sqrt(a1**2+s**2)*(D1+sqrt(a2**2+s**2)*D2*z0)*cosh(sqrt(a1**2+s**2)*d)+(sqrt(a2**2+s**2)*D2+sqrt(a1**2+s**2)**2*D1*z0)*sinh(sqrt(a1**2+s**2)*d));
-	#d: thickess of layer
+	# #for N = 2:
+	# numerator = @(s) (sqrt(a1**2+s**2)*D1*cosh(sqrt(a1**2+s**2)*(d-zs))+sqrt(a2**2+s**2)*D2*sinh(sqrt(a1**2+s**2)*(d-zs)));
+	# denominator = @(s) (sqrt(a1**2+s**2)*(D1+sqrt(a2**2+s**2)*D2*z0)*cosh(sqrt(a1**2+s**2)*d)+(sqrt(a2**2+s**2)*D2+sqrt(a1**2+s**2)**2*D1*z0)*sinh(sqrt(a1**2+s**2)*d));
+	# #d: thickess of layer
 
-	G1_f = @(s) numerator(s)./denominator(s); #in fourier domain 
+	# G1_f = @(s) numerator(s)./denominator(s); #in fourier domain 
 
-	J = @(s) besselj(0,rho*s);
+	# J = @(s) besselj(0,rho*s);
 
-	func1 = @(s) G1_f(s)*J(s)*s;
+	# func1 = @(s) G1_f(s)*J(s)*s;
 
-	temp = integral(func1,0,300, 'ArrayValued',true);
+	# temp = integral(func1,0,300, 'ArrayValued',true);
 
-	G1 = (1/2*pi)*temp; #unnormalized
+	# G1 = (1/2*pi)*temp; #unnormalized
 
-	# calculate G1 when tau = 0 #
-	tau = 0;
+	# # calculate G1 when tau = 0 #
+	# tau = 0;
 
-	a1 = sqrt(3/(lt1*la1)+6*tau/(tau1*lt1**2));
-	a2 = sqrt(3/(lt2*la2)+6*tau/(tau2*lt2**2));
-	#loss of correlation due to the motion of scatters
+	# a1 = sqrt(3/(lt1*la1)+6*tau/(tau1*lt1**2));
+	# a2 = sqrt(3/(lt2*la2)+6*tau/(tau2*lt2**2));
+	# #loss of correlation due to the motion of scatters
 	
-	z0 = 1/musp1; #extrapolation length
-	zs = 1/musp1; #some boundary
+	# z0 = 1/musp1; #extrapolation length
+	# zs = 1/musp1; #some boundary
 
-	D1 = c*lt1/3; #photon diffusion coefficient
-	D2 = c*lt2/3;
+	# D1 = c*lt1/3; #photon diffusion coefficient
+	# D2 = c*lt2/3;
 
-	#for N = 2:
-	numerator = @(s) (sqrt(a1**2+s**2)*D1*cosh(sqrt(a1**2+s**2)*(d-zs))+sqrt(a2**2+s**2)*D2*sinh(sqrt(a1**2+s**2)*(d-zs)));
-	denominator = @(s) (sqrt(a1**2+s**2)*(D1+sqrt(a2**2+s**2)*D2*z0)*cosh(sqrt(a1**2+s**2)*d)+(sqrt(a2**2+s**2)*D2+sqrt(a1**2+s**2)**2*D1*z0)*sinh(sqrt(a1**2+s**2)*d));
-	#d: thickess of layer
+	# #for N = 2:
+	# numerator = @(s) (sqrt(a1**2+s**2)*D1*cosh(sqrt(a1**2+s**2)*(d-zs))+sqrt(a2**2+s**2)*D2*sinh(sqrt(a1**2+s**2)*(d-zs)));
+	# denominator = @(s) (sqrt(a1**2+s**2)*(D1+sqrt(a2**2+s**2)*D2*z0)*cosh(sqrt(a1**2+s**2)*d)+(sqrt(a2**2+s**2)*D2+sqrt(a1**2+s**2)**2*D1*z0)*sinh(sqrt(a1**2+s**2)*d));
+	# #d: thickess of layer
 
-	G1_f = @(s) numerator(s)./denominator(s); #in fourier domain 
+	# G1_f = @(s) numerator(s)./denominator(s); #in fourier domain 
 
-	J = @(s) besselj(0,rho*s);
+	# J = @(s) besselj(0,rho*s);
 
-	func1 = @(s) G1_f(s)*J(s)*s;
+	# func1 = @(s) G1_f(s)*J(s)*s;
 
-	temp = integral(func1,0,300, 'ArrayValued',true);
+	# temp = integral(func1,0,300, 'ArrayValued',true);
 
-	G1_0 = (1/2*pi)*temp; #unnormalized
-	#
+	# G1_0 = (1/2*pi)*temp; #unnormalized
+	# #
 
-	g1 = G1/G1_0; #normalized g1
+	# g1 = G1/G1_0; #normalized g1
 
-	return g1;
+	# return g1;
 
 	pass
 
@@ -103,7 +103,7 @@ def G2Analytical(aDb, beta, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1
 	g1 = G1Analytical(aDb, tauList, rho, no, wavelength, mua, musp);
 	return np.square(g1) * beta + 1;
 
-def G2Analytical_2Layer(aDb1, aDb2, beta, tauList, d=0.2, rho=2, no1=1.33, no2=1.33, wavelength=8.48E-5, mua1=0.1, mua2=0.1, musp1=10, musp2=10)
+def G2Analytical_2Layer(aDb1, aDb2, beta, tauList, d=0.2, rho=2, no1=1.33, no2=1.33, wavelength=8.48E-5, mua1=0.1, mua2=0.1, musp1=10, musp2=10):
 	g1 = G1Analytical_2Layer(aDb1, aDb2, beta, tauList, d, rho, no1, no2, wavelength, mua1, mua2, musp1, musp2);
 	return np.squre(g1) * beta + 1;
 
