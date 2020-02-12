@@ -13,6 +13,8 @@ import pyximport; pyximport.install()
 import FX3
 import DataHandler
 import DataProcessor
+import LaserDriver
+import time;
 
 import usb
 import Display
@@ -34,9 +36,9 @@ class CharlesSystem():
 		
 		self.isStarted = False;
 		self.outFile = outFile;
-		self.directory = directory;
 		if (directory == None):
 			directory = './output/';
+		self.directory = directory;
 		if(not(directory[-1] == '/')):
 			self.directory = directory + '/'
 		self.demo = demo;
@@ -57,6 +59,12 @@ class CharlesSystem():
 		if(self.demo):
 			self.FX3 = FX3.Emulator(self.MPIFX3, 'flat_initial');
 		else:
+			self.laser = LaserDriver.Controller('/dev/ttyUSB0');
+			# self.laser.startLaser();
+			# time.sleep(10);
+			# self.laser.stopLaser();
+			# self.laser.closeLaser();
+
 			devices, kind = findDevices(version);
 			self.dev = devices[0];
 			self.legacy = kind[0];
@@ -96,6 +104,9 @@ class CharlesSystem():
 		# 	print("Device already halted");
 		# 	return;
 
+		self.laser.stopLaser();
+		self.laser.closeLaser();
+
 		print("Halting Device");
 
 		self.readAllMPI();
@@ -127,6 +138,9 @@ class CharlesSystem():
 
 		self.isStarted = True;
 		print("Starting Charles!");
+
+		self.laser.startLaser();
+
 		self.processor.start();
 		self.handler.start();
 		self.FX3.start();
