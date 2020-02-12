@@ -8,7 +8,7 @@ class Controller():
 	CMD_DIS = ['di 1'];
 	CMD_LASON = ['la on'];
 	CMD_LASOFF = ['la off'];
-	CMD_POWER40 = ['ch 1 pow 2'];
+	CMD_POWER40 = ['ch 1 pow 36'];
 
 	CHECK_RESP = str.encode('CMD> ');
 
