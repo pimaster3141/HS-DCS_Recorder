@@ -79,7 +79,7 @@ print("Done");
 # 	FlowExtract.writeFlowMatlab(filename, flows, betas, counts, g2a, averages, rho, no, wavelength, mua, musp);
 # 	print("Completed Flow");
 
-def fullExtractMatlab(filename, averages, legacy=None, fs=2.5E6, intg=0.05, fsout=200, levels=16, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None):
+def fullExtractMatlab(filename, averages, legacy=None, fs=2.5E6, intg=0.05, fsout=200, levels=16, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, numProcessors=None, saveG2=False):
 	if(numProcessors==None):
 		numProcessors = psutil.cpu_count(logical=False);
 		print("Autoselecting Core Count: " + str(numProcessors));
@@ -99,10 +99,10 @@ def fullExtractMatlab(filename, averages, legacy=None, fs=2.5E6, intg=0.05, fsou
 		
 	print("Extracting: " + filename);
 	(g, t, v) = G2Extract.processG2(filename, legacy, fs, intg, fsout, levels, numProcessors);
-	filename = G2Extract.writeG2Matlab(filename, g, t, v, legacy, fs, intg, fsout, saveG2=False);
+	filename = G2Extract.writeG2Matlab(filename, g, t, v, legacy, fs, intg, fsout, saveG2);
 	print("Completed G2");
 	(flows, betas, counts, g2a) = FlowExtract.calculateFlow(g, t, averages, fs, rho, no, wavelength, mua, musp, numProcessors);
-	FlowExtract.writeFlowMatlab(filename, flows, betas, counts, g2a, averages, rho, no, wavelength, mua, musp, saveG2=False);
+	FlowExtract.writeFlowMatlab(filename, flows, betas, counts, g2a, averages, rho, no, wavelength, mua, musp, saveG2);
 	print("Completed Flow");
 
 	del(g);
