@@ -119,7 +119,7 @@ def G2Fit(g2Data, tauList, SNR, p0=[1E-9, 0.25], rho=2, no=1.33, wavelength=8.48
 		return G2Analytical(aDb, beta, tau, rho, no, wavelength, mua, musp)*SNR;
 
 	try:
-		(params, params_covariance) = optimize.curve_fit(f, tauList, g2Data*SNR, p0, bounds=((aDb_BOUNDS[0], BETA_BOUNDS[0]), (aDb_BOUNDS[1], BETA_BOUNDS[1])), ftol=1E-12, xtol=1E-12);
+		(params, params_covariance) = optimize.curve_fit(f, tauList, g2Data*SNR, p0, bounds=((aDb_BOUNDS[0], BETA_BOUNDS[0]), (aDb_BOUNDS[1], BETA_BOUNDS[1])), ftol=1E-14, xtol=1E-14, gtol=None, );
 		return params;
 	except:
 		# print("fit Error:");
