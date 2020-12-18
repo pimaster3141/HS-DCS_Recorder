@@ -9,6 +9,9 @@ def mtAuto(data, fs=10E6, levels=16):
 		warnings.simplefilter("ignore");
 		try:
 			out = mt.autocorrelate(data, m=levels, deltat=1.0/fs, normalize=True);
+			if(np.isnan(out[1:1])):
+				data[0] = 1;
+				out = mt.autocorrelate(data, m=levels, deltat=1.0/fs, normalize=True);
 		except:
 			data[0] = 1;
 			out = mt.autocorrelate(data, m=levels, deltat=1.0/fs, normalize=True);
