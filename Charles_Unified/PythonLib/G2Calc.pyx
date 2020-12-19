@@ -10,9 +10,9 @@ def mtAuto(data, fs=10E6, levels=16):
 		warnings.simplefilter("ignore");
 		try:
 			out = mt.autocorrelate(data, m=levels, deltat=1.0/fs, normalize=True);
-			if(np.isnan(out[0,1])):
-				data[0] = 1;
-				out = mt.autocorrelate(data, m=levels, deltat=1.0/fs, normalize=True);
+			# if(np.isnan(out[0,1])):
+			# 	data[0] = 1;
+			# 	out = mt.autocorrelate(data, m=levels, deltat=1.0/fs, normalize=True);
 		except:
 			data[0] = 1;
 			out = mt.autocorrelate(data, m=levels, deltat=1.0/fs, normalize=True);
@@ -46,10 +46,10 @@ def calculateG2(data, fs, levels, legacy):
 	return(g2Data, vap);
 
 def calcSNR(g2Data):
-	return np.abs((np.mean(g2Data, axis=0) - 1) / (np.std(g2Data, axis=0)));
+	return np.abs((np.nanmean(g2Data, axis=0) - 1) / (np.nanstd(g2Data, axis=0)));
 
 def calcBeta(g2Data, limit=5):
-	return np.mean(g2Data[1:limit]) -1;
+	return np.nanmean(g2Data[1:limit]) -1;
 
 def G1Calc(g2Data):
 	beta = calcBeta(g2Data);

@@ -156,7 +156,7 @@ def flowFitSingle(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, 
 	tauList = tauList[1:];
 
 	SNR = G2Calc.calcSNR(g2Data);
-	meanG2 = np.mean(g2Data, axis=0);
+	meanG2 = np.nanmean(g2Data, axis=0);
 	meanG1 = G2Calc.G1Calc(g2Data);
 	p0 = G1Fit(meanG1, tauList, SNR=SNR, rho=rho, no=no, wavelength=wavelength, mua=mua, musp=musp);
 
@@ -181,16 +181,16 @@ def flowFitDual(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, mu
 
 	SNR = G2Calc.calcSNR(g2Data);
 
-	meanG2 = np.mean(g2Data, axis=0);
-	stdG2 = np.std(g2Data, axis=0);
-	limitUpper = meanG2 + stdG2;
-	limitLower = meanG2 - stdG2;
-	g2Copy = np.array(g2Data);
-	for i in range(np.shape(g2Data)[1]):
-		pruneG2Data = g2Copy[:, i];
-		pruneG2Data[pruneG2Data > limitUpper[i]] = np.nan;
-		pruneG2Data[pruneG2Data < limitLower[i]] = np.nan;
-		meanG2[i] = np.nanmean(pruneG2Data);
+	meanG2 = np.nanmean(g2Data, axis=0);
+	# stdG2 = np.nanstd(g2Data, axis=0);
+	# limitUpper = meanG2 + stdG2;
+	# limitLower = meanG2 - stdG2;
+	# g2Copy = np.array(g2Data);
+	# for i in range(np.shape(g2Data)[1]):
+	# 	pruneG2Data = g2Copy[:, i];
+	# 	pruneG2Data[pruneG2Data > limitUpper[i]] = np.nan;
+	# 	pruneG2Data[pruneG2Data < limitLower[i]] = np.nan;
+	# 	meanG2[i] = np.nanmean(pruneG2Data);
 
 	p0 = G2Fit(meanG2, tauList, SNR=SNR, rho=rho, no=no, wavelength=wavelength, mua=mua, musp=musp, ECC=ECC);
 
