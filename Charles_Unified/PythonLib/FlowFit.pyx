@@ -117,7 +117,7 @@ def G1Fit(g1Data, tauList, SNR, p0=1E-8, rho=2, no=1.33, wavelength=8.48E-5, mua
 
 def G2Fit(g2Data, tauList, SNR, p0=[1E-9/1E-9, 0.25], rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, ECC=False):
 	def f(tau, aDb, beta):
-		return 2(aDb, beta, tau, rho, no, wavelength, mua, musp)*SNR;
+		return (aDb, beta, tau, rho, no, wavelength, mua, musp)*SNR;
 
 	try:
 		(params, params_covariance) = optimize.curve_fit(f, tauList, g2Data*SNR, p0, bounds=((aDb_BOUNDS[0]/1E-9, BETA_BOUNDS[0]), (aDb_BOUNDS[1]/1E-9, BETA_BOUNDS[1])));
