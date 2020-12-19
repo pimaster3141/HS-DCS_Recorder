@@ -117,7 +117,7 @@ def G1Fit(g1Data, tauList, SNR, p0=1E-8, rho=2, no=1.33, wavelength=8.48E-5, mua
 
 def G2Fit(g2Data, tauList, SNR, p0=[1E-9/1E-9, 0.25], rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, musp=10, ECC=False):
 	def f(tau, aDb, beta):
-		return G2Analytical(aDb, beta, tau, rho, no, wavelength, mua, musp)*SNR;
+		return 2(aDb, beta, tau, rho, no, wavelength, mua, musp)*SNR;
 
 	try:
 		(params, params_covariance) = optimize.curve_fit(f, tauList, g2Data*SNR, p0, bounds=((aDb_BOUNDS[0]/1E-9, BETA_BOUNDS[0]), (aDb_BOUNDS[1]/1E-9, BETA_BOUNDS[1])));
@@ -180,7 +180,18 @@ def flowFitDual(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, mu
 	tauList = tauList[1:];
 
 	SNR = G2Calc.calcSNR(g2Data);
+
 	meanG2 = np.mean(g2Data, axis=0);
+	stdG2 = np.std(g2Data, axis=0);
+	limitUpper = meanG2 + stdG2;
+	limitLower = meanG2 - stdG2;
+	for i in range(np.shape(g2Data)[1]):
+		pruneG2Data = g2Data[:, i];
+		pruneG2Data[pruneG2Data > limitUpper[i]] = np.nan;
+		pruneG2Data[pruneG2Data < limitLower[i]] = np.nan;
+		g2Data[:, i] = pruneG2Data;
+	meanG2 = np.nanmean(g2Data, axis=0);
+
 	p0 = G2Fit(meanG2, tauList, SNR=SNR, rho=rho, no=no, wavelength=wavelength, mua=mua, musp=musp, ECC=ECC);
 
 
