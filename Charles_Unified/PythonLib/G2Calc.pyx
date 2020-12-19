@@ -5,17 +5,22 @@ import HSDCSParser
 import warnings
 
 def mtAuto(data, fs=10E6, levels=16):
+	out = [];
 	with warnings.catch_warnings():
 		warnings.simplefilter("ignore");
 		try:
 			out = mt.autocorrelate(data, m=levels, deltat=1.0/fs, normalize=True);
-			if(np.isnan(out[1:1])):
+			if(np.isnan(out[0:1])):
 				data[0] = 1;
 				out = mt.autocorrelate(data, m=levels, deltat=1.0/fs, normalize=True);
 		except:
 			data[0] = 1;
 			out = mt.autocorrelate(data, m=levels, deltat=1.0/fs, normalize=True);
 		out[:,1] = out[:,1]+1;
+
+		if(np.isnan(out[0:1])):
+			raise Exception("nan");
+
 		return out;
 
 def mtAutoQuad(data, fs=2.5E6, levels=16):
