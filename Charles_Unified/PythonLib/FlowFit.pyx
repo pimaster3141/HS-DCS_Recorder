@@ -185,8 +185,9 @@ def flowFitDual(g2Data, tauList, rho=2, no=1.33, wavelength=8.48E-5, mua=0.1, mu
 	stdG2 = np.std(g2Data, axis=0);
 	limitUpper = meanG2 + stdG2;
 	limitLower = meanG2 - stdG2;
+	g2Copy = np.array(g2Data);
 	for i in range(np.shape(g2Data)[1]):
-		pruneG2Data = g2Data[:, i];
+		pruneG2Data = g2Copy[:, i];
 		pruneG2Data[pruneG2Data > limitUpper[i]] = np.nan;
 		pruneG2Data[pruneG2Data < limitLower[i]] = np.nan;
 		meanG2[i] = np.nanmean(pruneG2Data);
