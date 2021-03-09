@@ -32,7 +32,7 @@ class CharlesSystem():
 	BYTES_PER_SAMPLE = 2;
 
 	
-	def __init__(self, outFile=None, directory='./output/', version=None, fs=None, averages=[[0, 3]], numProcessors=None, demo=False):
+	def __init__(self, outFile=None, directory='./output/', version=None, fs=None, averages=[[0, 3]], numProcessors=None, demo=False, toptica=False):
 		
 		self.isStarted = False;
 		self.outFile = outFile;
@@ -56,14 +56,17 @@ class CharlesSystem():
 		self.dev = None;
 		self.legacy = False;
 		self.fs = 2E6;
+		self.toptica = toptica;
+		self.laser = None;
 		if(self.demo):
 			self.FX3 = FX3.Emulator(self.MPIFX3, 'flat_initial');
 		else:
-			self.laser = LaserDriver.Controller('/dev/ttyUSB0');
-			# self.laser.startLaser();
-			# time.sleep(10);
-			# self.laser.stopLaser();
-			# self.laser.closeLaser();
+			if(self.toptica):
+				self.laser = LaserDriver.Controller('/dev/ttyUSB0');
+				# self.laser.startLaser();
+				# time.sleep(10);
+				# self.laser.stopLaser();
+				# self.laser.closeLaser();
 
 			devices, kind = findDevices(version);
 			self.dev = devices[0];
@@ -104,8 +107,9 @@ class CharlesSystem():
 		# 	print("Device already halted");
 		# 	return;
 
-		self.laser.stopLaser();
-		self.laser.closeLaser();
+		if(self.toptica):
+			self.laser.stopLaser();
+			self.laser.closeLaser();
 
 		print("Halting Device");
 
@@ -139,7 +143,8 @@ class CharlesSystem():
 		self.isStarted = True;
 		print("Starting Charles!");
 
-		self.laser.startLaser();
+		if(self.toptica):
+			self.laser.startLaser();
 
 		self.processor.start();
 		self.handler.start();
